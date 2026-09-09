@@ -40,27 +40,64 @@ const STATS_DATA = [
 /**
  * THE 8 OFFICIAL FLAGSHIP EVENTS FROM THE POSTER
  */
+/**
+ * CENTRALIZED EVENT CONFIGURATION — 8 FLAGSHIP ARENAS
+ * Unified master schema providing configuration for cards, modals, onboarding terminal & specs.
+ */
 const EVENTS_DATA = [
   {
-    id: "ai-prompt-battle",
-    number: "01",
+    // Primary Identifiers
+    id: "APB",
     name: "AI Prompt Battle",
+    shortName: "APB",
+
+    // Registration & Financial Configuration
+    fee: 500,
+    minTeam: 2,
+    maxTeam: 4,
+    venue: "AI & Machine Learning Center of Excellence",
+    registrationUrl: "", // Ready for Google Forms / External registration link integration
+
+    // Descriptive Intelligence
+    description: "AI Prompt Battle challenges prompt engineers, AI creators, and problem solvers to push generative intelligence to its frontiers. Harness LLMs, vision models, and reasoning architectures to solve cryptic coding bugs, generate optimal algorithmic pipelines, and create jaw-dropping multimodal outputs under severe token and context constraints.",
+    duration: "10:30 AM - 01:30 PM",
+
+    // High-Level Tasks & Scoring Rubric
+    tasks: [
+      "Zero-Shot Problem Decryption: Formulate ultra-concise system prompts to make an LLM solve edge-case algorithmic puzzles and logic traps with zero hallucinations.",
+      "Multimodal Synthesis Battle: Generate interactive prototypes, technical schematics, and clean code documentation using chained multi-agent prompt flows.",
+      "Grand AI Jailbreak & Defense Showdown: Live head-to-head arena defense constructing guardrail-breaking adversarial queries while defending your agent against opposing strikes."
+    ],
+    scoring: [
+      "Prompt Clarity, Conciseness & Token Economy (30%)",
+      "Correctness & Feasibility of Generated Output (30%)",
+      "Adaptability to Dynamic Constraints (25%)",
+      "Live Stage Defense & Demonstration (15%)"
+    ],
+
+    // Coordination & Contacts
+    facultyCoordinator: "Prof. Faculty Coordinator",
+    studentCoordinator: "Student Lead (AI Arena)",
+    contactEmail: "example@gmail.com",
+    contactPhone: "+91 XXXXX XXXXX",
+
+    // UI Presentation & Compatibility Metadata
+    code: "APB",
+    slug: "ai-prompt-battle",
+    number: "01",
     subName: "Generative AI & LLM Combat",
     category: "ai",
     categoryLabel: "AI & PROMPT ENGINEERING",
     shortDescription: "Participants compete to create effective prompts for solving technical and creative problems using AI tools.",
-    description: "AI Prompt Battle challenges prompt engineers, AI creators, and problem solvers to push generative intelligence to its frontiers. Harness LLMs, vision models, and reasoning architectures to solve cryptic coding bugs, generate optimal algorithmic pipelines, and create jaw-dropping multimodal outputs under severe token and context constraints.",
     teamSize: "2 - 4 Members",
-    minTeam: 2,
-    maxTeam: 4,
     registrationFee: "₹500 / Team",
     prizePool: "₹50,000",
     date: "30 October 2026 (10:30 AM - 01:30 PM)",
-    venue: "AI & Machine Learning Center of Excellence",
     tags: ["PROMPT", "CREATE", "SOLVE", "INNOVATE"],
     accentColor: "#00f0ff",
-    code: "APB",
     iconSvg: `<svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2a4 4 0 0 1 4 4c0 1.95-1.4 3.58-3.25 3.93L13 14h-2l.25-4.07A4.002 4.002 0 0 1 12 2z"/><circle cx="12" cy="18" r="1.5"/><path d="M4 10a8 8 0 0 1 16 0"/><path d="M7 16a6 6 0 0 0 10 0"/></svg>`,
+
+    // Tactical Rounds Progression
     rounds: [
       {
         roundNumber: "STAGE 01",
@@ -120,25 +157,58 @@ const EVENTS_DATA = [
     }
   },
   {
-    id: "code-relay",
-    number: "02",
+    // Primary Identifiers
+    id: "CR",
     name: "Code Relay",
+    shortName: "CR",
+
+    // Registration & Financial Configuration
+    fee: 500,
+    minTeam: 2,
+    maxTeam: 4,
+    venue: "Advanced Computing Systems Laboratory",
+    registrationUrl: "", // Ready for Google Forms / External registration link integration
+
+    // Descriptive Intelligence
+    description: "Code Relay is the ultimate collaborative programming arena. Like a high-speed track relay, team members pass the keyboard baton at timed intervals. Member 2 must comprehend, refactor, and extend Member 1's architecture without verbal communication during transitions. Stagewise outcomes, clean modularity, and algorithmic efficiency determine victory.",
+    duration: "11:00 AM - 02:30 PM",
+
+    // High-Level Tasks & Scoring Rubric
+    tasks: [
+      "Algorithmic Foundation Sprint: Member 1 constructs core data structures; Member 2 implements core search/traversal algorithms; Member 3 optimizes time complexity; Member 4 writes test suites.",
+      "Blind Refactor & Chaos Injection: Diagnose, patch, and execute under timed 7-minute rotation with injected bugs.",
+      "Grand Production-Grade Scale Sprint: Build and benchmark a distributed concurrent cache system handling 50k requests/sec live on arena projection."
+    ],
+    scoring: [
+      "Stagewise Functional Completion & Test Passes (40%)",
+      "Algorithmic Time & Space Complexity (30%)",
+      "Readability, Modularity & Architectural Integrity (20%)",
+      "Relay Transition Efficiency (10%)"
+    ],
+
+    // Coordination & Contacts
+    facultyCoordinator: "Prof. Faculty Coordinator",
+    studentCoordinator: "Student Lead (Code Relay)",
+    contactEmail: "example@gmail.com",
+    contactPhone: "+91 XXXXX XXXXX",
+
+    // UI Presentation & Compatibility Metadata
+    code: "CR",
+    slug: "code-relay",
+    number: "02",
     subName: "Synchronized Algorithmic Relay",
     category: "coding",
     categoryLabel: "CODING & ALGORITHMS",
     shortDescription: "Teams solve a programming problem in stages, with each member continuing from the previous member's code. Number of stagewise outcome is considered for evaluation.",
-    description: "Code Relay is the ultimate collaborative programming arena. Like a high-speed track relay, team members pass the keyboard baton at timed intervals. Member 2 must comprehend, refactor, and extend Member 1's architecture without verbal communication during transitions. Stagewise outcomes, clean modularity, and algorithmic efficiency determine victory.",
     teamSize: "2 - 4 Members",
-    minTeam: 2,
-    maxTeam: 4,
     registrationFee: "₹500 / Team",
     prizePool: "₹50,000",
     date: "30 October 2026 (11:00 AM - 02:30 PM)",
-    venue: "Advanced Computing Systems Laboratory",
     tags: ["CODE", "PASS", "SOLVE", "REPEAT"],
     accentColor: "#38bdf8",
-    code: "CR",
     iconSvg: `<svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/><circle cx="12" cy="12" r="2"/></svg>`,
+
+    // Tactical Rounds Progression
     rounds: [
       {
         roundNumber: "STAGE 01",
@@ -197,25 +267,57 @@ const EVENTS_DATA = [
     }
   },
   {
-    id: "hack-and-hunt",
-    number: "03",
+    // Primary Identifiers
+    id: "HNH",
     name: "Hack & Hunt",
+    shortName: "HNH",
+
+    // Registration & Financial Configuration
+    fee: 500,
+    minTeam: 2,
+    maxTeam: 4,
+    venue: "Information Science Arena & Campus Perimeter",
+    registrationUrl: "", // Ready for Google Forms / External registration link integration
+
+    // Descriptive Intelligence
+    description: "Hack & Hunt blends cybersecurity cryptography, reverse engineering, geolocation intelligence, and intricate logic puzzles. Teams navigate an encrypted cyber labyrinth where each decrypted cipher unlocks a secret API endpoint, buried hardware token, or campus coordinate leading to the ultimate quantum key.",
+    duration: "11:30 AM - 03:30 PM",
+
+    // High-Level Tasks & Scoring Rubric
+    tasks: [
+      "The Digital Cryptogram: Crack stenographic image layers, base64/hex ciphers, and inspect web payloads to reveal the hidden entry token.",
+      "The Geocached Code Matrix: Use decrypted GPS coordinates and technical riddles to locate encrypted NFC/QR nodes across the campus.",
+      "The Master Vault Protocol: Reconstruct an encrypted logic circuit on the master terminal to disarm the vault and secure the grand flag."
+    ],
+    scoring: [
+      "Speed of Clue Clearance & Cryptographic Decryption (40%)",
+      "Physical-Digital Checkpoint Exploration (35%)",
+      "Final Vault Protocol Deactivation (25%)"
+    ],
+
+    // Coordination & Contacts
+    facultyCoordinator: "Prof. Faculty Coordinator",
+    studentCoordinator: "Student Lead (Hack & Hunt)",
+    contactEmail: "example@gmail.com",
+    contactPhone: "+91 XXXXX XXXXX",
+
+    // UI Presentation & Compatibility Metadata
+    code: "HNH",
+    slug: "hack-and-hunt",
+    number: "03",
     subName: "Cryptic Challenge & Logic Hunt",
     category: "puzzle",
     categoryLabel: "PUZZLES & CRYPTIC HUNT",
     shortDescription: "Participants solve a series of technical clues, coding challenges and logical puzzles to reach the final solution.",
-    description: "Hack & Hunt blends cybersecurity cryptography, reverse engineering, geolocation intelligence, and intricate logic puzzles. Teams navigate an encrypted cyber labyrinth where each decrypted cipher unlocks a secret API endpoint, buried hardware token, or campus coordinate leading to the ultimate quantum key.",
     teamSize: "2 - 4 Members",
-    minTeam: 2,
-    maxTeam: 4,
     registrationFee: "₹500 / Team",
     prizePool: "₹50,000",
     date: "30 October 2026 (11:30 AM - 03:30 PM)",
-    venue: "Information Science Arena & Campus Perimeter",
     tags: ["EXPLORE", "ANALYZE", "SOLVE", "WIN"],
     accentColor: "#f59e0b",
-    code: "HNH",
     iconSvg: `<svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><path d="M11 8v6"/><path d="M8 11h6"/></svg>`,
+
+    // Tactical Rounds Progression
     rounds: [
       {
         roundNumber: "LEVEL 01",
@@ -248,20 +350,21 @@ const EVENTS_DATA = [
     rules: [
       "Any unauthorized tampering with campus infrastructure or network devices is grounds for instant expulsion.",
       "Delegates may utilize any programming language or scripting tools (Python, bash, CyberChef).",
-      "Hint penalties: Requesting official clues will deduct 50 points per hint."
+      "External assistance via communication with non-participants will trigger team disqualification.",
+      "Physical clues are tagged with tamper-evident holograms and must remain in situ."
     ],
     judgingCriteria: [
-      "Milestone Speed & Timestamped Logs (40%)",
-      "Analytical & Algorithmic Deductions (35%)",
-      "Integrity & Rule Adherence (25%)"
+      "Speed of Clue Clearance & Cryptographic Decryption (40%)",
+      "Physical-Digital Checkpoint Exploration (35%)",
+      "Final Vault Protocol Deactivation (25%)"
     ],
     eligibility: [
-      "All college and university engineering/polytechnic students with valid ID.",
-      "Teams must comprise 2 to 4 registered delegates."
+      "Open to all enrolled undergraduate/postgraduate students with valid institutional identity.",
+      "Squad size: 2 to 4 members."
     ],
     submissionRequirements: [
-      "Digital scoreboard telemetry validation",
-      "Master flag submission key"
+      "Digital audit log of solved hashes and flags",
+      "Physical token collected at final checkpoint"
     ],
     coordinator: {
       faculty: "Prof. Faculty Coordinator",
@@ -272,25 +375,58 @@ const EVENTS_DATA = [
     }
   },
   {
-    id: "app-development-challenge",
-    number: "04",
+    // Primary Identifiers
+    id: "ADC",
     name: "App Development Challenge",
+    shortName: "ADC",
+
+    // Registration & Financial Configuration
+    fee: 500,
+    minTeam: 2,
+    maxTeam: 4,
+    venue: "Software Development & Cloud Computing Center",
+    registrationUrl: "", // Ready for Google Forms / External registration link integration
+
+    // Descriptive Intelligence
+    description: "App Development Challenge invites mobile and web architects to transform napkin ideas into high-performance, responsive, and beautiful production-ready applications. Teams receive a theme on symposium morning and have 5 hours to design, develop, test, and pitch an intuitive application that solves real-world societal friction.",
+    duration: "10:00 AM - 04:00 PM",
+
+    // High-Level Tasks & Scoring Rubric
+    tasks: [
+      "Theme Release & Blueprint Pitch: Receive surprise challenge theme, architect wireframes, schema design, and defend tech stack choice.",
+      "Rapid Build Sprint & Deployment: Develop functional application (Flutter/React Native/React/PWA), integrate responsive APIs, and host live testing link.",
+      "Grand Jury Demo & Stress Defense: Present live product to industry judges, handle surprise test scenarios, and present business value proposition."
+    ],
+    scoring: [
+      "Working Functionality & Execution Depth (35%)",
+      "UI/UX Design Polish & Responsiveness (30%)",
+      "Innovation & Real-World Utility (25%)",
+      "Presentation & Architecture Defense (10%)"
+    ],
+
+    // Coordination & Contacts
+    facultyCoordinator: "Prof. Faculty Coordinator",
+    studentCoordinator: "Student Lead (App Dev)",
+    contactEmail: "example@gmail.com",
+    contactPhone: "+91 XXXXX XXXXX",
+
+    // UI Presentation & Compatibility Metadata
+    code: "ADC",
+    slug: "app-development-challenge",
+    number: "04",
     subName: "Rapid Full-Stack & Mobile Sprint",
     category: "app",
     categoryLabel: "APP & WEB ENGINEERING",
     shortDescription: "Teams conceptualize, design and develop a mobile/web application based on a common theme or problem statement.",
-    description: "App Development Challenge invites mobile and web architects to transform napkin ideas into high-performance, responsive, and beautiful production-ready applications. Teams receive a theme on symposium morning and have 5 hours to design, develop, test, and pitch an intuitive application that solves real-world societal friction.",
     teamSize: "2 - 4 Members",
-    minTeam: 2,
-    maxTeam: 4,
     registrationFee: "₹500 / Team",
     prizePool: "₹50,000",
     date: "30 October 2026 (10:00 AM - 04:00 PM)",
-    venue: "Software Development & Cloud Computing Center",
     tags: ["IDEAS INTO APPLICATIONS"],
     accentColor: "#10b981",
-    code: "ADC",
     iconSvg: `<svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"/><line x1="12" y1="18" x2="12.01" y2="18"/><circle cx="12" cy="7" r="1"/></svg>`,
+
+    // Tactical Rounds Progression
     rounds: [
       {
         roundNumber: "PHASE 01",
@@ -350,72 +486,104 @@ const EVENTS_DATA = [
     }
   },
   {
-    id: "zerocrypt-ctf",
-    number: "05",
+    // Primary Identifiers
+    id: "ZCTF",
     name: "Zerocrypt CTF",
+    shortName: "ZCTF",
+
+    // Registration & Financial Configuration
+    fee: 500,
+    minTeam: 2,
+    maxTeam: 4,
+    venue: "Cyber Defense & Network Security Lab",
+    registrationUrl: "", // Ready for Google Forms / External registration link integration
+
+    // Descriptive Intelligence
+    description: "Zerocrypt CTF is an elite hands-on cyber defense and offensive security proving ground. White-hat hackers, security researchers, and cyber cadets compete in a secure sandboxed network to reverse binaries, exploit vulnerable services, crack cryptographic ciphers, and defend critical assets while capturing hidden digital flags.",
+    duration: "10:30 AM - 03:30 PM",
+
+    // High-Level Tasks & Scoring Rubric
+    tasks: [
+      "Jeopardy Cyber Qualification: Solve challenges across Web Security, Reverse Engineering, Cryptography, Binary Exploitation, and OSINT.",
+      "Live Attack & Defense Sandbox: Defend assigned network node, patch vulnerabilities in real time, and deploy custom exploits against opposing nodes.",
+      "King of the Hill Cyber Summit: Gain root privileges on core target server, maintain ownership under continuous attack, and execute final cyber telemetry."
+    ],
+    scoring: [
+      "Total Capture The Flag Matrix Points (50%)",
+      "Network Defense & Uptime Integrity (30%)",
+      "Vulnerability Exploit Speed & Documentation (20%)"
+    ],
+
+    // Coordination & Contacts
+    facultyCoordinator: "Prof. Faculty Coordinator",
+    studentCoordinator: "Student Lead (Zerocrypt CTF)",
+    contactEmail: "example@gmail.com",
+    contactPhone: "+91 XXXXX XXXXX",
+
+    // UI Presentation & Compatibility Metadata
+    code: "ZCTF",
+    slug: "zerocrypt-ctf",
+    number: "05",
     subName: "Hands-on Cybersecurity & Flag Capture",
     category: "cybersecurity",
     categoryLabel: "CYBERSECURITY & CTF",
     shortDescription: "Hands-on cybersecurity competition that challenges participants to solve real-world security problems and capture hidden flags.",
-    description: "Zerocrypt CTF is an elite hands-on cyber defense and offensive security proving ground. White-hat hackers, security researchers, and cyber cadets compete in a secure sandboxed network to reverse binaries, exploit vulnerable services, crack cryptographic ciphers, and defend critical assets while capturing hidden digital flags.",
     teamSize: "2 - 4 Members",
-    minTeam: 2,
-    maxTeam: 4,
     registrationFee: "₹500 / Team",
     prizePool: "₹50,000",
     date: "30 October 2026 (10:30 AM - 03:30 PM)",
-    venue: "Cyber Defense & Network Security Lab",
     tags: ["THINK", "EXPLOIT", "CAPTURE", "SECURE"],
     accentColor: "#ef4444",
-    code: "ZCTF",
-    iconSvg: `<svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><rect x="10" y="10" width="4" height="4" rx="1"/></svg>`,
+    iconSvg: `<svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><circle cx="12" cy="11" r="3"/><path d="M12 14v3"/></svg>`,
+
+    // Tactical Rounds Progression
     rounds: [
       {
         roundNumber: "SECTOR 01",
-        title: "Reconnaissance & Web Exploitation",
+        title: "Jeopardy Cyber Qualification",
         duration: "90 Minutes",
-        format: "Jeopardy-Style CTF Challenges",
-        task: "Uncover hidden directories, bypass authentication hurdles, exploit SQLi/SSRF vulnerabilities, and capture initial flags.",
-        scoring: "Flags Captured (Dynamic Point Scoring)",
-        qualification: "Dynamic leaderboard rankings."
+        format: "Jeopardy CTF Matrix",
+        task: "Solve challenges across Web Security, Reverse Engineering, Cryptography, Binary Exploitation, and OSINT.",
+        scoring: "Dynamic scoring based on flag difficulty (100 - 500 pts per flag)",
+        qualification: "Top 8 teams advance to Attack-Defense Arena."
       },
       {
         roundNumber: "SECTOR 02",
-        title: "Binary Analysis & Cryptanalysis",
-        duration: "90 Minutes",
-        format: "Reverse Engineering & Cryptographic Breaks",
-        task: "Decompile obfuscated binaries, analyze buffer overflows, factor weak RSA keys, and extract deeply encrypted tokens.",
-        scoring: "High-tier challenge points with first-blood bonuses.",
-        qualification: "Top 6 teams advance to King of the Hill."
+        title: "Live Attack & Defense Sandbox",
+        duration: "120 Minutes",
+        format: "Simulated Industrial Infrastructure",
+        task: "Defend your assigned network node, patch vulnerabilities in real time, and deploy custom exploits against opposing nodes.",
+        scoring: "Defense Uptime (50%), Successful Exploits (50%)",
+        qualification: "Top 3 teams qualify for King of the Hill finale."
       },
       {
         roundNumber: "SECTOR 03",
-        title: "Attack & Defend War Games",
-        duration: "60 Minutes",
-        format: "Live Network Battle",
-        task: "Patch your team's vulnerable service while deploying exploits against rival teams' nodes in real time.",
-        scoring: "Uptime Defense Points + Attack Flag Points",
-        qualification: "Top team crowned Zerocrypt Champions (₹50,000 prize share)."
+        title: "King of the Hill Cyber Summit",
+        duration: "45 Minutes",
+        format: "Live Network Domination",
+        task: "Gain root privileges on the core target server, maintain ownership under continuous attack, and execute final cyber telemetry.",
+        scoring: "Sustained Root Possession Time (100%)",
+        qualification: "Champion & Runner-up crowned with ₹50,000 prize pool."
       }
     ],
     rules: [
-      "Any cyber attacks against symposium scoring infrastructure or external networks will result in instant disqualification and legal escalation.",
-      "Denial of Service (DoS/DDoS) attacks against challenge servers are strictly outlawed.",
-      "Sharing flags or solution writeups between competing teams is prohibited.",
-      "Teams must maintain their own Kali Linux / Parrot OS laptops."
+      "Any denial-of-service (DoS/DDoS) attack targeting the CTF infrastructure platform will trigger instant team ban.",
+      "Flag sharing, cross-team collusion, or credential leaking is strictly prohibited.",
+      "Only attacks directed at designated sandbox IP ranges are permitted.",
+      "Decisions by the Cyber Red-Team Marshals are absolute."
     ],
     judgingCriteria: [
-      "Total Validated Flag Score on Official CTF Platform (60%)",
-      "First Blood Speed Bonuses (20%)",
-      "Integrity & Quality of Exploitation Writeups (20%)"
+      "Total Capture The Flag Matrix Points (50%)",
+      "Network Defense & Uptime Integrity (30%)",
+      "Vulnerability Exploit Speed & Documentation (20%)"
     ],
     eligibility: [
-      "Open to enrolled college students with valid student ID.",
-      "Teams must comprise 2 to 4 registered delegates."
+      "Open to all enrolled undergraduate and postgraduate students.",
+      "Teams must comprise 2 to 4 registered cadets."
     ],
     submissionRequirements: [
-      "Live flag submission via the symposium CTF portal",
-      "Brief exploit methodology writeup for top-tier challenges"
+      "Submitted flag strings on live platform scoring engine",
+      "Vulnerability assessment and proof-of-concept write-up"
     ],
     coordinator: {
       faculty: "Prof. Faculty Coordinator",
@@ -426,25 +594,58 @@ const EVENTS_DATA = [
     }
   },
   {
-    id: "innovation-marathon",
-    number: "06",
+    // Primary Identifiers
+    id: "INM",
     name: "Innovation Marathon",
+    shortName: "INM",
+
+    // Registration & Financial Configuration
+    fee: 500,
+    minTeam: 2,
+    maxTeam: 4,
+    venue: "Main Auditorium & Innovation Incubation Cell",
+    registrationUrl: "", // Ready for Google Forms / External registration link integration
+
+    // Descriptive Intelligence
+    description: "The Innovation Marathon is the flagship 2-day innovation crucible of Vigyantra 2026. Student innovators tackle grand societal challenges spanning Smart Cities, Healthcare Automation, Fintech Accessibility, and Industry 4.0. Teams ideate, architect hardware/software MVPs, conduct user testing, and pitch before venture capitalists and industry chiefs.",
+    duration: "Continuous Sprint (30 & 31 Oct)",
+
+    // High-Level Tasks & Scoring Rubric
+    tasks: [
+      "Problem Identification & Empathy Pitch: Identify a critical societal or technological pain point, perform user research analysis, and present conceptual blueprint.",
+      "High-Octane MVP Build & Testing: Engineer functional working prototype, assemble electrical or software stacks, conduct load and usability tests with mentors.",
+      "Grand Jury Demo & Investor Pitch: Deliver live working demonstration on stage and pitch to venture partners and faculty convenors."
+    ],
+    scoring: [
+      "Novelty and Societal Impact (30%)",
+      "Functional Completeness of Working MVP (30%)",
+      "Technical Complexity & Engineering Rigor (25%)",
+      "Pitch Clarity & Market Scalability (15%)"
+    ],
+
+    // Coordination & Contacts
+    facultyCoordinator: "Prof. Faculty Coordinator",
+    studentCoordinator: "Student Lead (Innovation Marathon)",
+    contactEmail: "example@gmail.com",
+    contactPhone: "+91 XXXXX XXXXX",
+
+    // UI Presentation & Compatibility Metadata
+    code: "INM",
+    slug: "innovation-marathon",
+    number: "06",
     subName: "Problem Ideation & Prototype Sprint",
     category: "innovation",
     categoryLabel: "INNOVATION & HACKATHON",
     shortDescription: "Teams progress from problem identification to ideation, prototyping, testing and pitching over two days.",
-    description: "The Innovation Marathon is the flagship 2-day innovation crucible of Vigyantra 2026. Student innovators tackle grand societal challenges spanning Smart Cities, Healthcare Automation, Fintech Accessibility, and Industry 4.0. Teams ideate, architect hardware/software MVPs, conduct user testing, and pitch before venture capitalists and industry chiefs.",
     teamSize: "2 - 4 Members",
-    minTeam: 2,
-    maxTeam: 4,
     registrationFee: "₹500 / Team",
     prizePool: "₹50,000",
     date: "30 & 31 October 2026 (Continuous Sprint)",
-    venue: "Main Auditorium & Innovation Incubation Cell",
     tags: ["IDEATE", "PROTOTYPE", "TEST", "PITCH"],
     accentColor: "#fbbf24",
-    code: "INM",
     iconSvg: `<svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="2"><line x1="9" y1="18" x2="15" y2="18"/><line x1="10" y1="22" x2="14" y2="22"/><path d="M15.09 14c.18-.98.65-1.74 1.41-2.5A4.65 4.65 0 0 0 18 8 6 6 0 0 0 6 8c0 1 .23 2.23 1.5 3.5A4.61 4.61 0 0 1 8.91 14"/></svg>`,
+
+    // Tactical Rounds Progression
     rounds: [
       {
         roundNumber: "DAY 01 - AM",
@@ -504,25 +705,58 @@ const EVENTS_DATA = [
     }
   },
   {
-    id: "green-tech-challenge",
-    number: "07",
+    // Primary Identifiers
+    id: "GTC",
     name: "Green Tech Challenge",
+    shortName: "GTC",
+
+    // Registration & Financial Configuration
+    fee: 500,
+    minTeam: 2,
+    maxTeam: 4,
+    venue: "Sustainable Engineering & IoT Lab",
+    registrationUrl: "", // Ready for Google Forms / External registration link integration
+
+    // Descriptive Intelligence
+    description: "The Green Tech Challenge bridges technological innovation and ecological preservation. Delegations engineer tangible, scalable hardware and digital solutions tackling urban heat islands, renewable energy storage, AI-driven smart grid management, automated water conservation, and zero-waste circular economy systems.",
+    duration: "11:00 AM - 04:00 PM",
+
+    // High-Level Tasks & Scoring Rubric
+    tasks: [
+      "Eco-Impact Thesis & Technical Schema: Submit lifecycle energy audit and mathematical model proving ecological efficiency and carbon offset viability.",
+      "Working Clean-Tech Prototype Demo: Demonstrate your working hardware/software model (smart sensor arrays, solar telemetry, bio-waste converters).",
+      "Scalability & Urban Implementation Pitch: Defend municipal or industrial scalability, payback period, and durability under environmental stress."
+    ],
+    scoring: [
+      "Ecological Impact & Sustainability Innovation (35%)",
+      "Hardware/Software Prototype Efficacy (35%)",
+      "Technical Feasibility & Commercial Viability (20%)",
+      "Team Presentation & Defense (10%)"
+    ],
+
+    // Coordination & Contacts
+    facultyCoordinator: "Prof. Faculty Coordinator",
+    studentCoordinator: "Student Lead (Green Tech)",
+    contactEmail: "example@gmail.com",
+    contactPhone: "+91 XXXXX XXXXX",
+
+    // UI Presentation & Compatibility Metadata
+    code: "GTC",
+    slug: "green-tech-challenge",
+    number: "07",
     subName: "Sustainability & Clean Energy Tech",
     category: "greentech",
     categoryLabel: "GREEN TECH & SUSTAINABILITY",
     shortDescription: "Teams develop technology-driven solutions for sustainability, renewable energy, water conservation or waste reduction.",
-    description: "The Green Tech Challenge bridges technological innovation and ecological preservation. Delegations engineer tangible, scalable hardware and digital solutions tackling urban heat islands, renewable energy storage, AI-driven smart grid management, automated water conservation, and zero-waste circular economy systems.",
     teamSize: "2 - 4 Members",
-    minTeam: 2,
-    maxTeam: 4,
     registrationFee: "₹500 / Team",
     prizePool: "₹50,000",
     date: "30 October 2026 (11:00 AM - 04:00 PM)",
-    venue: "Sustainable Engineering & IoT Lab",
     tags: ["GREENER IDEAS", "CLEANER TOMORROW"],
     accentColor: "#22c55e",
-    code: "GTC",
     iconSvg: `<svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10Z"/><path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"/></svg>`,
+
+    // Tactical Rounds Progression
     rounds: [
       {
         roundNumber: "STAGE 01",
@@ -548,29 +782,30 @@ const EVENTS_DATA = [
         duration: "10 Mins / Team",
         format: "Jury Defense",
         task: "Defend municipal or industrial scalability, payback period, and durability under environmental stress.",
-        scoring: "Scalability (40%), Defense Quality (35%), Prototype Polish (25%)",
-        qualification: "Winners declared with ₹50,000 prize distribution."
+        scoring: "Feasibility of Urban Deployment (50%), Cost vs Return (30%), Q&A Defense (20%)",
+        qualification: "Winner & Runner-Up crowned with ₹50,000 prize share."
       }
     ],
     rules: [
-      "Prototypes may utilize microcontrollers (ESP32, Arduino, Raspberry Pi), environmental sensors, or simulation pipelines.",
-      "Hazardous chemical reactions or open flames without safety supervisor clearance are prohibited.",
-      "Hardware must conform to standard electrical safety protocols."
+      "Prototypes must utilize eco-friendly, non-hazardous, or recycled materials wherever practical.",
+      "Energy consumption metrics must be demonstrable with live multimeter/telemetry logs.",
+      "Chemical or biological agents must be benign and pre-approved by the safety council.",
+      "Decisions by the Green Tech Jury and IEEE sustainability experts are final."
     ],
     judgingCriteria: [
-      "Quantifiable Carbon / Resource Conservation Impact (35%)",
-      "Hardware / Software Engineering Precision (30%)",
-      "Cost Feasibility and Scalability (20%)",
-      "Presentation & Technical Defense (15%)"
+      "Ecological Impact & Sustainability Innovation (35%)",
+      "Hardware/Software Prototype Efficacy (35%)",
+      "Technical Feasibility & Commercial Viability (20%)",
+      "Team Presentation & Defense (10%)"
     ],
     eligibility: [
-      "Open to students from all branches of engineering and environmental sciences.",
-      "Teams must comprise 2 to 4 registered delegates."
+      "Open to all multidisciplinary student teams from recognized engineering colleges.",
+      "Squad size: 2 to 4 registered delegates."
     ],
     submissionRequirements: [
-      "Working prototype or verified simulation model",
-      "Life-cycle analysis and bill of materials (BOM)",
-      "Technical poster summary"
+      "Working CleanTech prototype / simulation dashboard",
+      "1-page lifecycle environmental impact statement",
+      "Bill of Materials (BOM) & Scalability Blueprint"
     ],
     coordinator: {
       faculty: "Prof. Faculty Coordinator",
@@ -581,25 +816,58 @@ const EVENTS_DATA = [
     }
   },
   {
-    id: "roboinnovate",
-    number: "08",
+    // Primary Identifiers
+    id: "RBI",
     name: "RoboInnovate",
+    shortName: "RBI",
+
+    // Registration & Financial Configuration
+    fee: 500,
+    minTeam: 2,
+    maxTeam: 4,
+    venue: "Robotics & Automation Arena (Mechanical Block)",
+    registrationUrl: "", // Ready for Google Forms / External registration link integration
+
+    // Descriptive Intelligence
+    description: "RoboInnovate brings mechanical design, embedded systems, and computer vision together on the battleground of robotics. Interdisciplinary teams construct autonomous or semi-autonomous robotic systems to navigate challenging terrain, perform precision manipulation, and execute dynamic industrial automation tasks under strict time limits.",
+    duration: "10:00 AM - 04:30 PM",
+
+    // High-Level Tasks & Scoring Rubric
+    tasks: [
+      "Chassis Telemetry & Safety Scrutiny: Bot dimensions (max 40x40x40 cm), weight limits (max 5 kg), and fail-safe power cutoffs verified by technical inspectors.",
+      "Autonomous Navigation & Obstacle Trial: Bot must navigate terrain elevation, detect visual markers, and manipulate industrial payload blocks autonomously.",
+      "Dynamic Industrial Utility Mission: Bots compete in a simulated factory floor environment executing high-speed pick-and-place, line following, and sorting."
+    ],
+    scoring: [
+      "Autonomous Performance & Path Planning (40%)",
+      "Mechanical Build Quality & Robustness (30%)",
+      "Task Completion Speed & Precision (20%)",
+      "Engineering Design Innovation (10%)"
+    ],
+
+    // Coordination & Contacts
+    facultyCoordinator: "Prof. Faculty Coordinator",
+    studentCoordinator: "Student Lead (RoboInnovate)",
+    contactEmail: "example@gmail.com",
+    contactPhone: "+91 XXXXX XXXXX",
+
+    // UI Presentation & Compatibility Metadata
+    code: "RBI",
+    slug: "roboinnovate",
+    number: "08",
     subName: "Autonomous Robotics & Mechatronics",
     category: "robotics",
     categoryLabel: "ROBOTICS & MECHATRONICS",
     shortDescription: "Teams from different disciplines collaborate to develop a working robotic solution for a real-world problem.",
-    description: "RoboInnovate brings mechanical design, embedded systems, and computer vision together on the battleground of robotics. Interdisciplinary teams construct autonomous or semi-autonomous robotic systems to navigate challenging terrain, perform precision manipulation, and execute dynamic industrial automation tasks under strict time limits.",
     teamSize: "2 - 4 Members",
-    minTeam: 2,
-    maxTeam: 4,
     registrationFee: "₹500 / Team",
     prizePool: "₹50,000",
     date: "30 October 2026 (10:00 AM - 04:30 PM)",
-    venue: "Robotics & Automation Arena (Mechanical Block)",
     tags: ["BUILD", "PROGRAM", "INNOVATE", "AUTOMATE"],
     accentColor: "#06b6d4",
-    code: "RBI",
     iconSvg: `<svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 8V4H8"/><rect x="4" y="8" width="16" height="12" rx="2"/><circle cx="9" cy="13" r="1.5"/><circle cx="15" cy="13" r="1.5"/><path d="M9 17h6"/></svg>`,
+
+    // Tactical Rounds Progression
     rounds: [
       {
         roundNumber: "PHASE 01",
@@ -660,8 +928,20 @@ const EVENTS_DATA = [
 ];
 
 /**
- * SCHEDULE DATA (OCTOBER 30 & 31, 2026)
+ * CENTRALIZED EVENT LOOKUP HELPER
+ * Resolves event by ID, shortName, code, or legacy slug
  */
+function getEventById(identifier) {
+  if (!identifier) return null;
+  const cleanId = String(identifier).trim().toLowerCase();
+  return EVENTS_DATA.find(e => 
+    e.id.toLowerCase() === cleanId ||
+    e.shortName.toLowerCase() === cleanId ||
+    (e.code && e.code.toLowerCase() === cleanId) ||
+    (e.slug && e.slug.toLowerCase() === cleanId)
+  ) || null;
+}
+
 const SCHEDULE_DATA = {
   day1: {
     date: "Friday, 30 October 2026",
@@ -1182,3 +1462,4 @@ window.PRIZES_DATA = PRIZES_DATA;
 window.GUIDELINES_DATA = GUIDELINES_DATA;
 window.FAQ_DATA = FAQ_DATA;
 window.BROCHURE_PAGES = BROCHURE_PAGES;
+window.getEventById = getEventById;

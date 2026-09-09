@@ -537,7 +537,7 @@ function initEventModal() {
 
 function openEventModal(eventId) {
   playModalWarpSfx();
-  const event = window.EVENTS_DATA?.find(e => e.id === eventId);
+  const event = window.getEventById ? window.getEventById(eventId) : window.EVENTS_DATA?.find(e => e.id === eventId || e.shortName === eventId || e.code === eventId || e.slug === eventId);
   const modal = document.getElementById('event-detail-modal');
   const bodyEl = document.getElementById('event-modal-body');
   if (!event || !modal || !bodyEl) return;
@@ -550,7 +550,7 @@ function openEventModal(eventId) {
           ARENA ${event.number} // ${event.categoryLabel}
         </span>
         <span class="hud-prize-pill" style="font-size:0.85rem; padding:4px 14px;">
-          ★ ${event.prizePool} PRIZE POOL ★
+          ★ ${event.prizePool || '₹50,000'} PRIZE POOL ★
         </span>
       </div>
 
@@ -568,15 +568,15 @@ function openEventModal(eventId) {
       <div class="modal-telemetry-specs-grid">
         <div class="telemetry-spec-card">
           <div class="telemetry-spec-lbl">SQUAD SIZE</div>
-          <div class="telemetry-spec-val">${event.teamSize}</div>
+          <div class="telemetry-spec-val">${event.teamSize || `${event.minTeam} - ${event.maxTeam} Members`}</div>
         </div>
         <div class="telemetry-spec-card">
           <div class="telemetry-spec-lbl">ARENA PRIZE</div>
-          <div class="telemetry-spec-val gold">${event.prizePool}</div>
+          <div class="telemetry-spec-val gold">${event.prizePool || '₹50,000'}</div>
         </div>
         <div class="telemetry-spec-card">
           <div class="telemetry-spec-lbl">ENTRY FEE</div>
-          <div class="telemetry-spec-val">${event.registrationFee}</div>
+          <div class="telemetry-spec-val">${event.registrationFee || `₹${event.fee} / Team`}</div>
         </div>
         <div class="telemetry-spec-card">
           <div class="telemetry-spec-lbl">ARENA LAB</div>
@@ -622,9 +622,14 @@ function openEventModal(eventId) {
     <div style="margin-top:20px; background:rgba(0,240,255,0.04); border:1px solid var(--cyan-border); border-radius:8px; padding:16px;">
       <div style="font-family:var(--font-mono); font-size:0.72rem; font-weight:700; color:var(--cyan); margin-bottom:6px;">ARENA CONVENORS & DESK</div>
       <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px; font-size:0.82rem; color:var(--silver-300);">
-        <div><strong>Faculty Lead:</strong> ${event.coordinator.faculty} (${event.coordinator.facultyContact})</div>
-        <div><strong>Student Lead:</strong> ${event.coordinator.student} (${event.coordinator.studentContact})</div>
+        <div><strong>Faculty Lead:</strong> ${event.facultyCoordinator || event.coordinator?.faculty} (${event.contactPhone || event.coordinator?.facultyContact})</div>
+        <div><strong>Student Lead:</strong> ${event.studentCoordinator || event.coordinator?.student} (${event.contactPhone || event.coordinator?.studentContact})</div>
       </div>
+      ${(event.contactEmail || event.coordinator?.email) ? `
+        <div style="margin-top:8px; font-size:0.78rem; color:var(--silver-400);">
+          <strong>Official Desk Email:</strong> ${event.contactEmail || event.coordinator?.email}
+        </div>
+      ` : ''}
     </div>
 
     <!-- Actions -->
@@ -686,7 +691,7 @@ function initRegistrationModal() {
   const eventSelect = document.getElementById('reg-event-select');
   if (eventSelect && window.EVENTS_DATA) {
     eventSelect.innerHTML = '<option value="">-- Select One of 8 Arenas --</option>' + 
-      window.EVENTS_DATA.map(e => `<option value="${e.id}">${e.number} — ${e.name} (${e.subName}) | Team: ${e.teamSize}</option>`).join('');
+      window.EVENTS_DATA.map(e => `<option value="${e.id}">${e.number} — ${e.name} (${e.subName}) | Team: ${e.teamSize || `${e.minTeam} - ${e.maxTeam} Members`}</option>`).join('');
   }
 }
 
@@ -715,7 +720,8 @@ function startRegistrationWithEvent(eventId) {
   openRegistrationModal();
   const eventSelect = document.getElementById('reg-event-select');
   if (eventSelect) {
-    eventSelect.value = eventId;
+    const matched = window.getEventById ? window.getEventById(eventId) : null;
+    eventSelect.value = matched ? matched.id : eventId;
     onEventSelected();
   }
 }
@@ -728,7 +734,7 @@ function onEventSelected() {
   playCyberTone(600, 0.06, 'sine');
   const eventSelect = document.getElementById('reg-event-select');
   const selectedId = eventSelect.value;
-  const eventObj = window.EVENTS_DATA?.find(e => e.id === selectedId);
+  const eventObj = window.getEventById ? window.getEventById(selectedId) : window.EVENTS_DATA?.find(e => e.id === selectedId || e.shortName === selectedId || e.code === selectedId || e.slug === selectedId);
   const infoBox = document.getElementById('reg-event-quickinfo');
 
   if (eventObj && infoBox) {
@@ -738,11 +744,11 @@ function onEventSelected() {
       <div style="background:rgba(0,240,255,0.06); border:1px solid var(--cyan); border-radius:8px; padding:16px; margin-top:14px; box-shadow:0 0 20px rgba(0,240,255,0.15);">
         <div style="display:flex; justify-content:space-between; align-items:center;">
           <h4 style="font-family:var(--font-heading); font-size:1.1rem; color:#ffffff;">${eventObj.name}</h4>
-          <span style="font-family:var(--font-mono); font-size:0.75rem; color:var(--gold); font-weight:800;">${eventObj.prizePool} PRIZE</span>
+          <span style="font-family:var(--font-mono); font-size:0.75rem; color:var(--gold); font-weight:800;">${eventObj.prizePool || '₹50,000'} PRIZE</span>
         </div>
         <p style="font-size:0.84rem; color:var(--silver-300); margin:6px 0;">${eventObj.shortDescription}</p>
         <div style="font-family:var(--font-mono); font-size:0.75rem; color:var(--cyan); margin-top:6px;">
-          Squad Size: <strong>${eventObj.teamSize}</strong> &nbsp;|&nbsp; Fee: <strong>${eventObj.registrationFee}</strong> &nbsp;|&nbsp; Venue: <strong>${eventObj.venue}</strong>
+          Squad Size: <strong>${eventObj.teamSize || `${eventObj.minTeam} - ${eventObj.maxTeam} Members`}</strong> &nbsp;|&nbsp; Fee: <strong>${eventObj.registrationFee || `₹${eventObj.fee} / Team`}</strong> &nbsp;|&nbsp; Venue: <strong>${eventObj.venue}</strong>
         </div>
       </div>
     `;
@@ -914,7 +920,7 @@ function populateReviewSummary() {
   const container = document.getElementById('reg-review-summary');
   if (!container) return;
 
-  const eventObj = window.EVENTS_DATA?.find(e => e.id === regData.eventId);
+  const eventObj = window.getEventById ? window.getEventById(regData.eventId) : window.EVENTS_DATA?.find(e => e.id === regData.eventId || e.shortName === regData.eventId || e.code === regData.eventId || e.slug === regData.eventId);
 
   container.innerHTML = `
     <div style="background:rgba(0,0,0,0.4); border:1px solid var(--cyan-border); border-radius:8px; padding:20px; box-shadow:0 0 25px rgba(0,240,255,0.1);">
@@ -929,7 +935,7 @@ function populateReviewSummary() {
         <div><strong>Institution:</strong> ${regData.institution}</div>
         <div><strong>Location:</strong> ${regData.city}</div>
         <div><strong>Squad Capacity:</strong> ${regData.teamSize} Cadets</div>
-        <div><strong>Registration Desk:</strong> ${eventObj ? eventObj.registrationFee : 'Free'}</div>
+        <div><strong>Registration Desk:</strong> ${eventObj ? (eventObj.registrationFee || `₹${eventObj.fee} / Team`) : 'Free'}</div>
       </div>
 
       <div style="border-top:1px solid var(--border-subtle); padding-top:12px; font-size:0.84rem;">
@@ -957,8 +963,8 @@ function generateRegistrationConfirmation() {
   const container = document.getElementById('reg-confirmation-container');
   if (!container) return;
 
-  const eventObj = window.EVENTS_DATA?.find(e => e.id === regData.eventId);
-  const code = eventObj ? eventObj.code : 'VIG';
+  const eventObj = window.getEventById ? window.getEventById(regData.eventId) : window.EVENTS_DATA?.find(e => e.id === regData.eventId || e.shortName === regData.eventId || e.code === regData.eventId || e.slug === regData.eventId);
+  const code = eventObj ? (eventObj.shortName || eventObj.code || eventObj.id) : 'VIG';
   const randHash = Math.random().toString(36).substring(2, 7).toUpperCase();
   const passId = `VIG26-${code}-${randHash}`;
 
