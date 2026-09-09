@@ -15,36 +15,36 @@ A premier, high-performance frontend web platform crafted for **VIGYANTRA 2026**
 
 - **Hero & Key Metrics**:
   - Oversized "25" celebratory Jubilee typography and badge.
-  - Live dynamic countdown timer with configurable symposium date.
-  - Viewport-animated metrics row: 25th Edition, 08 Flagship Events, ₹1,00,000+ Prize Pool, 1000+ Innovators, 50+ Institutes.
-  - Instant action CTAs: *Explore Events*, *Register Now*, and *View Brochure*.
+  - Live dynamic countdown timer with symposium date: 30 October 2026.
+  - Viewport-animated metrics row: 25th Edition, 08 Flagship Events, ₹4,00,000 Prize Pool, 1500+ Innovators, 75+ Institutes.
+  - Instant action CTAs: *Explore 8 Arenas*, *Register Now*, and *View Brochure*.
 
-- **8 Flagship Technical Events**:
-  1. **01 — CODESTORM**: 24-Hour Full-Stack Hackathon & Product Sprint
-  2. **02 — WEBCRAFT**: DevSprint & High-Performance UI/UX Engineering
-  3. **03 — NEURALNEXUS**: AI Benchmark & Agentic Reasoning Challenge
-  4. **04 — ROBOCLASH**: All-Terrain Obstacle & Deathmatch Combat Colosseum
-  5. **05 — CYBERSHIELD**: Jeopardy-Style CTF, Reverse Eng & Defense Gauntlet
-  6. **06 — TECHNO QUEST**: Tech ConnecXion Cryptic Trivia & Buzzer Showdown
-  7. **07 — INNOVATEX**: Breakthrough Project Expo, Hardware Demos & Ideathon
-  8. **08 — CIRCUIT MANIA**: Silicon Circuit Debugging & Tactical LAN Esports
+- **8 Official Flagship Technical Events (₹50,000 Prize Pool per Arena)**:
+  1. **01 — AI Prompt Battle**: Generative AI, LLM Combat & Prompt Engineering (2-4 Members | ₹500 / Team)
+  2. **02 — Code Relay**: Synchronized Algorithmic Relay (2-4 Members | ₹500 / Team)
+  3. **03 — Hack & Hunt**: Cryptic Challenge, Geocache & Logic Hunt (2-4 Members | ₹500 / Team)
+  4. **04 — App Development Challenge**: Rapid Full-Stack & Mobile Sprint (2-4 Members | ₹500 / Team)
+  5. **05 — Zerocrypt CTF**: Hands-on Cybersecurity & Flag Capture (2-4 Members | ₹500 / Team)
+  6. **06 — Innovation Marathon**: 2-Day Problem Ideation & Prototype Sprint (2-4 Members | ₹500 / Team)
+  7. **07 — Green Tech Challenge**: Sustainability & Clean Energy Tech (2-4 Members | ₹500 / Team)
+  8. **08 — RoboInnovate**: Autonomous Robotics & Mechatronics (2-4 Members | ₹500 / Team)
 
 - **Interactive Category Filtering**:
-  - Filter by `ALL`, `CODING & SOFTWARE`, `AI & DATA`, `HARDWARE & ROBOTICS`, `CYBERSECURITY`, `PROJECT & INNOVATION`, and `QUIZ`.
+  - Filter by `ALL`, `CODING & SOFTWARE`, `AI & DATA`, `HARDWARE & ROBOTICS`, `CYBERSECURITY`, `PROJECT & INNOVATION`, and `PUZZLES & CTF`.
 
 - **Comprehensive Event Detail Modals**:
-  - Detailed format & round breakdowns (Round 1 Prelims, Round 2 Finals, Round 3 Grand Jury).
-  - Rules & protocols, judging criteria, eligibility, and submission requirements.
-  - Direct student and faculty coordinator contacts (phone & email).
-  - One-click event registration trigger pre-selecting the event.
+  - Detailed format & round breakdowns (Stage 1 Prelims, Stage 2 Deep Dive, Stage 3 Grand Finals).
+  - Rules & protocols, judging criteria, eligibility (2 to 4 delegates), and submission requirements.
+  - Squad specs: 2-4 Cadets per team, ₹500 entry fee per team, and campus venue.
+  - One-click squad enrollment pre-selecting the event.
 
 - **Chronological Symposium Schedule**:
-  - Interactive Day 01 / Day 02 tab switcher.
+  - Interactive Day 01 (Oct 30) / Day 02 (Oct 31) tab switcher.
   - Vertical glowing timeline with timestamps, session tags, and hall venues.
 
 - **Hall of Glory (Prizes & Laurels)**:
-  - Total ₹1,00,000+ prize pool breakdown.
-  - Silver Jubilee Trophies, Certificates of Excellence, Universal Participation Certificates, Special Category Awards, and Incubation Opportunities.
+  - Total ₹4,00,000 prize pool breakdown across all 8 Arenas (₹30,000 Winners, ₹20,000 Runners-Up).
+  - Silver Jubilee Trophies, Medallions, Incubation Seed Grants (₹1,00,000+), and Verified IEEE CS Certificates.
 
 - **Interactive Multi-Step Registration Portal (Frontend Only)**:
   - Step 1: Event Selection with real-time fee and team size metadata.

@@ -50,10 +50,10 @@ const EVENTS_DATA = [
     categoryLabel: "AI & PROMPT ENGINEERING",
     shortDescription: "Participants compete to create effective prompts for solving technical and creative problems using AI tools.",
     description: "AI Prompt Battle challenges prompt engineers, AI creators, and problem solvers to push generative intelligence to its frontiers. Harness LLMs, vision models, and reasoning architectures to solve cryptic coding bugs, generate optimal algorithmic pipelines, and create jaw-dropping multimodal outputs under severe token and context constraints.",
-    teamSize: "1 - 2 Members",
-    minTeam: 1,
-    maxTeam: 2,
-    registrationFee: "₹200 / Team",
+    teamSize: "2 - 4 Members",
+    minTeam: 2,
+    maxTeam: 4,
+    registrationFee: "₹500 / Team",
     prizePool: "₹50,000",
     date: "30 October 2026 (10:30 AM - 01:30 PM)",
     venue: "AI & Machine Learning Center of Excellence",
@@ -104,7 +104,7 @@ const EVENTS_DATA = [
     ],
     eligibility: [
       "Open to all enrolled undergraduate and postgraduate students with valid institutional ID cards.",
-      "Solo participants or 2-member teams are welcome."
+      "Teams must comprise 2 to 4 registered delegates."
     ],
     submissionRequirements: [
       "Final prompt transcription log sheet",
@@ -131,7 +131,7 @@ const EVENTS_DATA = [
     teamSize: "2 - 4 Members",
     minTeam: 2,
     maxTeam: 4,
-    registrationFee: "₹300 / Team",
+    registrationFee: "₹500 / Team",
     prizePool: "₹50,000",
     date: "30 October 2026 (11:00 AM - 02:30 PM)",
     venue: "Advanced Computing Systems Laboratory",
@@ -205,10 +205,10 @@ const EVENTS_DATA = [
     categoryLabel: "PUZZLES & CRYPTIC HUNT",
     shortDescription: "Participants solve a series of technical clues, coding challenges and logical puzzles to reach the final solution.",
     description: "Hack & Hunt blends cybersecurity cryptography, reverse engineering, geolocation intelligence, and intricate logic puzzles. Teams navigate an encrypted cyber labyrinth where each decrypted cipher unlocks a secret API endpoint, buried hardware token, or campus coordinate leading to the ultimate quantum key.",
-    teamSize: "2 - 3 Members",
+    teamSize: "2 - 4 Members",
     minTeam: 2,
-    maxTeam: 3,
-    registrationFee: "₹250 / Team",
+    maxTeam: 4,
+    registrationFee: "₹500 / Team",
     prizePool: "₹50,000",
     date: "30 October 2026 (11:30 AM - 03:30 PM)",
     venue: "Information Science Arena & Campus Perimeter",
@@ -256,7 +256,8 @@ const EVENTS_DATA = [
       "Integrity & Rule Adherence (25%)"
     ],
     eligibility: [
-      "All college and university engineering/polytechnic students with valid ID."
+      "All college and university engineering/polytechnic students with valid ID.",
+      "Teams must comprise 2 to 4 registered delegates."
     ],
     submissionRequirements: [
       "Digital scoreboard telemetry validation",
@@ -282,7 +283,7 @@ const EVENTS_DATA = [
     teamSize: "2 - 4 Members",
     minTeam: 2,
     maxTeam: 4,
-    registrationFee: "₹300 / Team",
+    registrationFee: "₹500 / Team",
     prizePool: "₹50,000",
     date: "30 October 2026 (10:00 AM - 04:00 PM)",
     venue: "Software Development & Cloud Computing Center",
@@ -333,7 +334,7 @@ const EVENTS_DATA = [
     ],
     eligibility: [
       "Open to all undergraduate and graduate college students.",
-      "Cross-college teams are fully permitted."
+      "Cross-college teams are fully permitted (2 to 4 members per team)."
     ],
     submissionRequirements: [
       "Live working web URL or installable mobile package",
@@ -357,10 +358,10 @@ const EVENTS_DATA = [
     categoryLabel: "CYBERSECURITY & CTF",
     shortDescription: "Hands-on cybersecurity competition that challenges participants to solve real-world security problems and capture hidden flags.",
     description: "Zerocrypt CTF is an elite hands-on cyber defense and offensive security proving ground. White-hat hackers, security researchers, and cyber cadets compete in a secure sandboxed network to reverse binaries, exploit vulnerable services, crack cryptographic ciphers, and defend critical assets while capturing hidden digital flags.",
-    teamSize: "2 - 3 Members",
+    teamSize: "2 - 4 Members",
     minTeam: 2,
-    maxTeam: 3,
-    registrationFee: "₹250 / Team",
+    maxTeam: 4,
+    registrationFee: "₹500 / Team",
     prizePool: "₹50,000",
     date: "30 October 2026 (10:30 AM - 03:30 PM)",
     venue: "Cyber Defense & Network Security Lab",
@@ -410,7 +411,7 @@ const EVENTS_DATA = [
     ],
     eligibility: [
       "Open to enrolled college students with valid student ID.",
-      "Teams of 2 to 3 cadets."
+      "Teams must comprise 2 to 4 registered delegates."
     ],
     submissionRequirements: [
       "Live flag submission via the symposium CTF portal",
@@ -436,7 +437,7 @@ const EVENTS_DATA = [
     teamSize: "2 - 4 Members",
     minTeam: 2,
     maxTeam: 4,
-    registrationFee: "₹350 / Team",
+    registrationFee: "₹500 / Team",
     prizePool: "₹50,000",
     date: "30 & 31 October 2026 (Continuous Sprint)",
     venue: "Main Auditorium & Innovation Incubation Cell",
@@ -487,7 +488,7 @@ const EVENTS_DATA = [
     ],
     eligibility: [
       "Open to all students from engineering, science, design, and management backgrounds.",
-      "Multi-disciplinary teams strongly encouraged."
+      "Teams must comprise 2 to 4 registered delegates."
     ],
     submissionRequirements: [
       "Functional prototype demonstration",
@@ -511,10 +512,10 @@ const EVENTS_DATA = [
     categoryLabel: "GREEN TECH & SUSTAINABILITY",
     shortDescription: "Teams develop technology-driven solutions for sustainability, renewable energy, water conservation or waste reduction.",
     description: "The Green Tech Challenge bridges technological innovation and ecological preservation. Delegations engineer tangible, scalable hardware and digital solutions tackling urban heat islands, renewable energy storage, AI-driven smart grid management, automated water conservation, and zero-waste circular economy systems.",
-    teamSize: "2 - 3 Members",
+    teamSize: "2 - 4 Members",
     minTeam: 2,
-    maxTeam: 3,
-    registrationFee: "₹250 / Team",
+    maxTeam: 4,
+    registrationFee: "₹500 / Team",
     prizePool: "₹50,000",
     date: "30 October 2026 (11:00 AM - 04:00 PM)",
     venue: "Sustainable Engineering & IoT Lab",
@@ -563,7 +564,8 @@ const EVENTS_DATA = [
       "Presentation & Technical Defense (15%)"
     ],
     eligibility: [
-      "Open to students from all branches of engineering and environmental sciences."
+      "Open to students from all branches of engineering and environmental sciences.",
+      "Teams must comprise 2 to 4 registered delegates."
     ],
     submissionRequirements: [
       "Working prototype or verified simulation model",
@@ -590,7 +592,7 @@ const EVENTS_DATA = [
     teamSize: "2 - 4 Members",
     minTeam: 2,
     maxTeam: 4,
-    registrationFee: "₹350 / Team",
+    registrationFee: "₹500 / Team",
     prizePool: "₹50,000",
     date: "30 October 2026 (10:00 AM - 04:30 PM)",
     venue: "Robotics & Automation Arena (Mechanical Block)",
@@ -855,6 +857,10 @@ const FAQ_DATA = [
   {
     q: "Will food and accommodation be provided?",
     a: "Complimentary lunch and high tea are provided for all registered delegates on October 30. Outstation teams requiring accommodation assistance should contact the organizing committee desk in advance."
+  },
+  {
+    q: "What is the team size and registration fee for events?",
+    a: "All 8 flagship events require a squad size of 2 to 4 members, and the registration fee is flat ₹500 per event per team."
   },
   {
     q: "How will certificates and prizes be issued?",
