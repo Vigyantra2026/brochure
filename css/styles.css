@@ -92,30 +92,58 @@ html, body {
   pointer-events: none;
 }
 
-/* Cosmic Nebula Radial Glow */
+/* Cosmic Nebula Radial Glow — Multi-Depth Ambient Energy Field */
 .cosmic-nebula-glow {
   position: fixed;
   inset: 0;
   background: 
-    radial-gradient(circle at 50% 18%, rgba(0, 240, 255, 0.12) 0%, transparent 55%),
-    radial-gradient(circle at 15% 85%, rgba(245, 158, 11, 0.08) 0%, transparent 45%),
-    radial-gradient(circle at 85% 75%, rgba(14, 165, 233, 0.09) 0%, transparent 50%);
+    radial-gradient(circle at 50% 28%, rgba(0, 240, 255, 0.12) 0%, transparent 55%),
+    radial-gradient(circle at 18% 78%, rgba(245, 158, 11, 0.07) 0%, transparent 48%),
+    radial-gradient(circle at 82% 70%, rgba(14, 165, 233, 0.08) 0%, transparent 52%);
   z-index: 2;
   pointer-events: none;
+  animation: cosmic-nebula-breathe 22s ease-in-out infinite alternate;
+  transform: translateZ(0);
 }
 
-/* Cyber Grid Ground Mesh Overlay */
+@keyframes cosmic-nebula-breathe {
+  0% {
+    opacity: 0.85;
+    transform: scale(1) translateZ(0);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.03) translate3d(6px, -4px, 0);
+  }
+  100% {
+    opacity: 0.9;
+    transform: scale(0.98) translate3d(-4px, 5px, 0);
+  }
+}
+
+/* Cyber Grid Ground Mesh Overlay — Slow Cinematic Depth Drift */
 .cyber-grid-overlay {
   position: fixed;
-  inset: 0;
+  inset: -40px;
   background-image: 
-    linear-gradient(to right, rgba(0, 240, 255, 0.035) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(0, 240, 255, 0.035) 1px, transparent 1px);
-  background-size: 40px 40px;
-  mask-image: radial-gradient(circle at 50% 50%, black 20%, transparent 80%);
-  -webkit-mask-image: radial-gradient(circle at 50% 50%, black 20%, transparent 80%);
+    linear-gradient(to right, rgba(0, 240, 255, 0.038) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(0, 240, 255, 0.038) 1px, transparent 1px);
+  background-size: 44px 44px;
+  mask-image: radial-gradient(circle at 50% 50%, black 22%, transparent 80%);
+  -webkit-mask-image: radial-gradient(circle at 50% 50%, black 22%, transparent 80%);
   z-index: 3;
   pointer-events: none;
+  animation: cyber-grid-drift 55s linear infinite;
+  transform: translateZ(0);
+}
+
+@keyframes cyber-grid-drift {
+  0% {
+    transform: translate3d(0, 0, 0);
+  }
+  100% {
+    transform: translate3d(44px, 44px, 0);
+  }
 }
 
 /* CRT / Cyber Scanline Texture */
@@ -126,7 +154,7 @@ html, body {
   background-size: 100% 4px;
   z-index: 4;
   pointer-events: none;
-  opacity: 0.3;
+  opacity: 0.28;
 }
 
 /* --------------------------------------------------------------------------
@@ -653,6 +681,52 @@ html, body {
   z-index: 1;
   letter-spacing: -0.05em;
   opacity: 0.85;
+  animation: hero-holo-drift 14s ease-in-out infinite alternate;
+}
+
+@keyframes hero-holo-drift {
+  0% {
+    transform: translate(-50%, -58%) scale(1);
+    opacity: 0.8;
+  }
+  100% {
+    transform: translate(-50%, -56%) scale(1.025);
+    opacity: 0.95;
+    text-shadow: 0 0 75px rgba(0, 240, 255, 0.26);
+  }
+}
+
+/* Atmospheric Cyan/Gold Distant Energy Field Behind VIGYANTRA 2026 */
+.deck-hero-aura {
+  position: absolute;
+  top: 48%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: clamp(280px, 60vw, 750px);
+  height: clamp(140px, 22vh, 260px);
+  background: 
+    radial-gradient(ellipse 65% 55% at 50% 50%, rgba(0, 240, 255, 0.14) 0%, rgba(0, 240, 255, 0.04) 45%, transparent 75%),
+    radial-gradient(ellipse 40% 35% at 50% 45%, rgba(245, 158, 11, 0.06) 0%, transparent 65%);
+  pointer-events: none;
+  z-index: 1;
+  filter: blur(28px);
+  animation: hero-aura-pulse 16s ease-in-out infinite alternate;
+  transform: translate3d(-50%, -50%, 0);
+}
+
+@keyframes hero-aura-pulse {
+  0% {
+    opacity: 0.75;
+    transform: translate3d(-50%, -50%, 0) scale(0.96);
+  }
+  50% {
+    opacity: 1;
+    transform: translate3d(-50%, -50%, 0) scale(1.03);
+  }
+  100% {
+    opacity: 0.82;
+    transform: translate3d(-50%, -50%, 0) scale(0.98);
+  }
 }
 
 /* PRIMARY HERO: VIGYANTRA 2026 */
@@ -803,12 +877,16 @@ html, body {
   padding: clamp(8px, 1.5vh, 15px) clamp(8px, 1.8vw, 28px);
   cursor: pointer;
   border: none;
-  transition: all var(--transition-fast);
+  transition: transform var(--transition-fast), box-shadow var(--transition-fast), background var(--transition-fast), border-color var(--transition-fast), color var(--transition-fast);
   clip-path: polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px);
   overflow: hidden;
   white-space: nowrap;
   flex: 1;
   max-width: 280px;
+}
+
+.cyber-btn:active {
+  transform: translateY(1px) scale(0.98);
 }
 
 .cyber-btn-glare {
@@ -819,52 +897,82 @@ html, body {
   transition: transform 0.6s ease;
 }
 
-.cyber-btn:hover .cyber-btn-glare {
-  transform: translateX(100%);
+@media (hover: hover) and (pointer: fine) {
+  .cyber-btn:hover .cyber-btn-glare {
+    transform: translateX(100%);
+  }
 }
 
-/* 1. Explore Events */
+/* 1. Explore Events — Dimensional Cyan Glass Depth */
 .cyber-btn-events {
-  background: linear-gradient(135deg, rgba(0, 240, 255, 0.18) 0%, rgba(10, 18, 36, 0.95) 100%);
+  background: linear-gradient(135deg, rgba(0, 240, 255, 0.16) 0%, rgba(8, 16, 32, 0.95) 100%);
   color: var(--cyan);
-  border: 1px solid var(--cyan);
-  box-shadow: 0 0 25px rgba(0, 240, 255, 0.3), inset 0 0 15px rgba(0, 240, 255, 0.12);
+  border: 1px solid rgba(0, 240, 255, 0.6);
+  box-shadow: 
+    0 4px 18px rgba(0, 0, 0, 0.8),
+    0 0 20px rgba(0, 240, 255, 0.22),
+    inset 0 1px 1px rgba(255, 255, 255, 0.2),
+    inset 0 0 14px rgba(0, 240, 255, 0.1);
 }
 
-.cyber-btn-events:hover {
-  background: var(--cyan);
-  color: #000000;
-  box-shadow: 0 0 50px rgba(0, 240, 255, 0.8);
-  transform: translateY(-2px) scale(1.02);
+@media (hover: hover) and (pointer: fine) {
+  .cyber-btn-events:hover {
+    background: var(--cyan);
+    color: #000000;
+    box-shadow: 
+      0 6px 25px rgba(0, 0, 0, 0.9),
+      0 0 45px rgba(0, 240, 255, 0.75),
+      inset 0 0 12px rgba(255, 255, 255, 0.4);
+    transform: translateY(-2px) scale(1.02);
+  }
 }
 
-/* 2. Register Now */
+/* 2. Register Now — Dimensional Solid Platinum Beacon */
 .cyber-btn-register {
   background: linear-gradient(135deg, #ffffff 0%, #cbd5e1 100%);
   color: #000000;
-  box-shadow: 0 0 35px rgba(255, 255, 255, 0.45), inset 0 0 12px rgba(0, 0, 0, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.9);
+  box-shadow: 
+    0 4px 20px rgba(0, 0, 0, 0.85),
+    0 0 28px rgba(255, 255, 255, 0.35),
+    inset 0 1px 2px rgba(255, 255, 255, 0.8),
+    inset 0 0 12px rgba(0, 0, 0, 0.12);
 }
 
-.cyber-btn-register:hover {
-  background: #ffffff;
-  color: #000000;
-  box-shadow: 0 0 60px rgba(255, 255, 255, 0.85);
-  transform: translateY(-2px) scale(1.02);
+@media (hover: hover) and (pointer: fine) {
+  .cyber-btn-register:hover {
+    background: #ffffff;
+    color: #000000;
+    box-shadow: 
+      0 6px 28px rgba(0, 0, 0, 0.95),
+      0 0 50px rgba(255, 255, 255, 0.75),
+      inset 0 0 16px rgba(0, 240, 255, 0.2);
+    transform: translateY(-2px) scale(1.02);
+  }
 }
 
-/* 3. Brochure */
+/* 3. Brochure — Dimensional Imperial Gold Depth */
 .cyber-btn-brochure {
-  background: linear-gradient(135deg, rgba(245, 158, 11, 0.22) 0%, rgba(15, 23, 42, 0.9) 100%);
-  color: var(--gold);
-  border: 1px solid var(--gold);
-  box-shadow: 0 0 25px rgba(245, 158, 11, 0.3), inset 0 0 15px rgba(245, 158, 11, 0.12);
+  background: linear-gradient(135deg, rgba(245, 158, 11, 0.2) 0%, rgba(14, 20, 36, 0.92) 100%);
+  color: var(--gold-light);
+  border: 1px solid rgba(245, 158, 11, 0.6);
+  box-shadow: 
+    0 4px 18px rgba(0, 0, 0, 0.8),
+    0 0 20px rgba(245, 158, 11, 0.22),
+    inset 0 1px 1px rgba(255, 255, 255, 0.15),
+    inset 0 0 14px rgba(245, 158, 11, 0.1);
 }
 
-.cyber-btn-brochure:hover {
-  background: var(--gold);
-  color: #000000;
-  box-shadow: 0 0 50px rgba(245, 158, 11, 0.75);
-  transform: translateY(-2px) scale(1.02);
+@media (hover: hover) and (pointer: fine) {
+  .cyber-btn-brochure:hover {
+    background: var(--gold);
+    color: #000000;
+    box-shadow: 
+      0 6px 25px rgba(0, 0, 0, 0.9),
+      0 0 45px rgba(245, 158, 11, 0.7),
+      inset 0 0 12px rgba(255, 255, 255, 0.35);
+    transform: translateY(-2px) scale(1.02);
+  }
 }
 
 /* --------------------------------------------------------------------------
@@ -2209,5 +2317,37 @@ html, body {
   .brochure-page-card {
     -webkit-overflow-scrolling: touch;
     overscroll-behavior: contain;
+  }
+
+  /* Mobile Hero Aura: Calibrated blur & GPU layer */
+  .deck-hero-aura {
+    filter: blur(16px);
+    -webkit-filter: blur(16px);
+    opacity: 0.7;
+    animation: none; /* Keep static on mobile to avoid compositor churn */
+  }
+
+  /* Keep grid animation static on low-power mobile */
+  .cyber-grid-overlay {
+    animation: none;
+  }
+
+  /* Keep hologram static on mobile */
+  .deck-hologram-number {
+    animation: none;
+  }
+}
+
+/* ==========================================================================
+   15. ACCESSIBILITY: PREFERS-REDUCED-MOTION
+   ========================================================================== */
+@media (prefers-reduced-motion: reduce) {
+  .cosmic-nebula-glow,
+  .cyber-grid-overlay,
+  .deck-hero-aura,
+  .deck-hologram-number,
+  .cyber-btn-glare {
+    animation: none !important;
+    transition: none !important;
   }
 }
