@@ -3,17 +3,17 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <meta name="theme-color" content="#050508">
+  <meta name="theme-color" content="#030712">
 
   <!-- SEO & Social Meta Tags -->
-  <title>VIGYANTRA 2026 | Silver Jubilee Technical Symposium</title>
-  <meta name="description" content="VIGYANTRA 2026 — 25th Silver Jubilee National Technical Symposium on October 30, 2026. 8 Flagship Arenas, ₹1,00,000+ Prize Pool, 1000+ Innovators.">
-  <meta name="keywords" content="Vigyantra 2026, Technical Symposium, Silver Jubilee, Hackathon, Coding, Robotics, CTF, Tech Quiz, Bengaluru">
+  <title>VIGYANTRA 2026 | SJB Institute of Technology — Silver Jubilee Celebrations</title>
+  <meta name="description" content="VIGYANTRA 2026 — 25th Silver Jubilee National Technical Symposium at SJB Institute of Technology, Bengaluru on October 30, 2026. 8 Flagship Arenas, ₹4,00,000 Prize Pool. Ideas Today Solutions Tomorrow.">
+  <meta name="keywords" content="Vigyantra 2026, SJBIT, SJB Institute of Technology, Silver Jubilee, AI Prompt Battle, Code Relay, Zerocrypt CTF, RoboInnovate, Green Tech, App Development Challenge, Innovation Marathon, Hack & Hunt, Bengaluru">
 
-  <!-- Google Fonts: Cinzel & Inter -->
+  <!-- Google Fonts: Orbitron, Cinzel, Inter & Space Grotesk -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;800;900&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700;800;900&family=Inter:wght@300;400;500;600;700;800&family=Orbitron:wght@600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
 
   <!-- Custom Stylesheet -->
   <link rel="stylesheet" href="css/styles.css">
@@ -26,16 +26,17 @@
   <canvas id="universe-canvas" aria-hidden="true"></canvas>
   <div class="cosmic-nebula-glow" aria-hidden="true"></div>
   <div class="cyber-grid-overlay" aria-hidden="true"></div>
+  <div class="scanline-screen-effect" aria-hidden="true"></div>
 
   <!-- ========================================================================
        FUTURISTIC CYBER TASKBAR (TOP CONTROL DECK)
        ======================================================================== -->
   <header class="cyber-taskbar" role="banner">
     <div class="taskbar-brand">
-      <div class="brand-cyber-badge">V</div>
+      <div class="brand-cyber-badge">SJBIT</div>
       <div class="brand-text-col">
-        <span class="brand-title">VIGYANTRA</span>
-        <span class="brand-edition">SILVER JUBILEE • 2026</span>
+        <span class="brand-title">VIGYANTRA 2026</span>
+        <span class="brand-edition">25th SILVER JUBILEE • SJBIT BENGALURU</span>
       </div>
     </div>
 
@@ -44,41 +45,47 @@
       <ul class="taskbar-deck-menu">
         <li>
           <button class="taskbar-btn" onclick="openHudModal('events')">
-            <span>❖</span> 08 EVENTS
+            <span class="btn-icon">❖</span> 08 ARENAS
           </button>
         </li>
         <li>
           <button class="taskbar-btn" onclick="openHudModal('schedule')">
-            <span>⏱</span> TIMELINE
+            <span class="btn-icon">⏱</span> TIMELINE
           </button>
         </li>
         <li>
           <button class="taskbar-btn" onclick="openHudModal('prizes')">
-            <span>🏆</span> PRIZES
+            <span class="btn-icon">🏆</span> ₹4 LAKH PRIZES
           </button>
         </li>
         <li>
           <button class="taskbar-btn" onclick="openHudModal('guidelines')">
-            <span>📜</span> GUIDELINES
+            <span class="btn-icon">📜</span> RULES
           </button>
         </li>
         <li>
           <button class="taskbar-btn" onclick="openHudModal('faq')">
-            <span>❓</span> FAQ
+            <span class="btn-icon">❓</span> FAQ
           </button>
         </li>
         <li>
           <button class="taskbar-btn" onclick="openHudModal('venue')">
-            <span>📍</span> VENUE & INFO
+            <span class="btn-icon">📍</span> CAMPUS & INFO
           </button>
         </li>
       </ul>
     </nav>
 
     <div class="taskbar-actions">
+      <!-- Cyber Audio Synthesizer Toggle -->
+      <button id="sfx-toggle-btn" class="taskbar-sfx-btn" onclick="toggleAudioFx()" title="Toggle Holographic Sound Synthesis">
+        <span id="sfx-icon">🔊</span>
+        <span id="sfx-label">SFX: ON</span>
+      </button>
+
       <div class="system-status-indicator">
         <span class="status-pulse-dot"></span>
-        <span>SYS.CORE: ONLINE</span>
+        <span>SYS.CORE: ACTIVE</span>
       </div>
     </div>
   </header>
@@ -88,10 +95,18 @@
        ======================================================================== -->
   <main class="command-deck-stage">
 
+    <!-- Top Invocatory & Institute Tag -->
+    <div class="deck-trust-banner">
+      <div class="deck-invocatory">|| JAI SRI GURUDEV ||</div>
+      <div class="deck-trust-name">Sri Adichunchanagiri Shikshana Trust®</div>
+      <div class="deck-institute-title">SJB INSTITUTE OF TECHNOLOGY</div>
+      <div class="deck-institute-accredit">AN AUTONOMOUS INSTITUTE UNDER VTU • NAAC A+ • NBA ACCREDITED</div>
+    </div>
+
     <!-- With Divine Blessings of Revered Swamijis -->
     <section class="blessings-panel" aria-label="Divine Blessings">
       <div class="blessings-title-badge">
-        WITH THE DIVINE BLESSINGS OF
+        ✦ WITH THE DIVINE BLESSINGS OF OUR REVERED POOJYA SWAMIJIS ✦
       </div>
       <div class="swamijis-row">
         <!-- Swamiji 1 -->
@@ -126,16 +141,24 @@
     <!-- Center Stage Landmark & Hologram -->
     <div class="deck-center-landmark">
       <div class="deck-jubilee-eyebrow">
-        <span>✦ 25 YEARS OF ENGINEERING EXCELLENCE ✦</span>
+        <span>✦ 25 YEARS SILVER JUBILEE CELEBRATIONS ✦</span>
       </div>
 
+      <!-- Holographic Number 25 Backdrop -->
       <div class="deck-hologram-number">25</div>
 
       <h1 class="deck-title">VIGYANTRA 2026</h1>
+      
+      <div class="deck-theme-motto">
+        “Ideas Today Solutions Tomorrow”
+      </div>
+
       <div class="deck-subtitle">
-        <span>NATIONAL TECHNICAL SYMPOSIUM</span>
-        <span>•</span>
-        <span class="deck-date-highlight">OCTOBER 30, 2026</span>
+        <span class="deck-tag-highlight">NATIONAL TECHNICAL SYMPOSIUM</span>
+        <span class="deck-separator">•</span>
+        <span class="deck-date-highlight">30 OCTOBER 2026 (FRIDAY)</span>
+        <span class="deck-separator">•</span>
+        <span class="deck-prize-highlight">₹ 4,00,000 PRIZE POOL</span>
       </div>
 
       <!-- Live Dynamic Countdown -->
@@ -167,59 +190,59 @@
     <div class="deck-action-triggers">
       <!-- 1. Explore Events -->
       <button class="cyber-btn cyber-btn-events" onclick="openHudModal('events')">
-        <span>❖ EXPLORE EVENTS</span>
+        <span class="cyber-btn-glare"></span>
+        <span class="cyber-btn-text">❖ EXPLORE 8 ARENAS</span>
       </button>
 
       <!-- 2. Register Now -->
       <button class="cyber-btn cyber-btn-register" onclick="openRegistrationModal()">
-        <span>⚡ REGISTER NOW</span>
+        <span class="cyber-btn-glare"></span>
+        <span class="cyber-btn-text">⚡ REGISTER NOW</span>
       </button>
 
       <!-- 3. View Brochure -->
       <button class="cyber-btn cyber-btn-brochure" onclick="openBrochureModal()">
-        <span>📖 VIEW BROCHURE</span>
+        <span class="cyber-btn-glare"></span>
+        <span class="cyber-btn-text">📖 VIEW BROCHURE</span>
       </button>
     </div>
   </main>
 
   <!-- ========================================================================
-       BOTTOM TELEMETRY STATUS TICKER
-       ======================================================================== -->
-  <footer class="deck-telemetry-footer" role="contentinfo">
-    <div class="telemetry-left">
-      <span>✦ SYS.STATUS: ONLINE</span>
-      <span>//</span>
-      <div class="telemetry-stream-ticker" id="telemetry-status-text">
-        GRID: 12.9716° N, 77.5946° E // 8 FLAGSHIP ARENAS ACTIVE // SYMPOSIUM LAUNCH: 30-OCT-2026 // EDITION: 25 // QUANTUM CORE: SYNCHRONIZED
-      </div>
-    </div>
-    <div class="telemetry-right">
-      <span>VIGYANTRA 2026</span>
-    </div>
-  </footer>
-
-  <!-- ========================================================================
-       HUD MODAL: 08 FLAGSHIP EVENTS MATRIX
+       HUD MODAL: 08 FLAGSHIP ARENAS MATRIX
        ======================================================================== -->
   <div class="hud-modal-overlay" id="hud-modal-events" role="dialog" aria-modal="true">
     <div class="hud-dialog-window">
+      <!-- Holographic Cyber Window Header -->
       <div class="hud-dialog-header">
         <div class="hud-dialog-title">
+          <span class="hud-pulse-radar"></span>
           <h2>THE 8 FLAGSHIP ARENAS</h2>
-          <span class="hud-dialog-tag">COMPETITIVE MATRIX</span>
+          <span class="hud-dialog-tag">COMPETITIVE MATRIX // ₹4,00,000 PRIZE POOL</span>
         </div>
-        <button class="hud-close-btn" onclick="closeHudModal('events')">✕</button>
+        <button class="hud-close-btn" onclick="closeHudModal('events')" aria-label="Close Arenas Window">✕</button>
       </div>
+
       <div class="hud-dialog-body">
-        <div class="events-filter-bar" style="margin-bottom:20px;">
-          <button class="filter-btn active" data-filter="all">ALL</button>
-          <button class="filter-btn" data-filter="coding">CODING</button>
-          <button class="filter-btn" data-filter="ai">AI & DATA</button>
-          <button class="filter-btn" data-filter="hardware">HARDWARE</button>
-          <button class="filter-btn" data-filter="cybersecurity">SECURITY</button>
-          <button class="filter-btn" data-filter="project">PROJECTS</button>
-          <button class="filter-btn" data-filter="quiz">QUIZ</button>
+        <!-- Search & Filter Cyber Console -->
+        <div class="hud-controls-toolbar">
+          <div class="hud-search-box-wrap">
+            <input type="text" id="event-search-input" class="hud-search-input" placeholder="🔍 Search arenas, technologies (e.g. AI, Python, CTF, Robotics)..." oninput="filterEventsBySearch(this.value)">
+          </div>
+          <div class="events-filter-bar">
+            <button class="filter-btn active" data-filter="all">ALL (08)</button>
+            <button class="filter-btn" data-filter="ai">AI & PROMPT</button>
+            <button class="filter-btn" data-filter="coding">CODING</button>
+            <button class="filter-btn" data-filter="puzzle">PUZZLE & HUNT</button>
+            <button class="filter-btn" data-filter="app">APP DEV</button>
+            <button class="filter-btn" data-filter="cybersecurity">CTF & SECURITY</button>
+            <button class="filter-btn" data-filter="innovation">INNOVATION</button>
+            <button class="filter-btn" data-filter="greentech">GREEN TECH</button>
+            <button class="filter-btn" data-filter="robotics">ROBOTICS</button>
+          </div>
         </div>
+
+        <!-- Dynamic Grid of 8 Flagship Events -->
         <div class="hud-events-grid" id="events-grid-container">
           <!-- Rendered dynamically by js/main.js -->
         </div>
@@ -234,20 +257,21 @@
     <div class="hud-dialog-window">
       <div class="hud-dialog-header">
         <div class="hud-dialog-title">
+          <span class="hud-pulse-radar"></span>
           <h2>SYMPOSIUM TIMELINE</h2>
-          <span class="hud-dialog-tag">OCTOBER 30 & 31, 2026</span>
+          <span class="hud-dialog-tag">OCTOBER 30 & 31, 2026 // SJBIT CAMPUS</span>
         </div>
         <button class="hud-close-btn" onclick="closeHudModal('schedule')">✕</button>
       </div>
       <div class="hud-dialog-body">
-        <div class="schedule-tabs-container" style="margin-bottom:28px;">
+        <div class="schedule-tabs-container">
           <button class="schedule-tab-btn active" data-day="day1">
-            <span>DAY 01 (OCT 30)</span>
-            <span class="tab-sub">IGNITION & SPRINT</span>
+            <span>DAY 01 (OCT 30, 2026)</span>
+            <span class="tab-sub">LAUNCH & 8 ARENAS COMBAT</span>
           </button>
           <button class="schedule-tab-btn" data-day="day2">
-            <span>DAY 02 (OCT 31)</span>
-            <span class="tab-sub">FINALS & VALEDICTORY</span>
+            <span>DAY 02 (OCT 31, 2026)</span>
+            <span class="tab-sub">FINALS & ₹4,00,000 AWARDS GALA</span>
           </button>
         </div>
         <div class="timeline-flow" id="timeline-container">
@@ -264,12 +288,22 @@
     <div class="hud-dialog-window">
       <div class="hud-dialog-header">
         <div class="hud-dialog-title">
-          <h2>HALL OF GLORY</h2>
-          <span class="hud-dialog-tag">₹1,00,000+ PRIZE POOL</span>
+          <span class="hud-pulse-radar"></span>
+          <h2>HALL OF GLORY & RECOGNITION</h2>
+          <span class="hud-dialog-tag gold">₹ 4,00,000 TOTAL PRIZE POOL</span>
         </div>
         <button class="hud-close-btn" onclick="closeHudModal('prizes')">✕</button>
       </div>
       <div class="hud-dialog-body">
+        <div class="prizes-banner-hero">
+          <div class="trophy-hologram-visual">🏆</div>
+          <div class="prizes-hero-details">
+            <span class="prizes-hero-eyebrow">SILVER JUBILEE GRAND REWARDS MATRIX</span>
+            <h3 class="prizes-hero-title">₹ 4,00,000 IN CASH REWARDS & GRANTS</h3>
+            <p class="prizes-hero-desc">Every one of our 8 Flagship Arenas awards ₹30,000 to the Champions and ₹20,000 to Runners-Up, plus incubation access and IEEE certificates.</p>
+          </div>
+        </div>
+
         <div class="prizes-grid" id="prizes-grid-container">
           <!-- Rendered dynamically by js/main.js -->
         </div>
@@ -278,14 +312,15 @@
   </div>
 
   <!-- ========================================================================
-       HUD MODAL: GUIDELINES & RULES
+       HUD MODAL: GUIDELINES & PROTOCOLS
        ======================================================================== -->
   <div class="hud-modal-overlay" id="hud-modal-guidelines" role="dialog" aria-modal="true">
     <div class="hud-dialog-window">
       <div class="hud-dialog-header">
         <div class="hud-dialog-title">
-          <h2>RULES OF THE GAME</h2>
-          <span class="hud-dialog-tag">INTEGRITY & PROTOCOLS</span>
+          <span class="hud-pulse-radar"></span>
+          <h2>RULES OF ENGAGEMENT</h2>
+          <span class="hud-dialog-tag">ETHICS & TECHNICAL PROTOCOLS</span>
         </div>
         <button class="hud-close-btn" onclick="closeHudModal('guidelines')">✕</button>
       </div>
@@ -304,8 +339,9 @@
     <div class="hud-dialog-window">
       <div class="hud-dialog-header">
         <div class="hud-dialog-title">
+          <span class="hud-pulse-radar"></span>
           <h2>FREQUENTLY ASKED QUESTIONS</h2>
-          <span class="hud-dialog-tag">KNOWLEDGE BASE</span>
+          <span class="hud-dialog-tag">DELEGATE KNOWLEDGE BASE</span>
         </div>
         <button class="hud-close-btn" onclick="closeHudModal('faq')">✕</button>
       </div>
@@ -318,60 +354,81 @@
   </div>
 
   <!-- ========================================================================
-       HUD MODAL: VENUE, LOCATION & COORDINATORS
+       HUD MODAL: VENUE, CAMPUS TELEMETRY & COORDINATORS
        ======================================================================== -->
   <div class="hud-modal-overlay" id="hud-modal-venue" role="dialog" aria-modal="true">
     <div class="hud-dialog-window">
       <div class="hud-dialog-header">
         <div class="hud-dialog-title">
-          <h2>VENUE & COORDINATION</h2>
-          <span class="hud-dialog-tag">CAMPUS TELEMETRY</span>
+          <span class="hud-pulse-radar"></span>
+          <h2>CAMPUS TELEMETRY & VENUE</h2>
+          <span class="hud-dialog-tag">SJB INSTITUTE OF TECHNOLOGY</span>
         </div>
         <button class="hud-close-btn" onclick="closeHudModal('venue')">✕</button>
       </div>
       <div class="hud-dialog-body">
         <div class="venue-contact-grid">
           <div class="venue-card">
-            <div style="font-size:0.75rem; font-weight:700; letter-spacing:0.15em; color:var(--cyan); margin-bottom:12px;">CAMPUS LOCATION</div>
-            <h3 style="font-size:1.6rem; color:#ffffff; margin-bottom:8px;">[COLLEGE / UNIVERSITY CAMPUS]</h3>
-            <p style="font-size:0.95rem; color:var(--silver-300); margin-bottom:6px;">[Campus Street / Area Placeholder]</p>
-            <p style="font-size:0.9rem; color:var(--silver-400); margin-bottom:24px;">Bengaluru, Karnataka, India</p>
-            <div style="background:rgba(226,232,240,0.03); border:1px solid var(--border-subtle); border-radius:8px; padding:16px; margin-bottom:24px;">
-              <div style="font-size:0.85rem; color:var(--silver-300);"><strong>Transit:</strong> Transit stations and metro hubs are located approximately 3-4 km away. Direct shuttle services available on Oct 30.</div>
+            <div class="venue-card-badge">CAMPUS LOCATION</div>
+            <h3 class="venue-campus-name">SJB INSTITUTE OF TECHNOLOGY</h3>
+            <p class="venue-address-line">No.67, BGS Health & Education City, Dr. Vishnuvardhan Rd, Kengeri</p>
+            <p class="venue-city-line">Bengaluru, Karnataka 560060, India</p>
+            
+            <div class="venue-features-box">
+              <div class="feature-row">
+                <span class="feat-icon">🏛️</span>
+                <span>Autonomous Institute affiliated with VTU, Belagavi</span>
+              </div>
+              <div class="feature-row">
+                <span class="feat-icon">⭐</span>
+                <span>NAAC A+ Accredited Campus with Advanced Innovation Centers</span>
+              </div>
+              <div class="feature-row">
+                <span class="feat-icon">🚇</span>
+                <span>Kengeri Metro Station (~4 km away, direct shuttle available)</span>
+              </div>
+              <div class="feature-row">
+                <span class="feat-icon">🌐</span>
+                <span>High-Speed Fiber Connectivity & Secured Arena Wi-Fi</span>
+              </div>
             </div>
-            <a href="https://maps.google.com/?q=Bengaluru+Karnataka" target="_blank" rel="noopener noreferrer" class="btn btn-secondary">
-              <span>📍 GET DIRECTIONS (MAP)</span>
+
+            <a href="https://maps.google.com/?q=SJB+Institute+of+Technology+Bengaluru" target="_blank" rel="noopener noreferrer" class="btn btn-secondary btn-full">
+              <span>📍 OPEN CAMPUS IN GOOGLE MAPS</span>
             </a>
           </div>
+
           <div class="contact-card">
-            <div style="font-size:0.75rem; font-weight:700; letter-spacing:0.15em; color:var(--cyan); margin-bottom:12px;">COORDINATING COMMITTEE</div>
-            <h3 style="font-size:1.6rem; color:#ffffff; margin-bottom:8px;">CONTACT DESK</h3>
+            <div class="venue-card-badge">CENTRAL COORDINATING COMMITTEE</div>
+            <h3 class="venue-campus-name">SYMPOSIUM HELPDESK</h3>
             <div class="contact-roles-grid">
               <div>
-                <div class="role-block-title">STUDENT COORDINATORS</div>
+                <div class="role-block-title">STUDENT CONVENORS</div>
                 <div class="contact-person">
-                  <div class="contact-name">Student Coordinator 1</div>
+                  <div class="contact-name">Lead Student Coordinator</div>
                   <a href="tel:+91XXXXXXXXXX" class="contact-detail">+91 XXXXX XXXXX</a>
                 </div>
                 <div class="contact-person">
-                  <div class="contact-name">Student Coordinator 2</div>
+                  <div class="contact-name">Technical Operations Lead</div>
                   <a href="tel:+91XXXXXXXXXX" class="contact-detail">+91 XXXXX XXXXX</a>
                 </div>
               </div>
               <div>
                 <div class="role-block-title">FACULTY CONVENORS</div>
                 <div class="contact-person">
-                  <div class="contact-name">Dr. Faculty Convenor</div>
-                  <div class="contact-detail">Head, Technical Council</div>
+                  <div class="contact-name">Chief Faculty Convenor</div>
+                  <div class="contact-detail">Department of Technical Studies</div>
                 </div>
                 <div class="contact-person">
-                  <div class="contact-name">Prof. Staff Coordinator</div>
-                  <div class="contact-detail">Staff Coordinator, Vigyantra</div>
+                  <div class="contact-name">Head of Technical Council</div>
+                  <div class="contact-detail">SJB Institute of Technology</div>
                 </div>
               </div>
             </div>
-            <div style="margin-top:20px; font-size:0.85rem; color:var(--silver-400);">
-              Official Inquiries: <a href="mailto:example@gmail.com" style="color:var(--cyan); text-decoration:none;">example@gmail.com</a>
+            
+            <div class="official-inquiry-box">
+              <span>Official Symposium Correspondence:</span>
+              <a href="mailto:example@gmail.com" class="official-email-link">example@gmail.com</a>
             </div>
           </div>
         </div>
@@ -380,10 +437,10 @@
   </div>
 
   <!-- ========================================================================
-       MODAL: EVENT DETAIL VIEW
+       MODAL: EVENT DETAIL VIEW (HOLOGRAPHIC DOSSIER)
        ======================================================================== -->
   <div class="modal-backdrop" id="event-detail-modal" role="dialog" aria-modal="true">
-    <div class="modal-container">
+    <div class="modal-container event-detail-container">
       <button class="modal-close-btn" id="event-modal-close" aria-label="Close event modal">✕</button>
       <div class="event-modal-content" id="event-modal-body">
         <!-- Injected dynamically by js/main.js -->
@@ -392,63 +449,69 @@
   </div>
 
   <!-- ========================================================================
-       MODAL: MULTI-STEP REGISTRATION PORTAL
+       MODAL: MULTI-STEP CADET REGISTRATION PORTAL
        ======================================================================== -->
   <div class="modal-backdrop" id="registration-modal" role="dialog" aria-modal="true">
-    <div class="modal-container">
+    <div class="modal-container reg-terminal-container">
       <button class="modal-close-btn" id="reg-modal-close" aria-label="Close registration modal">✕</button>
       <div class="reg-modal-content">
-        <div style="text-align:center; margin-bottom:24px;">
-          <span class="section-eyebrow gold" style="margin-bottom:8px;">FRONTEND REGISTRATION PORTAL</span>
-          <h2 style="font-size:1.8rem; color:#ffffff;">REGISTER FOR VIGYANTRA 2026</h2>
-          <p style="font-size:0.85rem; color:var(--silver-400);">Complete your delegation details to receive your commemorative entry pass.</p>
+        <div class="reg-terminal-header">
+          <span class="reg-terminal-tag">CADET ONBOARDING TERMINAL // VIGYANTRA 2026</span>
+          <h2 class="reg-terminal-title">SYMPOSIUM ENTRY REGISTRATION</h2>
+          <p class="reg-terminal-subtitle">SJB Institute of Technology • Silver Jubilee Technical Symposium</p>
         </div>
 
         <div class="reg-steps-indicator">
           <div class="reg-step-node active" id="reg-node-1">
             <div class="reg-step-circle">1</div>
-            <div class="reg-step-label">EVENT</div>
+            <div class="reg-step-label">01. ARENA</div>
           </div>
+          <div class="reg-step-line"></div>
           <div class="reg-step-node" id="reg-node-2">
             <div class="reg-step-circle">2</div>
-            <div class="reg-step-label">TEAM</div>
+            <div class="reg-step-label">02. SQUAD</div>
           </div>
+          <div class="reg-step-line"></div>
           <div class="reg-step-node" id="reg-node-3">
             <div class="reg-step-circle">3</div>
-            <div class="reg-step-label">MEMBERS</div>
+            <div class="reg-step-label">03. CADETS</div>
           </div>
+          <div class="reg-step-line"></div>
           <div class="reg-step-node" id="reg-node-4">
             <div class="reg-step-circle">4</div>
-            <div class="reg-step-label">REVIEW</div>
+            <div class="reg-step-label">04. AUDIT</div>
           </div>
+          <div class="reg-step-line"></div>
           <div class="reg-step-node" id="reg-node-5">
             <div class="reg-step-circle">5</div>
-            <div class="reg-step-label">PASS</div>
+            <div class="reg-step-label">05. PASS</div>
           </div>
         </div>
 
-        <!-- STEP 1 -->
+        <!-- STEP 1: ARENA SELECTION -->
         <div id="reg-step-1" class="reg-step-pane">
           <div class="form-group">
-            <label class="form-label" for="reg-event-select">Select Flagship Event *</label>
+            <label class="form-label" for="reg-event-select">Select Flagship Arena *</label>
             <select id="reg-event-select" class="form-select" onchange="onEventSelected()"></select>
           </div>
           <div id="reg-event-quickinfo"></div>
-          <div style="display:flex; justify-content:flex-end; margin-top:28px;">
-            <button class="btn btn-primary" onclick="nextRegStep()">CONTINUE TO TEAM DETAILS →</button>
+          <div class="reg-pane-nav right">
+            <button class="btn btn-primary" onclick="nextRegStep()">
+              <span>PROCEED TO SQUAD INTEL →</span>
+            </button>
           </div>
         </div>
 
-        <!-- STEP 2 -->
+        <!-- STEP 2: SQUAD DETAILS -->
         <div id="reg-step-2" class="reg-step-pane" style="display:none;">
           <div class="form-group">
-            <label class="form-label" for="reg-team-name">Team Name *</label>
-            <input type="text" id="reg-team-name" class="form-input" placeholder="e.g. Quantum Coders" required>
+            <label class="form-label" for="reg-team-name">Squad / Team Codename *</label>
+            <input type="text" id="reg-team-name" class="form-input" placeholder="e.g. CyberVanguard, NeuralRelay..." required>
           </div>
           <div class="form-row">
             <div class="form-group">
               <label class="form-label" for="reg-institution">College / University Name *</label>
-              <input type="text" id="reg-institution" class="form-input" placeholder="e.g. [College / University Name]" required>
+              <input type="text" id="reg-institution" class="form-input" placeholder="e.g. SJB Institute of Technology / [College Name]" required>
             </div>
             <div class="form-group">
               <label class="form-label" for="reg-city">City & State *</label>
@@ -456,62 +519,66 @@
             </div>
           </div>
           <div class="form-group">
-            <label class="form-label" for="reg-team-size">Team Size *</label>
+            <label class="form-label" for="reg-team-size">Delegation Size *</label>
             <select id="reg-team-size" class="form-select" onchange="handleTeamSizeChange()">
-              <option value="2">2 Members</option>
-              <option value="3">3 Members</option>
-              <option value="4">4 Members</option>
+              <option value="2">2 Cadets</option>
+              <option value="3">3 Cadets</option>
+              <option value="4">4 Cadets</option>
             </select>
           </div>
-          <div style="display:flex; justify-content:space-between; margin-top:28px;">
+          <div class="reg-pane-nav between">
             <button class="btn btn-secondary" onclick="prevRegStep()">← BACK</button>
-            <button class="btn btn-primary" onclick="nextRegStep()">CONTINUE TO PARTICIPANTS →</button>
+            <button class="btn btn-primary" onclick="nextRegStep()">ENTER CADET ROSTER →</button>
           </div>
         </div>
 
-        <!-- STEP 3 -->
+        <!-- STEP 3: CADET ROSTER -->
         <div id="reg-step-3" class="reg-step-pane" style="display:none;">
-          <div style="font-size:0.8rem; font-weight:700; letter-spacing:0.1em; color:var(--gold); margin-bottom:12px;">TEAM LEADER / PRIMARY CONTACT</div>
+          <div class="cadet-section-header">
+            <span>⚡ PRIMARY SQUAD LEAD (CADET 1)</span>
+          </div>
           <div class="form-row">
             <div class="form-group">
-              <label class="form-label" for="reg-leader-name">Leader Full Name *</label>
+              <label class="form-label" for="reg-leader-name">Full Name *</label>
               <input type="text" id="reg-leader-name" class="form-input" placeholder="e.g. Leader Name" required>
             </div>
             <div class="form-group">
-              <label class="form-label" for="reg-leader-email">Leader Email Address *</label>
+              <label class="form-label" for="reg-leader-email">Email Address *</label>
               <input type="email" id="reg-leader-email" class="form-input" placeholder="e.g. example@gmail.com" required>
             </div>
           </div>
           <div class="form-row">
             <div class="form-group">
-              <label class="form-label" for="reg-leader-phone">Leader Phone Number *</label>
+              <label class="form-label" for="reg-leader-phone">Contact Phone Number *</label>
               <input type="tel" id="reg-leader-phone" class="form-input" placeholder="e.g. +91 98765 43210" required>
             </div>
             <div class="form-group">
-              <label class="form-label" for="reg-leader-usn">College ID / Roll No. *</label>
-              <input type="text" id="reg-leader-usn" class="form-input" placeholder="e.g. 1XX24XX001" required>
+              <label class="form-label" for="reg-leader-usn">Institutional Roll No. / USN *</label>
+              <input type="text" id="reg-leader-usn" class="form-input" placeholder="e.g. 1JB24CS001" required>
             </div>
           </div>
+
           <div id="reg-dynamic-members-container"></div>
-          <div style="display:flex; justify-content:space-between; margin-top:28px;">
+
+          <div class="reg-pane-nav between">
             <button class="btn btn-secondary" onclick="prevRegStep()">← BACK</button>
-            <button class="btn btn-primary" onclick="nextRegStep()">REVIEW ENTRY →</button>
+            <button class="btn btn-primary" onclick="nextRegStep()">AUDIT ENTRY DATA →</button>
           </div>
         </div>
 
-        <!-- STEP 4 -->
+        <!-- STEP 4: AUDIT -->
         <div id="reg-step-4" class="reg-step-pane" style="display:none;">
           <div id="reg-review-summary"></div>
-          <p style="font-size:0.8rem; color:var(--silver-400); margin:16px 0;">
-            Please review the entered details carefully. On confirmation, your unique Silver Jubilee pass code will be created.
-          </p>
-          <div style="display:flex; justify-content:space-between; margin-top:28px;">
-            <button class="btn btn-secondary" onclick="prevRegStep()">← EDIT DETAILS</button>
-            <button class="btn btn-gold" onclick="nextRegStep()">CONFIRM REGISTRATION ★</button>
+          <div class="audit-note-box">
+            <span>⚠️ PROTOCOL NOTE:</span> Review the submitted squad manifest. On verification, your encrypted Silver Jubilee Entry Pass will be generated.
+          </div>
+          <div class="reg-pane-nav between">
+            <button class="btn btn-secondary" onclick="prevRegStep()">← MODIFY ROSTER</button>
+            <button class="btn btn-gold" onclick="nextRegStep()">CONFIRM & GENERATE HOLO-PASS ★</button>
           </div>
         </div>
 
-        <!-- STEP 5 -->
+        <!-- STEP 5: COMMEMORATIVE HOLO-PASS -->
         <div id="reg-step-5" class="reg-step-pane" style="display:none;">
           <div id="reg-confirmation-container"></div>
         </div>
@@ -520,19 +587,31 @@
   </div>
 
   <!-- ========================================================================
-       MODAL: DIGITAL BROCHURE VIEWER
+       MODAL: DIGITAL BROCHURE VIEWER (CYBER FLIPBOOK DOSSIER)
        ======================================================================== -->
   <div class="modal-backdrop" id="brochure-modal" role="dialog" aria-modal="true">
     <div class="modal-container brochure-modal-container">
       <button class="modal-close-btn" id="brochure-modal-close" aria-label="Close brochure modal">✕</button>
-      <div class="brochure-viewer">
+      <div class="brochure-viewer-deck">
+        <!-- Brochure Flip Page Card -->
         <div id="brochure-content-card" class="brochure-page-card"></div>
-        <div class="brochure-controls">
+
+        <!-- Brochure Controls Deck -->
+        <div class="brochure-controls-deck">
           <button class="btn btn-secondary btn-sm" id="brochure-prev-btn">← PREVIOUS</button>
-          <div class="page-counter" id="brochure-page-counter">Page 1 of 6</div>
-          <div style="display:flex; gap:10px;">
-            <button class="btn btn-secondary btn-sm" id="brochure-print-btn">🖨️ PRINT</button>
-            <button class="btn btn-primary btn-sm" id="brochure-next-btn">NEXT →</button>
+          
+          <div class="brochure-page-indicator">
+            <span id="brochure-page-counter">PAGE 1 OF 6</span>
+            <div class="brochure-dots-wrap" id="brochure-dots-container"></div>
+          </div>
+
+          <div class="brochure-right-actions">
+            <button class="btn btn-secondary btn-sm" id="brochure-print-btn" title="Print this page or full brochure">
+              <span>🖨️ PRINT DOSSIER</span>
+            </button>
+            <button class="btn btn-primary btn-sm" id="brochure-next-btn">
+              <span>NEXT PAGE →</span>
+            </button>
           </div>
         </div>
       </div>
