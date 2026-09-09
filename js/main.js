@@ -24,7 +24,7 @@ document.addEventListener('DOMContentLoaded', () => {
    1. 3D TECH UNIVERSE & COSMIC CONSTELLATION CANVAS ENGINE
    ========================================================================== */
 function initTechUniverseCanvas() {
-  const canvas = document.getElementById('hero-canvas');
+  const canvas = document.getElementById('universe-canvas') || document.getElementById('hero-canvas');
   if (!canvas) return;
 
   const ctx = canvas.getContext('2d');
@@ -1294,3 +1294,42 @@ function renderBrochurePage() {
 
 window.openBrochureModal = openBrochureModal;
 window.closeBrochureModal = closeBrochureModal;
+
+/* ==========================================================================
+   14. FULL-SCREEN HUD MODALS SYSTEM
+   ========================================================================== */
+function openHudModal(name) {
+  const modal = document.getElementById(`hud-modal-${name}`);
+  if (modal) {
+    modal.classList.add('active');
+  }
+}
+
+function closeHudModal(name) {
+  const modal = document.getElementById(`hud-modal-${name}`);
+  if (modal) {
+    modal.classList.remove('active');
+  }
+}
+
+window.openHudModal = openHudModal;
+window.closeHudModal = closeHudModal;
+
+// Close HUD modals on outside click or ESC key
+document.addEventListener('DOMContentLoaded', () => {
+  document.querySelectorAll('.hud-modal-overlay').forEach(overlay => {
+    overlay.addEventListener('click', (e) => {
+      if (e.target === overlay) {
+        overlay.classList.remove('active');
+      }
+    });
+  });
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+      document.querySelectorAll('.hud-modal-overlay.active').forEach(m => {
+        m.classList.remove('active');
+      });
+    }
+  });
+});

@@ -2,31 +2,18 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
-  <meta name="theme-color" content="#07070a">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="theme-color" content="#050508">
 
   <!-- SEO & Social Meta Tags -->
   <title>VIGYANTRA 2026 | Silver Jubilee Technical Symposium</title>
-  <meta name="description" content="VIGYANTRA 2026 — Silver Jubilee Technical Symposium celebrating 25 years of engineering excellence through coding, AI, cybersecurity, robotics, innovation and technical competitions.">
-  <meta name="keywords" content="Vigyantra 2026, Technical Symposium, Silver Jubilee, Engineering College, Hackathon, Coding, Robotics, CTF, Tech Quiz, Bengaluru">
-  <meta name="author" content="Vigyantra Technical Council">
+  <meta name="description" content="VIGYANTRA 2026 — 25th Silver Jubilee National Technical Symposium on October 30, 2026. 8 Flagship Arenas, ₹1,00,000+ Prize Pool, 1000+ Innovators.">
+  <meta name="keywords" content="Vigyantra 2026, Technical Symposium, Silver Jubilee, Hackathon, Coding, Robotics, CTF, Tech Quiz, Bengaluru">
 
-  <!-- Open Graph / Facebook -->
-  <meta property="og:type" content="website">
-  <meta property="og:url" content="https://example-symposium.vercel.app/">
-  <meta property="og:title" content="VIGYANTRA 2026 | Silver Jubilee Technical Symposium">
-  <meta property="og:description" content="Celebrating 25 Years of Engineering Excellence. 8 Flagship Arenas, ₹1,00,000+ Prize Pool, 1000+ Innovators.">
-  <meta property="og:site_name" content="Vigyantra 2026">
-
-  <!-- Twitter -->
-  <meta property="twitter:card" content="summary_large_image">
-  <meta property="twitter:title" content="VIGYANTRA 2026 | Silver Jubilee Technical Symposium">
-  <meta property="twitter:description" content="Celebrating 25 Years of Engineering Excellence. 8 Flagship Arenas, ₹1,00,000+ Prize Pool, 1000+ Innovators.">
-
-  <!-- Google Fonts: Cinzel (Jubilee Headings) & Inter (Body & UI) -->
+  <!-- Google Fonts: Cinzel & Inter -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;800;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;800;900&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 
   <!-- Custom Stylesheet -->
   <link rel="stylesheet" href="css/styles.css">
@@ -34,463 +21,348 @@
 <body>
 
   <!-- ========================================================================
-       STICKY NAVBAR
+       3D TECH UNIVERSE CANVAS & COSMIC GLOW (FULL VIEWPORT)
        ======================================================================== -->
-  <header class="site-header" role="banner">
-    <div class="container nav-container">
-      <a href="#hero" class="site-logo" aria-label="Vigyantra 2026 Home">
-        <div class="logo-symbol">V</div>
-        <div class="logo-text">
-          <span class="logo-name">VIGYANTRA</span>
-          <span class="logo-tag">SILVER JUBILEE 2026</span>
-        </div>
-      </a>
+  <canvas id="universe-canvas" aria-hidden="true"></canvas>
+  <div class="cosmic-nebula-glow" aria-hidden="true"></div>
+  <div class="cyber-grid-overlay" aria-hidden="true"></div>
 
-      <nav role="navigation" aria-label="Main Navigation">
-        <ul class="nav-links">
-          <li><a href="#about" class="nav-link">ABOUT</a></li>
-          <li><a href="#events" class="nav-link">EVENTS</a></li>
-          <li><a href="#schedule" class="nav-link">SCHEDULE</a></li>
-          <li><a href="#prizes" class="nav-link">PRIZES</a></li>
-          <li><a href="#guidelines" class="nav-link">GUIDELINES</a></li>
-          <li><a href="#faq" class="nav-link">FAQ</a></li>
-          <li><a href="#contact" class="nav-link">CONTACT</a></li>
-        </ul>
-      </nav>
+  <!-- ========================================================================
+       FUTURISTIC CYBER TASKBAR (TOP CONTROL DECK)
+       ======================================================================== -->
+  <header class="cyber-taskbar" role="banner">
+    <div class="taskbar-brand">
+      <div class="brand-cyber-badge">V</div>
+      <div class="brand-text-col">
+        <span class="brand-title">VIGYANTRA</span>
+        <span class="brand-edition">SILVER JUBILEE • 2026</span>
+      </div>
+    </div>
 
-      <div class="nav-actions">
-        <button class="btn btn-primary btn-sm" onclick="openRegistrationModal()" aria-label="Open Registration Portal">
-          REGISTER NOW
-        </button>
-        <button class="mobile-nav-toggle" aria-label="Toggle Navigation Menu">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <line x1="3" y1="12" x2="21" y2="12"></line>
-            <line x1="3" y1="6" x2="21" y2="6"></line>
-            <line x1="3" y1="18" x2="21" y2="18"></line>
-          </svg>
-        </button>
+    <!-- HUD Taskbar Menu -->
+    <nav role="navigation" aria-label="Deck Controls">
+      <ul class="taskbar-deck-menu">
+        <li>
+          <button class="taskbar-btn" onclick="openHudModal('events')">
+            <span>❖</span> 08 EVENTS
+          </button>
+        </li>
+        <li>
+          <button class="taskbar-btn" onclick="openHudModal('schedule')">
+            <span>⏱</span> TIMELINE
+          </button>
+        </li>
+        <li>
+          <button class="taskbar-btn" onclick="openHudModal('prizes')">
+            <span>🏆</span> PRIZES
+          </button>
+        </li>
+        <li>
+          <button class="taskbar-btn" onclick="openHudModal('guidelines')">
+            <span>📜</span> GUIDELINES
+          </button>
+        </li>
+        <li>
+          <button class="taskbar-btn" onclick="openHudModal('faq')">
+            <span>❓</span> FAQ
+          </button>
+        </li>
+        <li>
+          <button class="taskbar-btn" onclick="openHudModal('venue')">
+            <span>📍</span> VENUE & INFO
+          </button>
+        </li>
+      </ul>
+    </nav>
+
+    <div class="taskbar-actions">
+      <div class="system-status-indicator">
+        <span class="status-pulse-dot"></span>
+        <span>SYS.CORE: ONLINE</span>
       </div>
     </div>
   </header>
 
-  <!-- Mobile Navigation Drawer -->
-  <div class="mobile-drawer-backdrop" aria-hidden="true"></div>
-  <aside class="mobile-nav-drawer" role="dialog" aria-label="Mobile Navigation Menu">
-    <div class="mobile-drawer-header">
-      <div class="site-logo">
-        <div class="logo-symbol">V</div>
-        <div class="logo-text">
-          <span class="logo-name">VIGYANTRA</span>
-          <span class="logo-tag">25TH EDITION</span>
+  <!-- ========================================================================
+       MAIN COMMAND DECK (100VH STAGE - NO VERTICAL SCROLL)
+       ======================================================================== -->
+  <main class="command-deck-stage">
+
+    <!-- With Divine Blessings of Revered Swamijis -->
+    <section class="blessings-panel" aria-label="Divine Blessings">
+      <div class="blessings-title-badge">
+        WITH THE DIVINE BLESSINGS OF
+      </div>
+      <div class="swamijis-row">
+        <!-- Swamiji 1 -->
+        <div class="swamiji-avatar-card">
+          <div class="swamiji-avatar-wrapper">
+            <img src="assets/swamiji_1.png" alt="Jagadguru Sri Sri Sri Dr. Balagangadharanatha Mahaswamiji" class="swamiji-img">
+          </div>
+          <div class="swamiji-name">Jagadguru Sri Sri Sri Dr. Balagangadharanatha Mahaswamiji</div>
+          <div class="swamiji-designation">Founder President</div>
+        </div>
+
+        <!-- Swamiji 2 -->
+        <div class="swamiji-avatar-card">
+          <div class="swamiji-avatar-wrapper">
+            <img src="assets/swamiji_2.png" alt="Jagadguru Sri Sri Sri Dr. Nirmalanandanatha Mahaswamiji" class="swamiji-img">
+          </div>
+          <div class="swamiji-name">Jagadguru Sri Sri Sri Dr. Nirmalanandanatha Mahaswamiji</div>
+          <div class="swamiji-designation">President, BGS & SJBIT</div>
+        </div>
+
+        <!-- Swamiji 3 -->
+        <div class="swamiji-avatar-card">
+          <div class="swamiji-avatar-wrapper">
+            <img src="assets/swamiji_3.png" alt="Poojya Sri Sri Prakashanatha Swamiji" class="swamiji-img">
+          </div>
+          <div class="swamiji-name">Poojya Sri Sri Prakashanatha Swamiji</div>
+          <div class="swamiji-designation">Managing Director</div>
         </div>
       </div>
-      <button class="modal-close-btn mobile-drawer-close" aria-label="Close Mobile Navigation">✕</button>
+    </section>
+
+    <!-- Center Stage Landmark & Hologram -->
+    <div class="deck-center-landmark">
+      <div class="deck-jubilee-eyebrow">
+        <span>✦ 25 YEARS OF ENGINEERING EXCELLENCE ✦</span>
+      </div>
+
+      <div class="deck-hologram-number">25</div>
+
+      <h1 class="deck-title">VIGYANTRA 2026</h1>
+      <div class="deck-subtitle">
+        <span>NATIONAL TECHNICAL SYMPOSIUM</span>
+        <span>•</span>
+        <span class="deck-date-highlight">OCTOBER 30, 2026</span>
+      </div>
+
+      <!-- Live Dynamic Countdown -->
+      <div class="deck-countdown-wrapper">
+        <div class="deck-countdown-grid" role="timer" aria-live="polite">
+          <div class="countdown-digit-cell">
+            <div class="cd-val" id="cd-days">00</div>
+            <div class="cd-lbl">DAYS</div>
+          </div>
+          <div class="countdown-digit-cell">
+            <div class="cd-val" id="cd-hours">00</div>
+            <div class="cd-lbl">HOURS</div>
+          </div>
+          <div class="countdown-digit-cell">
+            <div class="cd-val" id="cd-mins">00</div>
+            <div class="cd-lbl">MINS</div>
+          </div>
+          <div class="countdown-digit-cell">
+            <div class="cd-val" id="cd-secs">00</div>
+            <div class="cd-lbl">SECS</div>
+          </div>
+        </div>
+      </div>
     </div>
-    <ul class="mobile-nav-links">
-      <li><a href="#about" class="mobile-nav-link">ABOUT</a></li>
-      <li><a href="#events" class="mobile-nav-link">EVENTS</a></li>
-      <li><a href="#schedule" class="mobile-nav-link">SCHEDULE</a></li>
-      <li><a href="#prizes" class="mobile-nav-link">PRIZES</a></li>
-      <li><a href="#guidelines" class="mobile-nav-link">GUIDELINES</a></li>
-      <li><a href="#faq" class="mobile-nav-link">FAQ</a></li>
-      <li><a href="#contact" class="mobile-nav-link">CONTACT</a></li>
-    </ul>
-    <div style="margin-top:auto; padding-top:24px;">
-      <button class="btn btn-primary" style="width:100%;" onclick="openRegistrationModal()">
-        REGISTER NOW
+
+    <!-- ======================================================================
+         THE 3 PRIMARY CYBER ACTION TRIGGERS
+         ====================================================================== -->
+    <div class="deck-action-triggers">
+      <!-- 1. Explore Events -->
+      <button class="cyber-btn cyber-btn-events" onclick="openHudModal('events')">
+        <span>❖ EXPLORE EVENTS</span>
+      </button>
+
+      <!-- 2. Register Now -->
+      <button class="cyber-btn cyber-btn-register" onclick="openRegistrationModal()">
+        <span>⚡ REGISTER NOW</span>
+      </button>
+
+      <!-- 3. View Brochure -->
+      <button class="cyber-btn cyber-btn-brochure" onclick="openBrochureModal()">
+        <span>📖 VIEW BROCHURE</span>
       </button>
     </div>
-  </aside>
+  </main>
 
-  <main>
-    <!-- ======================================================================
-         HERO SECTION (3D TECH UNIVERSE)
-         ====================================================================== -->
-    <section id="hero" class="hero-section">
-      <canvas id="hero-canvas" aria-hidden="true"></canvas>
-      <div class="hero-glow-overlay" aria-hidden="true"></div>
-      <div class="hero-grid-lines" aria-hidden="true"></div>
-
-      <div class="container hero-content">
-        <div class="hero-eyebrow">
-          <span class="spark-dot"></span>
-          <span>25 YEARS OF ENGINEERING EXCELLENCE</span>
-        </div>
-
-        <div class="hero-jubilee-number">25</div>
-
-        <h1 class="hero-title">VIGYANTRA 2026</h1>
-        <div class="hero-subtitle">NATIONAL TECHNICAL SYMPOSIUM</div>
-
-        <p class="hero-tagline">
-          Celebrating a quarter century of innovation, engineering and student excellence.
-        </p>
-
-        <!-- Live Countdown Timer -->
-        <div class="hero-countdown-wrap">
-          <div class="countdown-label">COUNTDOWN TO OCTOBER 30, 2026 — SILVER JUBILEE SYMPOSIUM</div>
-          <div class="countdown-grid" role="timer" aria-live="polite">
-            <div class="countdown-box">
-              <div class="countdown-value" id="cd-days">00</div>
-              <div class="countdown-unit">DAYS</div>
-            </div>
-            <div class="countdown-box">
-              <div class="countdown-value" id="cd-hours">00</div>
-              <div class="countdown-unit">HOURS</div>
-            </div>
-            <div class="countdown-box">
-              <div class="countdown-value" id="cd-mins">00</div>
-              <div class="countdown-unit">MINUTES</div>
-            </div>
-            <div class="countdown-box">
-              <div class="countdown-value" id="cd-secs">00</div>
-              <div class="countdown-unit">SECONDS</div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Action CTAs -->
-        <div class="hero-actions">
-          <a href="#events" class="btn btn-secondary">
-            EXPLORE EVENTS
-          </a>
-          <button class="btn btn-primary" onclick="openRegistrationModal()">
-            REGISTER NOW
-          </button>
-          <button class="btn btn-gold" onclick="openBrochureModal()">
-            <span>📖 VIEW BROCHURE</span>
-          </button>
-        </div>
+  <!-- ========================================================================
+       BOTTOM TELEMETRY STATUS TICKER
+       ======================================================================== -->
+  <footer class="deck-telemetry-footer" role="contentinfo">
+    <div class="telemetry-left">
+      <span>✦ SYS.STATUS: ONLINE</span>
+      <span>//</span>
+      <div class="telemetry-stream-ticker" id="telemetry-status-text">
+        GRID: 12.9716° N, 77.5946° E // 8 FLAGSHIP ARENAS ACTIVE // SYMPOSIUM LAUNCH: 30-OCT-2026 // EDITION: 25 // QUANTUM CORE: SYNCHRONIZED
       </div>
-    </section>
+    </div>
+    <div class="telemetry-right">
+      <span>VIGYANTRA 2026</span>
+    </div>
+  </footer>
 
-    <!-- ======================================================================
-         FUTURISTIC TELEMETRY TICKER BAR
-         ====================================================================== -->
-    <div class="telemetry-bar" aria-hidden="true">
-      <div class="container telemetry-inner">
-        <div class="telemetry-lead">
-          <span class="telemetry-pulse-dot"></span>
-          <span>SYS.TELEMETRY:</span>
+  <!-- ========================================================================
+       HUD MODAL: 08 FLAGSHIP EVENTS MATRIX
+       ======================================================================== -->
+  <div class="hud-modal-overlay" id="hud-modal-events" role="dialog" aria-modal="true">
+    <div class="hud-dialog-window">
+      <div class="hud-dialog-header">
+        <div class="hud-dialog-title">
+          <h2>THE 8 FLAGSHIP ARENAS</h2>
+          <span class="hud-dialog-tag">COMPETITIVE MATRIX</span>
         </div>
-        <div class="telemetry-text" id="telemetry-status-text">
-          SYS.STATUS: OPERATIONAL // TIMELINE: T-MINUS 25 YEARS // JUBILEE HORIZON: 2026 // GRID: 12.9716° N, 77.5946° E
+        <button class="hud-close-btn" onclick="closeHudModal('events')">✕</button>
+      </div>
+      <div class="hud-dialog-body">
+        <div class="events-filter-bar" style="margin-bottom:20px;">
+          <button class="filter-btn active" data-filter="all">ALL</button>
+          <button class="filter-btn" data-filter="coding">CODING</button>
+          <button class="filter-btn" data-filter="ai">AI & DATA</button>
+          <button class="filter-btn" data-filter="hardware">HARDWARE</button>
+          <button class="filter-btn" data-filter="cybersecurity">SECURITY</button>
+          <button class="filter-btn" data-filter="project">PROJECTS</button>
+          <button class="filter-btn" data-filter="quiz">QUIZ</button>
+        </div>
+        <div class="hud-events-grid" id="events-grid-container">
+          <!-- Rendered dynamically by js/main.js -->
         </div>
       </div>
     </div>
+  </div>
 
-    <!-- ======================================================================
-         STATISTICS ROW
-         ====================================================================== -->
-    <section class="stats-section" aria-label="Symposium Key Metrics">
-      <div class="container">
-        <div class="stats-card-wrapper">
-          <div class="stats-grid">
-            <div class="stat-item">
-              <div class="stat-number" data-target="25" data-suffix="th">25th</div>
-              <div class="stat-label">SILVER JUBILEE EDITION</div>
-            </div>
-            <div class="stat-item">
-              <div class="stat-number" data-target="8" data-suffix="">08</div>
-              <div class="stat-label">FLAGSHIP EVENTS</div>
-            </div>
-            <div class="stat-item">
-              <div class="stat-number" data-target="100000" data-prefix="₹" data-suffix="+">₹1,00,000+</div>
-              <div class="stat-label">PRIZE POOL</div>
-            </div>
-            <div class="stat-item">
-              <div class="stat-number" data-target="1000" data-suffix="+">1000+</div>
-              <div class="stat-label">INNOVATORS</div>
-            </div>
-            <div class="stat-item">
-              <div class="stat-number" data-target="50" data-suffix="+">50+</div>
-              <div class="stat-label">INSTITUTES</div>
-            </div>
-          </div>
+  <!-- ========================================================================
+       HUD MODAL: TIMELINE / SCHEDULE
+       ======================================================================== -->
+  <div class="hud-modal-overlay" id="hud-modal-schedule" role="dialog" aria-modal="true">
+    <div class="hud-dialog-window">
+      <div class="hud-dialog-header">
+        <div class="hud-dialog-title">
+          <h2>SYMPOSIUM TIMELINE</h2>
+          <span class="hud-dialog-tag">OCTOBER 30 & 31, 2026</span>
         </div>
+        <button class="hud-close-btn" onclick="closeHudModal('schedule')">✕</button>
       </div>
-    </section>
-
-    <!-- ======================================================================
-         ABOUT & LEGACY SECTION
-         ====================================================================== -->
-    <section id="about" class="section-padding about-section">
-      <div class="container">
-        <div class="section-header">
-          <div class="section-eyebrow gold">
-            <span>MILESTONE ANNIVERSARY</span>
-          </div>
-          <h2 class="section-title metallic-gradient-text">25 YEARS. ONE LEGACY.</h2>
-          <p class="section-subtitle">
-            A quarter century dedicated to cultivating intellectual rigor, transformative engineering, and uncompromising competitive spirit.
-          </p>
-        </div>
-
-        <div class="about-grid">
-          <div class="about-editorial-text">
-            <p>
-              In 2001, our institution inaugurated an inter-college technical gathering aimed at testing the practical acumen of engineering students. Today, twenty-five years later, <strong>VIGYANTRA</strong> has evolved into a premier national technical symposium — a battleground where thousands of collegiate innovators assemble to tackle computing, robotic, algorithmic, and design challenges.
-            </p>
-            <p>
-              The 25th Silver Jubilee Edition stands as a testament to our relentless pursuit of technological relevance. It bridges the gap between academic textbooks and industrial reality, empowering students to challenge conventional boundaries, engineer resilient architectures, and discover solutions that redefine what is technically possible.
-            </p>
-
-            <div class="about-pillars">
-              <div class="pillar-card">
-                <div class="pillar-title">⚙️ Engineering Rigor</div>
-                <div class="pillar-desc">Uncompromising challenges designed to evaluate core foundational problem solving.</div>
-              </div>
-              <div class="pillar-card">
-                <div class="pillar-title">🧠 Frontier Technologies</div>
-                <div class="pillar-desc">Deep immersion into Generative AI, Cyber Defense, IoT, and Cloud Systems.</div>
-              </div>
-              <div class="pillar-card">
-                <div class="pillar-title">🤝 Collaborative Spirit</div>
-                <div class="pillar-desc">Cross-institutional teams fostering cross-pollination of breakthrough ideas.</div>
-              </div>
-              <div class="pillar-card">
-                <div class="pillar-title">🏆 Industry Recognition</div>
-                <div class="pillar-desc">Evaluations by veteran practitioners, venture capitalists, and university deans.</div>
-              </div>
-            </div>
-          </div>
-
-          <!-- Legacy Evolution Track Graphic -->
-          <div class="legacy-track-container">
-            <div class="legacy-track-title">
-              <span>CHRONICLES OF EXCELLENCE (2001 – 2026)</span>
-            </div>
-            <div class="legacy-nodes">
-              <div class="legacy-node">
-                <div class="node-marker">01</div>
-                <div class="node-content">
-                  <div class="node-year">2001 • INCEPTION</div>
-                  <div class="node-heading">Foundation & Campus Inception</div>
-                  <div class="node-text">The inaugural technical assembly established to celebrate engineering ingenuity across department labs.</div>
-                </div>
-              </div>
-              <div class="legacy-node">
-                <div class="node-marker">02</div>
-                <div class="node-content">
-                  <div class="node-year">2008 • EXPANSION</div>
-                  <div class="node-heading">Inter-Collegiate Growth</div>
-                  <div class="node-text">Expansion into a multi-institution symposium hosting participants across Karnataka.</div>
-                </div>
-              </div>
-              <div class="legacy-node">
-                <div class="node-marker">03</div>
-                <div class="node-content">
-                  <div class="node-year">2015 • ACCELERATION</div>
-                  <div class="node-heading">Innovation & Project Expo Era</div>
-                  <div class="node-text">Introduction of funded project exhibitions, patent workshops, and 24-hour hackathons.</div>
-                </div>
-              </div>
-              <div class="legacy-node">
-                <div class="node-marker">04</div>
-                <div class="node-content">
-                  <div class="node-year">2020 • DIGITAL MATRIX</div>
-                  <div class="node-heading">Digital Era & Autonomous Tracks</div>
-                  <div class="node-text">Integration of capture-the-flag cyber ranges, machine learning challenges, and virtual dev arenas.</div>
-                </div>
-              </div>
-              <div class="legacy-node active">
-                <div class="node-marker">25</div>
-                <div class="node-content">
-                  <div class="node-year">2026 • SILVER JUBILEE</div>
-                  <div class="node-heading">The Silver Jubilee Pinnacle</div>
-                  <div class="node-text">8 flagship national arenas, ₹1,00,000+ prize pool, and India's finest technical minds united.</div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ======================================================================
-         8 FLAGSHIP EVENTS SECTION
-         ====================================================================== -->
-    <section id="events" class="section-padding events-section" style="background: var(--bg-deep);">
-      <div class="container">
-        <div class="section-header">
-          <div class="section-eyebrow">
-            <span>COMPETITIVE ARENAS</span>
-          </div>
-          <h2 class="section-title">THE 8 FLAGSHIP EVENTS</h2>
-          <p class="section-subtitle">
-            Eight arenas. Eight ways to engineer the future.
-          </p>
-        </div>
-
-        <!-- Filter Tabs -->
-        <div class="events-filter-bar" role="tablist" aria-label="Event category filters">
-          <button class="filter-btn active" data-filter="all">ALL</button>
-          <button class="filter-btn" data-filter="coding">CODING & SOFTWARE</button>
-          <button class="filter-btn" data-filter="ai">AI & DATA</button>
-          <button class="filter-btn" data-filter="hardware">HARDWARE & ROBOTICS</button>
-          <button class="filter-btn" data-filter="cybersecurity">CYBERSECURITY</button>
-          <button class="filter-btn" data-filter="project">PROJECT & INNOVATION</button>
-          <button class="filter-btn" data-filter="quiz">QUIZ</button>
-        </div>
-
-        <!-- 8 Event Cards Grid (Rendered via JS with HUD brackets) -->
-        <div class="events-grid" id="events-grid-container">
-          <!-- Populated by js/main.js from js/events-data.js -->
-        </div>
-      </div>
-    </section>
-
-    <!-- ======================================================================
-         SCHEDULE / TIMELINE SECTION
-         ====================================================================== -->
-    <section id="schedule" class="section-padding schedule-section">
-      <div class="container">
-        <div class="section-header">
-          <div class="section-eyebrow">
-            <span>EVENT CHRONOLOGY</span>
-          </div>
-          <h2 class="section-title">THE SYMPOSIUM TIMELINE</h2>
-          <p class="section-subtitle">
-            Two days of precision-orchestrated hack sprints, keynote addresses, and high-stakes arena clashes.
-          </p>
-        </div>
-
-        <div class="schedule-tabs-container">
+      <div class="hud-dialog-body">
+        <div class="schedule-tabs-container" style="margin-bottom:28px;">
           <button class="schedule-tab-btn active" data-day="day1">
-            <span>DAY 01</span>
+            <span>DAY 01 (OCT 30)</span>
             <span class="tab-sub">IGNITION & SPRINT</span>
           </button>
           <button class="schedule-tab-btn" data-day="day2">
-            <span>DAY 02</span>
+            <span>DAY 02 (OCT 31)</span>
             <span class="tab-sub">FINALS & VALEDICTORY</span>
           </button>
         </div>
-
         <div class="timeline-flow" id="timeline-container">
-          <!-- Populated by js/main.js from js/events-data.js -->
+          <!-- Rendered dynamically by js/main.js -->
         </div>
       </div>
-    </section>
+    </div>
+  </div>
 
-    <!-- ======================================================================
-         PRIZES SECTION (HALL OF GLORY)
-         ====================================================================== -->
-    <section id="prizes" class="section-padding prizes-section" style="background: var(--bg-deep);">
-      <div class="container">
-        <div class="section-header">
-          <div class="section-eyebrow gold">
-            <span>HONOR & RECOGNITION</span>
-          </div>
-          <h2 class="section-title gold-gradient-text">HALL OF GLORY</h2>
-          <p class="section-subtitle">
-            Rewarding technical virtuosity, tenacity, and pioneering design with ₹1,00,000+ in rewards.
-          </p>
+  <!-- ========================================================================
+       HUD MODAL: PRIZES & HALL OF GLORY
+       ======================================================================== -->
+  <div class="hud-modal-overlay" id="hud-modal-prizes" role="dialog" aria-modal="true">
+    <div class="hud-dialog-window">
+      <div class="hud-dialog-header">
+        <div class="hud-dialog-title">
+          <h2>HALL OF GLORY</h2>
+          <span class="hud-dialog-tag">₹1,00,000+ PRIZE POOL</span>
         </div>
-
+        <button class="hud-close-btn" onclick="closeHudModal('prizes')">✕</button>
+      </div>
+      <div class="hud-dialog-body">
         <div class="prizes-grid" id="prizes-grid-container">
-          <!-- Populated by js/main.js from js/events-data.js -->
+          <!-- Rendered dynamically by js/main.js -->
         </div>
       </div>
-    </section>
+    </div>
+  </div>
 
-    <!-- ======================================================================
-         GUIDELINES & RULES SECTION
-         ====================================================================== -->
-    <section id="guidelines" class="section-padding guidelines-section">
-      <div class="container container-narrow">
-        <div class="section-header">
-          <div class="section-eyebrow">
-            <span>CODE OF INTEGRITY</span>
-          </div>
-          <h2 class="section-title">RULES OF THE GAME</h2>
-          <p class="section-subtitle">
-            Transparent protocols designed to safeguard competitive fairness and collegiate respect.
-          </p>
+  <!-- ========================================================================
+       HUD MODAL: GUIDELINES & RULES
+       ======================================================================== -->
+  <div class="hud-modal-overlay" id="hud-modal-guidelines" role="dialog" aria-modal="true">
+    <div class="hud-dialog-window">
+      <div class="hud-dialog-header">
+        <div class="hud-dialog-title">
+          <h2>RULES OF THE GAME</h2>
+          <span class="hud-dialog-tag">INTEGRITY & PROTOCOLS</span>
         </div>
-
+        <button class="hud-close-btn" onclick="closeHudModal('guidelines')">✕</button>
+      </div>
+      <div class="hud-dialog-body">
         <div class="accordion-wrapper" id="guidelines-accordion-container">
-          <!-- Populated by js/main.js from js/events-data.js -->
+          <!-- Rendered dynamically by js/main.js -->
         </div>
       </div>
-    </section>
+    </div>
+  </div>
 
-    <!-- ======================================================================
-         FAQ SECTION
-         ====================================================================== -->
-    <section id="faq" class="section-padding faq-section" style="background: var(--bg-deep);">
-      <div class="container container-narrow">
-        <div class="section-header">
-          <div class="section-eyebrow">
-            <span>CLEARING QUERIES</span>
-          </div>
-          <h2 class="section-title">FREQUENTLY ASKED QUESTIONS</h2>
-          <p class="section-subtitle">
-            Everything you need to know about team formations, logistics, fees, and event participation.
-          </p>
+  <!-- ========================================================================
+       HUD MODAL: FREQUENTLY ASKED QUESTIONS
+       ======================================================================== -->
+  <div class="hud-modal-overlay" id="hud-modal-faq" role="dialog" aria-modal="true">
+    <div class="hud-dialog-window">
+      <div class="hud-dialog-header">
+        <div class="hud-dialog-title">
+          <h2>FREQUENTLY ASKED QUESTIONS</h2>
+          <span class="hud-dialog-tag">KNOWLEDGE BASE</span>
         </div>
-
+        <button class="hud-close-btn" onclick="closeHudModal('faq')">✕</button>
+      </div>
+      <div class="hud-dialog-body">
         <div class="accordion-wrapper" id="faq-accordion-container">
-          <!-- Populated by js/main.js from js/events-data.js -->
+          <!-- Rendered dynamically by js/main.js -->
         </div>
       </div>
-    </section>
+    </div>
+  </div>
 
-    <!-- ======================================================================
-         VENUE & CONTACT SECTION (CLEAN PLACEHOLDERS)
-         ====================================================================== -->
-    <section id="contact" class="section-padding venue-contact-section">
-      <div class="container">
-        <div class="section-header">
-          <div class="section-eyebrow">
-            <span>LOCATION & COORDINATION</span>
-          </div>
-          <h2 class="section-title">JOIN US ON CAMPUS</h2>
-          <p class="section-subtitle">
-            Connect with student leads, faculty convenors, or plan your transit to the symposium venue.
-          </p>
+  <!-- ========================================================================
+       HUD MODAL: VENUE, LOCATION & COORDINATORS
+       ======================================================================== -->
+  <div class="hud-modal-overlay" id="hud-modal-venue" role="dialog" aria-modal="true">
+    <div class="hud-dialog-window">
+      <div class="hud-dialog-header">
+        <div class="hud-dialog-title">
+          <h2>VENUE & COORDINATION</h2>
+          <span class="hud-dialog-tag">CAMPUS TELEMETRY</span>
         </div>
-
+        <button class="hud-close-btn" onclick="closeHudModal('venue')">✕</button>
+      </div>
+      <div class="hud-dialog-body">
         <div class="venue-contact-grid">
-          <!-- Venue Card (Clean Placeholders) -->
           <div class="venue-card">
-            <div style="font-size:0.75rem; font-weight:700; letter-spacing:0.15em; color:var(--cyan-accent); margin-bottom:12px;">CAMPUS ARENA</div>
+            <div style="font-size:0.75rem; font-weight:700; letter-spacing:0.15em; color:var(--cyan); margin-bottom:12px;">CAMPUS LOCATION</div>
             <h3 style="font-size:1.6rem; color:#ffffff; margin-bottom:8px;">[COLLEGE / UNIVERSITY CAMPUS]</h3>
             <p style="font-size:0.95rem; color:var(--silver-300); margin-bottom:6px;">[Campus Street / Area Placeholder]</p>
             <p style="font-size:0.9rem; color:var(--silver-400); margin-bottom:24px;">Bengaluru, Karnataka, India</p>
-
             <div style="background:rgba(226,232,240,0.03); border:1px solid var(--border-subtle); border-radius:8px; padding:16px; margin-bottom:24px;">
-              <div style="font-size:0.85rem; color:var(--silver-300); margin-bottom:6px;"><strong>Transit Guide:</strong> Nearest Metro Station / Transit Hub is approximately 3-4 km away. Direct shuttle buses and city transit services are readily accessible.</div>
+              <div style="font-size:0.85rem; color:var(--silver-300);"><strong>Transit:</strong> Transit stations and metro hubs are located approximately 3-4 km away. Direct shuttle services available on Oct 30.</div>
             </div>
-
             <a href="https://maps.google.com/?q=Bengaluru+Karnataka" target="_blank" rel="noopener noreferrer" class="btn btn-secondary">
               <span>📍 GET DIRECTIONS (MAP)</span>
             </a>
           </div>
-
-          <!-- Contact Card (Clean Placeholders) -->
           <div class="contact-card">
-            <div style="font-size:0.75rem; font-weight:700; letter-spacing:0.15em; color:var(--cyan-accent); margin-bottom:12px;">ORGANIZING COMMITTEE</div>
-            <h3 style="font-size:1.6rem; color:#ffffff; margin-bottom:8px;">GET IN TOUCH</h3>
-            <p style="font-size:0.92rem; color:var(--silver-400);">For institutional queries, group registrations, or technical clarifications:</p>
-
+            <div style="font-size:0.75rem; font-weight:700; letter-spacing:0.15em; color:var(--cyan); margin-bottom:12px;">COORDINATING COMMITTEE</div>
+            <h3 style="font-size:1.6rem; color:#ffffff; margin-bottom:8px;">CONTACT DESK</h3>
             <div class="contact-roles-grid">
               <div>
                 <div class="role-block-title">STUDENT COORDINATORS</div>
                 <div class="contact-person">
-                  <div class="contact-name">Student Lead 1</div>
+                  <div class="contact-name">Student Coordinator 1</div>
                   <a href="tel:+91XXXXXXXXXX" class="contact-detail">+91 XXXXX XXXXX</a>
                 </div>
                 <div class="contact-person">
-                  <div class="contact-name">Student Lead 2</div>
+                  <div class="contact-name">Student Coordinator 2</div>
                   <a href="tel:+91XXXXXXXXXX" class="contact-detail">+91 XXXXX XXXXX</a>
                 </div>
               </div>
-
               <div>
                 <div class="role-block-title">FACULTY CONVENORS</div>
                 <div class="contact-person">
                   <div class="contact-name">Dr. Faculty Convenor</div>
-                  <div class="contact-detail">Professor & Head, Tech Council</div>
+                  <div class="contact-detail">Head, Technical Council</div>
                 </div>
                 <div class="contact-person">
                   <div class="contact-name">Prof. Staff Coordinator</div>
@@ -498,70 +370,19 @@
                 </div>
               </div>
             </div>
-
             <div style="margin-top:20px; font-size:0.85rem; color:var(--silver-400);">
-              Official Inquiries: <a href="mailto:example@gmail.com" style="color:var(--cyan-accent); text-decoration:none;">example@gmail.com</a>
-            </div>
-
-            <div class="social-links">
-              <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" class="social-btn" aria-label="Instagram">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
-              </a>
-              <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" class="social-btn" aria-label="LinkedIn">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg>
-              </a>
-              <a href="https://youtube.com" target="_blank" rel="noopener noreferrer" class="social-btn" aria-label="YouTube">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33A2.78 2.78 0 0 0 3.4 19c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.25 29 29 0 0 0-.46-5.33z"></path><polygon points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02"></polygon></svg>
-              </a>
-              <a href="https://github.com/Vigyantra2026/brochure" target="_blank" rel="noopener noreferrer" class="social-btn" aria-label="GitHub">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>
-              </a>
+              Official Inquiries: <a href="mailto:example@gmail.com" style="color:var(--cyan); text-decoration:none;">example@gmail.com</a>
             </div>
           </div>
         </div>
       </div>
-    </section>
-  </main>
-
-  <!-- ========================================================================
-       SITE FOOTER
-       ======================================================================== -->
-  <footer class="site-footer" role="contentinfo">
-    <div class="container">
-      <div class="footer-top">
-        <div class="footer-brand">
-          <h3 class="metallic-gradient-text">VIGYANTRA 2026</h3>
-          <p>25 Years of Engineering Excellence. Celebrating a quarter century of student innovation and technological leadership.</p>
-        </div>
-
-        <ul class="footer-nav">
-          <li><a href="#about" class="footer-nav-link">About</a></li>
-          <li><a href="#events" class="footer-nav-link">Events</a></li>
-          <li><a href="#schedule" class="footer-nav-link">Schedule</a></li>
-          <li><a href="#prizes" class="footer-nav-link">Prizes</a></li>
-          <li><a href="#guidelines" class="footer-nav-link">Guidelines</a></li>
-          <li><a href="#faq" class="footer-nav-link">FAQ</a></li>
-          <li><a href="#contact" class="footer-nav-link">Contact</a></li>
-        </ul>
-      </div>
-
-      <div class="footer-bottom">
-        <div class="footer-copy">
-          © 2026 VIGYANTRA Technical Council. All rights reserved. Silver Jubilee National Technical Symposium.
-        </div>
-
-        <div class="system-status-badge">
-          <span class="status-dot"></span>
-          <span>SYSTEM STATUS: ONLINE | EDITION: 25 | YEAR: 2026</span>
-        </div>
-      </div>
     </div>
-  </footer>
+  </div>
 
   <!-- ========================================================================
        MODAL: EVENT DETAIL VIEW
        ======================================================================== -->
-  <div class="modal-backdrop" id="event-detail-modal" role="dialog" aria-modal="true" aria-labelledby="event-modal-title">
+  <div class="modal-backdrop" id="event-detail-modal" role="dialog" aria-modal="true">
     <div class="modal-container">
       <button class="modal-close-btn" id="event-modal-close" aria-label="Close event modal">✕</button>
       <div class="event-modal-content" id="event-modal-body">
@@ -571,20 +392,19 @@
   </div>
 
   <!-- ========================================================================
-       MODAL: MULTI-STEP REGISTRATION PORTAL (CLEAN GENERIC PLACEHOLDERS)
+       MODAL: MULTI-STEP REGISTRATION PORTAL
        ======================================================================== -->
-  <div class="modal-backdrop" id="registration-modal" role="dialog" aria-modal="true" aria-labelledby="reg-modal-title">
+  <div class="modal-backdrop" id="registration-modal" role="dialog" aria-modal="true">
     <div class="modal-container">
       <button class="modal-close-btn" id="reg-modal-close" aria-label="Close registration modal">✕</button>
       <div class="reg-modal-content">
         <div style="text-align:center; margin-bottom:24px;">
           <span class="section-eyebrow gold" style="margin-bottom:8px;">FRONTEND REGISTRATION PORTAL</span>
-          <h2 id="reg-modal-title" style="font-size:1.8rem; color:#ffffff;">REGISTER FOR VIGYANTRA 2026</h2>
+          <h2 style="font-size:1.8rem; color:#ffffff;">REGISTER FOR VIGYANTRA 2026</h2>
           <p style="font-size:0.85rem; color:var(--silver-400);">Complete your delegation details to receive your commemorative entry pass.</p>
         </div>
 
-        <!-- Step Indicator -->
-        <div class="reg-steps-indicator" aria-label="Registration Progress">
+        <div class="reg-steps-indicator">
           <div class="reg-step-node active" id="reg-node-1">
             <div class="reg-step-circle">1</div>
             <div class="reg-step-label">EVENT</div>
@@ -607,13 +427,11 @@
           </div>
         </div>
 
-        <!-- STEP 1: Select Event -->
+        <!-- STEP 1 -->
         <div id="reg-step-1" class="reg-step-pane">
           <div class="form-group">
             <label class="form-label" for="reg-event-select">Select Flagship Event *</label>
-            <select id="reg-event-select" class="form-select" onchange="onEventSelected()">
-              <!-- Populated by js/main.js -->
-            </select>
+            <select id="reg-event-select" class="form-select" onchange="onEventSelected()"></select>
           </div>
           <div id="reg-event-quickinfo"></div>
           <div style="display:flex; justify-content:flex-end; margin-top:28px;">
@@ -621,7 +439,7 @@
           </div>
         </div>
 
-        <!-- STEP 2: Team Details -->
+        <!-- STEP 2 -->
         <div id="reg-step-2" class="reg-step-pane" style="display:none;">
           <div class="form-group">
             <label class="form-label" for="reg-team-name">Team Name *</label>
@@ -651,9 +469,9 @@
           </div>
         </div>
 
-        <!-- STEP 3: Participants -->
+        <!-- STEP 3 -->
         <div id="reg-step-3" class="reg-step-pane" style="display:none;">
-          <div style="font-size:0.8rem; font-weight:700; letter-spacing:0.1em; color:var(--gold-jubilee); margin-bottom:12px;">TEAM LEADER / PRIMARY CONTACT</div>
+          <div style="font-size:0.8rem; font-weight:700; letter-spacing:0.1em; color:var(--gold); margin-bottom:12px;">TEAM LEADER / PRIMARY CONTACT</div>
           <div class="form-row">
             <div class="form-group">
               <label class="form-label" for="reg-leader-name">Leader Full Name *</label>
@@ -674,17 +492,14 @@
               <input type="text" id="reg-leader-usn" class="form-input" placeholder="e.g. 1XX24XX001" required>
             </div>
           </div>
-
-          <!-- Dynamic Additional Members Container -->
           <div id="reg-dynamic-members-container"></div>
-
           <div style="display:flex; justify-content:space-between; margin-top:28px;">
             <button class="btn btn-secondary" onclick="prevRegStep()">← BACK</button>
             <button class="btn btn-primary" onclick="nextRegStep()">REVIEW ENTRY →</button>
           </div>
         </div>
 
-        <!-- STEP 4: Review -->
+        <!-- STEP 4 -->
         <div id="reg-step-4" class="reg-step-pane" style="display:none;">
           <div id="reg-review-summary"></div>
           <p style="font-size:0.8rem; color:var(--silver-400); margin:16px 0;">
@@ -696,7 +511,7 @@
           </div>
         </div>
 
-        <!-- STEP 5: Confirmation -->
+        <!-- STEP 5 -->
         <div id="reg-step-5" class="reg-step-pane" style="display:none;">
           <div id="reg-confirmation-container"></div>
         </div>
@@ -705,16 +520,13 @@
   </div>
 
   <!-- ========================================================================
-       MODAL: DIGITAL BROCHURE VIEWER (SLIDES / FLIPBOOK)
+       MODAL: DIGITAL BROCHURE VIEWER
        ======================================================================== -->
-  <div class="modal-backdrop" id="brochure-modal" role="dialog" aria-modal="true" aria-labelledby="brochure-modal-title">
+  <div class="modal-backdrop" id="brochure-modal" role="dialog" aria-modal="true">
     <div class="modal-container brochure-modal-container">
       <button class="modal-close-btn" id="brochure-modal-close" aria-label="Close brochure modal">✕</button>
       <div class="brochure-viewer">
-        <div id="brochure-content-card" class="brochure-page-card">
-          <!-- Populated dynamically from window.BROCHURE_PAGES -->
-        </div>
-
+        <div id="brochure-content-card" class="brochure-page-card"></div>
         <div class="brochure-controls">
           <button class="btn btn-secondary btn-sm" id="brochure-prev-btn">← PREVIOUS</button>
           <div class="page-counter" id="brochure-page-counter">Page 1 of 6</div>
