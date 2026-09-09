@@ -1266,8 +1266,74 @@ function closeHudModal(name) {
 window.openHudModal = openHudModal;
 window.closeHudModal = closeHudModal;
 
-// Close on backdrop or ESC
+/* ==========================================================================
+   13. TOP-RIGHT THREE LINES CYBER DROPDOWN MENU
+   ========================================================================== */
+function toggleCyberMenu() {
+  const toggle = document.getElementById('cyber-menu-toggle');
+  const menu = document.getElementById('cyber-dropdown-menu');
+  if (!toggle || !menu) return;
+
+  const isActive = menu.classList.contains('active');
+  if (isActive) {
+    closeCyberMenu();
+  } else {
+    openCyberMenu();
+  }
+}
+
+function openCyberMenu() {
+  const toggle = document.getElementById('cyber-menu-toggle');
+  const menu = document.getElementById('cyber-dropdown-menu');
+  if (!toggle || !menu) return;
+
+  playCyberTone(650, 0.08, 'triangle');
+  toggle.classList.add('active');
+  toggle.setAttribute('aria-expanded', 'true');
+  menu.classList.add('active');
+}
+
+function closeCyberMenu() {
+  const toggle = document.getElementById('cyber-menu-toggle');
+  const menu = document.getElementById('cyber-dropdown-menu');
+  if (!toggle || !menu) return;
+
+  if (menu.classList.contains('active')) {
+    playCyberTone(380, 0.08, 'sine');
+  }
+  toggle.classList.remove('active');
+  toggle.setAttribute('aria-expanded', 'false');
+  menu.classList.remove('active');
+}
+
+function selectDropdownOption(option) {
+  closeCyberMenu();
+  if (option === 'register') {
+    openRegistrationModal();
+  } else if (option === 'brochure') {
+    openBrochureModal();
+  } else {
+    openHudModal(option);
+  }
+}
+
+window.toggleCyberMenu = toggleCyberMenu;
+window.openCyberMenu = openCyberMenu;
+window.closeCyberMenu = closeCyberMenu;
+window.selectDropdownOption = selectDropdownOption;
+
+// Close dropdown on outside click or ESC
 document.addEventListener('DOMContentLoaded', () => {
+  document.addEventListener('click', (e) => {
+    const toggle = document.getElementById('cyber-menu-toggle');
+    const menu = document.getElementById('cyber-dropdown-menu');
+    if (toggle && menu && menu.classList.contains('active')) {
+      if (!toggle.contains(e.target) && !menu.contains(e.target)) {
+        closeCyberMenu();
+      }
+    }
+  });
+
   document.querySelectorAll('.hud-modal-overlay').forEach(overlay => {
     overlay.addEventListener('click', (e) => {
       if (e.target === overlay) {
@@ -1279,6 +1345,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape') {
+      closeCyberMenu();
       document.querySelectorAll('.hud-modal-overlay.active').forEach(m => {
         playModalCloseSfx();
         m.classList.remove('active');
@@ -1286,3 +1353,4 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 });
+

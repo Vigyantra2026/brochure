@@ -29,63 +29,101 @@
   <div class="scanline-screen-effect" aria-hidden="true"></div>
 
   <!-- ========================================================================
-       FUTURISTIC CYBER TASKBAR (TOP CONTROL DECK)
+       TOP CONTROL HEADER (CLEAN BRAND + TOP-RIGHT THREE LINES DROPDOWN)
        ======================================================================== -->
-  <header class="cyber-taskbar" role="banner">
-    <div class="taskbar-brand">
+  <header class="cyber-header" role="banner">
+    <div class="header-brand">
       <div class="brand-cyber-badge">SJBIT</div>
       <div class="brand-text-col">
         <span class="brand-title">VIGYANTRA 2026</span>
-        <span class="brand-edition">25th SILVER JUBILEE • SJBIT BENGALURU</span>
+        <span class="brand-edition">25th SILVER JUBILEE • BENGALURU</span>
       </div>
     </div>
 
-    <!-- HUD Taskbar Menu -->
-    <nav role="navigation" aria-label="Deck Controls">
-      <ul class="taskbar-deck-menu">
-        <li>
-          <button class="taskbar-btn" onclick="openHudModal('events')">
-            <span class="btn-icon">❖</span> 08 ARENAS
-          </button>
-        </li>
-        <li>
-          <button class="taskbar-btn" onclick="openHudModal('schedule')">
-            <span class="btn-icon">⏱</span> TIMELINE
-          </button>
-        </li>
-        <li>
-          <button class="taskbar-btn" onclick="openHudModal('prizes')">
-            <span class="btn-icon">🏆</span> ₹4 LAKH PRIZES
-          </button>
-        </li>
-        <li>
-          <button class="taskbar-btn" onclick="openHudModal('guidelines')">
-            <span class="btn-icon">📜</span> RULES
-          </button>
-        </li>
-        <li>
-          <button class="taskbar-btn" onclick="openHudModal('faq')">
-            <span class="btn-icon">❓</span> FAQ
-          </button>
-        </li>
-        <li>
-          <button class="taskbar-btn" onclick="openHudModal('venue')">
-            <span class="btn-icon">📍</span> CAMPUS & INFO
-          </button>
-        </li>
-      </ul>
-    </nav>
-
-    <div class="taskbar-actions">
+    <div class="header-actions">
       <!-- Cyber Audio Synthesizer Toggle -->
-      <button id="sfx-toggle-btn" class="taskbar-sfx-btn" onclick="toggleAudioFx()" title="Toggle Holographic Sound Synthesis">
+      <button id="sfx-toggle-btn" class="header-sfx-btn" onclick="toggleAudioFx()" title="Toggle Cyber Audio Synthesis">
         <span id="sfx-icon">🔊</span>
         <span id="sfx-label">SFX: ON</span>
       </button>
 
-      <div class="system-status-indicator">
-        <span class="status-pulse-dot"></span>
-        <span>SYS.CORE: ACTIVE</span>
+      <!-- Three-Lines Cyber Hamburger Dropdown Trigger at Top Right -->
+      <button id="cyber-menu-toggle" class="cyber-hamburger-btn" onclick="toggleCyberMenu()" aria-label="Toggle Command Menu" aria-expanded="false">
+        <span class="hamburger-bar bar-top"></span>
+        <span class="hamburger-bar bar-mid"></span>
+        <span class="hamburger-bar bar-bot"></span>
+      </button>
+    </div>
+
+    <!-- Holographic Cyber Dropdown Menu (Top-Right Flyout) -->
+    <div id="cyber-dropdown-menu" class="cyber-dropdown-menu" role="menu">
+      <div class="dropdown-header">
+        <span class="dropdown-radar-dot"></span>
+        <span class="dropdown-title">// NAVIGATION CONSOLE //</span>
+      </div>
+
+      <ul class="dropdown-items-list">
+        <li>
+          <button class="dropdown-item-btn" onclick="selectDropdownOption('events')">
+            <span class="item-icon">❖</span>
+            <span class="item-text">08 FLAGSHIP ARENAS</span>
+            <span class="item-arrow">→</span>
+          </button>
+        </li>
+        <li>
+          <button class="dropdown-item-btn" onclick="selectDropdownOption('schedule')">
+            <span class="item-icon">⏱</span>
+            <span class="item-text">SYMPOSIUM TIMELINE</span>
+            <span class="item-arrow">→</span>
+          </button>
+        </li>
+        <li>
+          <button class="dropdown-item-btn" onclick="selectDropdownOption('prizes')">
+            <span class="item-icon">🏆</span>
+            <span class="item-text">₹ 4,00,000 PRIZES</span>
+            <span class="item-arrow">→</span>
+          </button>
+        </li>
+        <li>
+          <button class="dropdown-item-btn" onclick="selectDropdownOption('guidelines')">
+            <span class="item-icon">📜</span>
+            <span class="item-text">RULES OF ENGAGEMENT</span>
+            <span class="item-arrow">→</span>
+          </button>
+        </li>
+        <li>
+          <button class="dropdown-item-btn" onclick="selectDropdownOption('faq')">
+            <span class="item-icon">❓</span>
+            <span class="item-text">FREQUENTLY ASKED QUESTIONS</span>
+            <span class="item-arrow">→</span>
+          </button>
+        </li>
+        <li>
+          <button class="dropdown-item-btn" onclick="selectDropdownOption('venue')">
+            <span class="item-icon">📍</span>
+            <span class="item-text">CAMPUS TELEMETRY & VENUE</span>
+            <span class="item-arrow">→</span>
+          </button>
+        </li>
+        <li class="dropdown-divider"></li>
+        <li>
+          <button class="dropdown-item-btn highlight-cyan" onclick="selectDropdownOption('register')">
+            <span class="item-icon">⚡</span>
+            <span class="item-text">CADET REGISTRATION</span>
+            <span class="item-arrow">→</span>
+          </button>
+        </li>
+        <li>
+          <button class="dropdown-item-btn highlight-gold" onclick="selectDropdownOption('brochure')">
+            <span class="item-icon">📖</span>
+            <span class="item-text">DIGITAL BROCHURE</span>
+            <span class="item-arrow">→</span>
+          </button>
+        </li>
+      </ul>
+
+      <div class="dropdown-footer">
+        <span>SYS.CORE: ACTIVE // OCT 30, 2026</span>
       </div>
     </div>
   </header>
