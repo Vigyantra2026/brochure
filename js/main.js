@@ -1509,6 +1509,15 @@ function initScrollSectionObserver() {
         });
         section.classList.add('is-visible', 'is-focused');
         section.classList.remove('is-past');
+
+        // Re-trigger the scanline beam animation cleanly
+        const beam = section.querySelector('.hud-scanline-beam');
+        if (beam) {
+          beam.style.animation = 'none';
+          // Trigger reflow to restart CSS keyframe animation
+          void beam.offsetWidth;
+          beam.style.animation = '';
+        }
       } else {
         // If exiting above center band, transition to past state
         const rect = entry.boundingClientRect;

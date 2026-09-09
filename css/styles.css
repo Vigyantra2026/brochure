@@ -3177,32 +3177,45 @@ body {
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
   overflow: hidden;
-  /* Holographic Terminal Materialization State Machine */
+
+  /* Holographic Terminal Evolution Baseline: Dormant Stage (0% - 25%) */
   opacity: 0.18;
-  transform: translateY(22px);
-  filter: blur(1px);
-  transition: opacity 0.55s cubic-bezier(0.16, 1, 0.3, 1),
-              transform 0.55s cubic-bezier(0.16, 1, 0.3, 1),
-              border-color 0.4s ease,
-              box-shadow 0.4s ease,
-              filter 0.55s ease;
+  transform: translateY(28px) scale(0.985);
+  transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.6s cubic-bezier(0.16, 1, 0.3, 1),
+              border-color 0.45s ease,
+              box-shadow 0.45s ease;
   will-change: opacity, transform;
 }
 
-/* Subtle holographic HUD frame corner accents */
+/* Cyber HUD Boundary Scanline Beam that sweeps across the terminal upon construction */
+.info-section .hud-scanline-beam {
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 50%;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, #00f0ff, #ffffff, transparent);
+  box-shadow: 0 0 12px #00f0ff;
+  opacity: 0;
+  pointer-events: none;
+  z-index: 12;
+}
+
+/* Subtle holographic HUD frame corner accents: begin collapsed and expand on formation */
 .info-section::before {
   content: '';
   position: absolute;
   top: 0;
   left: 0;
-  width: 24px;
-  height: 24px;
+  width: 10px;
+  height: 10px;
   border-top: 2px solid rgba(0, 240, 255, 0.3);
   border-left: 2px solid rgba(0, 240, 255, 0.3);
   border-top-left-radius: 14px;
   pointer-events: none;
-  opacity: 0.4;
-  transition: all 0.4s ease;
+  opacity: 0.3;
+  transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .info-section::after {
@@ -3210,56 +3223,80 @@ body {
   position: absolute;
   bottom: 0;
   right: 0;
-  width: 24px;
-  height: 24px;
+  width: 10px;
+  height: 10px;
   border-bottom: 2px solid rgba(0, 240, 255, 0.3);
   border-right: 2px solid rgba(0, 240, 255, 0.3);
   border-bottom-right-radius: 14px;
   pointer-events: none;
-  opacity: 0.4;
-  transition: all 0.4s ease;
+  opacity: 0.3;
+  transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-/* Subtle holographic energy sweep across frame upon activation */
+/* Content Assembly Container */
 .info-section .info-section-inner {
   position: relative;
   width: 100%;
-  opacity: 0.4;
-  transform: translateY(10px);
-  transition: opacity 0.45s ease 0.08s, transform 0.45s cubic-bezier(0.16, 1, 0.3, 1) 0.08s;
+  opacity: 0.35;
+  transform: translateY(14px);
+  transition: opacity 0.5s ease 0.08s, transform 0.5s cubic-bezier(0.16, 1, 0.3, 1) 0.08s;
 }
 
-/* STATE 1: MATERIALIZED (Section is in viewport) */
+/* Header, Grids, and Cards individual assembly staging */
+.info-section .info-section-header,
+.info-section .info-highlights-grid,
+.info-section .legacy-credentials-row,
+.info-section .coordinators-group,
+.info-section .campus-blocks-grid,
+.info-section .telemetry-banner-card,
+.info-section .contact-channels-grid {
+  transition: transform 0.55s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.5s ease;
+}
+
+/* ==========================================================================
+   STAGE 1: SECTION ENTERS / EVOLVES (25% - 50% Scroll Progress)
+   HUD frame forming, thin lines extend, corner elements activate
+   ========================================================================== */
 .info-section.is-visible {
-  opacity: 0.65;
-  transform: translateY(0);
-  filter: blur(0px);
-  border-color: rgba(0, 240, 255, 0.22);
-  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.7);
+  opacity: 0.72;
+  transform: translateY(10px) scale(0.995);
+  border-color: rgba(0, 240, 255, 0.28);
+  box-shadow: 0 14px 44px rgba(0, 0, 0, 0.7);
+}
+
+.info-section.is-visible::before,
+.info-section.is-visible::after {
+  width: 20px;
+  height: 20px;
+  opacity: 0.7;
 }
 
 .info-section.is-visible .info-section-inner {
-  opacity: 0.82;
-  transform: translateY(0);
+  opacity: 0.85;
+  transform: translateY(4px);
 }
 
-/* STATE 2: PRIMARY FOCUS (Dominant Terminal closest to center of viewport) */
+/* ==========================================================================
+   STAGE 2: FULL FORM / PRIMARY TERMINAL FOCUS (50% - 75% Scroll Progress)
+   Fully assembled, crisp geometry, glowing edge illumination, sweep fires
+   ========================================================================== */
 .info-section.is-focused {
   opacity: 1;
-  transform: translateY(0);
-  filter: blur(0px);
-  border-color: rgba(0, 240, 255, 0.52);
+  transform: translateY(0) scale(1);
+  border-color: rgba(0, 240, 255, 0.55);
   box-shadow: 
-    0 16px 48px rgba(0, 0, 0, 0.8),
-    0 0 24px rgba(0, 240, 255, 0.16),
-    inset 0 0 16px rgba(0, 240, 255, 0.04);
+    0 20px 54px rgba(0, 0, 0, 0.85),
+    0 0 28px rgba(0, 240, 255, 0.2),
+    inset 0 0 20px rgba(0, 240, 255, 0.05);
 }
 
 .info-section.is-focused::before,
 .info-section.is-focused::after {
+  width: 28px;
+  height: 28px;
   opacity: 1;
   border-color: var(--cyan);
-  box-shadow: 0 0 10px var(--cyan-glow);
+  box-shadow: 0 0 12px var(--cyan-glow);
 }
 
 .info-section.is-focused .info-section-inner {
@@ -3267,37 +3304,107 @@ body {
   transform: translateY(0);
 }
 
-/* STATE 3: PAST / DECONSTRUCTED (Scrolled past, subdued background presence) */
-.info-section.is-past {
-  opacity: 0.48;
-  transform: translateY(-8px);
-  filter: blur(0.5px);
-  border-color: rgba(0, 240, 255, 0.12);
-  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.5);
+/* Sweep laser scanline once upon achieving focal form */
+.info-section.is-focused .hud-scanline-beam {
+  animation: hud-panel-sweep 0.75s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
-.info-section.is-past .info-section-inner {
-  opacity: 0.65;
-  transform: translateY(0);
+@keyframes hud-panel-sweep {
+  0% { left: -50%; opacity: 0; }
+  25% { opacity: 1; }
+  85% { opacity: 0.9; }
+  100% { left: 150%; opacity: 0; }
 }
 
-/* Gold Theme Accent for Legacy & Official Desk */
+/* Gold Theme Focal Terminal (Legacy & Contact) */
 .info-section:has(.info-badge.gold).is-focused {
-  border-color: rgba(245, 158, 11, 0.5);
+  border-color: rgba(245, 158, 11, 0.55);
   box-shadow: 
-    0 16px 48px rgba(0, 0, 0, 0.8),
-    0 0 24px rgba(245, 158, 11, 0.16),
-    inset 0 0 16px rgba(245, 158, 11, 0.04);
+    0 20px 54px rgba(0, 0, 0, 0.85),
+    0 0 28px rgba(245, 158, 11, 0.2),
+    inset 0 0 20px rgba(245, 158, 11, 0.05);
 }
 
 .info-section:has(.info-badge.gold).is-focused::before,
 .info-section:has(.info-badge.gold).is-focused::after {
   border-color: var(--gold);
-  box-shadow: 0 0 10px var(--gold-glow);
+  box-shadow: 0 0 12px var(--gold-glow);
+}
+
+.info-section:has(.info-badge.gold) .hud-scanline-beam {
+  background: linear-gradient(90deg, transparent, #f59e0b, #ffffff, transparent);
+  box-shadow: 0 0 12px #f59e0b;
+}
+
+/* ==========================================================================
+   STAGE 3: DECONSTRUCT / TRANSFORM TOWARD NEXT SECTION (75% - 100% Progress)
+   Lines shift, decorative elements separate slightly, components transition
+   ========================================================================== */
+.info-section.is-past {
+  opacity: 0.44;
+  transform: translateY(-14px) scale(0.985);
+  border-color: rgba(0, 240, 255, 0.12);
+  box-shadow: 0 8px 28px rgba(0, 0, 0, 0.5);
+}
+
+.info-section.is-past::before,
+.info-section.is-past::after {
+  width: 14px;
+  height: 14px;
+  opacity: 0.35;
+  border-color: rgba(0, 240, 255, 0.2);
+  box-shadow: none;
+}
+
+.info-section.is-past .info-section-inner {
+  opacity: 0.6;
+  transform: translateY(-6px);
+}
+
+/* --------------------------------------------------------------------------
+   SECTION-SPECIFIC SUBTLE HOLOGRAPHIC TRANSFORMATIONS
+   -------------------------------------------------------------------------- */
+
+/* 1. ABOUT VIGYANTRA: Highlights assemble toward center & expand on deconstruct */
+#about.is-past .info-stat-card:nth-child(odd) {
+  transform: translateX(-4px) translateY(-3px);
+  opacity: 0.75;
+}
+#about.is-past .info-stat-card:nth-child(even) {
+  transform: translateX(4px) translateY(-3px);
+  opacity: 0.75;
+}
+
+/* 2. SJBIT LEGACY: Credential node pills detach subtly upon deconstruct */
+#legacy.is-past .cred-pill:nth-child(1) { transform: translateX(-4px); }
+#legacy.is-past .cred-pill:nth-child(2) { transform: translateX(-2px); }
+#legacy.is-past .cred-pill:nth-child(4) { transform: translateX(2px); }
+#legacy.is-past .cred-pill:nth-child(5) { transform: translateX(4px); }
+
+/* 3. COORDINATORS: Connected network cards contract gently */
+#coordinators.is-past .coordinator-card {
+  transform: scale(0.985);
+  border-color: rgba(0, 240, 255, 0.1);
+}
+
+/* 4. CAMPUS: Quad facility blocks contract toward center */
+#campus.is-past .campus-block {
+  transform: translateY(-4px) scale(0.99);
+}
+
+/* 5. DIRECTIONS: Telemetry card frame lines shift upward */
+#directions.is-past .telemetry-banner-card {
+  transform: translateY(-5px);
+  border-color: rgba(0, 240, 255, 0.15);
+}
+
+/* 6. CONTACT: Communication terminal channels softly converge */
+#contact.is-past .contact-channel-card {
+  transform: translateY(-4px);
 }
 
 .info-section:hover {
-  border-color: rgba(0, 240, 255, 0.38);
+  border-color: rgba(0, 240, 255, 0.42);
 }
 
 /* Section Header Structure */
@@ -3850,6 +3957,19 @@ body {
   .info-section.is-past {
     opacity: 0.5;
     transform: translateY(-4px);
+  }
+
+  .hud-scanline-beam {
+    display: none !important;
+  }
+
+  #about.is-past .info-stat-card,
+  #legacy.is-past .cred-pill,
+  #coordinators.is-past .coordinator-card,
+  #campus.is-past .campus-block,
+  #directions.is-past .telemetry-banner-card,
+  #contact.is-past .contact-channel-card {
+    transform: none !important;
   }
 
   .footer-inner {
