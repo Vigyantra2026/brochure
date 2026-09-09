@@ -1428,9 +1428,6 @@ function initCinematicIntro() {
 }
 
 function skipCinematicIntro() {
-  if (typeof playCyberTone === 'function') {
-    playCyberTone(700, 0.08, 'sine');
-  }
   dismissCinematicIntro(true);
 }
 

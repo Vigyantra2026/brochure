@@ -2426,8 +2426,9 @@ body {
 }
 
 /* ==========================================================================
-   15. CINEMATIC INTRO / BOOT SEQUENCE (ISOLATED OVERLAY)
-   Choreographed 3.6s dark atmospheric intro revealing the command deck
+   15. SPECTACULAR FUTURISTIC INTRO: VIGYANTRA UNIVERSE ACTIVATION (7 PHASES)
+   High-budget tech opening (~3.6s) with dark abyss, ignition, orbital rings,
+   holographic 25, particle transformation, heroic title & shockwave dissolve.
    ========================================================================== */
 .cinematic-intro {
   position: fixed;
@@ -2439,45 +2440,45 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  background: #02040a;
+  background: #010206; /* 90% DEEP DARK ABYSS */
   overflow: hidden;
   opacity: 1;
   pointer-events: auto;
   transition: opacity 0.55s cubic-bezier(0.16, 1, 0.3, 1),
               visibility 0.55s cubic-bezier(0.16, 1, 0.3, 1);
   will-change: opacity, transform;
+  animation: intro-universe-dissolve 3.65s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
-/* When intro finishes or is skipped */
 .cinematic-intro.intro-complete {
   opacity: 0 !important;
   visibility: hidden !important;
   pointer-events: none !important;
 }
 
-/* Unobtrusive, elegant Skip Button */
+/* Unobtrusive, minimal Skip Intro Control */
 .intro-skip-btn {
   position: absolute;
   top: clamp(14px, 3vh, 24px);
   right: clamp(14px, 3vw, 28px);
-  z-index: 10;
+  z-index: 25;
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  background: rgba(8, 14, 28, 0.65);
+  background: rgba(3, 7, 18, 0.7);
   border: 1px solid rgba(0, 240, 255, 0.28);
   border-radius: 20px;
   padding: 6px 14px;
   color: var(--silver-300);
   font-family: var(--font-mono);
-  font-size: clamp(0.68rem, 1.4vw, 0.78rem);
+  font-size: clamp(0.66rem, 1.3vw, 0.76rem);
   font-weight: 700;
-  letter-spacing: 0.12em;
+  letter-spacing: 0.14em;
   cursor: pointer;
   outline: none;
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
-  transition: all 0.22s ease;
+  transition: all 0.2s ease;
   opacity: 0;
   animation: intro-skip-appear 0.4s ease 0.4s forwards;
 }
@@ -2499,130 +2500,240 @@ body {
   100% { opacity: 0.85; transform: translateY(0); }
 }
 
-/* Atmospheric Deep Space Canvas Behind Intro Content */
-.intro-space-bg {
+/* --------------------------------------------------------------------------
+   PHASE 1 — ABSOLUTE DARKNESS & REMOTE ENERGY POINTS (0.0s – 0.4s)
+   -------------------------------------------------------------------------- */
+.intro-abyss {
   position: absolute;
   inset: 0;
   background: 
-    radial-gradient(circle at 50% 50%, rgba(4, 9, 24, 0.95) 0%, #010308 100%);
-  pointer-events: none;
-}
-
-/* Faint Atmospheric Cyan & Gold Energy Core */
-.intro-energy-glow {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: clamp(260px, 60vw, 700px);
-  height: clamp(260px, 60vw, 700px);
-  transform: translate(-50%, -50%);
-  background: 
-    radial-gradient(circle at 50% 50%, rgba(0, 240, 255, 0.12) 0%, rgba(0, 240, 255, 0.03) 40%, transparent 70%),
-    radial-gradient(circle at 50% 50%, rgba(245, 158, 11, 0.07) 0%, transparent 60%);
-  filter: blur(36px);
-  -webkit-filter: blur(36px);
-  pointer-events: none;
+    radial-gradient(1.2px 1.2px at 25% 35%, rgba(0, 240, 255, 0.7) 0%, transparent 100%),
+    radial-gradient(1.5px 1.5px at 75% 25%, rgba(245, 158, 11, 0.8) 0%, transparent 100%),
+    radial-gradient(1px 1px at 45% 75%, rgba(255, 255, 255, 0.6) 0%, transparent 100%),
+    radial-gradient(1.5px 1.5px at 80% 80%, rgba(0, 240, 255, 0.6) 0%, transparent 100%),
+    radial-gradient(circle at 50% 50%, #030713 0%, #010206 100%);
   opacity: 0;
-  animation: intro-energy-phase 3.6s ease-in-out forwards;
-}
-
-@keyframes intro-energy-phase {
-  0% { opacity: 0; transform: translate(-50%, -50%) scale(0.7); }
-  25% { opacity: 0.5; transform: translate(-50%, -50%) scale(0.9); }
-  60% { opacity: 0.85; transform: translate(-50%, -50%) scale(1.05); }
-  85% { opacity: 0.9; transform: translate(-50%, -50%) scale(1.12); }
-  100% { opacity: 0; transform: translate(-50%, -50%) scale(1.2); }
-}
-
-/* Subtle Cosmic Dust / Micro-Stars */
-.intro-cosmic-dust {
-  position: absolute;
-  inset: 0;
-  background-image: 
-    radial-gradient(1px 1px at 20% 30%, rgba(0, 240, 255, 0.6) 50%, transparent 100%),
-    radial-gradient(1.5px 1.5px at 80% 25%, rgba(245, 158, 11, 0.7) 50%, transparent 100%),
-    radial-gradient(1px 1px at 40% 70%, rgba(226, 232, 240, 0.5) 50%, transparent 100%),
-    radial-gradient(1.5px 1.5px at 70% 80%, rgba(0, 240, 255, 0.5) 50%, transparent 100%),
-    radial-gradient(1px 1px at 15% 85%, rgba(245, 158, 11, 0.6) 50%, transparent 100%),
-    radial-gradient(1.2px 1.2px at 85% 65%, rgba(255, 255, 255, 0.6) 50%, transparent 100%);
-  background-size: 100% 100%;
+  animation: intro-abyss-fade 3.6s ease forwards;
   pointer-events: none;
-  opacity: 0;
-  animation: intro-dust-fade 3.4s ease forwards;
 }
 
-@keyframes intro-dust-fade {
+@keyframes intro-abyss-fade {
   0% { opacity: 0; }
-  20% { opacity: 0.7; }
-  80% { opacity: 0.7; }
+  10% { opacity: 0.9; }
+  85% { opacity: 0.9; }
   100% { opacity: 0; }
 }
 
-/* Stage Container for Choreographed Typography */
+/* --------------------------------------------------------------------------
+   PHASE 2 — ENERGY IGNITION (0.4s – 1.0s)
+   A concentrated cybernetic singularity expanding from the center
+   -------------------------------------------------------------------------- */
+.intro-ignition-point {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 14px;
+  height: 14px;
+  transform: translate(-50%, -50%) scale(0.1);
+  border-radius: 50%;
+  background: #ffffff;
+  box-shadow: 
+    0 0 15px 4px #00f0ff,
+    0 0 35px 10px rgba(0, 240, 255, 0.8),
+    0 0 70px 25px rgba(245, 158, 11, 0.5);
+  opacity: 0;
+  pointer-events: none;
+  animation: intro-ignition-surge 3.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes intro-ignition-surge {
+  0%, 10% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.1);
+  }
+  14% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+    box-shadow: 0 0 25px 6px #00f0ff, 0 0 50px 14px rgba(0, 240, 255, 0.9);
+  }
+  25% {
+    opacity: 0.9;
+    transform: translate(-50%, -50%) scale(3.5);
+    box-shadow: 0 0 60px 18px rgba(0, 240, 255, 0.6), 0 0 120px 40px rgba(245, 158, 11, 0.4);
+  }
+  38% {
+    opacity: 0.3;
+    transform: translate(-50%, -50%) scale(7);
+  }
+  45%, 100% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(12);
+  }
+}
+
+.intro-energy-streaks {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: clamp(280px, 65vw, 650px);
+  height: clamp(280px, 65vw, 650px);
+  transform: translate(-50%, -50%);
+  background: 
+    radial-gradient(ellipse at 50% 50%, rgba(0, 240, 255, 0.16) 0%, rgba(0, 240, 255, 0.04) 45%, transparent 70%),
+    radial-gradient(circle at 50% 50%, rgba(245, 158, 11, 0.1) 0%, transparent 60%);
+  filter: blur(28px);
+  -webkit-filter: blur(28px);
+  opacity: 0;
+  pointer-events: none;
+  animation: intro-energy-glow-phase 3.6s ease forwards;
+}
+
+@keyframes intro-energy-glow-phase {
+  0%, 12% { opacity: 0; transform: translate(-50%, -50%) scale(0.6); }
+  22% { opacity: 0.85; transform: translate(-50%, -50%) scale(1); }
+  60% { opacity: 0.9; transform: translate(-50%, -50%) scale(1.1); }
+  85% { opacity: 0.7; transform: translate(-50%, -50%) scale(1.2); }
+  100% { opacity: 0; transform: translate(-50%, -50%) scale(1.3); }
+}
+
+/* --------------------------------------------------------------------------
+   PHASE 3 — DIGITAL UNIVERSE FORMS (1.0s – 1.6s)
+   Warp grid, converging orbital rings & HUD telemetry
+   -------------------------------------------------------------------------- */
+.intro-grid-warp {
+  position: absolute;
+  inset: -15%;
+  background-image: 
+    linear-gradient(to right, rgba(0, 240, 255, 0.06) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(0, 240, 255, 0.06) 1px, transparent 1px);
+  background-size: 50px 50px;
+  mask-image: radial-gradient(circle at 50% 50%, black 15%, transparent 75%);
+  -webkit-mask-image: radial-gradient(circle at 50% 50%, black 15%, transparent 75%);
+  opacity: 0;
+  transform: perspective(600px) rotateX(45deg) translateZ(0);
+  pointer-events: none;
+  animation: intro-warp-phase 3.6s ease forwards;
+}
+
+@keyframes intro-warp-phase {
+  0%, 24% {
+    opacity: 0;
+    transform: perspective(600px) rotateX(55deg) translateZ(-100px);
+  }
+  32% {
+    opacity: 0.75;
+    transform: perspective(600px) rotateX(45deg) translateZ(0);
+  }
+  65% {
+    opacity: 0.55;
+    transform: perspective(600px) rotateX(40deg) translateZ(60px);
+  }
+  85%, 100% {
+    opacity: 0;
+    transform: perspective(600px) rotateX(35deg) translateZ(120px);
+  }
+}
+
+.intro-orbital-rings {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: clamp(300px, 70vw, 750px);
+  height: clamp(300px, 70vw, 750px);
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+}
+
+.intro-ring {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  border: 1px dashed rgba(0, 240, 255, 0.35);
+  box-shadow: 0 0 20px rgba(0, 240, 255, 0.18);
+  opacity: 0;
+}
+
+.intro-ring.ring-outer {
+  border-style: solid;
+  border-color: rgba(0, 240, 255, 0.22);
+  animation: intro-ring-outer-phase 3.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.intro-ring.ring-inner {
+  inset: 18%;
+  border: 1px dotted rgba(245, 158, 11, 0.35);
+  animation: intro-ring-inner-phase 3.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes intro-ring-outer-phase {
+  0%, 26% { opacity: 0; transform: scale(1.6) rotate(-20deg); }
+  35% { opacity: 0.9; transform: scale(1) rotate(0deg); }
+  60% { opacity: 0.6; transform: scale(0.96) rotate(15deg); }
+  75%, 100% { opacity: 0; transform: scale(0.9) rotate(30deg); }
+}
+
+@keyframes intro-ring-inner-phase {
+  0%, 28% { opacity: 0; transform: scale(0.4) rotate(40deg); }
+  36% { opacity: 0.85; transform: scale(1) rotate(0deg); }
+  60% { opacity: 0.5; transform: scale(1.05) rotate(-15deg); }
+  75%, 100% { opacity: 0; transform: scale(1.15) rotate(-30deg); }
+}
+
+.intro-hud-telemetry {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  font-family: var(--font-mono);
+  font-size: clamp(0.58rem, 1.2vw, 0.72rem);
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  color: rgba(0, 240, 255, 0.6);
+}
+
+.tele-top-left {
+  position: absolute;
+  top: clamp(20px, 5vh, 40px);
+  left: clamp(20px, 4vw, 40px);
+  opacity: 0;
+  animation: intro-tele-fade 3.6s ease forwards;
+}
+
+.tele-bottom-right {
+  position: absolute;
+  bottom: clamp(20px, 5vh, 40px);
+  right: clamp(20px, 4vw, 40px);
+  opacity: 0;
+  animation: intro-tele-fade 3.6s ease forwards;
+}
+
+@keyframes intro-tele-fade {
+  0%, 28% { opacity: 0; }
+  34% { opacity: 0.8; }
+  72% { opacity: 0.8; }
+  85%, 100% { opacity: 0; }
+}
+
+/* --------------------------------------------------------------------------
+   STAGE CONTAINER
+   -------------------------------------------------------------------------- */
 .intro-stage {
   position: relative;
-  z-index: 2;
+  z-index: 10;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   text-align: center;
   width: 90vw;
-  max-width: 900px;
+  max-width: 960px;
   pointer-events: none;
 }
 
 /* --------------------------------------------------------------------------
-   PHASE 2 — HOLOGRAPHIC 25 REVEAL (0.6s – 1.4s)
+   PHASE 4 — THE ENORMOUS 25 HOLOGRAPHIC REVEAL (1.6s – 2.1s)
+   Constructed with scanlines, laser precision, and sudden depth slam
    -------------------------------------------------------------------------- */
-.intro-holo-25 {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%) scale(0.85);
-  font-family: var(--font-heading);
-  font-size: clamp(6.5rem, 24vw, 15rem);
-  font-weight: 900;
-  line-height: 1;
-  letter-spacing: -0.05em;
-  color: transparent;
-  -webkit-text-stroke: 1.5px rgba(0, 240, 255, 0.4);
-  text-shadow: 0 0 50px rgba(0, 240, 255, 0.35);
-  opacity: 0;
-  pointer-events: none;
-  animation: intro-holo-25-phase 3.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-}
-
-@keyframes intro-holo-25-phase {
-  0%, 15% {
-    opacity: 0;
-    transform: translate(-50%, -50%) scale(0.82);
-    -webkit-text-stroke: 1px rgba(0, 240, 255, 0.1);
-  }
-  24% {
-    opacity: 0.85;
-    transform: translate(-50%, -50%) scale(1);
-    -webkit-text-stroke: 1.5px rgba(0, 240, 255, 0.45);
-    text-shadow: 0 0 60px rgba(0, 240, 255, 0.4);
-  }
-  38% {
-    opacity: 0.65;
-    transform: translate(-50%, -50%) scale(1.04);
-  }
-  50% {
-    opacity: 0.3;
-    transform: translate(-50%, -50%) scale(1.08);
-  }
-  65%, 100% {
-    opacity: 0;
-    transform: translate(-50%, -50%) scale(1.15);
-  }
-}
-
-/* --------------------------------------------------------------------------
-   PHASE 3 — INSTITUTIONAL REVEAL (1.4s – 2.1s)
-   -------------------------------------------------------------------------- */
-.intro-institution {
+.intro-holo-25-wrap {
   position: absolute;
   top: 50%;
   left: 50%;
@@ -2630,186 +2741,324 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 4px;
-  width: 100%;
+  justify-content: center;
   opacity: 0;
-  animation: intro-inst-phase 3.6s ease forwards;
+  animation: intro-holo-25-lifecycle 3.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
-.intro-inst-tag {
+.intro-holo-25-giant {
   font-family: var(--font-heading);
-  font-size: clamp(0.75rem, 2.2vw, 1.25rem);
-  font-weight: 800;
-  letter-spacing: clamp(0.18em, 0.4vw, 0.32em);
-  color: #ffffff;
-  text-shadow: 0 0 16px rgba(0, 240, 255, 0.5);
-  white-space: nowrap;
+  font-size: clamp(7.5rem, 28vw, 17rem);
+  font-weight: 900;
+  line-height: 0.9;
+  letter-spacing: -0.06em;
+  color: transparent;
+  -webkit-text-stroke: 2px #00f0ff;
+  text-shadow: 
+    0 0 30px rgba(0, 240, 255, 0.8),
+    0 0 70px rgba(0, 240, 255, 0.4),
+    0 0 120px rgba(245, 158, 11, 0.3);
+  position: relative;
 }
 
-.intro-inst-sub {
+.intro-holo-25-scanline {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 6px;
+  background: linear-gradient(90deg, transparent, #ffffff, #00f0ff, transparent);
+  box-shadow: 0 0 16px #00f0ff;
+  opacity: 0.9;
+  animation: intro-scanline-sweep 0.45s linear 1.65s 2;
+}
+
+@keyframes intro-scanline-sweep {
+  0% { top: 0%; opacity: 1; }
+  100% { top: 100%; opacity: 0.8; }
+}
+
+.intro-holo-sub {
   font-family: var(--font-mono);
-  font-size: clamp(0.6rem, 1.6vw, 0.82rem);
-  font-weight: 700;
-  letter-spacing: clamp(0.16em, 0.3vw, 0.28em);
+  font-size: clamp(0.65rem, 1.8vw, 0.88rem);
+  font-weight: 800;
+  letter-spacing: clamp(0.18em, 0.35vw, 0.28em);
   color: var(--gold-light);
-  text-shadow: 0 0 12px rgba(245, 158, 11, 0.5);
-  white-space: nowrap;
+  text-shadow: 0 0 12px rgba(245, 158, 11, 0.6);
+  margin-top: -10px;
 }
 
-@keyframes intro-inst-phase {
-  0%, 38% {
+@keyframes intro-holo-25-lifecycle {
+  0%, 42% {
     opacity: 0;
-    transform: translate(-50%, -46%) scale(0.96);
+    transform: translate(-50%, -50%) scale(1.3);
+    filter: blur(8px);
   }
-  43% {
+  45% {
+    /* 1.62s: Slam in sharp */
     opacity: 1;
     transform: translate(-50%, -50%) scale(1);
+    filter: blur(0px);
   }
-  54% {
+  56% {
+    /* 2.05s: Holds solid */
     opacity: 1;
     transform: translate(-50%, -50%) scale(1.02);
   }
-  59%, 100% {
+  58% {
+    /* 2.1s: Sudden shatter prep */
+    opacity: 0.8;
+    transform: translate(-50%, -50%) scale(1.06);
+    filter: blur(2px);
+  }
+  60%, 100% {
+    /* 2.16s: Dissolved into particles */
     opacity: 0;
-    transform: translate(-50%, -54%) scale(1.04);
+    transform: translate(-50%, -50%) scale(1.18);
+    filter: blur(14px);
   }
 }
 
 /* --------------------------------------------------------------------------
-   PHASE 4 — VIGYANTRA 2026 REVEAL (2.1s – 3.1s)
+   PHASE 5 — 25 TRANSFORMS: HIGH-SPEED PARTICLE DISPERSION (2.1s – 2.5s)
+   Sweeping streaks exploding from 25 and converging into VIGYANTRA
    -------------------------------------------------------------------------- */
-.intro-vigyantra {
+.intro-particle-stream {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 100%;
+  height: 100%;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+}
+
+.p-streak {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 120px;
+  height: 2px;
+  border-radius: 2px;
+  background: linear-gradient(90deg, transparent, #00f0ff, #ffffff, transparent);
+  box-shadow: 0 0 10px #00f0ff;
+  opacity: 0;
+}
+
+.p-streak.s1 { transform: rotate(15deg) translate(-20px, -40px); animation: p-burst 3.6s ease forwards; }
+.p-streak.s2 { transform: rotate(-35deg) translate(30px, -20px); animation: p-burst 3.6s ease 0.03s forwards; background: linear-gradient(90deg, transparent, #f59e0b, #ffffff, transparent); }
+.p-streak.s3 { transform: rotate(70deg) translate(-10px, 30px); animation: p-burst 3.6s ease 0.05s forwards; }
+.p-streak.s4 { transform: rotate(-85deg) translate(40px, 10px); animation: p-burst 3.6s ease 0.02s forwards; background: linear-gradient(90deg, transparent, #f59e0b, #ffffff, transparent); }
+.p-streak.s5 { transform: rotate(135deg) translate(-50px, -30px); animation: p-burst 3.6s ease 0.06s forwards; }
+.p-streak.s6 { transform: rotate(-145deg) translate(20px, 50px); animation: p-burst 3.6s ease 0.04s forwards; }
+.p-streak.s7 { transform: rotate(45deg) translate(-60px, 20px); animation: p-burst 3.6s ease 0.07s forwards; background: linear-gradient(90deg, transparent, #f59e0b, #ffffff, transparent); }
+.p-streak.s8 { transform: rotate(-110deg) translate(50px, -40px); animation: p-burst 3.6s ease 0.03s forwards; }
+
+@keyframes p-burst {
+  0%, 57% {
+    opacity: 0;
+    width: 20px;
+  }
+  60% {
+    /* 2.16s: Particles burst out */
+    opacity: 1;
+    width: clamp(100px, 25vw, 240px);
+  }
+  68% {
+    /* 2.45s: Particles compress toward title center */
+    opacity: 0.9;
+    width: 40px;
+    transform: translate(-50%, -50%) scale(0.6);
+  }
+  71%, 100% {
+    opacity: 0;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   PHASE 6 — HEROIC VIGYANTRA 2026 TITLE REVEAL (2.5s – 3.1s)
+   Crystallizes with sharp white, cyan edge glow & horizontal glare sweep
+   -------------------------------------------------------------------------- */
+.intro-vigyantra-reveal {
   position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: clamp(6px, 1.2vh, 12px);
   opacity: 0;
-  animation: intro-vig-phase 3.6s ease forwards;
+  animation: intro-title-crystallize 3.6s ease forwards;
 }
 
-.intro-title-wrap {
+.intro-inst-crest {
+  font-family: var(--font-heading);
+  font-size: clamp(0.7rem, 2vw, 1.08rem);
+  font-weight: 800;
+  letter-spacing: clamp(0.16em, 0.35vw, 0.3em);
+  color: var(--silver-300);
+  text-shadow: 0 0 14px rgba(0, 240, 255, 0.4);
+  white-space: nowrap;
+}
+
+.intro-hero-title-box {
   position: relative;
   overflow: hidden;
-  padding: 0 8px;
+  padding: 0 clamp(8px, 2vw, 16px);
 }
 
-.intro-title {
+.intro-hero-title {
   font-family: var(--font-heading);
-  font-size: clamp(2.2rem, 7.5vw, 5.2rem);
+  font-size: clamp(2.3rem, 8vw, 5.4rem);
   font-weight: 900;
   letter-spacing: clamp(0.08em, 0.2vw, 0.18em);
   color: #ffffff;
   white-space: nowrap;
   line-height: 1.05;
   text-shadow: 
-    0 0 25px rgba(0, 240, 255, 0.85),
-    0 0 60px rgba(0, 240, 255, 0.45);
+    0 0 20px rgba(0, 240, 255, 0.9),
+    0 0 50px rgba(0, 240, 255, 0.5),
+    0 0 90px rgba(0, 240, 255, 0.25);
 }
 
-/* Single Cinematic Horizontal Light Sweep across VIGYANTRA */
-.intro-title-sweep {
+/* Fast horizontal light glare slicing once across the title */
+.intro-hero-glare {
   position: absolute;
   top: 0;
-  left: -100%;
-  width: 60%;
+  left: -120%;
+  width: 65%;
   height: 100%;
   background: linear-gradient(
     90deg,
     transparent 0%,
-    rgba(255, 255, 255, 0.05) 20%,
-    rgba(0, 240, 255, 0.75) 50%,
-    rgba(255, 255, 255, 0.9) 60%,
+    rgba(255, 255, 255, 0.1) 15%,
+    rgba(0, 240, 255, 0.8) 50%,
+    rgba(255, 255, 255, 0.95) 60%,
     transparent 100%
   );
-  transform: skewX(-24deg);
+  transform: skewX(-26deg);
   pointer-events: none;
   opacity: 0;
-  animation: intro-sweep-run 3.6s ease forwards;
+  animation: intro-glare-sweep 3.6s ease forwards;
 }
 
-@keyframes intro-sweep-run {
-  0%, 63% {
-    left: -100%;
+@keyframes intro-glare-sweep {
+  0%, 70% {
+    left: -120%;
     opacity: 0;
   }
-  65% {
+  72% {
     opacity: 1;
   }
-  78% {
-    left: 180%;
+  83% {
+    left: 200%;
     opacity: 1;
   }
-  80%, 100% {
-    left: 180%;
+  85%, 100% {
+    left: 200%;
     opacity: 0;
   }
 }
 
-.intro-motto {
+.intro-hero-motto {
   font-family: var(--font-serif);
-  font-size: clamp(0.85rem, 2.4vw, 1.4rem);
+  font-size: clamp(0.88rem, 2.4vw, 1.4rem);
   font-style: italic;
   font-weight: 700;
   color: var(--gold-light);
   letter-spacing: 0.06em;
-  text-shadow: 0 0 16px rgba(245, 158, 11, 0.65);
+  text-shadow: 0 0 18px rgba(245, 158, 11, 0.7);
   white-space: nowrap;
   opacity: 0;
-  animation: intro-motto-phase 3.6s ease forwards;
+  animation: intro-motto-reveal 3.6s ease forwards;
 }
 
-@keyframes intro-motto-phase {
+@keyframes intro-title-crystallize {
   0%, 68% {
     opacity: 0;
-    transform: translateY(6px);
+    transform: scale(0.92);
+    filter: blur(6px);
   }
-  75% {
-    opacity: 1;
-    transform: translateY(0);
-  }
-  85% {
-    opacity: 1;
-    transform: translateY(0);
-  }
-  92%, 100% {
-    opacity: 0;
-    transform: translateY(-4px);
-  }
-}
-
-@keyframes intro-vig-phase {
-  0%, 58% {
-    opacity: 0;
-    transform: scale(0.94);
-  }
-  64% {
+  72% {
+    /* 2.59s: Sharp appearance */
     opacity: 1;
     transform: scale(1);
+    filter: blur(0px);
   }
-  85% {
+  87% {
+    /* Holds stable until transition */
     opacity: 1;
-    transform: scale(1.02);
+    transform: scale(1.01);
   }
-  92%, 100% {
+  94%, 100% {
     opacity: 0;
     transform: scale(1.05);
   }
 }
 
-/* --------------------------------------------------------------------------
-   PHASE 5 — INTRO OVERLAY DISSOLVE (3.1s – 3.7s)
-   -------------------------------------------------------------------------- */
-.cinematic-intro {
-  animation: intro-overall-dissolve 3.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+@keyframes intro-motto-reveal {
+  0%, 74% {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  79% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  87% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  94%, 100% {
+    opacity: 0;
+    transform: translateY(-4px);
+  }
 }
 
-@keyframes intro-overall-dissolve {
+/* --------------------------------------------------------------------------
+   PHASE 7 — OUTWARD SHOCKWAVE & TRANSITION DISSOLVE (3.1s – 3.6s)
+   Shockwave ring bursts outward, intro overlay smoothly scales & fades out
+   -------------------------------------------------------------------------- */
+.intro-shockwave-ring {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 50px;
+  height: 50px;
+  transform: translate(-50%, -50%) scale(0.2);
+  border-radius: 50%;
+  border: 2px solid #00f0ff;
+  box-shadow: 0 0 30px 10px rgba(0, 240, 255, 0.5), inset 0 0 20px rgba(245, 158, 11, 0.4);
+  opacity: 0;
+  pointer-events: none;
+  animation: intro-shockwave-burst 3.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes intro-shockwave-burst {
+  0%, 84% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.2);
+  }
+  87% {
+    /* 3.13s: Shockwave ignites */
+    opacity: 0.95;
+    transform: translate(-50%, -50%) scale(1.5);
+  }
+  96% {
+    /* Expands to cover full viewport */
+    opacity: 0.15;
+    transform: translate(-50%, -50%) scale(14);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(18);
+  }
+}
+
+@keyframes intro-universe-dissolve {
   0%, 86% {
     opacity: 1;
     visibility: visible;
   }
-  96% {
+  95% {
     opacity: 0;
     visibility: visible;
   }
@@ -2821,10 +3070,10 @@ body {
 }
 
 /* ==========================================================================
-   MOBILE CALIBRATION FOR CINEMATIC INTRO (ZERO FLICKER, ZERO CHURN)
+   MOBILE CALIBRATION FOR SPECTACULAR INTRO (ZERO FLICKER, ZERO CHURN)
    ========================================================================== */
 @media (max-width: 768px) {
-  .intro-energy-glow {
+  .intro-energy-streaks {
     filter: blur(16px);
     -webkit-filter: blur(16px);
     width: 280px;
@@ -2835,24 +3084,28 @@ body {
     top: 12px;
     right: 12px;
     padding: 5px 12px;
-    font-size: 0.65rem;
+    font-size: 0.64rem;
   }
 
-  .intro-holo-25 {
-    -webkit-text-stroke: 1px rgba(0, 240, 255, 0.35);
-    text-shadow: 0 0 25px rgba(0, 240, 255, 0.25);
+  .intro-holo-25-giant {
+    -webkit-text-stroke: 1.5px #00f0ff;
+    text-shadow: 0 0 25px rgba(0, 240, 255, 0.7);
   }
 
-  .intro-title {
-    text-shadow: 0 0 18px rgba(0, 240, 255, 0.7);
+  .intro-hero-title {
+    text-shadow: 0 0 18px rgba(0, 240, 255, 0.8);
   }
 
-  .intro-inst-tag,
-  .intro-inst-sub,
-  .intro-title,
-  .intro-motto {
+  .intro-inst-crest,
+  .intro-hero-title,
+  .intro-hero-motto,
+  .intro-holo-25-giant {
     -webkit-backface-visibility: hidden;
     backface-visibility: hidden;
+  }
+
+  .p-streak {
+    width: 70px;
   }
 }
 
