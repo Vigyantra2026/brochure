@@ -1357,10 +1357,20 @@ function selectDropdownOption(option) {
   }
 }
 
+function scrollToSection(sectionId) {
+  closeCyberMenu();
+  playCyberTone(520, 0.06, 'sine');
+  const target = document.getElementById(sectionId);
+  if (target) {
+    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+}
+
 window.toggleCyberMenu = toggleCyberMenu;
 window.openCyberMenu = openCyberMenu;
 window.closeCyberMenu = closeCyberMenu;
 window.selectDropdownOption = selectDropdownOption;
+window.scrollToSection = scrollToSection;
 
 // Close dropdown on outside click or ESC
 document.addEventListener('DOMContentLoaded', () => {

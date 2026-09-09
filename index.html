@@ -142,6 +142,36 @@
           </button>
         </li>
         <li class="dropdown-divider"></li>
+        <li class="dropdown-section-label"><span>// DOSSIER SECTIONS //</span></li>
+        <li>
+          <button class="dropdown-item-btn" onclick="scrollToSection('about')">
+            <span class="item-icon">ℹ️</span>
+            <span class="item-text">ABOUT VIGYANTRA</span>
+            <span class="item-arrow">↓</span>
+          </button>
+        </li>
+        <li>
+          <button class="dropdown-item-btn" onclick="scrollToSection('coordinators')">
+            <span class="item-icon">👥</span>
+            <span class="item-text">EVENT COORDINATORS</span>
+            <span class="item-arrow">↓</span>
+          </button>
+        </li>
+        <li>
+          <button class="dropdown-item-btn" onclick="scrollToSection('campus')">
+            <span class="item-icon">🏛️</span>
+            <span class="item-text">VISIT SJBIT</span>
+            <span class="item-arrow">↓</span>
+          </button>
+        </li>
+        <li>
+          <button class="dropdown-item-btn" onclick="scrollToSection('contact')">
+            <span class="item-icon">📞</span>
+            <span class="item-text">CONTACT DESK</span>
+            <span class="item-arrow">↓</span>
+          </button>
+        </li>
+        <li class="dropdown-divider"></li>
         <li>
           <button class="dropdown-item-btn highlight-cyan" onclick="selectDropdownOption('register')">
             <span class="item-icon">⚡</span>
@@ -292,7 +322,321 @@
         </span>
       </button>
     </div>
+
+    <!-- Restrained Cyber Scroll Indicator -->
+    <a href="#about" class="deck-scroll-indicator" aria-label="Scroll to symposium information sections">
+      <span class="scroll-cue-text">SYMPOSIUM DOSSIER &amp; INTEL</span>
+      <span class="scroll-cue-chevron">↓</span>
+    </a>
   </main>
+
+  <!-- ========================================================================
+       SCROLLABLE INFORMATION SECTIONS & SYMPOSIUM DOSSIER
+       Calm, readable, premium technical documentation complement
+       ======================================================================== -->
+  <div class="info-scroll-container">
+
+    <!-- 1. ABOUT VIGYANTRA -->
+    <section id="about" class="info-section">
+      <div class="info-section-inner">
+        <div class="info-section-header">
+          <span class="info-badge">✦ 01 // SYMPOSIUM OVERVIEW ✦</span>
+          <h2 class="info-title">ABOUT VIGYANTRA 2026</h2>
+          <div class="info-motto">“Ideas Today Solutions Tomorrow”</div>
+        </div>
+
+        <div class="info-text-block">
+          <p>
+            <strong>VIGYANTRA 2026</strong> is the premier <strong>25th Silver Jubilee National Technical Symposium</strong> hosted by <strong>SJB Institute of Technology (SJBIT)</strong>, Bengaluru. Convening on <strong>30 October 2026 (Friday)</strong>, the symposium unites over 1,500 collegiate innovators, engineers, ethical hackers, and visionary developers across India.
+          </p>
+          <p>
+            Spanning cutting-edge computational paradigms, AI systems, secure infrastructure, and robotics engineering, VIGYANTRA 2026 features <strong>8 Flagship Technical Arenas</strong> competing for a combined national prize pool of <strong>₹ 4,00,000</strong>.
+          </p>
+        </div>
+
+        <div class="info-highlights-grid">
+          <div class="info-stat-card">
+            <div class="info-stat-num cyan">08</div>
+            <div class="info-stat-lbl">FLAGSHIP ARENAS</div>
+            <div class="info-stat-sub">AI, Coding, CTF, Web3 &amp; Robotics</div>
+          </div>
+          <div class="info-stat-card">
+            <div class="info-stat-num gold">₹ 4,00,000</div>
+            <div class="info-stat-lbl">PRIZE POOL</div>
+            <div class="info-stat-sub">₹50,000 Allocated Per Arena</div>
+          </div>
+          <div class="info-stat-card">
+            <div class="info-stat-num cyan">25 YRS</div>
+            <div class="info-stat-lbl">SILVER JUBILEE</div>
+            <div class="info-stat-sub">Celebration of Engineering Excellence</div>
+          </div>
+          <div class="info-stat-card">
+            <div class="info-stat-num gold">30 OCT 2026</div>
+            <div class="info-stat-lbl">FRIDAY HORIZON</div>
+            <div class="info-stat-sub">SJB Campus, Bengaluru, India</div>
+          </div>
+        </div>
+
+        <div class="info-section-action">
+          <button class="btn btn-primary" onclick="openHudModal('events')">
+            <span>EXPLORE THE 8 ARENAS MATRIX →</span>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- 2. SJBIT / SILVER JUBILEE LEGACY -->
+    <section id="legacy" class="info-section">
+      <div class="info-section-inner">
+        <div class="info-section-header">
+          <span class="info-badge gold">✦ 02 // INSTITUTIONAL CONTEXT ✦</span>
+          <h2 class="info-title">25 YEARS OF SJBIT EXCELLENCE</h2>
+          <div class="info-subtitle">A Quarter Century of Technical Empowerment &amp; Research Leadership</div>
+        </div>
+
+        <div class="info-text-block">
+          <p>
+            Established under the divine aegis of <strong>Sri Adichunchanagiri Shikshana Trust®</strong>, SJB Institute of Technology has spent 25 years shaping the next generation of engineers, technologists, and entrepreneurs.
+          </p>
+          <p>
+            As an <strong>Autonomous Institute affiliated with Visvesvaraya Technological University (VTU), Belagavi</strong>, accredited with <strong>NAAC A+</strong> and <strong>NBA</strong> credentials, SJBIT is committed to providing industry-standard laboratory environments, research incubation centers, and globally recognized engineering education.
+          </p>
+        </div>
+
+        <div class="legacy-credentials-row">
+          <div class="cred-pill"><span class="cred-icon">★</span> NAAC A+ Accredited</div>
+          <div class="cred-pill"><span class="cred-icon">★</span> NBA Accredited Programs</div>
+          <div class="cred-pill"><span class="cred-icon">★</span> Autonomous VTU Institution</div>
+          <div class="cred-pill"><span class="cred-icon">★</span> AICTE &amp; ISO Certified</div>
+          <div class="cred-pill"><span class="cred-icon">★</span> IEEE CS Bengaluru Chapter</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 3. EVENT COORDINATORS -->
+    <section id="coordinators" class="info-section">
+      <div class="info-section-inner">
+        <div class="info-section-header">
+          <span class="info-badge">✦ 03 // LEADERSHIP DESK ✦</span>
+          <h2 class="info-title">EVENT COORDINATORS</h2>
+          <div class="info-subtitle">Symposium Convenors, Arena Leads &amp; Technical Council</div>
+        </div>
+
+        <!-- Faculty Coordinators -->
+        <div class="coordinators-group">
+          <h3 class="coordinators-group-title">FACULTY CONVENORS &amp; ADVISORS</h3>
+          <div class="coordinators-grid">
+            <div class="coordinator-card">
+              <div class="coord-avatar-placeholder">FC</div>
+              <div class="coord-info">
+                <div class="coord-name">Prof. Chief Faculty Convenor</div>
+                <div class="coord-role">General Symposium Oversight</div>
+                <div class="coord-dept">SJB Institute of Technology</div>
+                <div class="coord-contact"><a href="mailto:example@gmail.com">example@gmail.com</a></div>
+              </div>
+            </div>
+            <div class="coordinator-card">
+              <div class="coord-avatar-placeholder">FC</div>
+              <div class="coord-info">
+                <div class="coord-name">Prof. Technical Arena Convenor</div>
+                <div class="coord-role">Arenas &amp; Evaluation Chair</div>
+                <div class="coord-dept">Technical Advisory Council</div>
+                <div class="coord-contact"><a href="mailto:example@gmail.com">example@gmail.com</a></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Student Coordinators -->
+        <div class="coordinators-group" style="margin-top: 28px;">
+          <h3 class="coordinators-group-title">STUDENT CORE CONVENORS</h3>
+          <div class="coordinators-grid">
+            <div class="coordinator-card">
+              <div class="coord-avatar-placeholder student">SC</div>
+              <div class="coord-info">
+                <div class="coord-name">Student Lead Coordinator</div>
+                <div class="coord-role">Symposium Logistics &amp; Operations</div>
+                <div class="coord-dept">Student Council Lead</div>
+                <div class="coord-contact"><a href="tel:+91XXXXXXXXXX">+91 XXXXX XXXXX</a></div>
+              </div>
+            </div>
+            <div class="coordinator-card">
+              <div class="coord-avatar-placeholder student">SC</div>
+              <div class="coord-info">
+                <div class="coord-name">Technical Operations Lead</div>
+                <div class="coord-role">Hackathons &amp; Laboratory Infrastructure</div>
+                <div class="coord-dept">Arena Technical Desk</div>
+                <div class="coord-contact"><a href="tel:+91XXXXXXXXXX">+91 XXXXX XXXXX</a></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <p class="coordinator-note">
+          * Specific individual arena faculty and student coordinator contacts are detailed inside each arena's <strong>Event Dossier</strong>.
+        </p>
+      </div>
+    </section>
+
+    <!-- 4. CAMPUS / VISIT SJBIT -->
+    <section id="campus" class="info-section">
+      <div class="info-section-inner">
+        <div class="info-section-header">
+          <span class="info-badge gold">✦ 04 // ON-SITE INFORMATION ✦</span>
+          <h2 class="info-title">VISIT SJBIT</h2>
+          <div class="info-subtitle">Campus Amenities, Technical Facilities &amp; Arrival Protocol</div>
+        </div>
+
+        <div class="campus-blocks-grid">
+          <div class="campus-block">
+            <div class="campus-block-icon">🏛️</div>
+            <h4 class="campus-block-title">CAMPUS VENUE</h4>
+            <p class="campus-block-desc">
+              SJB Institute of Technology<br>
+              No.67, BGS Health &amp; Education City, Dr. Vishnuvardhan Rd, Kengeri, Bengaluru, Karnataka 560060
+            </p>
+          </div>
+
+          <div class="campus-block">
+            <div class="campus-block-icon">🚇</div>
+            <h4 class="campus-block-title">TRANSIT &amp; CONNECTIVITY</h4>
+            <p class="campus-block-desc">
+              Kengeri Metro Station (Purple Line) is situated ~4 km from the campus. City transit buses and symposium campus shuttles operate regularly along Dr. Vishnuvardhan Road.
+            </p>
+          </div>
+
+          <div class="campus-block">
+            <div class="campus-block-icon">⚡</div>
+            <h4 class="campus-block-title">LABORATORIES &amp; WI-FI</h4>
+            <p class="campus-block-desc">
+              Dedicated high-performance workstations, cloud instances, and secured Wi-Fi credentials will be provisioned to verified cadet teams at registration check-in.
+            </p>
+          </div>
+
+          <div class="campus-block">
+            <div class="campus-block-icon">🎫</div>
+            <h4 class="campus-block-title">CHECK-IN DESK</h4>
+            <p class="campus-block-desc">
+              Delegate credential check-in commences at 08:30 AM at the Main Reception Deck. Valid collegiate photo identification is mandatory for all participants.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 5. DIRECTIONS / MAP -->
+    <section id="directions" class="info-section">
+      <div class="info-section-inner">
+        <div class="info-section-header">
+          <span class="info-badge">✦ 05 // LOCATION TELEMETRY ✦</span>
+          <h2 class="info-title">CAMPUS TELEMETRY &amp; DIRECTIONS</h2>
+          <div class="info-subtitle">Navigate to SJBIT, Bengaluru</div>
+        </div>
+
+        <div class="telemetry-banner-card">
+          <div class="telemetry-banner-content">
+            <div class="telemetry-coords">COORDINATES: 12.9056° N, 77.4984° E &nbsp;|&nbsp; BENGALURU</div>
+            <h3 class="telemetry-inst-name">SJB INSTITUTE OF TECHNOLOGY</h3>
+            <p class="telemetry-address">
+              No.67, BGS Health &amp; Education City, Dr. Vishnuvardhan Rd, Kengeri, Bengaluru 560060
+            </p>
+
+            <div class="telemetry-actions">
+              <a href="https://maps.google.com/?q=SJB+Institute+of+Technology+Bengaluru" target="_blank" rel="noopener noreferrer" class="btn btn-primary">
+                <span>📍 OPEN IN GOOGLE MAPS</span>
+              </a>
+              <button class="btn btn-secondary" onclick="openHudModal('venue')">
+                <span>VIEW COMPLETE VENUE DOSSIER →</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 6. CONTACT VIGYANTRA -->
+    <section id="contact" class="info-section">
+      <div class="info-section-inner">
+        <div class="info-section-header">
+          <span class="info-badge gold">✦ 06 // OFFICIAL DESK ✦</span>
+          <h2 class="info-title">CONTACT VIGYANTRA</h2>
+          <div class="info-subtitle">Official Inquiries, Delegations &amp; Helpdesk</div>
+        </div>
+
+        <div class="contact-channels-grid">
+          <div class="contact-channel-card">
+            <div class="channel-icon">✉️</div>
+            <div class="channel-title">OFFICIAL CORRESPONDENCE</div>
+            <div class="channel-val"><a href="mailto:example@gmail.com">example@gmail.com</a></div>
+            <div class="channel-sub">Direct queries to the Central Symposium Committee</div>
+          </div>
+
+          <div class="contact-channel-card">
+            <div class="channel-icon">📞</div>
+            <div class="channel-title">CENTRAL HELPDESK</div>
+            <div class="channel-val"><a href="tel:+91XXXXXXXXXX">+91 XXXXX XXXXX</a></div>
+            <div class="channel-sub">Operating Hours: 09:00 AM - 05:00 PM IST</div>
+          </div>
+
+          <div class="contact-channel-card">
+            <div class="channel-icon">🌐</div>
+            <div class="channel-title">COMMUNICATION CHANNELS</div>
+            <div class="channel-val">Instagram • LinkedIn • YouTube</div>
+            <div class="channel-sub">Official symposium media announcements</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 7. FOOTER -->
+    <footer class="cyber-footer">
+      <div class="footer-inner">
+        <div class="footer-brand-col">
+          <div class="footer-badge">SJBIT • 25 YEARS</div>
+          <div class="footer-title">VIGYANTRA 2026</div>
+          <div class="footer-theme">“Ideas Today Solutions Tomorrow”</div>
+          <div class="footer-desc">
+            SJB Institute of Technology — 25th Silver Jubilee National Technical Symposium.<br>
+            Sri Adichunchanagiri Shikshana Trust®
+          </div>
+        </div>
+
+        <div class="footer-links-col">
+          <div class="footer-col-title">QUICK ACCESS</div>
+          <ul class="footer-links-list">
+            <li><a href="#about">About Symposium</a></li>
+            <li><a href="#legacy">SJBIT Legacy</a></li>
+            <li><a href="#coordinators">Coordinators</a></li>
+            <li><a href="#campus">Visit SJBIT</a></li>
+            <li><a href="#directions">Location Telemetry</a></li>
+            <li><a href="#contact">Contact Desk</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-links-col">
+          <div class="footer-col-title">HUD INTERFACES</div>
+          <ul class="footer-links-list">
+            <li><a href="javascript:void(0)" onclick="openHudModal('events')">08 Flagship Arenas</a></li>
+            <li><a href="javascript:void(0)" onclick="openHudModal('schedule')">Symposium Timeline</a></li>
+            <li><a href="javascript:void(0)" onclick="openHudModal('prizes')">₹4,00,000 Prizes</a></li>
+            <li><a href="javascript:void(0)" onclick="openRegistrationModal()">Cadet Registration</a></li>
+            <li><a href="javascript:void(0)" onclick="openBrochureModal()">Digital Brochure</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer-bottom-bar">
+        <div class="footer-copy">
+          © 2026 VIGYANTRA • SJB Institute of Technology. All Rights Reserved.
+        </div>
+        <div class="footer-status">
+          <span class="hud-status-dot green"></span> SYS.CORE: ONLINE // 30 OCTOBER 2026
+        </div>
+      </div>
+    </footer>
+
+  </div>
+
 
   <!-- ========================================================================
        HUD MODAL: 08 FLAGSHIP ARENAS MATRIX

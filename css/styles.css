@@ -68,16 +68,24 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
-html, body {
-  width: 100vw;
-  height: 100vh;
-  height: 100dvh;
-  overflow: hidden; /* STRICT SINGLE-VIEWPORT COMMAND DECK ACROSS MOBILE AND LAPTOP */
+html {
+  width: 100%;
+  min-height: 100%;
+  overflow-x: hidden;
+  overflow-y: auto;
+  scroll-behavior: smooth;
+  background-color: var(--bg-core);
+}
+
+body {
+  width: 100%;
+  min-height: 100%;
+  overflow-x: hidden;
   background-color: var(--bg-core);
   color: var(--silver-200);
   font-family: var(--font-sans);
   font-size: 15px;
-  line-height: 1.4;
+  line-height: 1.5;
   user-select: none;
 }
 
@@ -2869,4 +2877,647 @@ html, body {
     display: none !important;
   }
 }
+
+/* ==========================================================================
+   16. COMMAND DECK SCROLL INDICATOR
+   Restrained, non-distracting cue indicating dossier content exists below
+   ========================================================================== */
+.deck-scroll-indicator {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  text-decoration: none;
+  color: var(--silver-400);
+  font-family: var(--font-mono);
+  font-size: clamp(0.55rem, 1vw, 0.65rem);
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  padding: 4px 12px;
+  border-radius: 16px;
+  background: rgba(8, 14, 28, 0.4);
+  border: 1px solid rgba(0, 240, 255, 0.12);
+  transition: all 0.22s ease;
+  z-index: 10;
+  margin-top: clamp(2px, 0.5vh, 6px);
+}
+
+.deck-scroll-indicator:hover {
+  color: #ffffff;
+  border-color: var(--cyan-border);
+  background: rgba(0, 240, 255, 0.08);
+  box-shadow: 0 0 12px rgba(0, 240, 255, 0.2);
+}
+
+.scroll-cue-chevron {
+  font-size: 0.8rem;
+  color: var(--cyan);
+  line-height: 1;
+  animation: scroll-chevron-bob 2s ease-in-out infinite;
+}
+
+@keyframes scroll-chevron-bob {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(3px); }
+}
+
+/* Dropdown Section Subheading */
+.dropdown-section-label {
+  padding: 8px 12px 2px 12px;
+  font-family: var(--font-mono);
+  font-size: 0.55rem;
+  font-weight: 800;
+  letter-spacing: 0.15em;
+  color: var(--cyan);
+}
+
+/* ==========================================================================
+   17. SCROLLABLE INFORMATION SECTIONS & SYMPOSIUM DOSSIER
+   Calm, readable, technical documentation aesthetics (not over-glowing)
+   ========================================================================== */
+.info-scroll-container {
+  position: relative;
+  z-index: 10;
+  width: 100%;
+  max-width: 1160px;
+  margin: 0 auto;
+  padding: 40px clamp(16px, 3.5vw, 36px) 60px clamp(16px, 3.5vw, 36px);
+  display: flex;
+  flex-direction: column;
+  gap: clamp(48px, 7vh, 80px);
+}
+
+.info-section {
+  position: relative;
+  scroll-margin-top: calc(var(--taskbar-height) + 24px);
+  background: rgba(6, 11, 24, 0.72);
+  border: 1px solid rgba(0, 240, 255, 0.16);
+  border-radius: 14px;
+  padding: clamp(24px, 4vw, 44px);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  transition: border-color 0.24s ease;
+}
+
+.info-section:hover {
+  border-color: rgba(0, 240, 255, 0.28);
+}
+
+.info-section-inner {
+  width: 100%;
+}
+
+/* Section Header Structure */
+.info-section-header {
+  margin-bottom: 24px;
+}
+
+.info-badge {
+  display: inline-block;
+  font-family: var(--font-mono);
+  font-size: clamp(0.6rem, 1.1vw, 0.72rem);
+  font-weight: 800;
+  letter-spacing: 0.16em;
+  color: var(--cyan);
+  background: rgba(0, 240, 255, 0.08);
+  border: 1px solid rgba(0, 240, 255, 0.28);
+  border-radius: 4px;
+  padding: 3px 10px;
+  margin-bottom: 8px;
+}
+
+.info-badge.gold {
+  color: var(--gold-light);
+  background: rgba(245, 158, 11, 0.08);
+  border-color: rgba(245, 158, 11, 0.32);
+}
+
+.info-title {
+  font-family: var(--font-heading);
+  font-size: clamp(1.4rem, 3.2vw, 2.2rem);
+  font-weight: 900;
+  letter-spacing: 0.06em;
+  color: #ffffff;
+  line-height: 1.15;
+  margin-bottom: 4px;
+}
+
+.info-motto {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: clamp(0.85rem, 1.8vw, 1.05rem);
+  color: var(--gold-light);
+  letter-spacing: 0.03em;
+}
+
+.info-subtitle {
+  font-family: var(--font-sans);
+  font-size: clamp(0.8rem, 1.5vw, 0.95rem);
+  color: var(--silver-400);
+  margin-top: 2px;
+}
+
+/* High-readability Typography Body */
+.info-text-block {
+  font-size: clamp(0.88rem, 1.4vw, 0.98rem);
+  color: var(--silver-300);
+  line-height: 1.72;
+  margin-bottom: 28px;
+}
+
+.info-text-block p {
+  margin-bottom: 14px;
+}
+
+.info-text-block p:last-child {
+  margin-bottom: 0;
+}
+
+.info-text-block strong {
+  color: #ffffff;
+  font-weight: 700;
+}
+
+/* 4-Column Highlights Grid */
+.info-highlights-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 16px;
+  margin-bottom: 28px;
+}
+
+.info-stat-card {
+  background: rgba(4, 8, 18, 0.85);
+  border: 1px solid rgba(226, 232, 240, 0.1);
+  border-radius: 10px;
+  padding: 18px;
+  transition: transform 0.2s ease, border-color 0.2s ease;
+}
+
+.info-stat-card:hover {
+  transform: translateY(-2px);
+  border-color: rgba(0, 240, 255, 0.3);
+}
+
+.info-stat-num {
+  font-family: var(--font-heading);
+  font-size: clamp(1.4rem, 2.5vw, 1.8rem);
+  font-weight: 900;
+  line-height: 1;
+  margin-bottom: 6px;
+}
+
+.info-stat-num.cyan {
+  color: var(--cyan);
+}
+
+.info-stat-num.gold {
+  color: var(--gold);
+}
+
+.info-stat-lbl {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  color: #ffffff;
+  margin-bottom: 4px;
+}
+
+.info-stat-sub {
+  font-size: 0.78rem;
+  color: var(--silver-400);
+  line-height: 1.4;
+}
+
+.info-section-action {
+  display: flex;
+  justify-content: flex-start;
+}
+
+/* Institutional Credentials Pills */
+.legacy-credentials-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.cred-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(245, 158, 11, 0.06);
+  border: 1px solid rgba(245, 158, 11, 0.28);
+  border-radius: 20px;
+  padding: 6px 14px;
+  font-family: var(--font-mono);
+  font-size: 0.76rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  color: var(--silver-200);
+}
+
+.cred-pill .cred-icon {
+  color: var(--gold);
+}
+
+/* --------------------------------------------------------------------------
+   COORDINATORS REUSABLE CARDS
+   -------------------------------------------------------------------------- */
+.coordinators-group-title {
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  color: var(--cyan);
+  margin-bottom: 14px;
+  text-transform: uppercase;
+}
+
+.coordinators-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 16px;
+}
+
+.coordinator-card {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  background: rgba(4, 8, 18, 0.88);
+  border: 1px solid rgba(0, 240, 255, 0.15);
+  border-radius: 10px;
+  padding: 16px;
+  transition: all 0.2s ease;
+}
+
+.coordinator-card:hover {
+  border-color: var(--cyan);
+  box-shadow: 0 4px 18px rgba(0, 240, 255, 0.12);
+}
+
+.coord-avatar-placeholder {
+  width: 48px;
+  height: 48px;
+  border-radius: 8px;
+  background: rgba(0, 240, 255, 0.1);
+  border: 1px solid var(--cyan-border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-heading);
+  font-size: 0.9rem;
+  font-weight: 800;
+  color: var(--cyan);
+  flex-shrink: 0;
+}
+
+.coord-avatar-placeholder.student {
+  background: rgba(245, 158, 11, 0.1);
+  border-color: var(--gold-border);
+  color: var(--gold);
+}
+
+.coord-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.coord-name {
+  font-family: var(--font-heading);
+  font-size: 0.92rem;
+  font-weight: 700;
+  color: #ffffff;
+  letter-spacing: 0.04em;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.coord-role {
+  font-size: 0.76rem;
+  color: var(--cyan);
+  margin-top: 1px;
+}
+
+.coord-dept {
+  font-size: 0.72rem;
+  color: var(--silver-400);
+  margin-top: 2px;
+}
+
+.coord-contact {
+  margin-top: 6px;
+  font-family: var(--font-mono);
+  font-size: 0.74rem;
+}
+
+.coord-contact a {
+  color: var(--silver-300);
+  text-decoration: none;
+  transition: color 0.18s ease;
+}
+
+.coord-contact a:hover {
+  color: var(--cyan);
+  text-decoration: underline;
+}
+
+.coordinator-note {
+  margin-top: 20px;
+  font-size: 0.78rem;
+  color: var(--silver-400);
+  font-style: italic;
+}
+
+.coordinator-note strong {
+  color: var(--silver-200);
+}
+
+/* --------------------------------------------------------------------------
+   CAMPUS & TELEMETRY
+   -------------------------------------------------------------------------- */
+.campus-blocks-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 16px;
+}
+
+.campus-block {
+  background: rgba(4, 8, 18, 0.85);
+  border: 1px solid rgba(226, 232, 240, 0.1);
+  border-radius: 10px;
+  padding: 20px;
+  transition: border-color 0.2s ease;
+}
+
+.campus-block:hover {
+  border-color: rgba(245, 158, 11, 0.35);
+}
+
+.campus-block-icon {
+  font-size: 1.5rem;
+  margin-bottom: 10px;
+}
+
+.campus-block-title {
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  color: var(--gold-light);
+  margin-bottom: 6px;
+}
+
+.campus-block-desc {
+  font-size: 0.82rem;
+  color: var(--silver-300);
+  line-height: 1.6;
+}
+
+.telemetry-banner-card {
+  background: linear-gradient(135deg, rgba(0, 240, 255, 0.05) 0%, rgba(4, 8, 18, 0.95) 100%);
+  border: 1px solid rgba(0, 240, 255, 0.24);
+  border-radius: 12px;
+  padding: clamp(20px, 3vw, 32px);
+}
+
+.telemetry-coords {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  color: var(--cyan);
+  margin-bottom: 6px;
+}
+
+.telemetry-inst-name {
+  font-family: var(--font-heading);
+  font-size: clamp(1.2rem, 2.5vw, 1.6rem);
+  color: #ffffff;
+  margin-bottom: 4px;
+}
+
+.telemetry-address {
+  font-size: 0.86rem;
+  color: var(--silver-300);
+  margin-bottom: 20px;
+}
+
+.telemetry-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+/* --------------------------------------------------------------------------
+   CONTACT CHANNELS
+   -------------------------------------------------------------------------- */
+.contact-channels-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 16px;
+}
+
+.contact-channel-card {
+  background: rgba(4, 8, 18, 0.85);
+  border: 1px solid rgba(226, 232, 240, 0.12);
+  border-radius: 10px;
+  padding: 20px;
+  transition: border-color 0.2s ease, transform 0.2s ease;
+}
+
+.contact-channel-card:hover {
+  border-color: var(--cyan-border);
+  transform: translateY(-2px);
+}
+
+.channel-icon {
+  font-size: 1.5rem;
+  margin-bottom: 8px;
+}
+
+.channel-title {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  color: var(--silver-400);
+  margin-bottom: 4px;
+}
+
+.channel-val {
+  font-family: var(--font-heading);
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #ffffff;
+  margin-bottom: 4px;
+}
+
+.channel-val a {
+  color: var(--cyan);
+  text-decoration: none;
+}
+
+.channel-val a:hover {
+  text-decoration: underline;
+}
+
+.channel-sub {
+  font-size: 0.76rem;
+  color: var(--silver-400);
+}
+
+/* --------------------------------------------------------------------------
+   18. CYBER FOOTER
+   -------------------------------------------------------------------------- */
+.cyber-footer {
+  margin-top: 20px;
+  border-top: 1px solid rgba(0, 240, 255, 0.2);
+  padding-top: 40px;
+}
+
+.footer-inner {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr;
+  gap: clamp(24px, 4vw, 48px);
+  margin-bottom: 32px;
+}
+
+.footer-badge {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  color: var(--gold);
+  margin-bottom: 4px;
+}
+
+.footer-title {
+  font-family: var(--font-heading);
+  font-size: 1.4rem;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+  color: #ffffff;
+  margin-bottom: 4px;
+}
+
+.footer-theme {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: 0.85rem;
+  color: var(--gold-light);
+  margin-bottom: 10px;
+}
+
+.footer-desc {
+  font-size: 0.8rem;
+  color: var(--silver-400);
+  line-height: 1.6;
+}
+
+.footer-col-title {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  color: var(--cyan);
+  margin-bottom: 12px;
+}
+
+.footer-links-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.footer-links-list li a {
+  color: var(--silver-300);
+  font-size: 0.82rem;
+  text-decoration: none;
+  transition: color 0.18s ease;
+}
+
+.footer-links-list li a:hover {
+  color: var(--cyan);
+  padding-left: 2px;
+}
+
+.footer-bottom-bar {
+  border-top: 1px solid rgba(226, 232, 240, 0.08);
+  padding-top: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.footer-copy {
+  font-size: 0.74rem;
+  color: var(--silver-400);
+}
+
+.footer-status {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  color: var(--silver-400);
+  letter-spacing: 0.08em;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+/* Mobile Adjustments for Scroll Sections */
+@media (max-width: 768px) {
+  .info-scroll-container {
+    padding: 24px 12px 48px 12px;
+    gap: 32px;
+  }
+
+  .info-section {
+    padding: 20px 16px;
+    border-radius: 10px;
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+    background: rgba(6, 11, 24, 0.94);
+  }
+
+  .footer-inner {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+
+  .info-highlights-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+
+  .info-stat-card {
+    padding: 12px;
+  }
+
+  .coordinators-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .campus-blocks-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .contact-channels-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .footer-bottom-bar {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+
 
