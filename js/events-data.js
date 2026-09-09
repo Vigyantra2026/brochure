@@ -14,8 +14,8 @@ const SYMPOSIUM_CONFIG = {
   collegePlaceholder: "[College / University Campus Name]",
   cityPlaceholder: "Bengaluru, Karnataka, India",
   directionsUrl: "https://maps.google.com/?q=Bengaluru+Karnataka",
-  // Target date for countdown (Configurable symposium date)
-  targetDate: "2026-10-15T09:00:00+05:30",
+  // Target date for countdown: 30th October 2026
+  targetDate: "2026-10-30T09:00:00+05:30",
   brochurePdfUrl: "#", // Placeholder: replace with actual PDF URL when uploaded
   socials: {
     instagram: "https://instagram.com/example_handle",
@@ -585,7 +585,7 @@ const EVENTS_DATA = [
 const SCHEDULE_DATA = {
   day1: {
     label: "DAY 01",
-    date: "Date TBD / Day 01 (Placeholder)",
+    date: "October 30, 2026",
     theme: "Ignition & Flagship Prelims",
     events: [
       {
@@ -641,7 +641,7 @@ const SCHEDULE_DATA = {
   },
   day2: {
     label: "DAY 02",
-    date: "Date TBD / Day 02 (Placeholder)",
+    date: "October 31, 2026",
     theme: "Grand Arena & Silver Jubilee Valedictory",
     events: [
       {

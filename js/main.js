@@ -403,7 +403,7 @@ function initCountdown() {
 
   if (!daysEl || !hoursEl || !minsEl || !secsEl) return;
 
-  const targetDate = new Date(window.SYMPOSIUM_CONFIG?.targetDate || '2026-10-15T09:00:00').getTime();
+  const targetDate = new Date(window.SYMPOSIUM_CONFIG?.targetDate || '2026-10-30T09:00:00').getTime();
 
   function update() {
     const now = new Date().getTime();
