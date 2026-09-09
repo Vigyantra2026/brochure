@@ -2426,8 +2426,8 @@ body {
 }
 
 /* ==========================================================================
-   15. SPECTACULAR FUTURISTIC INTRO: VIGYANTRA UNIVERSE ACTIVATION (7 PHASES)
-   High-budget tech opening (~3.6s) with dark abyss, ignition, orbital rings,
+   15. CINEMATIC INTRO: THE VIGYANTRA UNIVERSE ACTIVATION (7 PHASES, ~5.6s)
+   High-budget tech opening (~5.6s) with dark abyss, ignition, orbital rings,
    holographic 25, particle transformation, heroic title & shockwave dissolve.
    ========================================================================== */
 .cinematic-intro {
@@ -2447,7 +2447,7 @@ body {
   transition: opacity 0.55s cubic-bezier(0.16, 1, 0.3, 1),
               visibility 0.55s cubic-bezier(0.16, 1, 0.3, 1);
   will-change: opacity, transform;
-  animation: intro-universe-dissolve 3.65s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  animation: intro-universe-dissolve 5.65s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
 .cinematic-intro.intro-complete {
@@ -2501,7 +2501,7 @@ body {
 }
 
 /* --------------------------------------------------------------------------
-   PHASE 1 — ABSOLUTE DARKNESS & REMOTE ENERGY POINTS (0.0s – 0.4s)
+   PHASE 1 — ABSOLUTE DARKNESS & REMOTE ENERGY POINTS (0.0s – 0.7s)
    -------------------------------------------------------------------------- */
 .intro-abyss {
   position: absolute;
@@ -2513,19 +2513,19 @@ body {
     radial-gradient(1.5px 1.5px at 80% 80%, rgba(0, 240, 255, 0.6) 0%, transparent 100%),
     radial-gradient(circle at 50% 50%, #030713 0%, #010206 100%);
   opacity: 0;
-  animation: intro-abyss-fade 3.6s ease forwards;
+  animation: intro-abyss-fade 5.6s ease forwards;
   pointer-events: none;
 }
 
 @keyframes intro-abyss-fade {
   0% { opacity: 0; }
-  10% { opacity: 0.9; }
-  85% { opacity: 0.9; }
+  6% { opacity: 0.9; }
+  88% { opacity: 0.9; }
   100% { opacity: 0; }
 }
 
 /* --------------------------------------------------------------------------
-   PHASE 2 — ENERGY IGNITION (0.4s – 1.0s)
+   PHASE 2 — ENERGY IGNITION (0.7s – 1.5s)
    A concentrated cybernetic singularity expanding from the center
    -------------------------------------------------------------------------- */
 .intro-ignition-point {
@@ -2543,31 +2543,34 @@ body {
     0 0 70px 25px rgba(245, 158, 11, 0.5);
   opacity: 0;
   pointer-events: none;
-  animation: intro-ignition-surge 3.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  animation: intro-ignition-surge 5.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
 @keyframes intro-ignition-surge {
-  0%, 10% {
+  0%, 11% {
     opacity: 0;
     transform: translate(-50%, -50%) scale(0.1);
   }
-  14% {
+  15% {
+    /* ~0.84s: Point ignites */
     opacity: 1;
     transform: translate(-50%, -50%) scale(1);
     box-shadow: 0 0 25px 6px #00f0ff, 0 0 50px 14px rgba(0, 240, 255, 0.9);
   }
-  25% {
-    opacity: 0.9;
+  22% {
+    /* ~1.23s: Expands with golden/cyan corona */
+    opacity: 0.95;
     transform: translate(-50%, -50%) scale(3.5);
     box-shadow: 0 0 60px 18px rgba(0, 240, 255, 0.6), 0 0 120px 40px rgba(245, 158, 11, 0.4);
   }
-  38% {
-    opacity: 0.3;
-    transform: translate(-50%, -50%) scale(7);
+  28% {
+    /* ~1.55s: Disperses outwards into digital mesh */
+    opacity: 0.35;
+    transform: translate(-50%, -50%) scale(7.5);
   }
-  45%, 100% {
+  33%, 100% {
     opacity: 0;
-    transform: translate(-50%, -50%) scale(12);
+    transform: translate(-50%, -50%) scale(13);
   }
 }
 
@@ -2585,19 +2588,19 @@ body {
   -webkit-filter: blur(28px);
   opacity: 0;
   pointer-events: none;
-  animation: intro-energy-glow-phase 3.6s ease forwards;
+  animation: intro-energy-glow-phase 5.6s ease forwards;
 }
 
 @keyframes intro-energy-glow-phase {
   0%, 12% { opacity: 0; transform: translate(-50%, -50%) scale(0.6); }
-  22% { opacity: 0.85; transform: translate(-50%, -50%) scale(1); }
-  60% { opacity: 0.9; transform: translate(-50%, -50%) scale(1.1); }
-  85% { opacity: 0.7; transform: translate(-50%, -50%) scale(1.2); }
+  20% { opacity: 0.85; transform: translate(-50%, -50%) scale(1); }
+  65% { opacity: 0.9; transform: translate(-50%, -50%) scale(1.1); }
+  88% { opacity: 0.7; transform: translate(-50%, -50%) scale(1.2); }
   100% { opacity: 0; transform: translate(-50%, -50%) scale(1.3); }
 }
 
 /* --------------------------------------------------------------------------
-   PHASE 3 — DIGITAL UNIVERSE FORMS (1.0s – 1.6s)
+   PHASE 3 — DIGITAL UNIVERSE FORMS (1.5s – 2.4s)
    Warp grid, converging orbital rings & HUD telemetry
    -------------------------------------------------------------------------- */
 .intro-grid-warp {
@@ -2612,23 +2615,24 @@ body {
   opacity: 0;
   transform: perspective(600px) rotateX(45deg) translateZ(0);
   pointer-events: none;
-  animation: intro-warp-phase 3.6s ease forwards;
+  animation: intro-warp-phase 5.6s ease forwards;
 }
 
 @keyframes intro-warp-phase {
-  0%, 24% {
+  0%, 25% {
     opacity: 0;
     transform: perspective(600px) rotateX(55deg) translateZ(-100px);
   }
   32% {
+    /* ~1.8s: Grid crystallizes into perspective */
     opacity: 0.75;
     transform: perspective(600px) rotateX(45deg) translateZ(0);
   }
-  65% {
+  68% {
     opacity: 0.55;
     transform: perspective(600px) rotateX(40deg) translateZ(60px);
   }
-  85%, 100% {
+  88%, 100% {
     opacity: 0;
     transform: perspective(600px) rotateX(35deg) translateZ(120px);
   }
@@ -2656,27 +2660,27 @@ body {
 .intro-ring.ring-outer {
   border-style: solid;
   border-color: rgba(0, 240, 255, 0.22);
-  animation: intro-ring-outer-phase 3.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  animation: intro-ring-outer-phase 5.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
 .intro-ring.ring-inner {
   inset: 18%;
   border: 1px dotted rgba(245, 158, 11, 0.35);
-  animation: intro-ring-inner-phase 3.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  animation: intro-ring-inner-phase 5.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
 @keyframes intro-ring-outer-phase {
   0%, 26% { opacity: 0; transform: scale(1.6) rotate(-20deg); }
-  35% { opacity: 0.9; transform: scale(1) rotate(0deg); }
-  60% { opacity: 0.6; transform: scale(0.96) rotate(15deg); }
-  75%, 100% { opacity: 0; transform: scale(0.9) rotate(30deg); }
+  34% { opacity: 0.9; transform: scale(1) rotate(0deg); }
+  65% { opacity: 0.6; transform: scale(0.96) rotate(18deg); }
+  80%, 100% { opacity: 0; transform: scale(0.9) rotate(32deg); }
 }
 
 @keyframes intro-ring-inner-phase {
   0%, 28% { opacity: 0; transform: scale(0.4) rotate(40deg); }
   36% { opacity: 0.85; transform: scale(1) rotate(0deg); }
-  60% { opacity: 0.5; transform: scale(1.05) rotate(-15deg); }
-  75%, 100% { opacity: 0; transform: scale(1.15) rotate(-30deg); }
+  65% { opacity: 0.5; transform: scale(1.05) rotate(-18deg); }
+  80%, 100% { opacity: 0; transform: scale(1.15) rotate(-32deg); }
 }
 
 .intro-hud-telemetry {
@@ -2695,7 +2699,7 @@ body {
   top: clamp(20px, 5vh, 40px);
   left: clamp(20px, 4vw, 40px);
   opacity: 0;
-  animation: intro-tele-fade 3.6s ease forwards;
+  animation: intro-tele-fade 5.6s ease forwards;
 }
 
 .tele-bottom-right {
@@ -2703,14 +2707,14 @@ body {
   bottom: clamp(20px, 5vh, 40px);
   right: clamp(20px, 4vw, 40px);
   opacity: 0;
-  animation: intro-tele-fade 3.6s ease forwards;
+  animation: intro-tele-fade 5.6s ease forwards;
 }
 
 @keyframes intro-tele-fade {
-  0%, 28% { opacity: 0; }
-  34% { opacity: 0.8; }
-  72% { opacity: 0.8; }
-  85%, 100% { opacity: 0; }
+  0%, 27% { opacity: 0; }
+  33% { opacity: 0.8; }
+  78% { opacity: 0.8; }
+  88%, 100% { opacity: 0; }
 }
 
 /* --------------------------------------------------------------------------
@@ -2730,8 +2734,8 @@ body {
 }
 
 /* --------------------------------------------------------------------------
-   PHASE 4 — THE ENORMOUS 25 HOLOGRAPHIC REVEAL (1.6s – 2.1s)
-   Constructed with scanlines, laser precision, and sudden depth slam
+   PHASE 4 — THE GIANT 25 HOLOGRAPHIC REVEAL (2.4s – 3.2s)
+   Constructed with scanlines, laser precision, clear visibility & breathing room
    -------------------------------------------------------------------------- */
 .intro-holo-25-wrap {
   position: absolute;
@@ -2743,7 +2747,7 @@ body {
   align-items: center;
   justify-content: center;
   opacity: 0;
-  animation: intro-holo-25-lifecycle 3.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  animation: intro-holo-25-lifecycle 5.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
 .intro-holo-25-giant {
@@ -2770,7 +2774,7 @@ body {
   background: linear-gradient(90deg, transparent, #ffffff, #00f0ff, transparent);
   box-shadow: 0 0 16px #00f0ff;
   opacity: 0.9;
-  animation: intro-scanline-sweep 0.45s linear 1.65s 2;
+  animation: intro-scanline-sweep 0.7s linear 2.45s 2;
 }
 
 @keyframes intro-scanline-sweep {
@@ -2789,30 +2793,31 @@ body {
 }
 
 @keyframes intro-holo-25-lifecycle {
-  0%, 42% {
+  0%, 40% {
     opacity: 0;
     transform: translate(-50%, -50%) scale(1.3);
     filter: blur(8px);
   }
-  45% {
-    /* 1.62s: Slam in sharp */
+  43% {
+    /* ~2.42s: Slams into focal perspective with crisp sharpness */
     opacity: 1;
     transform: translate(-50%, -50%) scale(1);
     filter: blur(0px);
   }
-  56% {
-    /* 2.05s: Holds solid */
+  55% {
+    /* ~3.08s: Stays solidly prominent and clearly readable */
     opacity: 1;
     transform: translate(-50%, -50%) scale(1.02);
+    filter: blur(0px);
   }
-  58% {
-    /* 2.1s: Sudden shatter prep */
-    opacity: 0.8;
-    transform: translate(-50%, -50%) scale(1.06);
+  57% {
+    /* ~3.20s: Subtle energy vibration before disintegration */
+    opacity: 0.85;
+    transform: translate(-50%, -50%) scale(1.05);
     filter: blur(2px);
   }
-  60%, 100% {
-    /* 2.16s: Dissolved into particles */
+  59%, 100% {
+    /* ~3.30s: Completely dissolved into expanding particle stream */
     opacity: 0;
     transform: translate(-50%, -50%) scale(1.18);
     filter: blur(14px);
@@ -2820,7 +2825,7 @@ body {
 }
 
 /* --------------------------------------------------------------------------
-   PHASE 5 — 25 TRANSFORMS: HIGH-SPEED PARTICLE DISPERSION (2.1s – 2.5s)
+   PHASE 5 — 25 TRANSFORMS: PARTICLE DISINTEGRATION & SWEEP (3.2s – 4.1s)
    Sweeping streaks exploding from 25 and converging into VIGYANTRA
    -------------------------------------------------------------------------- */
 .intro-particle-stream {
@@ -2845,38 +2850,38 @@ body {
   opacity: 0;
 }
 
-.p-streak.s1 { transform: rotate(15deg) translate(-20px, -40px); animation: p-burst 3.6s ease forwards; }
-.p-streak.s2 { transform: rotate(-35deg) translate(30px, -20px); animation: p-burst 3.6s ease 0.03s forwards; background: linear-gradient(90deg, transparent, #f59e0b, #ffffff, transparent); }
-.p-streak.s3 { transform: rotate(70deg) translate(-10px, 30px); animation: p-burst 3.6s ease 0.05s forwards; }
-.p-streak.s4 { transform: rotate(-85deg) translate(40px, 10px); animation: p-burst 3.6s ease 0.02s forwards; background: linear-gradient(90deg, transparent, #f59e0b, #ffffff, transparent); }
-.p-streak.s5 { transform: rotate(135deg) translate(-50px, -30px); animation: p-burst 3.6s ease 0.06s forwards; }
-.p-streak.s6 { transform: rotate(-145deg) translate(20px, 50px); animation: p-burst 3.6s ease 0.04s forwards; }
-.p-streak.s7 { transform: rotate(45deg) translate(-60px, 20px); animation: p-burst 3.6s ease 0.07s forwards; background: linear-gradient(90deg, transparent, #f59e0b, #ffffff, transparent); }
-.p-streak.s8 { transform: rotate(-110deg) translate(50px, -40px); animation: p-burst 3.6s ease 0.03s forwards; }
+.p-streak.s1 { transform: rotate(15deg) translate(-20px, -40px); animation: p-burst 5.6s ease forwards; }
+.p-streak.s2 { transform: rotate(-35deg) translate(30px, -20px); animation: p-burst 5.6s ease 0.04s forwards; background: linear-gradient(90deg, transparent, #f59e0b, #ffffff, transparent); }
+.p-streak.s3 { transform: rotate(70deg) translate(-10px, 30px); animation: p-burst 5.6s ease 0.08s forwards; }
+.p-streak.s4 { transform: rotate(-85deg) translate(40px, 10px); animation: p-burst 5.6s ease 0.03s forwards; background: linear-gradient(90deg, transparent, #f59e0b, #ffffff, transparent); }
+.p-streak.s5 { transform: rotate(135deg) translate(-50px, -30px); animation: p-burst 5.6s ease 0.1s forwards; }
+.p-streak.s6 { transform: rotate(-145deg) translate(20px, 50px); animation: p-burst 5.6s ease 0.06s forwards; }
+.p-streak.s7 { transform: rotate(45deg) translate(-60px, 20px); animation: p-burst 5.6s ease 0.12s forwards; background: linear-gradient(90deg, transparent, #f59e0b, #ffffff, transparent); }
+.p-streak.s8 { transform: rotate(-110deg) translate(50px, -40px); animation: p-burst 5.6s ease 0.05s forwards; }
 
 @keyframes p-burst {
-  0%, 57% {
+  0%, 56% {
     opacity: 0;
     width: 20px;
   }
   60% {
-    /* 2.16s: Particles burst out */
+    /* ~3.36s: Dynamic outward particle dispersion */
     opacity: 1;
-    width: clamp(100px, 25vw, 240px);
+    width: clamp(110px, 26vw, 250px);
   }
-  68% {
-    /* 2.45s: Particles compress toward title center */
+  69% {
+    /* ~3.86s: High-speed sweep converging toward title center */
     opacity: 0.9;
-    width: 40px;
+    width: 45px;
     transform: translate(-50%, -50%) scale(0.6);
   }
-  71%, 100% {
+  73%, 100% {
     opacity: 0;
   }
 }
 
 /* --------------------------------------------------------------------------
-   PHASE 6 — HEROIC VIGYANTRA 2026 TITLE REVEAL (2.5s – 3.1s)
+   PHASE 6 — VIGYANTRA 2026 TITLE FORMATION (4.1s – 5.0s)
    Crystallizes with sharp white, cyan edge glow & horizontal glare sweep
    -------------------------------------------------------------------------- */
 .intro-vigyantra-reveal {
@@ -2886,7 +2891,7 @@ body {
   align-items: center;
   gap: clamp(6px, 1.2vh, 12px);
   opacity: 0;
-  animation: intro-title-crystallize 3.6s ease forwards;
+  animation: intro-title-crystallize 5.6s ease forwards;
 }
 
 .intro-inst-crest {
@@ -2937,22 +2942,22 @@ body {
   transform: skewX(-26deg);
   pointer-events: none;
   opacity: 0;
-  animation: intro-glare-sweep 3.6s ease forwards;
+  animation: intro-glare-sweep 5.6s ease forwards;
 }
 
 @keyframes intro-glare-sweep {
-  0%, 70% {
+  0%, 75% {
     left: -120%;
     opacity: 0;
   }
-  72% {
+  77% {
     opacity: 1;
   }
-  83% {
+  86% {
     left: 200%;
     opacity: 1;
   }
-  85%, 100% {
+  88%, 100% {
     left: 200%;
     opacity: 0;
   }
@@ -2968,53 +2973,54 @@ body {
   text-shadow: 0 0 18px rgba(245, 158, 11, 0.7);
   white-space: nowrap;
   opacity: 0;
-  animation: intro-motto-reveal 3.6s ease forwards;
+  animation: intro-motto-reveal 5.6s ease forwards;
 }
 
 @keyframes intro-title-crystallize {
-  0%, 68% {
+  0%, 71% {
     opacity: 0;
     transform: scale(0.92);
     filter: blur(6px);
   }
-  72% {
-    /* 2.59s: Sharp appearance */
+  74% {
+    /* ~4.14s: Strong sharp crystal emergence */
     opacity: 1;
     transform: scale(1);
     filter: blur(0px);
   }
-  87% {
-    /* Holds stable until transition */
+  89% {
+    /* Holds stable and prominent through motto reveal */
     opacity: 1;
     transform: scale(1.01);
   }
-  94%, 100% {
+  95%, 100% {
     opacity: 0;
     transform: scale(1.05);
   }
 }
 
 @keyframes intro-motto-reveal {
-  0%, 74% {
+  0%, 78% {
     opacity: 0;
     transform: translateY(6px);
   }
-  79% {
+  83% {
+    /* ~4.65s: Motto arrives */
     opacity: 1;
     transform: translateY(0);
   }
-  87% {
+  89% {
     opacity: 1;
     transform: translateY(0);
   }
-  94%, 100% {
+  95%, 100% {
     opacity: 0;
     transform: translateY(-4px);
   }
 }
 
 /* --------------------------------------------------------------------------
-   PHASE 7 — OUTWARD SHOCKWAVE & TRANSITION DISSOLVE (3.1s – 3.6s)
+   PHASE 7 — OUTWARD SHOCKWAVE & TRANSITION DISSOLVE (5.0s – 5.6s)
    Shockwave ring bursts outward, intro overlay smoothly scales & fades out
    -------------------------------------------------------------------------- */
 .intro-shockwave-ring {
@@ -3029,36 +3035,36 @@ body {
   box-shadow: 0 0 30px 10px rgba(0, 240, 255, 0.5), inset 0 0 20px rgba(245, 158, 11, 0.4);
   opacity: 0;
   pointer-events: none;
-  animation: intro-shockwave-burst 3.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  animation: intro-shockwave-burst 5.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
 @keyframes intro-shockwave-burst {
-  0%, 84% {
+  0%, 88% {
     opacity: 0;
     transform: translate(-50%, -50%) scale(0.2);
   }
-  87% {
-    /* 3.13s: Shockwave ignites */
+  91% {
+    /* ~5.10s: Outward shockwave detonation */
     opacity: 0.95;
     transform: translate(-50%, -50%) scale(1.5);
   }
-  96% {
-    /* Expands to cover full viewport */
+  97% {
+    /* Expands cleanly beyond viewport borders */
     opacity: 0.15;
-    transform: translate(-50%, -50%) scale(14);
+    transform: translate(-50%, -50%) scale(15);
   }
   100% {
     opacity: 0;
-    transform: translate(-50%, -50%) scale(18);
+    transform: translate(-50%, -50%) scale(19);
   }
 }
 
 @keyframes intro-universe-dissolve {
-  0%, 86% {
+  0%, 89% {
     opacity: 1;
     visibility: visible;
   }
-  95% {
+  96% {
     opacity: 0;
     visibility: visible;
   }

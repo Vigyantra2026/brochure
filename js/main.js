@@ -1421,10 +1421,10 @@ function initCinematicIntro() {
     return;
   }
 
-  // Auto-complete intro cleanly after 3.65 seconds
+  // Auto-complete intro cleanly after ~5.65 seconds
   cinematicIntroTimer = setTimeout(() => {
     dismissCinematicIntro(false);
-  }, 3650);
+  }, 5650);
 }
 
 function skipCinematicIntro() {
