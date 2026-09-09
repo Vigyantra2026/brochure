@@ -55,6 +55,8 @@ const EVENTS_DATA = [
     fee: 500,
     minTeam: 2,
     maxTeam: 4,
+    prizeWinner: 30000,
+    prizeRunnerUp: 20000,
     venue: "AI & Machine Learning Center of Excellence",
     registrationUrl: "", // Ready for Google Forms / External registration link integration
 
@@ -166,6 +168,8 @@ const EVENTS_DATA = [
     fee: 500,
     minTeam: 2,
     maxTeam: 4,
+    prizeWinner: 30000,
+    prizeRunnerUp: 20000,
     venue: "Advanced Computing Systems Laboratory",
     registrationUrl: "", // Ready for Google Forms / External registration link integration
 
@@ -276,6 +280,8 @@ const EVENTS_DATA = [
     fee: 500,
     minTeam: 2,
     maxTeam: 4,
+    prizeWinner: 30000,
+    prizeRunnerUp: 20000,
     venue: "Information Science Arena & Campus Perimeter",
     registrationUrl: "", // Ready for Google Forms / External registration link integration
 
@@ -384,6 +390,8 @@ const EVENTS_DATA = [
     fee: 500,
     minTeam: 2,
     maxTeam: 4,
+    prizeWinner: 30000,
+    prizeRunnerUp: 20000,
     venue: "Software Development & Cloud Computing Center",
     registrationUrl: "", // Ready for Google Forms / External registration link integration
 
@@ -495,6 +503,8 @@ const EVENTS_DATA = [
     fee: 500,
     minTeam: 2,
     maxTeam: 4,
+    prizeWinner: 30000,
+    prizeRunnerUp: 20000,
     venue: "Cyber Defense & Network Security Lab",
     registrationUrl: "", // Ready for Google Forms / External registration link integration
 
@@ -603,6 +613,8 @@ const EVENTS_DATA = [
     fee: 500,
     minTeam: 2,
     maxTeam: 4,
+    prizeWinner: 30000,
+    prizeRunnerUp: 20000,
     venue: "Main Auditorium & Innovation Incubation Cell",
     registrationUrl: "", // Ready for Google Forms / External registration link integration
 
@@ -714,6 +726,8 @@ const EVENTS_DATA = [
     fee: 500,
     minTeam: 2,
     maxTeam: 4,
+    prizeWinner: 30000,
+    prizeRunnerUp: 20000,
     venue: "Sustainable Engineering & IoT Lab",
     registrationUrl: "", // Ready for Google Forms / External registration link integration
 
@@ -825,6 +839,8 @@ const EVENTS_DATA = [
     fee: 500,
     minTeam: 2,
     maxTeam: 4,
+    prizeWinner: 30000,
+    prizeRunnerUp: 20000,
     venue: "Robotics & Automation Arena (Mechanical Block)",
     registrationUrl: "", // Ready for Google Forms / External registration link integration
 
