@@ -18,6 +18,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initRegistrationModal();
   initBrochureViewer();
   initCardTiltSheen();
+  initScrollSectionObserver();
 });
 
 /* ==========================================================================
@@ -1458,4 +1459,78 @@ function dismissCinematicIntro(immediate = false) {
 window.initCinematicIntro = initCinematicIntro;
 window.skipCinematicIntro = skipCinematicIntro;
 window.dismissCinematicIntro = dismissCinematicIntro;
+
+/* ==========================================================================
+   17. HOLOGRAPHIC INFORMATION PANELS SCROLL CONTROLLER
+   Lightweight IntersectionObserver for section entrance, focus & de-emphasis
+   ========================================================================== */
+function initScrollSectionObserver() {
+  const sections = document.querySelectorAll('.info-section');
+  if (!sections.length) return;
+
+  // Reduced motion check: immediately materialize all sections cleanly
+  if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    sections.forEach(s => {
+      s.classList.add('is-visible', 'is-focused');
+    });
+    return;
+  }
+
+  // 1. Entrance & Exit Visibility Observer (Wide Margins)
+  const visibilityObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      const section = entry.target;
+      if (entry.isIntersecting) {
+        section.classList.add('is-visible');
+      } else {
+        // Subtle exit: if passed above viewport, flag as past
+        const rect = entry.boundingClientRect;
+        if (rect.top < 0) {
+          section.classList.add('is-past');
+        } else {
+          section.classList.remove('is-past', 'is-visible', 'is-focused');
+        }
+      }
+    });
+  }, {
+    root: null,
+    rootMargin: '40px 0px -40px 0px',
+    threshold: [0, 0.15]
+  });
+
+  // 2. Primary Focus Observer (Tight Center Band: 32% - 68% of Viewport)
+  const focusObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      const section = entry.target;
+      if (entry.isIntersecting) {
+        // Make this terminal the primary focused HUD panel
+        sections.forEach(s => {
+          if (s !== section) s.classList.remove('is-focused');
+        });
+        section.classList.add('is-visible', 'is-focused');
+        section.classList.remove('is-past');
+      } else {
+        // If exiting above center band, transition to past state
+        const rect = entry.boundingClientRect;
+        if (rect.top < window.innerHeight * 0.32) {
+          section.classList.remove('is-focused');
+          section.classList.add('is-past');
+        } else {
+          section.classList.remove('is-focused', 'is-past');
+        }
+      }
+    });
+  }, {
+    root: null,
+    rootMargin: '-32% 0px -38% 0px',
+    threshold: 0
+  });
+
+  sections.forEach(section => {
+    visibilityObserver.observe(section);
+    focusObserver.observe(section);
+  });
+}
+
+window.initScrollSectionObserver = initScrollSectionObserver;
 

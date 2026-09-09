@@ -3084,6 +3084,17 @@ body {
     pointer-events: none !important;
     display: none !important;
   }
+
+  .info-section,
+  .info-section.is-visible,
+  .info-section.is-focused,
+  .info-section.is-past,
+  .info-section .info-section-inner {
+    opacity: 1 !important;
+    transform: none !important;
+    filter: none !important;
+    transition: none !important;
+  }
 }
 
 /* ==========================================================================
@@ -3159,21 +3170,134 @@ body {
   position: relative;
   scroll-margin-top: calc(var(--taskbar-height) + 24px);
   background: rgba(6, 11, 24, 0.72);
-  border: 1px solid rgba(0, 240, 255, 0.16);
+  border: 1px solid rgba(0, 240, 255, 0.12);
   border-radius: 14px;
   padding: clamp(24px, 4vw, 44px);
   box-shadow: 0 12px 40px rgba(0, 0, 0, 0.6);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
-  transition: border-color 0.24s ease;
+  overflow: hidden;
+  /* Holographic Terminal Materialization State Machine */
+  opacity: 0.18;
+  transform: translateY(22px);
+  filter: blur(1px);
+  transition: opacity 0.55s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.55s cubic-bezier(0.16, 1, 0.3, 1),
+              border-color 0.4s ease,
+              box-shadow 0.4s ease,
+              filter 0.55s ease;
+  will-change: opacity, transform;
+}
+
+/* Subtle holographic HUD frame corner accents */
+.info-section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 24px;
+  height: 24px;
+  border-top: 2px solid rgba(0, 240, 255, 0.3);
+  border-left: 2px solid rgba(0, 240, 255, 0.3);
+  border-top-left-radius: 14px;
+  pointer-events: none;
+  opacity: 0.4;
+  transition: all 0.4s ease;
+}
+
+.info-section::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 24px;
+  height: 24px;
+  border-bottom: 2px solid rgba(0, 240, 255, 0.3);
+  border-right: 2px solid rgba(0, 240, 255, 0.3);
+  border-bottom-right-radius: 14px;
+  pointer-events: none;
+  opacity: 0.4;
+  transition: all 0.4s ease;
+}
+
+/* Subtle holographic energy sweep across frame upon activation */
+.info-section .info-section-inner {
+  position: relative;
+  width: 100%;
+  opacity: 0.4;
+  transform: translateY(10px);
+  transition: opacity 0.45s ease 0.08s, transform 0.45s cubic-bezier(0.16, 1, 0.3, 1) 0.08s;
+}
+
+/* STATE 1: MATERIALIZED (Section is in viewport) */
+.info-section.is-visible {
+  opacity: 0.65;
+  transform: translateY(0);
+  filter: blur(0px);
+  border-color: rgba(0, 240, 255, 0.22);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.7);
+}
+
+.info-section.is-visible .info-section-inner {
+  opacity: 0.82;
+  transform: translateY(0);
+}
+
+/* STATE 2: PRIMARY FOCUS (Dominant Terminal closest to center of viewport) */
+.info-section.is-focused {
+  opacity: 1;
+  transform: translateY(0);
+  filter: blur(0px);
+  border-color: rgba(0, 240, 255, 0.52);
+  box-shadow: 
+    0 16px 48px rgba(0, 0, 0, 0.8),
+    0 0 24px rgba(0, 240, 255, 0.16),
+    inset 0 0 16px rgba(0, 240, 255, 0.04);
+}
+
+.info-section.is-focused::before,
+.info-section.is-focused::after {
+  opacity: 1;
+  border-color: var(--cyan);
+  box-shadow: 0 0 10px var(--cyan-glow);
+}
+
+.info-section.is-focused .info-section-inner {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* STATE 3: PAST / DECONSTRUCTED (Scrolled past, subdued background presence) */
+.info-section.is-past {
+  opacity: 0.48;
+  transform: translateY(-8px);
+  filter: blur(0.5px);
+  border-color: rgba(0, 240, 255, 0.12);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.5);
+}
+
+.info-section.is-past .info-section-inner {
+  opacity: 0.65;
+  transform: translateY(0);
+}
+
+/* Gold Theme Accent for Legacy & Official Desk */
+.info-section:has(.info-badge.gold).is-focused {
+  border-color: rgba(245, 158, 11, 0.5);
+  box-shadow: 
+    0 16px 48px rgba(0, 0, 0, 0.8),
+    0 0 24px rgba(245, 158, 11, 0.16),
+    inset 0 0 16px rgba(245, 158, 11, 0.04);
+}
+
+.info-section:has(.info-badge.gold).is-focused::before,
+.info-section:has(.info-badge.gold).is-focused::after {
+  border-color: var(--gold);
+  box-shadow: 0 0 10px var(--gold-glow);
 }
 
 .info-section:hover {
-  border-color: rgba(0, 240, 255, 0.28);
-}
-
-.info-section-inner {
-  width: 100%;
+  border-color: rgba(0, 240, 255, 0.38);
 }
 
 /* Section Header Structure */
@@ -3694,6 +3818,38 @@ body {
     backdrop-filter: none;
     -webkit-backdrop-filter: none;
     background: rgba(6, 11, 24, 0.94);
+    filter: none !important;
+    opacity: 0.35;
+    transform: translateY(12px);
+    transition: opacity 0.35s ease, transform 0.35s ease, border-color 0.3s ease;
+  }
+
+  .info-section::before,
+  .info-section::after {
+    display: none; /* remove corner accents on mobile for max GPU compositor efficiency */
+  }
+
+  .info-section .info-section-inner {
+    transform: none !important;
+    opacity: 1 !important;
+    transition: none !important;
+  }
+
+  .info-section.is-visible {
+    opacity: 0.72;
+    transform: translateY(0);
+  }
+
+  .info-section.is-focused {
+    opacity: 1;
+    transform: translateY(0);
+    border-color: rgba(0, 240, 255, 0.45);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.7), 0 0 14px rgba(0, 240, 255, 0.12);
+  }
+
+  .info-section.is-past {
+    opacity: 0.5;
+    transform: translateY(-4px);
   }
 
   .footer-inner {
