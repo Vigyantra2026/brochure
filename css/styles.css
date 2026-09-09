@@ -2456,50 +2456,6 @@ body {
   pointer-events: none !important;
 }
 
-/* Unobtrusive, minimal Skip Intro Control */
-.intro-skip-btn {
-  position: absolute;
-  top: clamp(14px, 3vh, 24px);
-  right: clamp(14px, 3vw, 28px);
-  z-index: 25;
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  background: rgba(3, 7, 18, 0.7);
-  border: 1px solid rgba(0, 240, 255, 0.28);
-  border-radius: 20px;
-  padding: 6px 14px;
-  color: var(--silver-300);
-  font-family: var(--font-mono);
-  font-size: clamp(0.66rem, 1.3vw, 0.76rem);
-  font-weight: 700;
-  letter-spacing: 0.14em;
-  cursor: pointer;
-  outline: none;
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
-  transition: all 0.2s ease;
-  opacity: 0;
-  animation: intro-skip-appear 0.4s ease 0.4s forwards;
-}
-
-.intro-skip-btn:hover {
-  background: rgba(0, 240, 255, 0.15);
-  border-color: var(--cyan);
-  color: #ffffff;
-  box-shadow: 0 0 16px rgba(0, 240, 255, 0.35);
-  transform: translateY(-1px);
-}
-
-.intro-skip-btn:active {
-  transform: scale(0.96);
-}
-
-@keyframes intro-skip-appear {
-  0% { opacity: 0; transform: translateY(-4px); }
-  100% { opacity: 0.85; transform: translateY(0); }
-}
-
 /* --------------------------------------------------------------------------
    PHASE 1 — ABSOLUTE DARKNESS & REMOTE ENERGY POINTS (0.0s – 0.7s)
    -------------------------------------------------------------------------- */
@@ -3084,13 +3040,6 @@ body {
     -webkit-filter: blur(16px);
     width: 280px;
     height: 280px;
-  }
-
-  .intro-skip-btn {
-    top: 12px;
-    right: 12px;
-    padding: 5px 12px;
-    font-size: 0.64rem;
   }
 
   .intro-holo-25-giant {
