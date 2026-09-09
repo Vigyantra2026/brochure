@@ -304,15 +304,17 @@ html, body {
   display: flex;
   flex-direction: column;
   opacity: 0;
+  visibility: hidden;
   pointer-events: none;
   transform: translateY(-10px) scale(0.96);
-  transition: all var(--transition-smooth);
+  transition: opacity var(--transition-smooth), transform var(--transition-smooth), visibility var(--transition-smooth);
   z-index: 2500;
   overflow: hidden;
 }
 
 .cyber-dropdown-menu.active {
   opacity: 1;
+  visibility: visible;
   pointer-events: auto;
   transform: translateY(0) scale(1);
 }
@@ -852,13 +854,15 @@ html, body {
   justify-content: center;
   padding: clamp(10px, 2.5vw, 24px);
   opacity: 0;
+  visibility: hidden;
   pointer-events: none;
-  transition: opacity var(--transition-smooth);
+  transition: opacity var(--transition-smooth), visibility var(--transition-smooth);
 }
 
 .hud-modal-overlay.active,
 .modal-backdrop.active {
   opacity: 1;
+  visibility: visible;
   pointer-events: auto;
 }
 
@@ -2056,4 +2060,125 @@ html, body {
 
 .btn-full {
   width: 100%;
+}
+
+/* --------------------------------------------------------------------------
+   RADAR PULSE RING KEYFRAMES
+   -------------------------------------------------------------------------- */
+@keyframes pulse-ring {
+  0% { transform: scale(0.95); opacity: 0.8; }
+  50% { transform: scale(1.15); opacity: 1; }
+  100% { transform: scale(0.95); opacity: 0.8; }
+}
+
+/* ==========================================================================
+   14. MOBILE RENDERING & GPU COMPOSITOR OPTIMIZATIONS (<= 768px)
+   Eliminates mobile flickering, blinks, and backdrop-filter thrashing
+   while strictly preserving the futuristic cyber aesthetic and layout.
+   ========================================================================== */
+@media (max-width: 768px) {
+  /* Stabilize full-screen background fixed layers into dedicated compositing textures */
+  #universe-canvas {
+    transform: translateZ(0);
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+  }
+
+  .cosmic-nebula-glow,
+  .scanline-screen-effect {
+    transform: translateZ(0);
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+  }
+
+  /* Optimize mesh on mobile: remove dynamic alpha-mask recalculation against moving canvas */
+  .cyber-grid-overlay {
+    mask-image: none;
+    -webkit-mask-image: none;
+    opacity: 0.65;
+    transform: translateZ(0);
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+  }
+
+  /* Modal overlays: calibrated 8px blur with deep 97% cyber black to avoid GPU shader bottlenecks */
+  .hud-modal-overlay,
+  .modal-backdrop {
+    background: rgba(4, 7, 18, 0.97);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    padding: 8px 6px;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+  }
+
+  /* Modal dialog window: smooth non-overshooting translation and calibrated glow spread */
+  .hud-dialog-window,
+  .modal-container {
+    max-height: calc(100dvh - 16px);
+    border-radius: 10px;
+    box-shadow: 
+      0 12px 36px rgba(0, 0, 0, 0.95),
+      0 0 18px rgba(0, 240, 255, 0.18),
+      inset 0 0 12px rgba(0, 240, 255, 0.04);
+    transform: translateY(8px);
+    transition: transform 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    transform: translateZ(0);
+  }
+
+  .hud-modal-overlay.active .hud-dialog-window,
+  .modal-backdrop.active .modal-container {
+    transform: translateY(0) translateZ(0);
+  }
+
+  /* Eliminate redundant nested backdrop-filters inside modal on mobile */
+  .hud-event-card {
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+    background: rgba(13, 20, 38, 0.88);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.6);
+  }
+
+  .swamiji-avatar-card {
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+    background: rgba(10, 16, 32, 0.88);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.6), 0 0 10px rgba(245, 158, 11, 0.1);
+  }
+
+  .countdown-digit-cell {
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+    background: rgba(10, 16, 32, 0.92);
+  }
+
+  /* Mobile Top-Right Dropdown Menu */
+  .cyber-dropdown-menu {
+    background: rgba(6, 10, 22, 0.98);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    box-shadow: 
+      0 12px 36px rgba(0, 0, 0, 0.95),
+      0 0 20px rgba(0, 240, 255, 0.2);
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+  }
+
+  /* Mobile Topbar */
+  .deck-institute-topbar {
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    background: rgba(5, 8, 18, 0.94);
+  }
+
+  /* Smooth mobile touch scrolling without rubberband layout thrash */
+  .hud-dialog-body,
+  .event-modal-content,
+  .reg-modal-content,
+  .brochure-page-card {
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior: contain;
+  }
 }

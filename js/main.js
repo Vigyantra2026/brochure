@@ -179,10 +179,22 @@ function initTechUniverseCanvas() {
   let dataBeams = [];
 
   let mouse = { x: 0, y: 0, targetX: 0, targetY: 0 };
+  let lastW = 0;
+  let lastH = 0;
 
   function resize() {
-    width = canvas.width = window.innerWidth;
-    height = canvas.height = window.innerHeight;
+    const newW = window.innerWidth;
+    const newH = window.innerHeight;
+
+    // Avoid clearing canvas & re-randomizing stars on mobile address-bar height toggles
+    if (newW === lastW && Math.abs(newH - lastH) < 120) {
+      return;
+    }
+
+    lastW = newW;
+    lastH = newH;
+    width = canvas.width = newW;
+    height = canvas.height = newH;
     cx = width / 2;
     cy = height / 2;
     initUniverse();
@@ -295,6 +307,14 @@ function initTechUniverseCanvas() {
   }
 
   function animate() {
+    const isMobile = window.innerWidth <= 768;
+    // When a full-screen modal overlay is active on mobile, skip redrawing the canvas
+    // to preserve GPU fillrate and completely prevent background flicker.
+    if (isMobile && document.querySelector('.hud-modal-overlay.active, .modal-backdrop.active')) {
+      animationFrameId = requestAnimationFrame(animate);
+      return;
+    }
+
     ctx.clearRect(0, 0, width, height);
 
     mouse.x += (mouse.targetX - mouse.x) * 0.05;
@@ -383,6 +403,9 @@ function initTechUniverseCanvas() {
    3. 3D CARD TILT & HOLOGRAPHIC LIGHT SHEEN
    ========================================================================= */
 function initCardTiltSheen() {
+  if (!window.matchMedia('(hover: hover) and (pointer: fine)').matches) {
+    return; // Touch/mobile screens do not use mouse hover sheen; avoid layout thrashing
+  }
   document.addEventListener('mousemove', (e) => {
     const cards = document.querySelectorAll('.hud-event-card, .prize-card, .venue-card');
     cards.forEach(card => {
