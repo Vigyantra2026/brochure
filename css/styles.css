@@ -1325,7 +1325,7 @@ body {
   background: var(--bg-card);
   border: 1px solid var(--border-subtle);
   border-radius: 10px;
-  padding: clamp(16px, 2.5vw, 22px);
+  padding: 0;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -1340,6 +1340,56 @@ body {
   border-color: var(--cyan);
   transform: translateY(-3px);
   box-shadow: 0 15px 35px rgba(0, 0, 0, 0.8), 0 0 25px rgba(0, 240, 255, 0.2);
+}
+
+/* Card Visual Header */
+.hud-card-media {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 7;
+  max-height: 155px;
+  overflow: hidden;
+  background: #040814;
+  border-bottom: 1px solid rgba(0, 240, 255, 0.18);
+}
+
+.hud-card-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+  transform: scale(1.01);
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), filter 0.4s ease;
+  filter: brightness(0.92) contrast(1.06);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .hud-event-card:hover .hud-card-img {
+    transform: scale(1.05);
+    filter: brightness(1.02) contrast(1.1);
+  }
+}
+
+.hud-card-media-overlay {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(
+    to bottom,
+    rgba(6, 11, 24, 0) 30%,
+    rgba(6, 11, 24, 0.4) 65%,
+    rgba(6, 11, 24, 0.95) 100%
+  );
+}
+
+/* Card Body Content */
+.hud-card-body {
+  padding: clamp(14px, 2.2vw, 20px);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  flex: 1 1 auto;
 }
 
 .hud-card-header {
@@ -2363,6 +2413,14 @@ body {
     -webkit-backdrop-filter: none;
     background: rgba(13, 20, 38, 0.88);
     box-shadow: 0 4px 16px rgba(0, 0, 0, 0.6);
+  }
+
+  .hud-card-media {
+    max-height: 135px;
+  }
+
+  .hud-card-body {
+    padding: 14px 12px;
   }
 
   .swamiji-avatar-card {

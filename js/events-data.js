@@ -50,6 +50,7 @@ const EVENTS_DATA = [
     id: "APB",
     name: "AI Prompt Battle",
     shortName: "APB",
+    image: "assets/arenas/apb.jpg",
 
     // Registration & Financial Configuration
     fee: 500,
@@ -163,6 +164,7 @@ const EVENTS_DATA = [
     id: "CR",
     name: "Code Relay",
     shortName: "CR",
+    image: "assets/arenas/code_relay.jpg",
 
     // Registration & Financial Configuration
     fee: 500,
@@ -275,6 +277,7 @@ const EVENTS_DATA = [
     id: "HNH",
     name: "Hack & Hunt",
     shortName: "HNH",
+    image: "assets/arenas/hack_hunt.jpg",
 
     // Registration & Financial Configuration
     fee: 500,
@@ -385,6 +388,7 @@ const EVENTS_DATA = [
     id: "ADC",
     name: "App Development Challenge",
     shortName: "ADC",
+    image: "assets/arenas/app_dev.jpg",
 
     // Registration & Financial Configuration
     fee: 500,
@@ -498,6 +502,7 @@ const EVENTS_DATA = [
     id: "ZCTF",
     name: "Zerocrypt CTF",
     shortName: "ZCTF",
+    image: "assets/arenas/zerocrypt.jpg",
 
     // Registration & Financial Configuration
     fee: 500,
@@ -608,6 +613,7 @@ const EVENTS_DATA = [
     id: "INM",
     name: "Innovation Marathon",
     shortName: "INM",
+    image: "assets/arenas/innovation.jpg",
 
     // Registration & Financial Configuration
     fee: 500,
@@ -721,6 +727,7 @@ const EVENTS_DATA = [
     id: "GTC",
     name: "Green Tech Challenge",
     shortName: "GTC",
+    image: "assets/arenas/green_tech.jpg",
 
     // Registration & Financial Configuration
     fee: 500,
@@ -834,6 +841,7 @@ const EVENTS_DATA = [
     id: "RBI",
     name: "RoboInnovate",
     shortName: "RBI",
+    image: "assets/arenas/roboinnovate.jpg",
 
     // Registration & Financial Configuration
     fee: 500,

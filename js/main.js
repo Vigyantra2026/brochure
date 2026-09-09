@@ -470,31 +470,38 @@ function renderEvents() {
   container.innerHTML = window.EVENTS_DATA.map(event => {
     return `
       <article class="hud-event-card" data-category="${event.category}" data-id="${event.id}">
-        <div>
-          <div class="hud-card-header">
-            <div class="hud-event-num-box">
-              <span class="hud-event-number">${event.number}</span>
-              <div class="hud-event-icon" style="color:${event.accentColor};">${event.iconSvg}</div>
-            </div>
-            <span class="hud-prize-pill">${event.prizePool} POOL</span>
-          </div>
-
-          <h3 class="hud-event-title">${event.name}</h3>
-          <div class="hud-event-subtitle">${event.subName}</div>
-          <p class="hud-event-desc">${event.shortDescription}</p>
-
-          <div class="hud-poster-tags-wrap">
-            ${event.tags.map(t => `<span class="hud-poster-tag">#${t}</span>`).join('')}
-          </div>
+        <div class="hud-card-media">
+          <img src="${event.image}" alt="${event.name} — ${event.subName}" class="hud-card-img" loading="lazy" width="600" height="270" />
+          <div class="hud-card-media-overlay"></div>
         </div>
 
-        <div class="hud-card-actions-grid">
-          <button class="hud-btn-decrypt" onclick="openEventModal('${event.id}')">
-            <span>DECRYPT INTEL →</span>
-          </button>
-          <button class="hud-btn-enroll" onclick="startRegistrationWithEvent('${event.id}')">
-            <span>ENROLL SQUAD ⚡</span>
-          </button>
+        <div class="hud-card-body">
+          <div>
+            <div class="hud-card-header">
+              <div class="hud-event-num-box">
+                <span class="hud-event-number">${event.number}</span>
+                <div class="hud-event-icon" style="color:${event.accentColor};">${event.iconSvg}</div>
+              </div>
+              <span class="hud-prize-pill">${event.prizePool} POOL</span>
+            </div>
+
+            <h3 class="hud-event-title">${event.name}</h3>
+            <div class="hud-event-subtitle">${event.subName}</div>
+            <p class="hud-event-desc">${event.shortDescription}</p>
+
+            <div class="hud-poster-tags-wrap">
+              ${event.tags.map(t => `<span class="hud-poster-tag">#${t}</span>`).join('')}
+            </div>
+          </div>
+
+          <div class="hud-card-actions-grid">
+            <button class="hud-btn-decrypt" onclick="openEventModal('${event.id}')">
+              <span>DECRYPT INTEL →</span>
+            </button>
+            <button class="hud-btn-enroll" onclick="startRegistrationWithEvent('${event.id}')">
+              <span>ENROLL SQUAD ⚡</span>
+            </button>
+          </div>
         </div>
       </article>
     `;
