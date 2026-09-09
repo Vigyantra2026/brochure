@@ -7,7 +7,6 @@
 document.addEventListener('DOMContentLoaded', () => {
   initCinematicIntro();
   initTechUniverseCanvas();
-  initAudioEngine();
   initCountdown();
   renderEvents();
   initEventFilters();
@@ -20,148 +19,6 @@ document.addEventListener('DOMContentLoaded', () => {
   initCardTiltSheen();
   initScrollSectionObserver();
 });
-
-/* ==========================================================================
-   1. CYBERNETIC SOUND SYNTHESIS ENGINE (WEB AUDIO API - ZERO EXTERNAL ASSETS)
-   ========================================================================== */
-let audioCtx = null;
-let soundEnabled = true;
-
-function initAudioEngine() {
-  const savedState = localStorage.getItem('vigyantra_sfx');
-  if (savedState !== null) {
-    soundEnabled = savedState === 'true';
-  }
-  updateSfxButtonUI();
-}
-
-function getAudioContext() {
-  if (!audioCtx) {
-    const AudioContextClass = window.AudioContext || window.webkitAudioContext;
-    if (AudioContextClass) {
-      audioCtx = new AudioContextClass();
-    }
-  }
-  if (audioCtx && audioCtx.state === 'suspended') {
-    audioCtx.resume();
-  }
-  return audioCtx;
-}
-
-function toggleAudioFx() {
-  soundEnabled = !soundEnabled;
-  localStorage.setItem('vigyantra_sfx', soundEnabled);
-  updateSfxButtonUI();
-  if (soundEnabled) {
-    playCyberTone(660, 0.08, 'sine');
-  }
-}
-window.toggleAudioFx = toggleAudioFx;
-
-function updateSfxButtonUI() {
-  const btn = document.getElementById('sfx-toggle-btn');
-  const icon = document.getElementById('sfx-icon');
-  const lbl = document.getElementById('sfx-label');
-  if (!btn || !icon || !lbl) return;
-
-  if (soundEnabled) {
-    btn.classList.remove('muted');
-    icon.textContent = '🔊';
-    lbl.textContent = 'SFX: ON';
-  } else {
-    btn.classList.add('muted');
-    icon.textContent = '🔇';
-    lbl.textContent = 'SFX: OFF';
-  }
-}
-
-function playCyberTone(frequency = 440, duration = 0.08, type = 'sine', volume = 0.12) {
-  if (!soundEnabled) return;
-  try {
-    const ctx = getAudioContext();
-    if (!ctx) return;
-
-    const osc = ctx.createOscillator();
-    const gain = ctx.createGain();
-
-    osc.type = type;
-    osc.frequency.setValueAtTime(frequency, ctx.currentTime);
-
-    gain.gain.setValueAtTime(volume, ctx.currentTime);
-    gain.gain.exponentialRampToValueAtTime(0.0001, ctx.currentTime + duration);
-
-    osc.connect(gain);
-    gain.connect(ctx.destination);
-
-    osc.start();
-    osc.stop(ctx.currentTime + duration);
-  } catch (e) {}
-}
-
-function playModalWarpSfx() {
-  if (!soundEnabled) return;
-  try {
-    const ctx = getAudioContext();
-    if (!ctx) return;
-
-    const now = ctx.currentTime;
-    const osc = ctx.createOscillator();
-    const gain = ctx.createGain();
-
-    osc.type = 'triangle';
-    osc.frequency.setValueAtTime(220, now);
-    osc.frequency.exponentialRampToValueAtTime(880, now + 0.18);
-
-    gain.gain.setValueAtTime(0.15, now);
-    gain.gain.exponentialRampToValueAtTime(0.001, now + 0.22);
-
-    osc.connect(gain);
-    gain.connect(ctx.destination);
-
-    osc.start(now);
-    osc.stop(now + 0.22);
-  } catch (e) {}
-}
-
-function playModalCloseSfx() {
-  if (!soundEnabled) return;
-  try {
-    const ctx = getAudioContext();
-    if (!ctx) return;
-
-    const now = ctx.currentTime;
-    const osc = ctx.createOscillator();
-    const gain = ctx.createGain();
-
-    osc.type = 'sine';
-    osc.frequency.setValueAtTime(700, now);
-    osc.frequency.exponentialRampToValueAtTime(180, now + 0.16);
-
-    gain.gain.setValueAtTime(0.12, now);
-    gain.gain.exponentialRampToValueAtTime(0.001, now + 0.18);
-
-    osc.connect(gain);
-    gain.connect(ctx.destination);
-
-    osc.start(now);
-    osc.stop(now + 0.18);
-  } catch (e) {}
-}
-
-function playSuccessPassChime() {
-  if (!soundEnabled) return;
-  try {
-    const ctx = getAudioContext();
-    if (!ctx) return;
-
-    const notes = [523.25, 659.25, 783.99, 1046.50]; // C5, E5, G5, C6
-    notes.forEach((freq, idx) => {
-      setTimeout(() => {
-        playCyberTone(freq, 0.25, 'triangle', 0.15);
-      }, idx * 90);
-    });
-  } catch (e) {}
-}
 
 /* ==========================================================================
    2. 3D TECH UNIVERSE & COSMIC CANVAS ENGINE
@@ -512,7 +369,6 @@ function initEventFilters() {
   const buttons = document.querySelectorAll('.filter-btn');
   buttons.forEach(btn => {
     btn.addEventListener('click', () => {
-      playCyberTone(550, 0.06, 'sine');
       buttons.forEach(b => b.classList.remove('active'));
       btn.classList.add('active');
 
@@ -568,7 +424,6 @@ function initEventModal() {
 }
 
 function openEventModal(eventId) {
-  playModalWarpSfx();
   const event = window.getEventById ? window.getEventById(eventId) : window.EVENTS_DATA?.find(e => e.id === eventId || e.shortName === eventId || e.code === eventId || e.slug === eventId);
   const modal = document.getElementById('event-detail-modal');
   const bodyEl = document.getElementById('event-modal-body');
@@ -678,7 +533,6 @@ function openEventModal(eventId) {
 }
 
 function closeEventModal() {
-  playModalCloseSfx();
   const modal = document.getElementById('event-detail-modal');
   if (modal) {
     modal.classList.remove('active');
@@ -728,7 +582,6 @@ function initRegistrationModal() {
 }
 
 function openRegistrationModal() {
-  playModalWarpSfx();
   currentStep = 1;
   updateRegistrationStepUI();
   const modal = document.getElementById('registration-modal');
@@ -739,7 +592,6 @@ function openRegistrationModal() {
 }
 
 function closeRegistrationModal() {
-  playModalCloseSfx();
   const modal = document.getElementById('registration-modal');
   if (modal) {
     modal.classList.remove('active');
@@ -763,7 +615,6 @@ window.closeRegistrationModal = closeRegistrationModal;
 window.startRegistrationWithEvent = startRegistrationWithEvent;
 
 function onEventSelected() {
-  playCyberTone(600, 0.06, 'sine');
   const eventSelect = document.getElementById('reg-event-select');
   const selectedId = eventSelect.value;
   const eventObj = window.getEventById ? window.getEventById(selectedId) : window.EVENTS_DATA?.find(e => e.id === selectedId || e.shortName === selectedId || e.code === selectedId || e.slug === selectedId);
@@ -802,7 +653,6 @@ function updateTeamSizeOptions(eventObj) {
 }
 
 function handleTeamSizeChange() {
-  playCyberTone(500, 0.06, 'sine');
   const size = parseInt(document.getElementById('reg-team-size').value, 10);
   regData.teamSize = size;
   renderDynamicMemberFields(size);
@@ -850,7 +700,6 @@ function renderDynamicMemberFields(size) {
 }
 
 function nextRegStep() {
-  playCyberTone(700, 0.08, 'triangle');
 
   if (currentStep === 1) {
     const ev = document.getElementById('reg-event-select').value;
@@ -911,7 +760,6 @@ function nextRegStep() {
     populateReviewSummary();
   } else if (currentStep === 4) {
     generateRegistrationConfirmation();
-    playSuccessPassChime();
   }
 
   if (currentStep < 5) {
@@ -922,7 +770,6 @@ function nextRegStep() {
 window.nextRegStep = nextRegStep;
 
 function prevRegStep() {
-  playCyberTone(450, 0.08, 'sine');
   if (currentStep > 1) {
     currentStep--;
     updateRegistrationStepUI();
@@ -1079,7 +926,6 @@ function initBrochureViewer() {
   if (prevBtn) {
     prevBtn.addEventListener('click', () => {
       if (currentBrochurePage > 1) {
-        playCyberTone(480, 0.06, 'sine');
         currentBrochurePage--;
         renderBrochurePage();
       }
@@ -1089,7 +935,6 @@ function initBrochureViewer() {
   if (nextBtn) {
     nextBtn.addEventListener('click', () => {
       if (currentBrochurePage < (window.BROCHURE_PAGES?.length || 6)) {
-        playCyberTone(620, 0.06, 'sine');
         currentBrochurePage++;
         renderBrochurePage();
       }
@@ -1114,7 +959,6 @@ function initBrochureViewer() {
 }
 
 function openBrochureModal() {
-  playModalWarpSfx();
   currentBrochurePage = 1;
   renderBrochurePage();
   const modal = document.getElementById('brochure-modal');
@@ -1125,7 +969,6 @@ function openBrochureModal() {
 }
 
 function closeBrochureModal() {
-  playModalCloseSfx();
   const modal = document.getElementById('brochure-modal');
   if (modal) {
     modal.classList.remove('active');
@@ -1144,7 +987,6 @@ function renderBrochureDots() {
 }
 
 function goToBrochurePage(pageNum) {
-  playCyberTone(580, 0.06, 'sine');
   currentBrochurePage = pageNum;
   renderBrochurePage();
 }
@@ -1181,7 +1023,6 @@ function initScheduleTabs() {
   const tabBtns = document.querySelectorAll('.schedule-tab-btn');
   tabBtns.forEach(btn => {
     btn.addEventListener('click', () => {
-      playCyberTone(540, 0.06, 'sine');
       tabBtns.forEach(b => b.classList.remove('active'));
       btn.classList.add('active');
 
@@ -1272,7 +1113,6 @@ function initAccordions() {
 
   document.querySelectorAll('.accordion-trigger').forEach(trigger => {
     trigger.addEventListener('click', () => {
-      playCyberTone(500, 0.05, 'sine');
       const item = trigger.closest('.accordion-item');
       const content = item.querySelector('.accordion-content');
       const isOpen = item.classList.contains('open');
@@ -1294,7 +1134,6 @@ function initAccordions() {
    12. FULL-SCREEN HUD MODAL ROUTING & SOUND TRIGGERS
    ========================================================================== */
 function openHudModal(name) {
-  playModalWarpSfx();
   const modal = document.getElementById(`hud-modal-${name}`);
   if (modal) {
     const dialogBody = modal.querySelector('.hud-dialog-body');
@@ -1304,7 +1143,6 @@ function openHudModal(name) {
 }
 
 function closeHudModal(name) {
-  playModalCloseSfx();
   const modal = document.getElementById(`hud-modal-${name}`);
   if (modal) {
     modal.classList.remove('active');
@@ -1335,7 +1173,6 @@ function openCyberMenu() {
   const menu = document.getElementById('cyber-dropdown-menu');
   if (!toggle || !menu) return;
 
-  playCyberTone(650, 0.08, 'triangle');
   toggle.classList.add('active');
   toggle.setAttribute('aria-expanded', 'true');
   menu.classList.add('active');
@@ -1347,7 +1184,6 @@ function closeCyberMenu() {
   if (!toggle || !menu) return;
 
   if (menu.classList.contains('active')) {
-    playCyberTone(380, 0.08, 'sine');
   }
   toggle.classList.remove('active');
   toggle.setAttribute('aria-expanded', 'false');
@@ -1367,7 +1203,6 @@ function selectDropdownOption(option) {
 
 function scrollToSection(sectionId) {
   closeCyberMenu();
-  playCyberTone(520, 0.06, 'sine');
   const target = document.getElementById(sectionId);
   if (target) {
     target.scrollIntoView({ behavior: 'smooth', block: 'start' });
@@ -1395,7 +1230,6 @@ document.addEventListener('DOMContentLoaded', () => {
   document.querySelectorAll('.hud-modal-overlay').forEach(overlay => {
     overlay.addEventListener('click', (e) => {
       if (e.target === overlay) {
-        playModalCloseSfx();
         overlay.classList.remove('active');
       }
     });
@@ -1405,7 +1239,6 @@ document.addEventListener('DOMContentLoaded', () => {
     if (e.key === 'Escape') {
       closeCyberMenu();
       document.querySelectorAll('.hud-modal-overlay.active').forEach(m => {
-        playModalCloseSfx();
         m.classList.remove('active');
       });
     }
