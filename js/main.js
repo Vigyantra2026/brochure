@@ -542,6 +542,7 @@ function openEventModal(eventId) {
   const bodyEl = document.getElementById('event-modal-body');
   if (!event || !modal || !bodyEl) return;
 
+  bodyEl.scrollTop = 0;
   bodyEl.innerHTML = `
     <div class="modal-event-header">
       <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
@@ -901,6 +902,12 @@ function updateRegistrationStepUI() {
       stepNode.classList.toggle('completed', i < currentStep);
     }
   }
+
+  // Ensure scroll is smoothly reset to top on each step change so cadet fields are immediately visible
+  const modalContent = document.querySelector('.reg-modal-content');
+  if (modalContent) {
+    modalContent.scrollTop = 0;
+  }
 }
 
 function populateReviewSummary() {
@@ -1117,6 +1124,7 @@ function renderBrochurePage() {
   if (!card || !pageData) return;
 
   card.innerHTML = pageData.content;
+  card.scrollTop = 0;
   if (counter) counter.textContent = `PAGE ${currentBrochurePage} OF ${pages.length}: ${pageData.title.toUpperCase()}`;
 
   if (prevBtn) prevBtn.disabled = currentBrochurePage === 1;
@@ -1251,6 +1259,8 @@ function openHudModal(name) {
   playModalWarpSfx();
   const modal = document.getElementById(`hud-modal-${name}`);
   if (modal) {
+    const dialogBody = modal.querySelector('.hud-dialog-body');
+    if (dialogBody) dialogBody.scrollTop = 0;
     modal.classList.add('active');
   }
 }
