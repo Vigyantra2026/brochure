@@ -2,7 +2,7 @@
  * VIGYANTRA 2026 — Centralized Event & Symposium Configuration
  * 25-Year Silver Jubilee Technical Symposium
  * 
- * All data in this file is centralized and easily editable.
+ * All placeholders are standardized with clean generic placeholders (e.g. example@gmail.com).
  */
 
 const SYMPOSIUM_CONFIG = {
@@ -11,17 +11,17 @@ const SYMPOSIUM_CONFIG = {
   theme: "Celebrating 25 Years of Engineering Excellence",
   tagline: "Celebrating a quarter century of innovation, engineering and student excellence.",
   totalPrizePool: "₹1,00,000+",
-  collegePlaceholder: "SJBIT Campus, BGS Health & Education City",
+  collegePlaceholder: "[College / University Campus Name]",
   cityPlaceholder: "Bengaluru, Karnataka, India",
   directionsUrl: "https://maps.google.com/?q=Bengaluru+Karnataka",
-  // Target date for countdown (Set to upcoming symposium date)
+  // Target date for countdown (Configurable symposium date)
   targetDate: "2026-10-15T09:00:00+05:30",
   brochurePdfUrl: "#", // Placeholder: replace with actual PDF URL when uploaded
   socials: {
-    instagram: "https://instagram.com/vigyantra2026",
-    linkedin: "https://linkedin.com/company/vigyantra2026",
-    youtube: "https://youtube.com/@vigyantra2026",
-    github: "https://github.com/Vigyantra2026"
+    instagram: "https://instagram.com/example_handle",
+    linkedin: "https://linkedin.com/company/example_handle",
+    youtube: "https://youtube.com/@example_handle",
+    github: "https://github.com/Vigyantra2026/brochure"
   }
 };
 
@@ -49,7 +49,7 @@ const EVENTS_DATA = [
     registrationFee: "₹300 / Team (Placeholder)",
     prizePool: "₹25,000",
     date: "Day 01 & 02 (10:00 AM onwards)",
-    venue: "Central Computing Complex, Lab 1 & 2",
+    venue: "Computing Complex / Main Lab (Placeholder)",
     tags: ["HACKATHON", "FULL-STACK", "ALGORITHMS", "DEV"],
     accentColor: "#38bdf8",
     code: "CS",
@@ -106,11 +106,11 @@ const EVENTS_DATA = [
       "3-minute video walkthrough or deck explaining problem statement and technical architecture"
     ],
     coordinator: {
-      faculty: "Prof. R. S. Sharma (Faculty Lead)",
-      facultyContact: "+91 98765 43210",
-      student: "Aarav Nair & Meera Reddy",
-      studentContact: "+91 91234 56789",
-      email: "codestorm@vigyantra.org"
+      faculty: "Faculty Coordinator Name",
+      facultyContact: "+91 XXXXX XXXXX",
+      student: "Student Coordinator Name",
+      studentContact: "+91 XXXXX XXXXX",
+      email: "codestorm@example.com"
     }
   },
   {
@@ -128,7 +128,7 @@ const EVENTS_DATA = [
     registrationFee: "₹200 / Team (Placeholder)",
     prizePool: "₹15,000",
     date: "Day 01 (11:30 AM - 04:30 PM)",
-    venue: "Software Systems Lab, 3rd Floor",
+    venue: "Software Systems Lab (Placeholder)",
     tags: ["WEB", "FRONTEND", "UI/UX", "REACT", "PERFORMANCE"],
     accentColor: "#38bdf8",
     code: "WC",
@@ -173,11 +173,11 @@ const EVENTS_DATA = [
       "Clean GitHub repository with clean commit history"
     ],
     coordinator: {
-      faculty: "Prof. Deepa V. (Associate Prof., CSE)",
-      facultyContact: "+91 98765 43211",
-      student: "Kiran Kumar & Tanvi Bhat",
-      studentContact: "+91 92345 67890",
-      email: "webcraft@vigyantra.org"
+      faculty: "Faculty Coordinator Name",
+      facultyContact: "+91 XXXXX XXXXX",
+      student: "Student Coordinator Name",
+      studentContact: "+91 XXXXX XXXXX",
+      email: "webcraft@example.com"
     }
   },
   {
@@ -195,7 +195,7 @@ const EVENTS_DATA = [
     registrationFee: "₹250 / Team (Placeholder)",
     prizePool: "₹20,000",
     date: "Day 01 (10:30 AM - 05:00 PM)",
-    venue: "AI & Machine Intelligence Center",
+    venue: "AI & Data Science Lab (Placeholder)",
     tags: ["AI", "MACHINE LEARNING", "COMPUTER VISION", "LLM", "PYTHON"],
     accentColor: "#f59e0b",
     code: "NN",
@@ -241,11 +241,11 @@ const EVENTS_DATA = [
       "Slide deck summarizing architectural insights"
     ],
     coordinator: {
-      faculty: "Dr. Arvind K. (Head, AI Research Cell)",
-      facultyContact: "+91 98765 43212",
-      student: "Varun Shenoy & Ananya Dixit",
-      studentContact: "+91 93456 78901",
-      email: "neuralnexus@vigyantra.org"
+      faculty: "Faculty Coordinator Name",
+      facultyContact: "+91 XXXXX XXXXX",
+      student: "Student Coordinator Name",
+      studentContact: "+91 XXXXX XXXXX",
+      email: "neuralnexus@example.com"
     }
   },
   {
@@ -263,7 +263,7 @@ const EVENTS_DATA = [
     registrationFee: "₹350 / Team (Placeholder)",
     prizePool: "₹25,000",
     date: "Day 02 (10:00 AM - 04:00 PM)",
-    venue: "Main Amphitheatre & Robotics Arena",
+    venue: "Main Amphitheatre & Robotics Arena (Placeholder)",
     tags: ["ROBOTICS", "EMBEDDED", "ARDUINO", "HARDWARE", "COMBAT"],
     accentColor: "#38bdf8",
     code: "RC",
@@ -309,11 +309,11 @@ const EVENTS_DATA = [
       "Safety Inspection Clearance Certificate (issued at venue)"
     ],
     coordinator: {
-      faculty: "Prof. S. Manjunath (Mechanical & Mechatronics)",
-      facultyContact: "+91 98765 43213",
-      student: "Nikhil Gowda & Prateek Joshi",
-      studentContact: "+91 94567 89012",
-      email: "roboclash@vigyantra.org"
+      faculty: "Faculty Coordinator Name",
+      facultyContact: "+91 XXXXX XXXXX",
+      student: "Student Coordinator Name",
+      studentContact: "+91 XXXXX XXXXX",
+      email: "roboclash@example.com"
     }
   },
   {
@@ -331,7 +331,7 @@ const EVENTS_DATA = [
     registrationFee: "₹200 / Team (Placeholder)",
     prizePool: "₹15,000",
     date: "Day 01 (01:00 PM - 06:00 PM)",
-    venue: "Information Security Lab, 2nd Floor",
+    venue: "Information Security Lab (Placeholder)",
     tags: ["CYBERSECURITY", "CTF", "CRYPTOGRAPHY", "REVERSE ENG", "ETHICAL HACKING"],
     accentColor: "#38bdf8",
     code: "CY",
@@ -375,11 +375,11 @@ const EVENTS_DATA = [
       "Executive summary write-up of top 3 complex solves"
     ],
     coordinator: {
-      faculty: "Dr. H. C. Srinivas (Cyber Defense Dept.)",
-      facultyContact: "+91 98765 43214",
-      student: "Darshan Hegde & Rohit K.",
-      studentContact: "+91 95678 90123",
-      email: "cybershield@vigyantra.org"
+      faculty: "Faculty Coordinator Name",
+      facultyContact: "+91 XXXXX XXXXX",
+      student: "Student Coordinator Name",
+      studentContact: "+91 XXXXX XXXXX",
+      email: "cybershield@example.com"
     }
   },
   {
@@ -397,7 +397,7 @@ const EVENTS_DATA = [
     registrationFee: "₹150 / Team (Placeholder)",
     prizePool: "₹10,000",
     date: "Day 01 (10:30 AM - 01:30 PM)",
-    venue: "Seminar Hall 1, Admin Block",
+    venue: "Seminar Hall (Placeholder)",
     tags: ["TECH QUIZ", "TRIVIA", "PUZZLES", "LOGIC", "RAPID FIRE"],
     accentColor: "#f59e0b",
     code: "TQ",
@@ -440,11 +440,11 @@ const EVENTS_DATA = [
       "Preliminary round answer sheets handed to invigilators at end of Round 1"
     ],
     coordinator: {
-      faculty: "Prof. Rekha B. (Information Science)",
-      facultyContact: "+91 98765 43215",
-      student: "Harshith Babu & Hithesh Singh",
-      studentContact: "+91 96789 01234",
-      email: "technoquest@vigyantra.org"
+      faculty: "Faculty Coordinator Name",
+      facultyContact: "+91 XXXXX XXXXX",
+      student: "Student Coordinator Name",
+      studentContact: "+91 XXXXX XXXXX",
+      email: "technoquest@example.com"
     }
   },
   {
@@ -462,7 +462,7 @@ const EVENTS_DATA = [
     registrationFee: "₹300 / Team (Placeholder)",
     prizePool: "₹25,000",
     date: "Day 02 (09:30 AM - 03:30 PM)",
-    venue: "Main Indoor Sports & Exhibition Hall",
+    venue: "Exhibition Hall / Arena (Placeholder)",
     tags: ["EXPO", "INNOVATION", "HARDWARE", "STARTUP", "PATENTS"],
     accentColor: "#f59e0b",
     code: "IX",
@@ -508,11 +508,11 @@ const EVENTS_DATA = [
       "Standard A1/3x2 format project poster"
     ],
     coordinator: {
-      faculty: "Dr. K. N. Prakash (Dean of Research)",
-      facultyContact: "+91 98765 43216",
-      student: "Siddharth Rao & Pooja Hegde",
-      studentContact: "+91 97890 12345",
-      email: "innovatex@vigyantra.org"
+      faculty: "Faculty Coordinator Name",
+      facultyContact: "+91 XXXXX XXXXX",
+      student: "Student Coordinator Name",
+      studentContact: "+91 XXXXX XXXXX",
+      email: "innovatex@example.com"
     }
   },
   {
@@ -530,7 +530,7 @@ const EVENTS_DATA = [
     registrationFee: "₹250 / Team (Placeholder)",
     prizePool: "₹15,000",
     date: "Day 02 (11:00 AM - 05:00 PM)",
-    venue: "VLSI & Embedded Systems Laboratory",
+    venue: "Hardware & Systems Lab (Placeholder)",
     tags: ["CIRCUITS", "ELECTRONICS", "ESPORTS", "DEBUGGING", "HARDWARE"],
     accentColor: "#38bdf8",
     code: "CM",
@@ -573,11 +573,11 @@ const EVENTS_DATA = [
       "Player gamer tags & verified college ID"
     ],
     coordinator: {
-      faculty: "Prof. Vinay Kumar (ECE Dept.)",
-      facultyContact: "+91 98765 43217",
-      student: "Gautam Shenoy & Karthik M.",
-      studentContact: "+91 98901 23456",
-      email: "circuitmania@vigyantra.org"
+      faculty: "Faculty Coordinator Name",
+      facultyContact: "+91 XXXXX XXXXX",
+      student: "Student Coordinator Name",
+      studentContact: "+91 XXXXX XXXXX",
+      email: "circuitmania@example.com"
     }
   }
 ];
@@ -585,29 +585,29 @@ const EVENTS_DATA = [
 const SCHEDULE_DATA = {
   day1: {
     label: "DAY 01",
-    date: "October 15, 2026 (Placeholder)",
+    date: "Date TBD / Day 01 (Placeholder)",
     theme: "Ignition & Flagship Prelims",
     events: [
       {
         time: "07:30 - 08:30",
-        title: "Participant Registration & Welcome Kit Distribution",
+        title: "Participant Registration & Delegate Kit Distribution",
         tag: "ON-CAMPUS CHECKIN",
         description: "Welcome desk check-in, college ID verification, kit distribution, and breakfast for registered delegates.",
-        venue: "Main Campus Quadrangle"
+        venue: "Campus Foyer / Quadrangle (Placeholder)"
       },
       {
         time: "08:30 - 09:30",
         title: "Silver Jubilee Inaugural Ceremony",
         tag: "CEREMONY",
         description: "Lighting of the lamp, presidential address by dignitaries, unveiling of the Silver Jubilee Souvenir, and keynote on 25 Years of Engineering Legacy.",
-        venue: "Dr. APJ Abdul Kalam Auditorium"
+        venue: "Main Auditorium (Placeholder)"
       },
       {
         time: "09:30 - 10:30",
         title: "Symposium Keynote & Industry 4.0 Address",
         tag: "KEYNOTE",
-        description: "Distinguished guest lecture by prominent Silicon City technologists on future frontiers in AI, Cyber Defense, and Hardware.",
-        venue: "Dr. APJ Abdul Kalam Auditorium"
+        description: "Distinguished guest lecture by prominent technologists on future frontiers in AI, Cyber Defense, and Hardware.",
+        venue: "Main Auditorium (Placeholder)"
       },
       {
         time: "10:30 - 13:00",
@@ -620,8 +620,8 @@ const SCHEDULE_DATA = {
         time: "13:00 - 14:00",
         title: "Networking Luncheon",
         tag: "BREAK",
-        description: "Complimentary lunch and student networking lounge for all registered participants and faculty mentors.",
-        venue: "Campus Banquet Arena"
+        description: "Lunch and student networking lounge for all registered participants and faculty mentors.",
+        venue: "Campus Dining Arena (Placeholder)"
       },
       {
         time: "14:00 - 18:00",
@@ -641,7 +641,7 @@ const SCHEDULE_DATA = {
   },
   day2: {
     label: "DAY 02",
-    date: "October 16, 2026 (Placeholder)",
+    date: "Date TBD / Day 02 (Placeholder)",
     theme: "Grand Arena & Silver Jubilee Valedictory",
     events: [
       {
@@ -655,21 +655,21 @@ const SCHEDULE_DATA = {
         time: "09:30 - 13:00",
         title: "INNOVATEX (Project Expo) & ROBOCLASH (Obstacle Arena)",
         tag: "EXPO & ROBOTICS",
-        description: "Public exhibition of cutting-edge working prototypes in the Indoor Arena alongside high-speed obstacle runs in ROBOCLASH.",
-        venue: "Indoor Sports Complex & Amphitheatre"
+        description: "Public exhibition of cutting-edge working prototypes alongside high-speed obstacle runs in ROBOCLASH.",
+        venue: "Indoor Complex & Amphitheatre (Placeholder)"
       },
       {
         time: "11:00 - 13:00",
         title: "CIRCUIT MANIA (Hardware Debugging & LAN Esports)",
         tag: "DUAL ARENA",
-        description: "Silicon bug hunt in VLSI lab followed by high-octane esports tournament bracket matches.",
-        venue: "VLSI Center & Esports Arena"
+        description: "Silicon bug hunt in hardware lab followed by high-octane esports tournament bracket matches.",
+        venue: "Hardware Center & Gaming Arena (Placeholder)"
       },
       {
         time: "13:00 - 14:00",
         title: "Lunch & Cultural Intermission",
         tag: "LUNCH & MUSIC",
-        description: "Lunch followed by a short celebratory musical performance by the college band celebrating 25 years.",
+        description: "Lunch followed by a short celebratory musical performance celebrating 25 years.",
         venue: "Open Air Amphitheatre"
       },
       {
@@ -684,7 +684,7 @@ const SCHEDULE_DATA = {
         title: "Silver Jubilee Valedictory Ceremony & Prize Distribution",
         tag: "CEREMONY",
         description: "Felicitation of winners, distribution of ₹1,00,000+ cash prizes, 25-year commemorative silver trophies, and certificates.",
-        venue: "Dr. APJ Abdul Kalam Auditorium"
+        venue: "Main Auditorium (Placeholder)"
       },
       {
         time: "17:30 - 18:00",
@@ -886,10 +886,10 @@ const BROCHURE_PAGES = [
         <h3>25 YEARS. ONE LEGACY.</h3>
         <p>Vigyantra 2026 marks the prestigious Silver Jubilee milestone of our institution's premier National Technical Symposium. For twenty-five years, this platform has served as a crucible for ambitious young engineers, bridging classroom theory with high-stakes technical competition.</p>
         <div class="brochure-legacy-track">
-          <div class="legacy-step"><span>2001</span> FOUNDATION</div>
-          <div class="legacy-step"><span>2008</span> EXPANSION & GROWTH</div>
+          <div class="legacy-step"><span>2001</span> FOUNDATION & INCEPTION</div>
+          <div class="legacy-step"><span>2008</span> INTER-COLLEGIATE GROWTH</div>
           <div class="legacy-step"><span>2015</span> INNOVATION ACCELERATOR</div>
-          <div class="legacy-step"><span>2020</span> DIGITAL ERA & AUTOMATION</div>
+          <div class="legacy-step"><span>2020</span> DIGITAL MATRIX & AI</div>
           <div class="legacy-step active"><span>2026</span> SILVER JUBILEE HORIZON</div>
         </div>
         <p>Our 25th edition unites the finest minds across India in coding, artificial intelligence, cyber defense, robotics, and visionary design.</p>
@@ -963,9 +963,9 @@ const BROCHURE_PAGES = [
            • Cross-college teams are welcome.<br>
            • Strict code of conduct & zero-tolerance plagiarism policy.</p>
         <h4 style="margin-top:16px;">CONNECT WITH ORGANIZERS</h4>
-        <p>Email: contact@vigyantra.org | Phone: +91 98765 43210<br>
-        Campus: SJBIT Campus, BGS Health & Education City, Bengaluru, Karnataka, India<br>
-        Website: vigyantra2026.vercel.app</p>
+        <p>Email: contact@example.com | Phone: +91 XXXXX XXXXX<br>
+        Campus: [College / University Campus Name], Bengaluru, Karnataka, India<br>
+        Website: example-symposium.vercel.app</p>
       </div>
     `
   }

@@ -1,10 +1,11 @@
 /**
- * VIGYANTRA 2026 — Main Interactive Engine
+ * VIGYANTRA 2026 — Main Interactive Engine & Futuristic Tech Universe
  * Silver Jubilee Technical Symposium
  */
 
 document.addEventListener('DOMContentLoaded', () => {
-  initHeroCanvas();
+  initTechUniverseCanvas();
+  initCardHoloSheen();
   initCountdown();
   initNavbar();
   initStatsObserver();
@@ -16,122 +17,329 @@ document.addEventListener('DOMContentLoaded', () => {
   initEventModal();
   initRegistrationModal();
   initBrochureViewer();
+  initTelemetryTicker();
 });
 
 /* ==========================================================================
-   1. HERO CONSTELLATION / CIRCUIT MESH CANVAS
+   1. 3D TECH UNIVERSE & COSMIC CONSTELLATION CANVAS ENGINE
    ========================================================================== */
-function initHeroCanvas() {
+function initTechUniverseCanvas() {
   const canvas = document.getElementById('hero-canvas');
   if (!canvas) return;
 
   const ctx = canvas.getContext('2d');
   let width, height;
-  let particles = [];
-  let mouse = { x: null, y: null, radius: 140 };
+  let cx, cy; // center coordinates
   let animationFrameId;
 
   const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   if (prefersReduced) return;
 
+  // 3D Particles & Nodes
+  let stars = [];
+  let constellationNodes = [];
+  let shootingDataStreams = [];
+  let polyhedra = [];
+
+  // Mouse camera & parallax
+  let mouse = { x: 0, y: 0, targetX: 0, targetY: 0 };
+
   function resize() {
     width = canvas.width = window.innerWidth;
     height = canvas.height = window.innerHeight;
-    createParticles();
+    cx = width / 2;
+    cy = height / 2;
+    initUniverse();
   }
 
-  function createParticles() {
-    particles = [];
-    // Lower count on mobile for smooth 60fps performance
-    const count = window.innerWidth < 768 ? 32 : 70;
-    
-    for (let i = 0; i < count; i++) {
-      particles.push({
-        x: Math.random() * width,
-        y: Math.random() * height,
-        vx: (Math.random() - 0.5) * 0.45,
-        vy: (Math.random() - 0.5) * 0.45,
-        radius: Math.random() * 1.8 + 0.8,
-        color: Math.random() > 0.8 ? 'rgba(245, 158, 11, 0.7)' : (Math.random() > 0.4 ? 'rgba(56, 189, 248, 0.7)' : 'rgba(226, 232, 240, 0.5)'),
-        pulse: Math.random() * Math.PI
+  function initUniverse() {
+    const isMobile = width < 768;
+    const starCount = isMobile ? 80 : 180;
+    const nodeCount = isMobile ? 30 : 65;
+
+    // 1. Deep Space Starfield (3D depth z: 100 to 1200)
+    stars = [];
+    for (let i = 0; i < starCount; i++) {
+      stars.push({
+        x: (Math.random() - 0.5) * width * 2,
+        y: (Math.random() - 0.5) * height * 2,
+        z: Math.random() * 1000 + 100,
+        size: Math.random() * 1.5 + 0.5,
+        baseAlpha: Math.random() * 0.7 + 0.3,
+        twinkleSpeed: Math.random() * 0.03 + 0.01,
+        twinklePhase: Math.random() * Math.PI * 2,
+        color: Math.random() > 0.85 ? '#f59e0b' : (Math.random() > 0.5 ? '#38bdf8' : '#e2e8f0')
       });
+    }
+
+    // 2. Tech Constellation Nodes (Connected 3D nodes)
+    constellationNodes = [];
+    for (let i = 0; i < nodeCount; i++) {
+      constellationNodes.push({
+        x: (Math.random() - 0.5) * width * 1.6,
+        y: (Math.random() - 0.5) * height * 1.6,
+        z: Math.random() * 700 + 200,
+        vx: (Math.random() - 0.5) * 0.6,
+        vy: (Math.random() - 0.5) * 0.6,
+        vz: (Math.random() - 0.5) * 0.4,
+        radius: Math.random() * 2 + 1.2,
+        color: Math.random() > 0.75 ? 'rgba(245, 158, 11, ' : (Math.random() > 0.3 ? 'rgba(56, 189, 248, ' : 'rgba(226, 232, 240, ')
+      });
+    }
+
+    // 3. Floating 3D Geometric Cyber Polyhedra (Wireframe Icosahedron Rings)
+    polyhedra = [
+      {
+        x: cx * 0.55,
+        y: -cy * 0.45,
+        z: 450,
+        size: 70,
+        rotX: 0,
+        rotY: 0,
+        rotZ: 0,
+        speedX: 0.006,
+        speedY: 0.009,
+        color: 'rgba(56, 189, 248, 0.35)'
+      },
+      {
+        x: -cx * 0.65,
+        y: cy * 0.35,
+        z: 550,
+        size: 85,
+        rotX: 0,
+        rotY: 0,
+        rotZ: 0,
+        speedX: -0.008,
+        speedY: 0.005,
+        color: 'rgba(245, 158, 11, 0.25)'
+      }
+    ];
+
+    shootingDataStreams = [];
+  }
+
+  // Draw 3D wireframe cyber ring/polyhedron
+  function renderPolyhedron(p) {
+    p.rotX += p.speedX;
+    p.rotY += p.speedY;
+
+    // Simple 8-vertex octahedron in 3D
+    const rawVertices = [
+      [0, -p.size, 0],
+      [0, p.size, 0],
+      [-p.size, 0, 0],
+      [p.size, 0, 0],
+      [0, 0, -p.size],
+      [0, 0, p.size]
+    ];
+
+    const edges = [
+      [0, 2], [0, 3], [0, 4], [0, 5],
+      [1, 2], [1, 3], [1, 4], [1, 5],
+      [2, 4], [4, 3], [3, 5], [5, 2]
+    ];
+
+    const projected = rawVertices.map(v => {
+      // Rotate around X
+      let y1 = v[1] * Math.cos(p.rotX) - v[2] * Math.sin(p.rotX);
+      let z1 = v[1] * Math.sin(p.rotX) + v[2] * Math.cos(p.rotX);
+      // Rotate around Y
+      let x2 = v[0] * Math.cos(p.rotY) + z1 * Math.sin(p.rotY);
+      let z2 = -v[0] * Math.sin(p.rotY) + z1 * Math.cos(p.rotY);
+
+      // Translate to position
+      let posX = x2 + p.x + mouse.x * 0.05;
+      let posY = y1 + p.y + mouse.y * 0.05;
+      let posZ = z2 + p.z;
+
+      const fov = 400;
+      const scale = fov / (fov + posZ);
+      return {
+        px: cx + posX * scale,
+        py: cy + posY * scale,
+        scale
+      };
+    });
+
+    ctx.strokeStyle = p.color;
+    ctx.lineWidth = 1;
+    edges.forEach(edge => {
+      const vA = projected[edge[0]];
+      const vB = projected[edge[1]];
+      ctx.beginPath();
+      ctx.moveTo(vA.px, vA.py);
+      ctx.lineTo(vB.px, vB.py);
+      ctx.stroke();
+    });
+
+    // Draw glowing vertices
+    projected.forEach(v => {
+      ctx.beginPath();
+      ctx.arc(v.px, v.py, 2 * v.scale, 0, Math.PI * 2);
+      ctx.fillStyle = '#38bdf8';
+      ctx.fill();
+    });
+  }
+
+  function spawnShootingDataStream() {
+    if (Math.random() < 0.03 && shootingDataStreams.length < 3) {
+      shootingDataStreams.push({
+        x: Math.random() * width,
+        y: Math.random() * (height * 0.4),
+        length: Math.random() * 80 + 50,
+        speed: Math.random() * 8 + 6,
+        angle: Math.PI / 4 + (Math.random() - 0.5) * 0.2,
+        opacity: 1
+      });
+    }
+  }
+
+  function renderShootingDataStreams() {
+    for (let i = shootingDataStreams.length - 1; i >= 0; i--) {
+      const s = shootingDataStreams[i];
+      s.x += Math.cos(s.angle) * s.speed;
+      s.y += Math.sin(s.angle) * s.speed;
+      s.opacity -= 0.015;
+
+      if (s.opacity <= 0 || s.x > width || s.y > height) {
+        shootingDataStreams.splice(i, 1);
+        continue;
+      }
+
+      const tailX = s.x - Math.cos(s.angle) * s.length;
+      const tailY = s.y - Math.sin(s.angle) * s.length;
+
+      const grad = ctx.createLinearGradient(tailX, tailY, s.x, s.y);
+      grad.addColorStop(0, 'rgba(56, 189, 248, 0)');
+      grad.addColorStop(0.8, `rgba(56, 189, 248, ${s.opacity * 0.7})`);
+      grad.addColorStop(1, `rgba(245, 158, 11, ${s.opacity})`);
+
+      ctx.beginPath();
+      ctx.moveTo(tailX, tailY);
+      ctx.lineTo(s.x, s.y);
+      ctx.strokeStyle = grad;
+      ctx.lineWidth = 1.5;
+      ctx.stroke();
+
+      // Glowing head
+      ctx.beginPath();
+      ctx.arc(s.x, s.y, 2, 0, Math.PI * 2);
+      ctx.fillStyle = `rgba(255, 255, 255, ${s.opacity})`;
+      ctx.fill();
     }
   }
 
   function animate() {
     ctx.clearRect(0, 0, width, height);
 
-    // Update and draw particles
-    for (let i = 0; i < particles.length; i++) {
-      const p = particles[i];
-      p.x += p.vx;
-      p.y += p.vy;
+    // Smooth camera inertia
+    mouse.x += (mouse.targetX - mouse.x) * 0.05;
+    mouse.y += (mouse.targetY - mouse.y) * 0.05;
 
-      // Bounce at boundaries
-      if (p.x < 0 || p.x > width) p.vx *= -1;
-      if (p.y < 0 || p.y > height) p.vy *= -1;
+    const fov = 450;
 
-      // Pulse particle
-      p.pulse += 0.02;
-      const currentRadius = p.radius + Math.sin(p.pulse) * 0.4;
+    // 1. Draw Deep Cosmos Starfield with 3D Parallax & Twinkle
+    for (let i = 0; i < stars.length; i++) {
+      const star = stars[i];
+      star.twinklePhase += star.twinkleSpeed;
+      const alpha = star.baseAlpha * (0.6 + 0.4 * Math.sin(star.twinklePhase));
 
-      ctx.beginPath();
-      ctx.arc(p.x, p.y, Math.max(0.6, currentRadius), 0, Math.PI * 2);
-      ctx.fillStyle = p.color;
-      ctx.fill();
+      // Parallax shift based on depth
+      const scale = fov / (fov + star.z);
+      const px = cx + (star.x - mouse.x * 0.3) * scale;
+      const py = cy + (star.y - mouse.y * 0.3) * scale;
 
-      // Mouse proximity interaction
-      if (mouse.x !== null) {
-        const dx = mouse.x - p.x;
-        const dy = mouse.y - p.y;
-        const dist = Math.sqrt(dx * dx + dy * dy);
-        if (dist < mouse.radius) {
-          ctx.beginPath();
-          ctx.moveTo(p.x, p.y);
-          ctx.lineTo(mouse.x, mouse.y);
-          ctx.strokeStyle = `rgba(56, 189, 248, ${0.2 * (1 - dist / mouse.radius)})`;
-          ctx.lineWidth = 0.8;
-          ctx.stroke();
-        }
-      }
-
-      // Connect neighbor particles with circuit lines
-      for (let j = i + 1; j < particles.length; j++) {
-        const p2 = particles[j];
-        const dx = p.x - p2.x;
-        const dy = p.y - p2.y;
-        const dist = Math.sqrt(dx * dx + dy * dy);
-        const maxDist = window.innerWidth < 768 ? 95 : 130;
-
-        if (dist < maxDist) {
-          ctx.beginPath();
-          ctx.moveTo(p.x, p.y);
-          ctx.lineTo(p2.x, p2.y);
-          ctx.strokeStyle = `rgba(226, 232, 240, ${0.12 * (1 - dist / maxDist)})`;
-          ctx.lineWidth = 0.6;
-          ctx.stroke();
-        }
+      if (px >= 0 && px <= width && py >= 0 && py <= height) {
+        ctx.beginPath();
+        ctx.arc(px, py, star.size * scale, 0, Math.PI * 2);
+        ctx.fillStyle = star.color;
+        ctx.globalAlpha = alpha;
+        ctx.fill();
       }
     }
+    ctx.globalAlpha = 1.0;
+
+    // 2. Render 3D Floating Cyber Polyhedra
+    polyhedra.forEach(renderPolyhedron);
+
+    // 3. Update & Project Tech Constellation Nodes
+    const projectedNodes = [];
+    for (let i = 0; i < constellationNodes.length; i++) {
+      const n = constellationNodes[i];
+      n.x += n.vx;
+      n.y += n.vy;
+      n.z += n.vz;
+
+      // Bounce boundaries
+      const boundX = width * 0.8;
+      const boundY = height * 0.8;
+      if (n.x < -boundX || n.x > boundX) n.vx *= -1;
+      if (n.y < -boundY || n.y > boundY) n.vy *= -1;
+      if (n.z < 150 || n.z > 850) n.vz *= -1;
+
+      const scale = fov / (fov + n.z);
+      const px = cx + (n.x - mouse.x * 0.5) * scale;
+      const py = cy + (n.y - mouse.y * 0.5) * scale;
+
+      projectedNodes.push({ px, py, scale, orig: n });
+    }
+
+    // Connect nodes with laser filaments
+    const maxDist = width < 768 ? 90 : 130;
+    for (let i = 0; i < projectedNodes.length; i++) {
+      const p1 = projectedNodes[i];
+
+      for (let j = i + 1; j < projectedNodes.length; j++) {
+        const p2 = projectedNodes[j];
+        const dx = p1.px - p2.px;
+        const dy = p1.py - p2.py;
+        const dist = Math.sqrt(dx * dx + dy * dy);
+
+        if (dist < maxDist) {
+          const strength = (1 - dist / maxDist) * Math.min(p1.scale, p2.scale) * 0.6;
+          ctx.beginPath();
+          ctx.moveTo(p1.px, p1.py);
+          ctx.lineTo(p2.px, p2.py);
+          ctx.strokeStyle = `rgba(56, 189, 248, ${strength})`;
+          ctx.lineWidth = 0.75;
+          ctx.stroke();
+        }
+      }
+
+      // Draw node core
+      ctx.beginPath();
+      ctx.arc(p1.px, p1.py, p1.orig.radius * p1.scale, 0, Math.PI * 2);
+      ctx.fillStyle = p1.orig.color + `${0.8 * p1.scale})`;
+      ctx.fill();
+
+      // Outer cyber pulse halo
+      ctx.beginPath();
+      ctx.arc(p1.px, p1.py, (p1.orig.radius + 2) * p1.scale, 0, Math.PI * 2);
+      ctx.strokeStyle = p1.orig.color + `${0.25 * p1.scale})`;
+      ctx.lineWidth = 0.8;
+      ctx.stroke();
+    }
+
+    // 4. Shooting Cyber Data Streams
+    spawnShootingDataStream();
+    renderShootingDataStreams();
 
     animationFrameId = requestAnimationFrame(animate);
   }
 
-  window.addEventListener('resize', () => {
-    resize();
-  });
+  window.addEventListener('resize', resize);
 
   window.addEventListener('mousemove', (e) => {
-    mouse.x = e.clientX;
-    mouse.y = e.clientY;
+    mouse.targetX = e.clientX - cx;
+    mouse.targetY = e.clientY - cy;
   });
 
-  window.addEventListener('mouseout', () => {
-    mouse.x = null;
-    mouse.y = null;
+  window.addEventListener('mouseleave', () => {
+    mouse.targetX = 0;
+    mouse.targetY = 0;
   });
 
-  // Pause canvas when scrolled far out of view
+  // Pause when offscreen
   const observer = new IntersectionObserver((entries) => {
     if (entries[0].isIntersecting) {
       if (!animationFrameId) animate();
@@ -148,7 +356,44 @@ function initHeroCanvas() {
 }
 
 /* ==========================================================================
-   2. DYNAMIC COUNTDOWN TIMER
+   2. HOLOGRAPHIC CARD SHEEN & MOUSE FOLLOWER
+   ========================================================================== */
+function initCardHoloSheen() {
+  document.addEventListener('mousemove', (e) => {
+    const cards = document.querySelectorAll('.event-card, .prize-card, .stats-card-wrapper, .legacy-track-container');
+    cards.forEach(card => {
+      const rect = card.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+      card.style.setProperty('--mouse-x', `${x}px`);
+      card.style.setProperty('--mouse-y', `${y}px`);
+    });
+  });
+}
+
+/* ==========================================================================
+   3. FUTURISTIC TELEMETRY TICKER
+   ========================================================================== */
+function initTelemetryTicker() {
+  const tickerEl = document.getElementById('telemetry-status-text');
+  if (!tickerEl) return;
+
+  const telemetryLines = [
+    "SYS.STATUS: OPERATIONAL // TIMELINE: T-MINUS 25 YEARS // JUBILEE HORIZON: 2026 // GRID: 12.9716° N, 77.5946° E",
+    "QUANTUM CORE: SYNCHRONIZED // 8 ARENAS ACTIVE // BANDWIDTH: 100Gbps // SECURE CTF CIPHER: AES-256",
+    "DELEGATE MATRIX: ACCEPTING VERIFIED ENTRIES // ARENA SLOTS: ALLOCATED // CODE ENGINE: V25.0",
+    "SILVER JUBILEE TELEMETRY: 25 YEARS OF ENGINEERING DISTINCTION // INNOVATORS: 1000+ // PROTOCOL: IEEE-COMPLIANT"
+  ];
+
+  let lineIdx = 0;
+  setInterval(() => {
+    lineIdx = (lineIdx + 1) % telemetryLines.length;
+    tickerEl.textContent = telemetryLines[lineIdx];
+  }, 4500);
+}
+
+/* ==========================================================================
+   4. DYNAMIC COUNTDOWN TIMER
    ========================================================================== */
 function initCountdown() {
   const daysEl = document.getElementById('cd-days');
@@ -188,7 +433,7 @@ function initCountdown() {
 }
 
 /* ==========================================================================
-   3. STICKY NAVBAR & MOBILE DRAWER
+   5. STICKY NAVBAR & MOBILE DRAWER
    ========================================================================== */
 function initNavbar() {
   const header = document.querySelector('.site-header');
@@ -198,7 +443,6 @@ function initNavbar() {
   const closeBtn = document.querySelector('.mobile-drawer-close');
   const navLinks = document.querySelectorAll('.nav-link, .mobile-nav-link');
 
-  // Sticky transition on scroll
   window.addEventListener('scroll', () => {
     if (window.scrollY > 40) {
       header.classList.add('scrolled');
@@ -207,7 +451,6 @@ function initNavbar() {
     }
   });
 
-  // Mobile menu open / close
   function openDrawer() {
     drawer.classList.add('open');
     backdrop.classList.add('open');
@@ -230,7 +473,6 @@ function initNavbar() {
     });
   });
 
-  // Active section scroll spy
   const sections = document.querySelectorAll('section[id]');
   window.addEventListener('scroll', () => {
     const scrollPos = window.scrollY + 120;
@@ -248,7 +490,7 @@ function initNavbar() {
 }
 
 /* ==========================================================================
-   4. STATS ANIMATED COUNTERS
+   6. STATS ANIMATED COUNTERS
    ========================================================================== */
 function initStatsObserver() {
   const statElements = document.querySelectorAll('.stat-number');
@@ -269,7 +511,6 @@ function initStatsObserver() {
 
         function step(currentTime) {
           const progress = Math.min((currentTime - startTime) / duration, 1);
-          // Ease out cubic
           const ease = 1 - Math.pow(1 - progress, 3);
           const currentVal = Math.floor(ease * target);
 
@@ -282,7 +523,6 @@ function initStatsObserver() {
           if (progress < 1) {
             requestAnimationFrame(step);
           } else {
-            // Ensure final exact formatting
             if (isRupee) {
               el.textContent = '₹1,00,000+';
             } else if (target === 25) {
@@ -305,7 +545,7 @@ function initStatsObserver() {
 }
 
 /* ==========================================================================
-   5. RENDER 8 FLAGSHIP EVENTS
+   7. RENDER 8 FLAGSHIP EVENTS WITH HUD ACCENTS
    ========================================================================== */
 function renderEvents() {
   const container = document.getElementById('events-grid-container');
@@ -314,6 +554,12 @@ function renderEvents() {
   container.innerHTML = window.EVENTS_DATA.map(event => {
     return `
       <article class="event-card" data-category="${event.category}" data-id="${event.id}">
+        <!-- Futuristic HUD Corner Brackets -->
+        <div class="hud-corner top-left"></div>
+        <div class="hud-corner top-right"></div>
+        <div class="hud-corner bottom-left"></div>
+        <div class="hud-corner bottom-right"></div>
+
         <div class="event-card-header">
           <span class="event-number-badge">${event.number}</span>
           <span class="event-category-badge">${event.categoryLabel}</span>
@@ -380,7 +626,7 @@ function initEventFilters() {
 }
 
 /* ==========================================================================
-   6. EVENT DETAIL MODAL
+   8. EVENT DETAIL MODAL
    ========================================================================== */
 function initEventModal() {
   const modal = document.getElementById('event-detail-modal');
@@ -483,7 +729,7 @@ function openEventModal(eventId) {
       </div>
     </div>
 
-    <!-- Coordinators Box -->
+    <!-- Coordinators Box (Clean Placeholders) -->
     <div class="modal-coordinator-box">
       <div style="font-size:0.75rem; font-weight:700; letter-spacing:0.15em; color:var(--cyan-accent); margin-bottom:10px;">EVENT COORDINATOR CONTACTS</div>
       <div style="display:grid; grid-template-columns:1fr 1fr; gap:16px; font-size:0.85rem; color:var(--silver-300);">
@@ -520,7 +766,7 @@ window.openEventModal = openEventModal;
 window.closeEventModal = closeEventModal;
 
 /* ==========================================================================
-   7. SCHEDULE TABS & TIMELINE
+   9. SCHEDULE TABS & TIMELINE
    ========================================================================== */
 function initScheduleTabs() {
   const tabBtns = document.querySelectorAll('.schedule-tab-btn');
@@ -559,7 +805,7 @@ function renderSchedule(dayKey) {
 }
 
 /* ==========================================================================
-   8. PRIZES (HALL OF GLORY)
+   10. PRIZES (HALL OF GLORY)
    ========================================================================== */
 function renderPrizes() {
   const container = document.getElementById('prizes-grid-container');
@@ -567,6 +813,11 @@ function renderPrizes() {
 
   container.innerHTML = window.PRIZES_DATA.map(prize => `
     <div class="prize-card ${prize.highlight ? 'featured' : ''}">
+      <div class="hud-corner top-left"></div>
+      <div class="hud-corner top-right"></div>
+      <div class="hud-corner bottom-left"></div>
+      <div class="hud-corner bottom-right"></div>
+      
       <div class="prize-badge">${prize.title}</div>
       <div class="prize-amount">${prize.amount}</div>
       <div class="prize-subtitle">${prize.subtitle}</div>
@@ -576,10 +827,9 @@ function renderPrizes() {
 }
 
 /* ==========================================================================
-   9. GUIDELINES & FAQ ACCORDIONS
+   11. GUIDELINES & FAQ ACCORDIONS
    ========================================================================== */
 function initAccordions() {
-  // Render Guidelines
   const guideContainer = document.getElementById('guidelines-accordion-container');
   if (guideContainer && window.GUIDELINES_DATA) {
     guideContainer.innerHTML = window.GUIDELINES_DATA.map((item, idx) => `
@@ -595,7 +845,6 @@ function initAccordions() {
     `).join('');
   }
 
-  // Render FAQs
   const faqContainer = document.getElementById('faq-accordion-container');
   if (faqContainer && window.FAQ_DATA) {
     faqContainer.innerHTML = window.FAQ_DATA.map((item, idx) => `
@@ -611,7 +860,6 @@ function initAccordions() {
     `).join('');
   }
 
-  // Attach click listener for all accordions
   document.querySelectorAll('.accordion-trigger').forEach(trigger => {
     trigger.addEventListener('click', () => {
       const item = trigger.closest('.accordion-item');
@@ -632,7 +880,7 @@ function initAccordions() {
 }
 
 /* ==========================================================================
-   10. MULTI-STEP REGISTRATION PORTAL
+   12. MULTI-STEP REGISTRATION PORTAL (CLEAN PLACEHOLDERS)
    ========================================================================== */
 let currentStep = 1;
 const regData = {
@@ -663,7 +911,6 @@ function initRegistrationModal() {
     }
   });
 
-  // Populate events in Step 1
   const eventSelect = document.getElementById('reg-event-select');
   if (eventSelect && window.EVENTS_DATA) {
     eventSelect.innerHTML = '<option value="">-- Choose an Event --</option>' + 
@@ -760,21 +1007,21 @@ function renderDynamicMemberFields(size) {
         <div class="form-row">
           <div class="form-group">
             <label class="form-label">Full Name *</label>
-            <input type="text" class="form-input member-name" data-index="${i}" placeholder="e.g. Rahul Sharma" required />
+            <input type="text" class="form-input member-name" data-index="${i}" placeholder="e.g. Member Name" required />
           </div>
           <div class="form-group">
             <label class="form-label">Email *</label>
-            <input type="email" class="form-input member-email" data-index="${i}" placeholder="e.g. rahul@example.com" required />
+            <input type="email" class="form-input member-email" data-index="${i}" placeholder="e.g. member${i}@example.com" required />
           </div>
         </div>
         <div class="form-row">
           <div class="form-group">
             <label class="form-label">Phone Number *</label>
-            <input type="tel" class="form-input member-phone" data-index="${i}" placeholder="10-digit mobile number" required />
+            <input type="tel" class="form-input member-phone" data-index="${i}" placeholder="e.g. +91 XXXXX XXXXX" required />
           </div>
           <div class="form-group">
             <label class="form-label">College ID / USN *</label>
-            <input type="text" class="form-input member-usn" data-index="${i}" placeholder="e.g. 1JB24IS..." required />
+            <input type="text" class="form-input member-usn" data-index="${i}" placeholder="e.g. 1XX24XX00${i}" required />
           </div>
         </div>
       </div>
@@ -784,7 +1031,6 @@ function renderDynamicMemberFields(size) {
 }
 
 function nextRegStep() {
-  // Validate current step
   if (currentStep === 1) {
     const ev = document.getElementById('reg-event-select').value;
     if (!ev) {
@@ -822,7 +1068,6 @@ function nextRegStep() {
       collegeId: leaderUsn
     };
 
-    // Collect additional members
     regData.members = [];
     for (let i = 2; i <= regData.teamSize; i++) {
       const nameInput = document.querySelector(`.member-name[data-index="${i}"]`);
@@ -842,10 +1087,8 @@ function nextRegStep() {
       });
     }
 
-    // Populate Review Step 4
     populateReviewSummary();
   } else if (currentStep === 4) {
-    // Generate Demo Confirmation
     generateRegistrationConfirmation();
   }
 
@@ -924,13 +1167,10 @@ function generateRegistrationConfirmation() {
   const randHash = Math.random().toString(36).substring(2, 7).toUpperCase();
   const demoId = `VIG26-${code}-${randHash}`;
 
-  // Store temporarily in localStorage for interaction demonstration
   try {
     const demoPayload = { ...regData, demoId, registeredAt: new Date().toISOString() };
     localStorage.setItem('vigyantra_last_demo_reg', JSON.stringify(demoPayload));
-  } catch (e) {
-    // localStorage may be restricted in sandbox
-  }
+  } catch (e) {}
 
   container.innerHTML = `
     <div class="confirmation-card">
@@ -945,7 +1185,7 @@ function generateRegistrationConfirmation() {
         <div style="margin-bottom:6px;"><strong>Team:</strong> ${regData.teamName} (${regData.teamSize} Members)</div>
         <div style="margin-bottom:6px;"><strong>Lead Delegate:</strong> ${regData.leader.name}</div>
         <div style="margin-bottom:6px;"><strong>College:</strong> ${regData.institution}, ${regData.city}</div>
-        <div><strong>Venue:</strong> ${eventObj ? eventObj.venue : 'SJBIT Main Campus'}</div>
+        <div><strong>Venue:</strong> ${eventObj ? eventObj.venue : '[Campus Venue Placeholder]'}</div>
       </div>
 
       <p style="font-size:0.78rem; color:var(--gold-jubilee); margin-bottom:20px;">
@@ -965,7 +1205,7 @@ function generateRegistrationConfirmation() {
 }
 
 /* ==========================================================================
-   11. DIGITAL BROCHURE VIEWER
+   13. DIGITAL BROCHURE VIEWER
    ========================================================================== */
 let currentBrochurePage = 1;
 

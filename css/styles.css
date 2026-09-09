@@ -1,6 +1,6 @@
 /* ==========================================================================
    VIGYANTRA 2026 — SILVER JUBILEE TECHNICAL SYMPOSIUM
-   Design System & Styling
+   Futuristic Tech Universe Design System & Styling
    Colors: Obsidian (#07070A, #0B0D12, #111318), Platinum Silver (#E2E8F0), 
            Electric Cyan (#38BDF8), Jubilee Gold (#F59E0B)
    Typography: Cinzel (Headings & Big Numerals), Inter (Body & UI)
@@ -29,10 +29,11 @@
 
   --border-subtle: rgba(226, 232, 240, 0.08);
   --border-medium: rgba(226, 232, 240, 0.16);
-  --border-hover: rgba(226, 232, 240, 0.32);
+  --border-hover: rgba(56, 189, 248, 0.4);
 
   --font-heading: 'Cinzel', serif;
   --font-body: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
 
   --transition-fast: 0.2s cubic-bezier(0.16, 1, 0.3, 1);
   --transition-smooth: 0.35s cubic-bezier(0.16, 1, 0.3, 1);
@@ -160,6 +161,7 @@ h1, h2, h3, h4, .font-heading {
   text-align: center;
   max-width: 760px;
   margin: 0 auto 56px auto;
+  position: relative;
 }
 
 .section-eyebrow {
@@ -176,12 +178,14 @@ h1, h2, h3, h4, .font-heading {
   border: 1px solid var(--cyan-border);
   border-radius: 9999px;
   margin-bottom: 18px;
+  box-shadow: 0 0 15px rgba(56, 189, 248, 0.1);
 }
 
 .section-eyebrow.gold {
   color: var(--gold-jubilee);
   background: rgba(245, 158, 11, 0.08);
   border-color: var(--gold-border);
+  box-shadow: 0 0 15px rgba(245, 158, 11, 0.1);
 }
 
 .section-title {
@@ -194,6 +198,107 @@ h1, h2, h3, h4, .font-heading {
   font-size: clamp(1rem, 1.5vw, 1.15rem);
   color: var(--silver-400);
   line-height: 1.6;
+}
+
+/* ==========================================================================
+   FUTURISTIC HUD & TECH UNIVERSE COMPONENTS
+   ========================================================================== */
+
+/* Telemetry Ticker Bar */
+.telemetry-bar {
+  background: rgba(7, 7, 10, 0.9);
+  border-bottom: 1px solid rgba(56, 189, 248, 0.2);
+  border-top: 1px solid rgba(226, 232, 240, 0.05);
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  color: var(--cyan-accent);
+  padding: 8px 0;
+  overflow: hidden;
+  position: relative;
+  z-index: 100;
+}
+
+.telemetry-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.telemetry-lead {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  color: var(--gold-jubilee);
+  flex-shrink: 0;
+}
+
+.telemetry-pulse-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--cyan-accent);
+  box-shadow: 0 0 8px var(--cyan-accent);
+  animation: telemetry-pulse 1.8s infinite ease-in-out;
+}
+
+@keyframes telemetry-pulse {
+  0%, 100% { opacity: 0.4; transform: scale(0.9); }
+  50% { opacity: 1; transform: scale(1.3); }
+}
+
+.telemetry-text {
+  letter-spacing: 0.1em;
+  white-space: nowrap;
+  color: var(--silver-300);
+  transition: opacity 0.3s ease;
+}
+
+/* Cyber HUD Corner Brackets for Cards */
+.hud-corner {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  border-color: rgba(56, 189, 248, 0.4);
+  pointer-events: none;
+  transition: all var(--transition-fast);
+}
+
+.hud-corner.top-left {
+  top: 6px;
+  left: 6px;
+  border-top: 2px solid rgba(56, 189, 248, 0.4);
+  border-left: 2px solid rgba(56, 189, 248, 0.4);
+}
+
+.hud-corner.top-right {
+  top: 6px;
+  right: 6px;
+  border-top: 2px solid rgba(56, 189, 248, 0.4);
+  border-right: 2px solid rgba(56, 189, 248, 0.4);
+}
+
+.hud-corner.bottom-left {
+  bottom: 6px;
+  left: 6px;
+  border-bottom: 2px solid rgba(56, 189, 248, 0.4);
+  border-left: 2px solid rgba(56, 189, 248, 0.4);
+}
+
+.hud-corner.bottom-right {
+  bottom: 6px;
+  right: 6px;
+  border-bottom: 2px solid rgba(56, 189, 248, 0.4);
+  border-right: 2px solid rgba(56, 189, 248, 0.4);
+}
+
+.event-card:hover .hud-corner, .prize-card:hover .hud-corner {
+  width: 14px;
+  height: 14px;
+  border-color: var(--cyan-accent);
+  box-shadow: 0 0 6px var(--cyan-accent);
 }
 
 /* Buttons & Interactive Elements */
@@ -287,11 +392,11 @@ h1, h2, h3, h4, .font-heading {
 }
 
 .site-header.scrolled {
-  background-color: rgba(7, 7, 10, 0.88);
-  backdrop-filter: blur(14px);
-  -webkit-backdrop-filter: blur(14px);
+  background-color: rgba(7, 7, 10, 0.92);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
   border-bottom: 1px solid var(--border-subtle);
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
 }
 
 .nav-container {
@@ -312,7 +417,7 @@ h1, h2, h3, h4, .font-heading {
   width: 38px;
   height: 38px;
   border-radius: 8px;
-  background: linear-gradient(135deg, rgba(226, 232, 240, 0.15) 0%, rgba(56, 189, 248, 0.2) 100%);
+  background: linear-gradient(135deg, rgba(226, 232, 240, 0.15) 0%, rgba(56, 189, 248, 0.25) 100%);
   border: 1px solid var(--border-medium);
   display: flex;
   align-items: center;
@@ -321,7 +426,7 @@ h1, h2, h3, h4, .font-heading {
   font-weight: 800;
   font-size: 1.1rem;
   color: #ffffff;
-  box-shadow: 0 0 15px rgba(56, 189, 248, 0.2);
+  box-shadow: 0 0 15px rgba(56, 189, 248, 0.25);
 }
 
 .logo-text {
@@ -480,7 +585,7 @@ h1, h2, h3, h4, .font-heading {
 }
 
 /* ==========================================================================
-   HERO SECTION
+   HERO SECTION (3D TECH UNIVERSE)
    ========================================================================== */
 .hero-section {
   position: relative;
@@ -488,7 +593,7 @@ h1, h2, h3, h4, .font-heading {
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: calc(var(--nav-height) + 40px) 0 80px 0;
+  padding: calc(var(--nav-height) + 50px) 0 80px 0;
   overflow: hidden;
 }
 
@@ -504,8 +609,8 @@ h1, h2, h3, h4, .font-heading {
 .hero-glow-overlay {
   position: absolute;
   inset: 0;
-  background: radial-gradient(circle at 50% 30%, rgba(56, 189, 248, 0.07) 0%, transparent 60%),
-              radial-gradient(circle at 50% 80%, rgba(245, 158, 11, 0.04) 0%, transparent 50%);
+  background: radial-gradient(circle at 50% 30%, rgba(56, 189, 248, 0.09) 0%, transparent 65%),
+              radial-gradient(circle at 50% 80%, rgba(245, 158, 11, 0.05) 0%, transparent 55%);
   z-index: 2;
   pointer-events: none;
 }
@@ -513,13 +618,13 @@ h1, h2, h3, h4, .font-heading {
 .hero-grid-lines {
   position: absolute;
   inset: 0;
-  background-image: linear-gradient(rgba(226, 232, 240, 0.02) 1px, transparent 1px),
-                    linear-gradient(90deg, rgba(226, 232, 240, 0.02) 1px, transparent 1px);
+  background-image: linear-gradient(rgba(56, 189, 248, 0.03) 1px, transparent 1px),
+                    linear-gradient(90deg, rgba(56, 189, 248, 0.03) 1px, transparent 1px);
   background-size: 64px 64px;
   z-index: 2;
   pointer-events: none;
-  mask-image: radial-gradient(circle at 50% 40%, black 30%, transparent 80%);
-  -webkit-mask-image: radial-gradient(circle at 50% 40%, black 30%, transparent 80%);
+  mask-image: radial-gradient(circle at 50% 40%, black 25%, transparent 80%);
+  -webkit-mask-image: radial-gradient(circle at 50% 40%, black 25%, transparent 80%);
 }
 
 .hero-content {
@@ -539,12 +644,13 @@ h1, h2, h3, h4, .font-heading {
   letter-spacing: 0.2em;
   text-transform: uppercase;
   color: var(--silver-300);
-  background: rgba(17, 19, 24, 0.7);
+  background: rgba(17, 19, 24, 0.8);
   border: 1px solid var(--border-medium);
   padding: 8px 18px;
   border-radius: 9999px;
   margin-bottom: 24px;
-  backdrop-filter: blur(10px);
+  backdrop-filter: blur(12px);
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
 }
 
 .spark-dot {
@@ -596,6 +702,7 @@ h1, h2, h3, h4, .font-heading {
   color: var(--cyan-accent);
   margin-bottom: 24px;
   text-transform: uppercase;
+  text-shadow: 0 0 16px rgba(56, 189, 248, 0.4);
 }
 
 .hero-tagline {
@@ -627,16 +734,18 @@ h1, h2, h3, h4, .font-heading {
 }
 
 .countdown-box {
-  background: rgba(17, 19, 24, 0.75);
+  background: rgba(17, 19, 24, 0.8);
   border: 1px solid var(--border-medium);
   border-radius: 8px;
   padding: 14px 8px;
   backdrop-filter: blur(8px);
-  transition: border-color var(--transition-fast);
+  transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+  position: relative;
 }
 
 .countdown-box:hover {
   border-color: var(--cyan-border);
+  box-shadow: 0 0 20px rgba(56, 189, 248, 0.15);
 }
 
 .countdown-value {
@@ -682,13 +791,22 @@ h1, h2, h3, h4, .font-heading {
   backdrop-filter: blur(16px);
   padding: 32px 24px;
   box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6);
+  position: relative;
+  overflow: hidden;
+}
+
+.stats-card-wrapper::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(56, 189, 248, 0.08) 0%, transparent 60%);
+  pointer-events: none;
 }
 
 .stats-grid {
   display: grid;
   grid-template-columns: repeat(5, 1fr);
   gap: 20px;
-  divide-x: 1px solid var(--border-subtle);
 }
 
 .stat-item {
@@ -796,6 +914,15 @@ h1, h2, h3, h4, .font-heading {
   border-radius: 12px;
   padding: 36px 30px;
   position: relative;
+  overflow: hidden;
+}
+
+.legacy-track-container::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(245, 158, 11, 0.06) 0%, transparent 60%);
+  pointer-events: none;
 }
 
 .legacy-track-title {
@@ -894,7 +1021,7 @@ h1, h2, h3, h4, .font-heading {
 }
 
 /* ==========================================================================
-   8 FLAGSHIP EVENTS SECTION
+   8 FLAGSHIP EVENTS SECTION (WITH HOLOGRAPHIC SHEEN & HUD CORNERS)
    ========================================================================== */
 .events-filter-bar {
   display: flex;
@@ -928,7 +1055,7 @@ h1, h2, h3, h4, .font-heading {
   background: rgba(226, 232, 240, 0.12);
   border-color: var(--cyan-border);
   color: #ffffff;
-  box-shadow: 0 0 15px rgba(56, 189, 248, 0.15);
+  box-shadow: 0 0 15px rgba(56, 189, 248, 0.2);
 }
 
 .events-grid {
@@ -950,6 +1077,22 @@ h1, h2, h3, h4, .font-heading {
   transition: transform var(--transition-smooth), border-color var(--transition-smooth), box-shadow var(--transition-smooth);
 }
 
+/* Dynamic Cursor Holographic Sheen */
+.event-card::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle 280px at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(56, 189, 248, 0.12) 0%, transparent 70%);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.event-card:hover::after {
+  opacity: 1;
+}
+
 .event-card::before {
   content: '';
   position: absolute;
@@ -959,12 +1102,13 @@ h1, h2, h3, h4, .font-heading {
   height: 2px;
   background: linear-gradient(90deg, transparent, var(--border-medium), transparent);
   transition: all var(--transition-smooth);
+  z-index: 2;
 }
 
 .event-card:hover {
   transform: translateY(-6px);
   border-color: var(--border-hover);
-  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.6);
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.7), 0 0 20px rgba(56, 189, 248, 0.1);
 }
 
 .event-card:hover::before {
@@ -976,6 +1120,8 @@ h1, h2, h3, h4, .font-heading {
   align-items: center;
   justify-content: space-between;
   margin-bottom: 20px;
+  position: relative;
+  z-index: 2;
 }
 
 .event-number-badge {
@@ -1000,6 +1146,8 @@ h1, h2, h3, h4, .font-heading {
 
 .event-card-body {
   margin-bottom: 24px;
+  position: relative;
+  z-index: 2;
 }
 
 .event-title {
@@ -1084,6 +1232,8 @@ h1, h2, h3, h4, .font-heading {
   justify-content: space-between;
   gap: 12px;
   padding-top: 8px;
+  position: relative;
+  z-index: 2;
 }
 
 .btn-view-event {
@@ -1108,6 +1258,7 @@ h1, h2, h3, h4, .font-heading {
   background: var(--silver-200);
   color: var(--bg-black);
   border-color: var(--silver-200);
+  box-shadow: 0 0 15px rgba(226, 232, 240, 0.3);
 }
 
 @media (max-width: 640px) {
@@ -1283,6 +1434,20 @@ h1, h2, h3, h4, .font-heading {
   transition: all var(--transition-smooth);
 }
 
+.prize-card::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle 260px at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(245, 158, 11, 0.1) 0%, transparent 70%);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+}
+
+.prize-card:hover::after {
+  opacity: 1;
+}
+
 .prize-card:hover {
   border-color: var(--border-hover);
   transform: translateY(-5px);
@@ -1307,6 +1472,8 @@ h1, h2, h3, h4, .font-heading {
   text-transform: uppercase;
   color: var(--gold-jubilee);
   margin-bottom: 12px;
+  position: relative;
+  z-index: 2;
 }
 
 .prize-title {
@@ -1314,6 +1481,8 @@ h1, h2, h3, h4, .font-heading {
   font-weight: 700;
   color: #ffffff;
   margin-bottom: 8px;
+  position: relative;
+  z-index: 2;
 }
 
 .prize-amount {
@@ -1322,6 +1491,8 @@ h1, h2, h3, h4, .font-heading {
   font-weight: 800;
   color: var(--silver-100);
   margin-bottom: 6px;
+  position: relative;
+  z-index: 2;
 }
 
 .prize-card.featured .prize-amount {
@@ -1333,12 +1504,16 @@ h1, h2, h3, h4, .font-heading {
   font-weight: 500;
   color: var(--cyan-accent);
   margin-bottom: 16px;
+  position: relative;
+  z-index: 2;
 }
 
 .prize-desc {
   font-size: 0.88rem;
   color: var(--silver-400);
   line-height: 1.6;
+  position: relative;
+  z-index: 2;
 }
 
 /* ==========================================================================
@@ -1432,6 +1607,7 @@ h1, h2, h3, h4, .font-heading {
   border: 1px solid var(--border-subtle);
   border-radius: 12px;
   padding: 36px;
+  position: relative;
 }
 
 .contact-roles-grid {
@@ -1573,7 +1749,7 @@ h1, h2, h3, h4, .font-heading {
   display: inline-flex;
   align-items: center;
   gap: 10px;
-  font-family: monospace;
+  font-family: var(--font-mono);
   font-size: 0.72rem;
   color: var(--silver-400);
   background: rgba(226, 232, 240, 0.03);
@@ -1591,14 +1767,14 @@ h1, h2, h3, h4, .font-heading {
 }
 
 /* ==========================================================================
-   MODALS SYSTEM (EVENT DETAILS, REGISTRATION, DIGITAL BROCHURE)
+   MODALS SYSTEM
    ========================================================================== */
 .modal-backdrop {
   position: fixed;
   inset: 0;
-  background: rgba(4, 4, 6, 0.85);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
+  background: rgba(4, 4, 6, 0.88);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
   z-index: 2000;
   display: flex;
   align-items: center;
@@ -1623,7 +1799,7 @@ h1, h2, h3, h4, .font-heading {
   max-height: 90vh;
   overflow-y: auto;
   position: relative;
-  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.9);
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.95);
   transform: translateY(20px) scale(0.98);
   transition: transform var(--transition-smooth);
 }
@@ -1850,7 +2026,7 @@ h1, h2, h3, h4, .font-heading {
 }
 
 .reg-id-display {
-  font-family: monospace;
+  font-family: var(--font-mono);
   font-size: 1.6rem;
   font-weight: 700;
   letter-spacing: 0.1em;
@@ -2005,7 +2181,7 @@ h1, h2, h3, h4, .font-heading {
     background: #ffffff !important;
     color: #000000 !important;
   }
-  .site-header, .hero-section, .stats-section, .about-section, .events-section, 
+  .site-header, .telemetry-bar, .hero-section, .stats-section, .about-section, .events-section, 
   .schedule-section, .prizes-section, .guidelines-section, .faq-section, 
   .venue-contact-section, .site-footer, .modal-close-btn, .brochure-controls, .hero-actions {
     display: none !important;
