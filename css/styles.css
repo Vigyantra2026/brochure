@@ -2418,7 +2418,438 @@ html, body {
 }
 
 /* ==========================================================================
-   15. ACCESSIBILITY: PREFERS-REDUCED-MOTION
+   15. CINEMATIC INTRO / BOOT SEQUENCE (ISOLATED OVERLAY)
+   Choreographed 3.6s dark atmospheric intro revealing the command deck
+   ========================================================================== */
+.cinematic-intro {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  height: 100dvh;
+  z-index: 99999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #02040a;
+  overflow: hidden;
+  opacity: 1;
+  pointer-events: auto;
+  transition: opacity 0.55s cubic-bezier(0.16, 1, 0.3, 1),
+              visibility 0.55s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity, transform;
+}
+
+/* When intro finishes or is skipped */
+.cinematic-intro.intro-complete {
+  opacity: 0 !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
+}
+
+/* Unobtrusive, elegant Skip Button */
+.intro-skip-btn {
+  position: absolute;
+  top: clamp(14px, 3vh, 24px);
+  right: clamp(14px, 3vw, 28px);
+  z-index: 10;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(8, 14, 28, 0.65);
+  border: 1px solid rgba(0, 240, 255, 0.28);
+  border-radius: 20px;
+  padding: 6px 14px;
+  color: var(--silver-300);
+  font-family: var(--font-mono);
+  font-size: clamp(0.68rem, 1.4vw, 0.78rem);
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  cursor: pointer;
+  outline: none;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  transition: all 0.22s ease;
+  opacity: 0;
+  animation: intro-skip-appear 0.4s ease 0.4s forwards;
+}
+
+.intro-skip-btn:hover {
+  background: rgba(0, 240, 255, 0.15);
+  border-color: var(--cyan);
+  color: #ffffff;
+  box-shadow: 0 0 16px rgba(0, 240, 255, 0.35);
+  transform: translateY(-1px);
+}
+
+.intro-skip-btn:active {
+  transform: scale(0.96);
+}
+
+@keyframes intro-skip-appear {
+  0% { opacity: 0; transform: translateY(-4px); }
+  100% { opacity: 0.85; transform: translateY(0); }
+}
+
+/* Atmospheric Deep Space Canvas Behind Intro Content */
+.intro-space-bg {
+  position: absolute;
+  inset: 0;
+  background: 
+    radial-gradient(circle at 50% 50%, rgba(4, 9, 24, 0.95) 0%, #010308 100%);
+  pointer-events: none;
+}
+
+/* Faint Atmospheric Cyan & Gold Energy Core */
+.intro-energy-glow {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: clamp(260px, 60vw, 700px);
+  height: clamp(260px, 60vw, 700px);
+  transform: translate(-50%, -50%);
+  background: 
+    radial-gradient(circle at 50% 50%, rgba(0, 240, 255, 0.12) 0%, rgba(0, 240, 255, 0.03) 40%, transparent 70%),
+    radial-gradient(circle at 50% 50%, rgba(245, 158, 11, 0.07) 0%, transparent 60%);
+  filter: blur(36px);
+  -webkit-filter: blur(36px);
+  pointer-events: none;
+  opacity: 0;
+  animation: intro-energy-phase 3.6s ease-in-out forwards;
+}
+
+@keyframes intro-energy-phase {
+  0% { opacity: 0; transform: translate(-50%, -50%) scale(0.7); }
+  25% { opacity: 0.5; transform: translate(-50%, -50%) scale(0.9); }
+  60% { opacity: 0.85; transform: translate(-50%, -50%) scale(1.05); }
+  85% { opacity: 0.9; transform: translate(-50%, -50%) scale(1.12); }
+  100% { opacity: 0; transform: translate(-50%, -50%) scale(1.2); }
+}
+
+/* Subtle Cosmic Dust / Micro-Stars */
+.intro-cosmic-dust {
+  position: absolute;
+  inset: 0;
+  background-image: 
+    radial-gradient(1px 1px at 20% 30%, rgba(0, 240, 255, 0.6) 50%, transparent 100%),
+    radial-gradient(1.5px 1.5px at 80% 25%, rgba(245, 158, 11, 0.7) 50%, transparent 100%),
+    radial-gradient(1px 1px at 40% 70%, rgba(226, 232, 240, 0.5) 50%, transparent 100%),
+    radial-gradient(1.5px 1.5px at 70% 80%, rgba(0, 240, 255, 0.5) 50%, transparent 100%),
+    radial-gradient(1px 1px at 15% 85%, rgba(245, 158, 11, 0.6) 50%, transparent 100%),
+    radial-gradient(1.2px 1.2px at 85% 65%, rgba(255, 255, 255, 0.6) 50%, transparent 100%);
+  background-size: 100% 100%;
+  pointer-events: none;
+  opacity: 0;
+  animation: intro-dust-fade 3.4s ease forwards;
+}
+
+@keyframes intro-dust-fade {
+  0% { opacity: 0; }
+  20% { opacity: 0.7; }
+  80% { opacity: 0.7; }
+  100% { opacity: 0; }
+}
+
+/* Stage Container for Choreographed Typography */
+.intro-stage {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  width: 90vw;
+  max-width: 900px;
+  pointer-events: none;
+}
+
+/* --------------------------------------------------------------------------
+   PHASE 2 — HOLOGRAPHIC 25 REVEAL (0.6s – 1.4s)
+   -------------------------------------------------------------------------- */
+.intro-holo-25 {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0.85);
+  font-family: var(--font-heading);
+  font-size: clamp(6.5rem, 24vw, 15rem);
+  font-weight: 900;
+  line-height: 1;
+  letter-spacing: -0.05em;
+  color: transparent;
+  -webkit-text-stroke: 1.5px rgba(0, 240, 255, 0.4);
+  text-shadow: 0 0 50px rgba(0, 240, 255, 0.35);
+  opacity: 0;
+  pointer-events: none;
+  animation: intro-holo-25-phase 3.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes intro-holo-25-phase {
+  0%, 15% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.82);
+    -webkit-text-stroke: 1px rgba(0, 240, 255, 0.1);
+  }
+  24% {
+    opacity: 0.85;
+    transform: translate(-50%, -50%) scale(1);
+    -webkit-text-stroke: 1.5px rgba(0, 240, 255, 0.45);
+    text-shadow: 0 0 60px rgba(0, 240, 255, 0.4);
+  }
+  38% {
+    opacity: 0.65;
+    transform: translate(-50%, -50%) scale(1.04);
+  }
+  50% {
+    opacity: 0.3;
+    transform: translate(-50%, -50%) scale(1.08);
+  }
+  65%, 100% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(1.15);
+  }
+}
+
+/* --------------------------------------------------------------------------
+   PHASE 3 — INSTITUTIONAL REVEAL (1.4s – 2.1s)
+   -------------------------------------------------------------------------- */
+.intro-institution {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  width: 100%;
+  opacity: 0;
+  animation: intro-inst-phase 3.6s ease forwards;
+}
+
+.intro-inst-tag {
+  font-family: var(--font-heading);
+  font-size: clamp(0.75rem, 2.2vw, 1.25rem);
+  font-weight: 800;
+  letter-spacing: clamp(0.18em, 0.4vw, 0.32em);
+  color: #ffffff;
+  text-shadow: 0 0 16px rgba(0, 240, 255, 0.5);
+  white-space: nowrap;
+}
+
+.intro-inst-sub {
+  font-family: var(--font-mono);
+  font-size: clamp(0.6rem, 1.6vw, 0.82rem);
+  font-weight: 700;
+  letter-spacing: clamp(0.16em, 0.3vw, 0.28em);
+  color: var(--gold-light);
+  text-shadow: 0 0 12px rgba(245, 158, 11, 0.5);
+  white-space: nowrap;
+}
+
+@keyframes intro-inst-phase {
+  0%, 38% {
+    opacity: 0;
+    transform: translate(-50%, -46%) scale(0.96);
+  }
+  43% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+  54% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1.02);
+  }
+  59%, 100% {
+    opacity: 0;
+    transform: translate(-50%, -54%) scale(1.04);
+  }
+}
+
+/* --------------------------------------------------------------------------
+   PHASE 4 — VIGYANTRA 2026 REVEAL (2.1s – 3.1s)
+   -------------------------------------------------------------------------- */
+.intro-vigyantra {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: clamp(6px, 1.2vh, 12px);
+  opacity: 0;
+  animation: intro-vig-phase 3.6s ease forwards;
+}
+
+.intro-title-wrap {
+  position: relative;
+  overflow: hidden;
+  padding: 0 8px;
+}
+
+.intro-title {
+  font-family: var(--font-heading);
+  font-size: clamp(2.2rem, 7.5vw, 5.2rem);
+  font-weight: 900;
+  letter-spacing: clamp(0.08em, 0.2vw, 0.18em);
+  color: #ffffff;
+  white-space: nowrap;
+  line-height: 1.05;
+  text-shadow: 
+    0 0 25px rgba(0, 240, 255, 0.85),
+    0 0 60px rgba(0, 240, 255, 0.45);
+}
+
+/* Single Cinematic Horizontal Light Sweep across VIGYANTRA */
+.intro-title-sweep {
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 60%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.05) 20%,
+    rgba(0, 240, 255, 0.75) 50%,
+    rgba(255, 255, 255, 0.9) 60%,
+    transparent 100%
+  );
+  transform: skewX(-24deg);
+  pointer-events: none;
+  opacity: 0;
+  animation: intro-sweep-run 3.6s ease forwards;
+}
+
+@keyframes intro-sweep-run {
+  0%, 63% {
+    left: -100%;
+    opacity: 0;
+  }
+  65% {
+    opacity: 1;
+  }
+  78% {
+    left: 180%;
+    opacity: 1;
+  }
+  80%, 100% {
+    left: 180%;
+    opacity: 0;
+  }
+}
+
+.intro-motto {
+  font-family: var(--font-serif);
+  font-size: clamp(0.85rem, 2.4vw, 1.4rem);
+  font-style: italic;
+  font-weight: 700;
+  color: var(--gold-light);
+  letter-spacing: 0.06em;
+  text-shadow: 0 0 16px rgba(245, 158, 11, 0.65);
+  white-space: nowrap;
+  opacity: 0;
+  animation: intro-motto-phase 3.6s ease forwards;
+}
+
+@keyframes intro-motto-phase {
+  0%, 68% {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  75% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  85% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  92%, 100% {
+    opacity: 0;
+    transform: translateY(-4px);
+  }
+}
+
+@keyframes intro-vig-phase {
+  0%, 58% {
+    opacity: 0;
+    transform: scale(0.94);
+  }
+  64% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  85% {
+    opacity: 1;
+    transform: scale(1.02);
+  }
+  92%, 100% {
+    opacity: 0;
+    transform: scale(1.05);
+  }
+}
+
+/* --------------------------------------------------------------------------
+   PHASE 5 — INTRO OVERLAY DISSOLVE (3.1s – 3.7s)
+   -------------------------------------------------------------------------- */
+.cinematic-intro {
+  animation: intro-overall-dissolve 3.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes intro-overall-dissolve {
+  0%, 86% {
+    opacity: 1;
+    visibility: visible;
+  }
+  96% {
+    opacity: 0;
+    visibility: visible;
+  }
+  100% {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+  }
+}
+
+/* ==========================================================================
+   MOBILE CALIBRATION FOR CINEMATIC INTRO (ZERO FLICKER, ZERO CHURN)
+   ========================================================================== */
+@media (max-width: 768px) {
+  .intro-energy-glow {
+    filter: blur(16px);
+    -webkit-filter: blur(16px);
+    width: 280px;
+    height: 280px;
+  }
+
+  .intro-skip-btn {
+    top: 12px;
+    right: 12px;
+    padding: 5px 12px;
+    font-size: 0.65rem;
+  }
+
+  .intro-holo-25 {
+    -webkit-text-stroke: 1px rgba(0, 240, 255, 0.35);
+    text-shadow: 0 0 25px rgba(0, 240, 255, 0.25);
+  }
+
+  .intro-title {
+    text-shadow: 0 0 18px rgba(0, 240, 255, 0.7);
+  }
+
+  .intro-inst-tag,
+  .intro-inst-sub,
+  .intro-title,
+  .intro-motto {
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+  }
+}
+
+/* ==========================================================================
+   ACCESSIBILITY: PREFERS-REDUCED-MOTION
    ========================================================================== */
 @media (prefers-reduced-motion: reduce) {
   .cosmic-nebula-glow,
@@ -2429,4 +2860,13 @@ html, body {
     animation: none !important;
     transition: none !important;
   }
+
+  .cinematic-intro {
+    animation: none !important;
+    opacity: 0 !important;
+    visibility: hidden !important;
+    pointer-events: none !important;
+    display: none !important;
+  }
 }
+

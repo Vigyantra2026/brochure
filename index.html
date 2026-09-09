@@ -21,6 +21,42 @@
 <body>
 
   <!-- ========================================================================
+       CINEMATIC INTRO / BOOT SEQUENCE (ISOLATED OVERLAY - AUTO REVEALS HOME)
+       ======================================================================== -->
+  <aside id="cinematic-intro-overlay" class="cinematic-intro" role="region" aria-label="Cinematic Introduction">
+    <!-- Unobtrusive Skip Intro Control -->
+    <button id="intro-skip-btn" class="intro-skip-btn" onclick="skipCinematicIntro()" aria-label="Skip Cinematic Intro">
+      <span>SKIP INTRO →</span>
+    </button>
+
+    <!-- Deep Space Ambience & Energy Core -->
+    <div class="intro-space-bg" aria-hidden="true"></div>
+    <div class="intro-energy-glow" aria-hidden="true"></div>
+    <div class="intro-cosmic-dust" aria-hidden="true"></div>
+
+    <!-- Choreographed Cinematic Reveal Stage -->
+    <div class="intro-stage" aria-hidden="true">
+      <!-- Phase 2: Silver Jubilee Holographic 25 -->
+      <div class="intro-holo-25">25</div>
+
+      <!-- Phase 3: Institutional Reveal -->
+      <div class="intro-institution">
+        <div class="intro-inst-tag">SJB INSTITUTE OF TECHNOLOGY</div>
+        <div class="intro-inst-sub">25 YEARS OF ENGINEERING EXCELLENCE</div>
+      </div>
+
+      <!-- Phase 4: VIGYANTRA 2026 Hero & Motto Reveal -->
+      <div class="intro-vigyantra">
+        <div class="intro-title-wrap">
+          <div class="intro-title">VIGYANTRA 2026</div>
+          <div class="intro-title-sweep"></div>
+        </div>
+        <div class="intro-motto">“Ideas Today Solutions Tomorrow”</div>
+      </div>
+    </div>
+  </aside>
+
+  <!-- ========================================================================
        3D TECH UNIVERSE CANVAS & COSMIC GLOW (FULL VIEWPORT)
        ======================================================================== -->
   <canvas id="universe-canvas" aria-hidden="true"></canvas>

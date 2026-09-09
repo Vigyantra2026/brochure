@@ -5,6 +5,7 @@
  */
 
 document.addEventListener('DOMContentLoaded', () => {
+  initCinematicIntro();
   initTechUniverseCanvas();
   initAudioEngine();
   initCountdown();
@@ -1392,4 +1393,62 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 });
+
+/* ==========================================================================
+   16. CINEMATIC INTRO / BOOT CONTROLLER
+   Choreographed 3.6s dark cinematic intro with skip handler and clean GPU release
+   ========================================================================== */
+let cinematicIntroTimer = null;
+let cinematicIntroDismissed = false;
+
+function initCinematicIntro() {
+  const overlay = document.getElementById('cinematic-intro-overlay');
+  if (!overlay) return;
+
+  // If user prefers reduced motion, skip intro immediately
+  if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    dismissCinematicIntro(true);
+    return;
+  }
+
+  // Auto-complete intro cleanly after 3.65 seconds
+  cinematicIntroTimer = setTimeout(() => {
+    dismissCinematicIntro(false);
+  }, 3650);
+}
+
+function skipCinematicIntro() {
+  if (typeof playCyberTone === 'function') {
+    playCyberTone(700, 0.08, 'sine');
+  }
+  dismissCinematicIntro(true);
+}
+
+function dismissCinematicIntro(immediate = false) {
+  if (cinematicIntroDismissed) return;
+  cinematicIntroDismissed = true;
+
+  if (cinematicIntroTimer) {
+    clearTimeout(cinematicIntroTimer);
+    cinematicIntroTimer = null;
+  }
+
+  const overlay = document.getElementById('cinematic-intro-overlay');
+  if (!overlay) return;
+
+  overlay.classList.add('intro-complete');
+
+  const removeDelay = immediate ? 50 : 600;
+  setTimeout(() => {
+    overlay.style.display = 'none';
+    overlay.style.pointerEvents = 'none';
+    // Remove all ongoing animation layers inside intro to free GPU compositor entirely
+    const stage = overlay.querySelector('.intro-stage');
+    if (stage) stage.innerHTML = '';
+  }, removeDelay);
+}
+
+window.initCinematicIntro = initCinematicIntro;
+window.skipCinematicIntro = skipCinematicIntro;
+window.dismissCinematicIntro = dismissCinematicIntro;
 
