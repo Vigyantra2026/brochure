@@ -12,7 +12,6 @@ import SilverJubileeSection from '@/components/jubilee/SilverJubileeSection';
 import SjbitInstitutionSection from '@/components/institution/SjbitInstitutionSection';
 import PrizePoolSection from '@/components/prizes/PrizePoolSection';
 import BrochureSection from '@/components/brochure-section/BrochureSection';
-import ContactTerminal from '@/components/contact/ContactTerminal';
 import FinalCtaSection from '@/components/cta/FinalCtaSection';
 import InstitutionalFooter from '@/components/footer/InstitutionalFooter';
 
@@ -124,10 +123,7 @@ export default function HomePage() {
       {/* 11. Brochure / Event Information */}
       <BrochureSection onOpenBrochureModal={() => handleOpenModal('brochure')} />
 
-      {/* 12. Contact & Helpdesk Terminal */}
-      <ContactTerminal />
-
-      {/* 13. Final CTA */}
+      {/* 12. Final CTA */}
       <FinalCtaSection
         onOpenRegistration={() => handleRegisterEvent('')}
         onScrollToArenas={() => handleScrollTo('arenas')}
