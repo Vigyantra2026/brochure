@@ -1,11 +1,70 @@
 'use client';
 
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import { V2Badge, V2Eyebrow } from '@/components/ui/v2';
+import { gsap, ScrollTrigger } from '@/lib/gsap';
 
 export default function PrizePoolSection() {
+  const sectionRef = useRef<HTMLElement>(null);
+  const heroCardRef = useRef<HTMLDivElement>(null);
+  const breakdownRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (!sectionRef.current) return;
+
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (prefersReducedMotion) return;
+
+    const ctx = gsap.context(() => {
+      // 1. Hero ₹4,00,000 card enters with substantial monumental authority
+      gsap.fromTo(
+        heroCardRef.current,
+        { opacity: 0.25, scale: 0.92, y: 40 },
+        {
+          opacity: 1,
+          scale: 1,
+          y: 0,
+          duration: 0.9,
+          ease: 'power2.out',
+          scrollTrigger: {
+            trigger: sectionRef.current,
+            start: 'top 70%',
+            end: 'top 35%',
+            scrub: 0.6,
+          },
+        }
+      );
+
+      // 2. Champion & Runner-Up breakdown cards rise into sharp focus
+      const breakdownCards = breakdownRef.current?.children;
+      if (breakdownCards && breakdownCards.length > 0) {
+        gsap.fromTo(
+          breakdownCards,
+          { opacity: 0.3, y: 35, scale: 0.96 },
+          {
+            opacity: 1,
+            y: 0,
+            scale: 1,
+            stagger: 0.12,
+            duration: 0.8,
+            ease: 'power2.out',
+            scrollTrigger: {
+              trigger: breakdownRef.current,
+              start: 'top 85%',
+              end: 'top 55%',
+              scrub: 0.5,
+            },
+          }
+        );
+      }
+    }, sectionRef);
+
+    return () => ctx.revert();
+  }, []);
+
   return (
     <section
+      ref={sectionRef}
       id="prizes"
       className="v2-prizes-section"
       aria-label="Symposium Prize Pool and Awards"
@@ -48,6 +107,7 @@ export default function PrizePoolSection() {
 
         {/* Primary Monolithic Prize Feature Card (₹ 4,00,000) */}
         <div
+          ref={heroCardRef}
           style={{
             maxWidth: '880px',
             margin: '0 auto clamp(36px, 5vh, 48px)',
@@ -159,6 +219,7 @@ export default function PrizePoolSection() {
 
         {/* 2-Column Structured Distribution: Champion vs Runner-Up */}
         <div
+          ref={breakdownRef}
           style={{
             maxWidth: '880px',
             margin: '0 auto',

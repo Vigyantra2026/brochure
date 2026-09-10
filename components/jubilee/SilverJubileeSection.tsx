@@ -1,7 +1,8 @@
 'use client';
 
-import React from 'react';
-import { V2Badge, V2Eyebrow, V2TechLabel, V2Metadata, V2Button } from '@/components/ui/v2';
+import React, { useEffect, useRef } from 'react';
+import { V2Badge, V2Eyebrow, V2TechLabel, V2Metadata } from '@/components/ui/v2';
+import { gsap, ScrollTrigger } from '@/lib/gsap';
 
 interface V2LegacySectionProps {
   onScrollToArenas?: () => void;
@@ -41,9 +42,89 @@ const MILESTONES = [
 ];
 
 export default function SilverJubileeSection() {
+  const sectionRef = useRef<HTMLElement>(null);
+  const monumentRef = useRef<HTMLDivElement>(null);
+  const narrativeRef = useRef<HTMLDivElement>(null);
+  const timelineRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (!sectionRef.current) return;
+
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (prefersReducedMotion) return;
+
+    const ctx = gsap.context(() => {
+      // 1. Monument 25 Artifact enters with controlled scale and weight
+      gsap.fromTo(
+        monumentRef.current,
+        { opacity: 0.3, scale: 0.88, y: 30 },
+        {
+          opacity: 1,
+          scale: 1,
+          y: 0,
+          duration: 0.9,
+          ease: 'power2.out',
+          scrollTrigger: {
+            trigger: sectionRef.current,
+            start: 'top 75%',
+            end: 'top 45%',
+            scrub: 0.5,
+          },
+        }
+      );
+
+      // 2. Editorial narrative fades in with crisp focus
+      gsap.fromTo(
+        narrativeRef.current,
+        { opacity: 0.3, y: 35 },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 0.9,
+          ease: 'power2.out',
+          scrollTrigger: {
+            trigger: sectionRef.current,
+            start: 'top 65%',
+            end: 'top 35%',
+            scrub: 0.5,
+          },
+        }
+      );
+
+      // 3. Timeline nodes reveal sequentially along the rail
+      const nodes = timelineRef.current?.querySelectorAll('.v2-timeline-node-desktop, .v2-timeline-node-mobile');
+      if (nodes && nodes.length > 0) {
+        gsap.fromTo(
+          nodes,
+          { opacity: 0.25, y: 20 },
+          {
+            opacity: 1,
+            y: 0,
+            stagger: 0.08,
+            duration: 0.7,
+            ease: 'power2.out',
+            scrollTrigger: {
+              trigger: timelineRef.current,
+              start: 'top 80%',
+              end: 'top 40%',
+              scrub: 0.4,
+            },
+          }
+        );
+      }
+    }, sectionRef);
+
+    return () => ctx.revert();
+  }, []);
+
   return (
-    <section id="silver-jubilee" className="v2-legacy-section" aria-label="25 Years SJBIT Silver Jubilee Heritage">
-      {/* Subdued Subtle Background Grid (Graphite / Gold tint, zero cyan) */}
+    <section
+      ref={sectionRef}
+      id="silver-jubilee"
+      className="v2-legacy-section"
+      aria-label="25 Years SJBIT Silver Jubilee Heritage"
+    >
+      {/* Subdued Subtle Background Grid */}
       <div className="v2-legacy-grid" aria-hidden="true" />
 
       <div className="v2-container">
@@ -55,7 +136,7 @@ export default function SilverJubileeSection() {
         {/* 1. Header Grid: Silver Jubilee 25 Artifact + Editorial Narrative Column */}
         <div className="v2-legacy-monument-grid">
           {/* Silver Jubilee Commemorative Plaque Artifact */}
-          <div className="v2-legacy-25-artifact">
+          <div ref={monumentRef} className="v2-legacy-25-artifact">
             <span className="v2-corner-marker tl" aria-hidden="true" />
             <span className="v2-corner-marker tr" aria-hidden="true" />
             <span className="v2-corner-marker bl" aria-hidden="true" />
@@ -69,7 +150,7 @@ export default function SilverJubileeSection() {
           </div>
 
           {/* Narrative & Credentials */}
-          <div className="v2-legacy-narrative">
+          <div ref={narrativeRef} className="v2-legacy-narrative">
             <h2 className="v2-legacy-heading">
               A QUARTER CENTURY OF{' '}
               <span className="v2-text-gold-gradient">ENGINEERING EXCELLENCE</span>
@@ -95,7 +176,7 @@ export default function SilverJubileeSection() {
         </div>
 
         {/* 2. Structural 25-Year Timeline (2001 ─── 2026) */}
-        <div className="v2-timeline-container">
+        <div ref={timelineRef} className="v2-timeline-container">
           <div className="v2-timeline-header">
             <div>
               <V2TechLabel style={{ color: 'var(--v2-gold)' }}>CHRONOLOGY OF EXCELLENCE</V2TechLabel>

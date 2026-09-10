@@ -1,7 +1,8 @@
 'use client';
 
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import { V2Badge, V2Button } from '@/components/ui/v2';
+import { gsap, ScrollTrigger } from '@/lib/gsap';
 
 interface FinalCtaSectionProps {
   onOpenRegistration: () => void;
@@ -12,8 +13,41 @@ export default function FinalCtaSection({
   onOpenRegistration,
   onScrollToArenas,
 }: FinalCtaSectionProps) {
+  const sectionRef = useRef<HTMLElement>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (!sectionRef.current) return;
+
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (prefersReducedMotion) return;
+
+    const ctx = gsap.context(() => {
+      gsap.fromTo(
+        containerRef.current,
+        { opacity: 0.3, scale: 0.94, y: 40 },
+        {
+          opacity: 1,
+          scale: 1,
+          y: 0,
+          duration: 0.9,
+          ease: 'power2.out',
+          scrollTrigger: {
+            trigger: sectionRef.current,
+            start: 'top 75%',
+            end: 'top 40%',
+            scrub: 0.6,
+          },
+        }
+      );
+    }, sectionRef);
+
+    return () => ctx.revert();
+  }, []);
+
   return (
     <section
+      ref={sectionRef}
       id="final-cta"
       className="v2-final-cta-section"
       aria-label="Register for Vigyantra 2026"
@@ -42,7 +76,11 @@ export default function FinalCtaSection({
         aria-hidden="true"
       />
 
-      <div className="v2-container" style={{ position: 'relative', zIndex: 2, maxWidth: '840px', margin: '0 auto' }}>
+      <div
+        ref={containerRef}
+        className="v2-container"
+        style={{ position: 'relative', zIndex: 2, maxWidth: '840px', margin: '0 auto' }}
+      >
         <div style={{ marginBottom: '18px' }}>
           <V2Badge variant="gold">THE CONVERGENCE CALLS</V2Badge>
         </div>
