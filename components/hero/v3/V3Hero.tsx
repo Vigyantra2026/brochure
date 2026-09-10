@@ -766,36 +766,6 @@ export default function V3Hero({
               <V2Badge variant="steel">BENGALURU • EST. 2001</V2Badge>
             </div>
           </div>
-
-          <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-            {viewMode === 'monument' && phaseState === 'complete' && !isIntroActive && (
-              <button
-                onClick={() => handleToggleView('arenas')}
-                style={{
-                  background: 'rgba(212, 175, 55, 0.08)',
-                  border: '1px solid rgba(212, 175, 55, 0.3)',
-                  color: 'var(--v2-gold)',
-                  fontFamily: 'var(--v2-font-mono)',
-                  fontSize: '0.64rem',
-                  letterSpacing: '0.12em',
-                  padding: '4px 12px',
-                  borderRadius: '3px',
-                  cursor: 'pointer',
-                  transition: 'all 0.2s ease',
-                }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.borderColor = 'var(--v2-gold)';
-                  e.currentTarget.style.background = 'rgba(212, 175, 55, 0.16)';
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.borderColor = 'rgba(212, 175, 55, 0.3)';
-                  e.currentTarget.style.background = 'rgba(212, 175, 55, 0.08)';
-                }}
-              >
-                EXPLORE 8 ARENAS ⊞
-              </button>
-            )}
-          </div>
         </div>
 
         {/* 2. Center Stage: Dual-State Architecture */}
@@ -812,10 +782,10 @@ export default function V3Hero({
             position: 'relative',
           }}
         >
-          {/* Spatial Spacer for the Elevated 3D Object */}
+          {/* Spatial Spacer for the Elevated 3D Object - Gives 3D letters dedicated breathing room */}
           <div
             style={{
-              height: viewMode === 'arenas' ? 'clamp(100px, 14vw, 150px)' : 'clamp(120px, 19vw, 185px)',
+              height: viewMode === 'arenas' ? 'clamp(100px, 14vw, 150px)' : 'clamp(150px, 20vw, 215px)',
               width: '100%',
               pointerEvents: 'none',
               transition: 'height 0.4s ease',
@@ -845,10 +815,12 @@ export default function V3Hero({
                 maxWidth: '820px',
                 opacity: isIntroActive ? 0 : 1,
                 pointerEvents: isIntroActive || phaseState !== 'complete' ? 'none' : 'auto',
-                marginTop: '0.25rem',
-                padding: '0.85rem 1.25rem',
-                borderRadius: '8px',
-                background: 'radial-gradient(ellipse at center, rgba(5,5,7,0.78) 0%, rgba(5,5,7,0.4) 60%, transparent 100%)',
+                marginTop: '0.35rem',
+                padding: '1.1rem 1.6rem',
+                borderRadius: '12px',
+                background: 'radial-gradient(ellipse 95% 85% at 50% 45%, rgba(5, 5, 7, 0.94) 0%, rgba(5, 5, 7, 0.72) 65%, transparent 100%)',
+                backdropFilter: 'blur(10px)',
+                WebkitBackdropFilter: 'blur(10px)',
               }}
             >
               {/* 1. 2026 Badge */}
@@ -882,7 +854,7 @@ export default function V3Hero({
                     textTransform: 'uppercase',
                     maxWidth: '92vw',
                     lineHeight: 1.3,
-                    textShadow: '0 2px 10px rgba(0, 0, 0, 0.8)',
+                    textShadow: '0 2px 14px rgba(0, 0, 0, 0.95), 0 4px 28px rgba(0, 0, 0, 0.9)',
                     textAlign: 'center',
                   }}
                 >
@@ -897,8 +869,8 @@ export default function V3Hero({
                     color: '#e2d9c8',
                     letterSpacing: '0.04em',
                     opacity: 0.95,
-                    textShadow: '0 2px 8px rgba(0, 0, 0, 0.7)',
-                    marginTop: '2px',
+                    textShadow: '0 2px 12px rgba(0, 0, 0, 0.95)',
+                    marginTop: '3px',
                     textAlign: 'center',
                   }}
                 >
