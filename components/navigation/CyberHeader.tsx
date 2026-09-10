@@ -53,11 +53,23 @@ export default function CyberHeader({ onOpenModal, onScrollTo, introActive = fal
       role="banner"
     >
       <div className="header-brand">
-        <div className="brand-cyber-badge">SJBIT</div>
-        <div className="brand-text-col">
-          <span className="brand-title">VIGYANTRA 2026</span>
-          <span className="brand-edition">25th SILVER JUBILEE • BENGALURU</span>
-        </div>
+        <a
+          href="#command-deck"
+          onClick={(e) => {
+            e.preventDefault();
+            onScrollTo('command-deck');
+          }}
+          className="header-brand-link"
+          aria-label="SJB Institute of Technology Official Seal"
+        >
+          <img
+            src="/assets/sjbit_logo.png"
+            alt="SJB Institute of Technology Official Seal"
+            className="header-sjbit-logo"
+            width={44}
+            height={44}
+          />
+        </a>
       </div>
 
       <div className="header-actions">
