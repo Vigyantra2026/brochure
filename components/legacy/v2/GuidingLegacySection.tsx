@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect, useRef, useMemo } from 'react';
 import { V2TechLabel } from '@/components/ui/v2';
-import { ScrollTrigger } from '@/lib/gsap';
+import { gsap, ScrollTrigger } from '@/lib/gsap';
 
 export default function GuidingLegacySection() {
   const sectionRef = useRef<HTMLElement>(null);
@@ -24,12 +24,8 @@ export default function GuidingLegacySection() {
   useEffect(() => {
     if (prefersReducedMotion || !sectionRef.current || !stageRef.current) return;
 
-    let triggerInstance: ScrollTrigger | null = null;
-
-    const timer = setTimeout(() => {
-      if (!sectionRef.current || !stageRef.current) return;
-
-      triggerInstance = ScrollTrigger.create({
+    const ctx = gsap.context(() => {
+      ScrollTrigger.create({
         trigger: sectionRef.current,
         start: 'top top',
         end: '+=1800', // Pinned scroll distance for the 5-phase choreography
@@ -41,14 +37,9 @@ export default function GuidingLegacySection() {
           setProgress(Math.max(0, Math.min(1, self.progress)));
         },
       });
-    }, 100);
+    }, sectionRef);
 
-    return () => {
-      clearTimeout(timer);
-      if (triggerInstance) {
-        triggerInstance.kill();
-      }
-    };
+    return () => ctx.revert();
   }, [prefersReducedMotion]);
 
   // =========================================================================

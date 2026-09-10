@@ -10,6 +10,7 @@ import V4ArenasSection from '@/components/arenas/v4/V4ArenasSection';
 import ScheduleSection from '@/components/schedule/ScheduleSection';
 import SilverJubileeSection from '@/components/jubilee/SilverJubileeSection';
 import SjbitInstitutionSection from '@/components/institution/SjbitInstitutionSection';
+import CampusSection from '@/components/campus/CampusSection';
 import PrizePoolSection from '@/components/prizes/PrizePoolSection';
 import BrochureSection from '@/components/brochure-section/BrochureSection';
 import FinalCtaSection from '@/components/cta/FinalCtaSection';
@@ -44,12 +45,28 @@ export default function HomePage() {
       gsap.ticker.lagSmoothing(0);
     }
 
-    const refreshTimer = setTimeout(() => {
+    // Coordinated layout stabilization:
+    // Ensure all ScrollTriggers are sorted in strict DOM order and refreshed after layout settles
+    let rafId: number;
+    const stabilizeTriggers = () => {
+      ScrollTrigger.sort();
       ScrollTrigger.refresh();
-    }, 250);
+    };
+
+    if (typeof document !== 'undefined' && document.fonts && document.fonts.ready) {
+      document.fonts.ready.then(() => {
+        rafId = requestAnimationFrame(stabilizeTriggers);
+      });
+    } else {
+      rafId = requestAnimationFrame(stabilizeTriggers);
+    }
+
+    // Secondary backup refresh to account for asynchronous 3D canvas / textures
+    const backupTimer = setTimeout(stabilizeTriggers, 350);
 
     return () => {
-      clearTimeout(refreshTimer);
+      cancelAnimationFrame(rafId);
+      clearTimeout(backupTimer);
       ScrollTrigger.getAll().forEach((t) => t.kill());
     };
   }, []);
@@ -119,10 +136,13 @@ export default function HomePage() {
       {/* 8. 25 Years / Silver Jubilee Celebration */}
       <SilverJubileeSection />
 
-      {/* 9. SJBIT / Institution / Campus Credentials & Telemetry */}
+      {/* 9. SJBIT / Institution */}
       <SjbitInstitutionSection />
 
-      {/* 10. Prize Pool / Awards Breakdown */}
+      {/* 10. Campus / Telemetry & Venue */}
+      <CampusSection onOpenVenueModal={() => handleOpenModal('venue')} />
+
+      {/* 11. Prize Pool / Awards Breakdown */}
       <PrizePoolSection />
 
       {/* 11. Brochure / Event Information */}

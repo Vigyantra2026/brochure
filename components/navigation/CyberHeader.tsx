@@ -21,11 +21,13 @@ export default function CyberHeader({ onOpenModal, onScrollTo }: CyberHeaderProp
     } else if (option === 'brochure') {
       onScrollTo('brochure');
     } else if (option === 'legacy') {
-      onScrollTo('legacy');
+      onScrollTo('guiding-legacy');
     } else if (option === 'jubilee') {
-      onScrollTo('jubilee');
+      onScrollTo('silver-jubilee');
     } else if (option === 'institution') {
       onScrollTo('institution');
+    } else if (option === 'campus') {
+      onScrollTo('campus');
     } else if (['guidelines', 'faq', 'venue'].includes(option)) {
       onOpenModal(option);
     } else if (option === 'register') {
@@ -120,14 +122,14 @@ export default function CyberHeader({ onOpenModal, onScrollTo }: CyberHeaderProp
           <li className="dropdown-divider" />
           <li className="dropdown-section-label"><span>// SECTIONS //</span></li>
           <li>
-            <button className="dropdown-item-btn" onClick={() => handleScroll('legacy')}>
+            <button className="dropdown-item-btn" onClick={() => handleScroll('guiding-legacy')}>
               <span className="item-icon">✨</span>
               <span className="item-text">THE GUIDING LEGACY</span>
               <span className="item-arrow">↓</span>
             </button>
           </li>
           <li>
-            <button className="dropdown-item-btn" onClick={() => handleScroll('jubilee')}>
+            <button className="dropdown-item-btn" onClick={() => handleScroll('silver-jubilee')}>
               <span className="item-icon">⭐</span>
               <span className="item-text">25 YEARS SILVER JUBILEE</span>
               <span className="item-arrow">↓</span>
@@ -137,6 +139,13 @@ export default function CyberHeader({ onOpenModal, onScrollTo }: CyberHeaderProp
             <button className="dropdown-item-btn" onClick={() => handleScroll('institution')}>
               <span className="item-icon">🏛️</span>
               <span className="item-text">SJBIT INSTITUTION</span>
+              <span className="item-arrow">↓</span>
+            </button>
+          </li>
+          <li>
+            <button className="dropdown-item-btn" onClick={() => handleScroll('campus')}>
+              <span className="item-icon">📍</span>
+              <span className="item-text">CAMPUS &amp; VENUE</span>
               <span className="item-arrow">↓</span>
             </button>
           </li>

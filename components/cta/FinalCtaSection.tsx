@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef, useMemo } from 'react';
 import { V2Badge, V2Button } from '@/components/ui/v2';
-import { ScrollTrigger } from '@/lib/gsap';
+import { gsap, ScrollTrigger } from '@/lib/gsap';
 
 interface FinalCtaSectionProps {
   onOpenRegistration: () => void;
@@ -30,12 +30,8 @@ export default function FinalCtaSection({
   useEffect(() => {
     if (prefersReducedMotion || !sectionRef.current || !stageRef.current) return;
 
-    let triggerInstance: ScrollTrigger | null = null;
-
-    const timer = setTimeout(() => {
-      if (!sectionRef.current || !stageRef.current) return;
-
-      triggerInstance = ScrollTrigger.create({
+    const ctx = gsap.context(() => {
+      ScrollTrigger.create({
         trigger: sectionRef.current,
         start: 'top top',
         end: '+=1100', // Compact scroll distance so reaching footer is effortless
@@ -47,23 +43,17 @@ export default function FinalCtaSection({
           setProgress(Math.max(0, Math.min(1, self.progress)));
         },
       });
-    }, 100);
+    }, sectionRef);
 
-    return () => {
-      clearTimeout(timer);
-      if (triggerInstance) {
-        triggerInstance.kill();
-      }
-    };
+    return () => ctx.revert();
   }, [prefersReducedMotion]);
 
   // =========================================================================
   // CINEMATIC FINAL CTA RHYTHM:
-  // Beat 1 (0.00 -> 0.25): Final CTA enters quietly with gold radial glow
+  // Beat 1 (0.00 -> 0.25): Final CTA enters with gold radial glow
   // Beat 2 (0.25 -> 0.50): "READY TO BUILD WHAT'S NEXT?" expands into command focus
   // Beat 3 (0.50 -> 0.75): REGISTER NOW & EXPLORE ARENAS actions activate
-  // Beat 4 (0.75 -> 0.95): Final institutional branding telemetry locks
-  // Beat 5 (0.95 -> 1.00): Subtle upward transition releasing directly into Footer
+  // Beat 4 (0.75 -> 1.00): Final composition remains locked before releasing into Footer
   // =========================================================================
 
   const glowScale = useMemo(() => {
@@ -76,10 +66,6 @@ export default function FinalCtaSection({
     if (progress < 0.25) {
       const t = progress / 0.25;
       return { opacity: 0.25 + t * 0.75, scale: 0.92 + t * 0.08, translateY: (1 - t) * 35 };
-    }
-    if (progress >= 0.92) {
-      const exitT = (progress - 0.92) / 0.08;
-      return { opacity: 1 - exitT * 0.7, scale: 1, translateY: -exitT * 20 };
     }
     return { opacity: 1, scale: 1, translateY: 0 };
   }, [progress, prefersReducedMotion]);

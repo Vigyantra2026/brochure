@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef, useMemo } from 'react';
 import { V2Badge, V2Eyebrow } from '@/components/ui/v2';
-import { ScrollTrigger } from '@/lib/gsap';
+import { gsap, ScrollTrigger } from '@/lib/gsap';
 
 export default function PrizePoolSection() {
   const sectionRef = useRef<HTMLElement>(null);
@@ -22,12 +22,8 @@ export default function PrizePoolSection() {
   useEffect(() => {
     if (prefersReducedMotion || !sectionRef.current || !stageRef.current) return;
 
-    let triggerInstance: ScrollTrigger | null = null;
-
-    const timer = setTimeout(() => {
-      if (!sectionRef.current || !stageRef.current) return;
-
-      triggerInstance = ScrollTrigger.create({
+    const ctx = gsap.context(() => {
+      ScrollTrigger.create({
         trigger: sectionRef.current,
         start: 'top top',
         end: '+=1800', // Pinned scroll distance for numerical reveal
@@ -39,14 +35,9 @@ export default function PrizePoolSection() {
           setProgress(Math.max(0, Math.min(1, self.progress)));
         },
       });
-    }, 100);
+    }, sectionRef);
 
-    return () => {
-      clearTimeout(timer);
-      if (triggerInstance) {
-        triggerInstance.kill();
-      }
-    };
+    return () => ctx.revert();
   }, [prefersReducedMotion]);
 
   // =========================================================================
@@ -55,14 +46,13 @@ export default function PrizePoolSection() {
   // State 2 (0.20 -> 0.45): Monumental ₹ 4,00,000 hero card expands to center stage
   // State 3 (0.45 -> 0.65): Breakdown metrics (08 Arenas • ₹50,000 per Arena • 16 Teams) emerge
   // State 4 (0.65 -> 0.88): Champion (₹30,000) & Runner-Up (₹20,000) cards rise into focus
-  // State 5 (0.88 -> 1.00): Full composition locks before releasing into Brochure
+  // State 5 (0.88 -> 1.00): Full composition locks stably before releasing into Brochure
   // =========================================================================
 
   const headerOpacity = useMemo(() => {
     if (prefersReducedMotion) return 1;
     if (progress <= 0.03) return 0.2;
     if (progress <= 0.20) return 0.2 + (progress - 0.03) / 0.17 * 0.8;
-    if (progress >= 0.95) return Math.max(0, 1 - (progress - 0.95) / 0.05);
     return 1;
   }, [progress, prefersReducedMotion]);
 
@@ -72,10 +62,6 @@ export default function PrizePoolSection() {
       const t = Math.max(0, progress / 0.18);
       return { opacity: 0.2 + t * 0.8, scale: 0.88 + t * 0.12, translateY: (1 - t) * 35 };
     }
-    if (progress >= 0.95) {
-      const exitT = (progress - 0.95) / 0.05;
-      return { opacity: 1 - exitT * 0.8, scale: 1, translateY: -exitT * 20 };
-    }
     return { opacity: 1, scale: 1, translateY: 0 };
   }, [progress, prefersReducedMotion]);
 
@@ -83,7 +69,6 @@ export default function PrizePoolSection() {
     if (prefersReducedMotion) return 1;
     if (progress < 0.35) return 0;
     if (progress < 0.55) return (progress - 0.35) / 0.20;
-    if (progress >= 0.95) return Math.max(0, 1 - (progress - 0.95) / 0.05);
     return 1;
   }, [progress, prefersReducedMotion]);
 
@@ -93,10 +78,6 @@ export default function PrizePoolSection() {
     if (progress < 0.80) {
       const t = (progress - 0.55) / 0.25;
       return { opacity: t, translateY: (1 - t) * 35 };
-    }
-    if (progress >= 0.95) {
-      const exitT = (progress - 0.95) / 0.05;
-      return { opacity: 1 - exitT * 0.8, translateY: -exitT * 20 };
     }
     return { opacity: 1, translateY: 0 };
   }, [progress, prefersReducedMotion]);

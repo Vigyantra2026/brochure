@@ -6,7 +6,7 @@ import { ARENAS_V4, ArenaV4Data } from '@/data/arenas';
 import { EventArena } from '@/data/events';
 import V4ArenaCard from './V4ArenaCard';
 import { V2Badge } from '@/components/ui/v2';
-import { ScrollTrigger } from '@/lib/gsap';
+import { gsap, ScrollTrigger } from '@/lib/gsap';
 
 interface V4ArenaScrollExperienceProps {
   onSelectEvent?: (event: EventArena) => void;
@@ -38,12 +38,8 @@ export default function V4ArenaScrollExperience({
   useEffect(() => {
     if (prefersReducedMotion || !sectionRef.current || !viewportRef.current) return;
 
-    let triggerInstance: ScrollTrigger | null = null;
-
-    const timer = setTimeout(() => {
-      if (!sectionRef.current || !viewportRef.current) return;
-
-      triggerInstance = ScrollTrigger.create({
+    const ctx = gsap.context(() => {
+      ScrollTrigger.create({
         trigger: sectionRef.current,
         start: 'top top',
         end: '+=2600', // Exact scroll distance for the entire journey
@@ -55,14 +51,9 @@ export default function V4ArenaScrollExperience({
           setProgress(Math.max(0, Math.min(1, self.progress)));
         },
       });
-    }, 120);
+    }, sectionRef);
 
-    return () => {
-      clearTimeout(timer);
-      if (triggerInstance) {
-        triggerInstance.kill();
-      }
-    };
+    return () => ctx.revert();
   }, [prefersReducedMotion]);
 
   // =========================================================================
@@ -320,7 +311,7 @@ export default function V4ArenaScrollExperience({
 
               {/* Release Scroll Prompt */}
               <div className="v4-ov-release-prompt">
-                <span>CONTINUE SCROLLING FOR SJBIT 25 YRS LEGACY & SCHEDULE</span>
+                <span>CONTINUE SCROLLING FOR SYMPOSIUM SCHEDULE</span>
                 <span className="v4-ov-arrow">↓</span>
               </div>
             </div>

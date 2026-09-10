@@ -151,7 +151,16 @@ export default function InstitutionalFooter({
                   onClick={() => handleNavClick('institution')}
                   style={{ background: 'none', border: 'none', color: 'var(--v2-text-secondary)', fontFamily: 'var(--v2-font-body)', fontSize: '0.88rem', cursor: 'pointer', padding: 0 }}
                 >
-                  SJBIT &amp; Campus
+                  SJBIT Institution
+                </button>
+              </li>
+              <li>
+                <button
+                  type="button"
+                  onClick={() => handleNavClick('campus')}
+                  style={{ background: 'none', border: 'none', color: 'var(--v2-text-secondary)', fontFamily: 'var(--v2-font-body)', fontSize: '0.88rem', cursor: 'pointer', padding: 0 }}
+                >
+                  Campus &amp; Venue
                 </button>
               </li>
               <li>
