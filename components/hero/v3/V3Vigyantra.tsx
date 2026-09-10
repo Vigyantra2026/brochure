@@ -212,9 +212,9 @@ export default function V3Vigyantra({
       2.5,
       delta
     );
-    const targetY = floatY + evolveProgress * 0.15;
-    const targetScale = 1.0 - evolveProgress * 0.52;
-    const targetZ = -evolveProgress * 0.35;
+    const targetY = floatY + evolveProgress * 0.12;
+    const targetScale = 1.0 - evolveProgress * 0.36;
+    const targetZ = -evolveProgress * 0.25;
 
     groupRef.current.position.y = THREE.MathUtils.damp(
       groupRef.current.position.y,

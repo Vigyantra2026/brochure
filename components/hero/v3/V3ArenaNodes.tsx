@@ -9,7 +9,8 @@ export interface ArenaNodeDef {
   number: string;
   name: string;
   category: string;
-  targetPos: [number, number, number];
+  startPos: [number, number, number];  // Origin letter sector on the 3D VIGYANTRA monument
+  targetPos: [number, number, number]; // Final arena destination in 3D space
   rotSpeed: [number, number, number];
 }
 
@@ -20,7 +21,8 @@ export const ARENA_NODES_CONFIG: ArenaNodeDef[] = [
     number: '01',
     name: 'AI Prompt Battle',
     category: 'AI & PROMPT ENGINEERING',
-    targetPos: [-3.7, 1.5, -0.2],
+    startPos: [-2.7, 0.05, 0],
+    targetPos: [-3.8, 1.5, 0.0],
     rotSpeed: [0.35, 0.5, 0.2],
   },
   {
@@ -28,6 +30,7 @@ export const ARENA_NODES_CONFIG: ArenaNodeDef[] = [
     number: '02',
     name: 'Code Relay',
     category: 'CODING & ALGORITHMS',
+    startPos: [-1.9, 0.05, 0],
     targetPos: [-4.4, 0.45, 0.1],
     rotSpeed: [0.2, 0.45, 0.3],
   },
@@ -36,6 +39,7 @@ export const ARENA_NODES_CONFIG: ArenaNodeDef[] = [
     number: '03',
     name: 'Hack & Hunt',
     category: 'CYBERSECURITY & RECON',
+    startPos: [-1.1, 0.05, 0],
     targetPos: [-4.4, -0.65, 0.1],
     rotSpeed: [0.4, 0.3, 0.25],
   },
@@ -44,7 +48,8 @@ export const ARENA_NODES_CONFIG: ArenaNodeDef[] = [
     number: '04',
     name: 'App Dev Challenge',
     category: 'FULL-STACK & MOBILE',
-    targetPos: [-3.7, -1.65, -0.2],
+    startPos: [-0.3, 0.05, 0],
+    targetPos: [-3.8, -1.65, 0.0],
     rotSpeed: [0.25, 0.4, 0.35],
   },
   // Right Flank (Arenas 05 - 08)
@@ -53,7 +58,8 @@ export const ARENA_NODES_CONFIG: ArenaNodeDef[] = [
     number: '05',
     name: 'Zerocrypt CTF',
     category: 'CAPTURE THE FLAG',
-    targetPos: [3.7, 1.5, -0.2],
+    startPos: [0.5, 0.05, 0],
+    targetPos: [3.8, 1.5, 0.0],
     rotSpeed: [0.3, 0.55, 0.2],
   },
   {
@@ -61,6 +67,7 @@ export const ARENA_NODES_CONFIG: ArenaNodeDef[] = [
     number: '06',
     name: 'Innovation Marathon',
     category: 'HARDWARE & IOT',
+    startPos: [1.3, 0.05, 0],
     targetPos: [4.4, 0.45, 0.1],
     rotSpeed: [0.45, 0.35, 0.25],
   },
@@ -69,6 +76,7 @@ export const ARENA_NODES_CONFIG: ArenaNodeDef[] = [
     number: '07',
     name: 'Green Tech Challenge',
     category: 'SUSTAINABLE TECH',
+    startPos: [2.1, 0.05, 0],
     targetPos: [4.4, -0.65, 0.1],
     rotSpeed: [0.25, 0.4, 0.3],
   },
@@ -77,13 +85,14 @@ export const ARENA_NODES_CONFIG: ArenaNodeDef[] = [
     number: '08',
     name: 'RoboInnovate',
     category: 'ROBOTICS & AUTOMATION',
-    targetPos: [3.7, -1.65, -0.2],
+    startPos: [2.9, 0.05, 0],
+    targetPos: [3.8, -1.65, 0.0],
     rotSpeed: [0.4, 0.5, 0.3],
   },
 ];
 
 interface V3ArenaNodesProps {
-  progress?: number; // 0 = at core, 1 = fully deployed
+  progress?: number; // 0 = inside monument, 1 = fully deployed
   hoveredArenaId?: string | null;
   onHoverArena?: (id: string | null) => void;
   onSelectArena?: (id: string) => void;
@@ -97,6 +106,7 @@ export default function V3ArenaNodes({
 }: V3ArenaNodesProps) {
   const groupRef = useRef<THREE.Group>(null);
   const nodeRefs = useRef<(THREE.Group | null)[]>([]);
+  const badgeRefs = useRef<(THREE.Mesh | null)[]>([]);
 
   // Master Palette Materials
   const materials = useMemo(() => {
@@ -155,7 +165,7 @@ export default function V3ArenaNodes({
       opacity: 0,
     });
 
-    // Energy Tether Ray
+    // Energy Tether Ray connecting monument core to nodes
     const tetherMat = new THREE.LineBasicMaterial({
       color: new THREE.Color('#c6a052'),
       transparent: true,
@@ -165,15 +175,25 @@ export default function V3ArenaNodes({
     return { graphiteMat, goldMat, goldHoverMat, crimsonMat, edgeMat, tetherMat };
   }, []);
 
-  // Sync opacity with progress
+  // Sync material opacity smoothly with transition progress
   useMemo(() => {
-    const nodeOpacity = Math.min(1, Math.max(0, (progress - 0.15) / 0.85));
+    const nodeOpacity = Math.min(1, Math.max(0, (progress - 0.05) / 0.25));
     materials.graphiteMat.opacity = nodeOpacity;
     materials.goldMat.opacity = nodeOpacity;
     materials.goldHoverMat.opacity = nodeOpacity;
     materials.crimsonMat.opacity = nodeOpacity;
     materials.edgeMat.opacity = nodeOpacity * 0.7;
-    materials.tetherMat.opacity = Math.min(0.45, progress * 0.45);
+
+    // Dramatically reduced tether line visibility during transition (max 0.12),
+    // and completely faded away to 0 once cards settle!
+    let tetherAlpha = 0;
+    if (progress > 0.12 && progress < 0.88) {
+      const normP = (progress - 0.12) / (0.88 - 0.12);
+      tetherAlpha = Math.sin(normP * Math.PI) * 0.12; // faint, max 0.12
+    } else {
+      tetherAlpha = 0; // 100% faded away once settled
+    }
+    materials.tetherMat.opacity = tetherAlpha;
   }, [progress, materials]);
 
   // Procedural Architectural Geometries for the 8 Arenas
@@ -225,7 +245,51 @@ export default function V3ArenaNodes({
     });
   }, []);
 
-  // Pre-calculate tether lines (from origin to targetPos)
+  // Subtle Technical Identification Badges (01 APB, 02 CR, etc.)
+  const badgeMaterials = useMemo(() => {
+    if (typeof document === 'undefined') return [];
+    return ARENA_NODES_CONFIG.map((node) => {
+      const canvas = document.createElement('canvas');
+      canvas.width = 200;
+      canvas.height = 100;
+      const ctx = canvas.getContext('2d');
+      if (!ctx) return null;
+      ctx.clearRect(0, 0, 200, 100);
+
+      // Deep graphite pill background with antique gold border
+      ctx.fillStyle = 'rgba(10, 12, 16, 0.94)';
+      ctx.strokeStyle = 'rgba(212, 175, 55, 0.85)';
+      ctx.lineWidth = 3;
+      ctx.beginPath();
+      ctx.roundRect(6, 6, 188, 88, 10);
+      ctx.fill();
+      ctx.stroke();
+
+      // Bold, crisp arena number (01 to 08)
+      ctx.fillStyle = '#f4f3ef';
+      ctx.font = 'bold 38px monospace';
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'middle';
+      ctx.fillText(node.number, 100, 40);
+
+      // Subtle technical code
+      ctx.fillStyle = '#d4af37';
+      ctx.font = 'bold 15px monospace';
+      ctx.fillText(node.id, 100, 72);
+
+      const tex = new THREE.CanvasTexture(canvas);
+      tex.minFilter = THREE.LinearFilter;
+
+      return new THREE.MeshBasicMaterial({
+        map: tex,
+        transparent: true,
+        opacity: 0,
+        depthWrite: false,
+      });
+    });
+  }, []);
+
+  // Pre-calculate tether line objects
   const tetherLines = useMemo(() => {
     return ARENA_NODES_CONFIG.map((node) => {
       const pts = [
@@ -237,11 +301,12 @@ export default function V3ArenaNodes({
     });
   }, [materials.tetherMat]);
 
-  // Dynamic animation and hovering
+  // Dynamic animation, intentional trajectory calculation, and hover response
   useFrame((state, delta) => {
-    if (progress <= 0.01) return;
+    if (progress <= 0.005) return;
 
     const t = state.clock.getElapsedTime();
+    const isMobileViewport = typeof window !== 'undefined' && window.innerWidth < 960;
 
     ARENA_NODES_CONFIG.forEach((node, idx) => {
       const el = nodeRefs.current[idx];
@@ -249,27 +314,85 @@ export default function V3ArenaNodes({
 
       const isHovered = hoveredArenaId === node.id;
 
-      // Deploy outward from center origin as progress increases
-      const easeP = THREE.MathUtils.smoothstep(progress, 0.1, 1.0);
-      const targetX = node.targetPos[0] * easeP;
-      const targetY = node.targetPos[1] * easeP + Math.sin(t * 1.2 + idx * 0.8) * 0.04;
-      const targetZ = (node.targetPos[2] + (isHovered ? 0.35 : 0)) * easeP;
+      // Mobile adaptation: retain clean aspect ratio within viewport
+      const targetX = isMobileViewport ? node.targetPos[0] * 0.42 : node.targetPos[0];
+      const targetY = isMobileViewport ? node.targetPos[1] * 0.75 : node.targetPos[1];
+      const targetZ = node.targetPos[2] + (isHovered ? 0.35 : 0);
 
-      el.position.x = THREE.MathUtils.damp(el.position.x, targetX, 5.0, delta);
-      el.position.y = THREE.MathUtils.damp(el.position.y, targetY, 5.0, delta);
-      el.position.z = THREE.MathUtils.damp(el.position.z, targetZ, 5.0, delta);
+      let currentX = node.startPos[0];
+      let currentY = node.startPos[1];
+      let currentZ = node.startPos[2];
+      let currentScale = 0;
+      let badgeOpacity = 0;
+
+      // =========================================================================
+      // ARCHITECTURAL 4-STAGE TRAJECTORY
+      // =========================================================================
+      if (progress < 0.28) {
+        // Stage 1: Separation from monument letters and initial forward uncoupling
+        const p = Math.max(0, progress / 0.28);
+        const easeP = p * p * (3 - 2 * p);
+        currentX = THREE.MathUtils.lerp(node.startPos[0], node.startPos[0] * 1.15, easeP);
+        currentY = THREE.MathUtils.lerp(node.startPos[1], node.startPos[1] + (idx % 2 === 0 ? 0.12 : -0.12), easeP);
+        currentZ = THREE.MathUtils.lerp(node.startPos[2], 0.35, easeP);
+        currentScale = easeP;
+        badgeOpacity = Math.min(1, easeP * 1.25);
+      } else if (progress < 0.38) {
+        // Stage 2: Brief pause & trajectory establishment (badge fully illuminated)
+        const sepX = node.startPos[0] * 1.15;
+        const sepY = node.startPos[1] + (idx % 2 === 0 ? 0.12 : -0.12);
+        currentX = sepX;
+        currentY = sepY;
+        currentZ = 0.35;
+        currentScale = 1.0;
+        badgeOpacity = 1.0;
+      } else if (progress < 0.88) {
+        // Stage 3: Smooth arched parabolic travel toward arena card position
+        const p = (progress - 0.38) / (0.88 - 0.38);
+        const easeP = p * p * (3 - 2 * p);
+        const sepX = node.startPos[0] * 1.15;
+        const sepY = node.startPos[1] + (idx % 2 === 0 ? 0.12 : -0.12);
+
+        currentX = THREE.MathUtils.lerp(sepX, targetX, easeP);
+        currentY = THREE.MathUtils.lerp(sepY, targetY, easeP);
+        // Intentional parabolic depth lift along Z:
+        const arcZ = Math.sin(p * Math.PI) * 0.55;
+        currentZ = THREE.MathUtils.lerp(0.35, targetZ, easeP) + arcZ;
+        currentScale = 1.0;
+        // Badge fades out gracefully as component nears its destination
+        badgeOpacity = Math.max(0, 1.0 - (p - 0.45) * 2.2);
+      } else {
+        // Stage 4: Visual lock into destination & settled micro-motion
+        currentX = targetX;
+        currentY = targetY + Math.sin(t * 1.2 + idx * 0.8) * 0.04;
+        currentZ = targetZ;
+        currentScale = isHovered ? 1.22 : 1.0;
+        badgeOpacity = 0;
+      }
+
+      el.position.x = THREE.MathUtils.damp(el.position.x, currentX, 5.5, delta);
+      el.position.y = THREE.MathUtils.damp(el.position.y, currentY, 5.5, delta);
+      el.position.z = THREE.MathUtils.damp(el.position.z, currentZ, 5.5, delta);
 
       // Micro-rotation
       const rotMultiplier = isHovered ? 2.0 : 1.0;
-      el.rotation.x += node.rotSpeed[0] * delta * 0.6 * rotMultiplier;
-      el.rotation.y += node.rotSpeed[1] * delta * 0.8 * rotMultiplier;
-      el.rotation.z += node.rotSpeed[2] * delta * 0.4 * rotMultiplier;
+      el.rotation.x += node.rotSpeed[0] * delta * 0.5 * rotMultiplier;
+      el.rotation.y += node.rotSpeed[1] * delta * 0.7 * rotMultiplier;
+      el.rotation.z += node.rotSpeed[2] * delta * 0.35 * rotMultiplier;
 
-      // Scale up when hovered
-      const targetScale = (isHovered ? 1.22 : 1.0) * easeP;
-      el.scale.x = THREE.MathUtils.damp(el.scale.x, targetScale, 6.0, delta);
-      el.scale.y = THREE.MathUtils.damp(el.scale.y, targetScale, 6.0, delta);
-      el.scale.z = THREE.MathUtils.damp(el.scale.z, targetScale, 6.0, delta);
+      el.scale.x = THREE.MathUtils.damp(el.scale.x, currentScale, 6.0, delta);
+      el.scale.y = THREE.MathUtils.damp(el.scale.y, currentScale, 6.0, delta);
+      el.scale.z = THREE.MathUtils.damp(el.scale.z, currentScale, 6.0, delta);
+
+      // Update badge opacity and orient to face camera
+      const badgeMat = badgeMaterials[idx];
+      if (badgeMat) {
+        badgeMat.opacity = THREE.MathUtils.damp(badgeMat.opacity, badgeOpacity, 8.0, delta);
+      }
+      const badgeEl = badgeRefs.current[idx];
+      if (badgeEl) {
+        badgeEl.quaternion.copy(state.camera.quaternion);
+      }
 
       // Update tether line endpoints dynamically
       const line = tetherLines[idx];
@@ -295,10 +418,11 @@ export default function V3ArenaNodes({
         ))}
       </group>
 
-      {/* 2. The 8 Deployed 3D Arena Nodes */}
+      {/* 2. The 8 Deployed 3D Arena Nodes with subtle temporary badges */}
       {ARENA_NODES_CONFIG.map((node, idx) => {
         const isHovered = hoveredArenaId === node.id;
         const geo = arenaGeometries[idx];
+        const badgeMat = badgeMaterials[idx];
 
         return (
           <group
@@ -306,7 +430,7 @@ export default function V3ArenaNodes({
             ref={(el) => {
               nodeRefs.current[idx] = el;
             }}
-            position={[0, 0, 0]}
+            position={node.startPos}
             onPointerOver={(e) => {
               e.stopPropagation();
               onHoverArena?.(node.id);
@@ -337,6 +461,20 @@ export default function V3ArenaNodes({
 
             {/* Precision Technical Chamfer Wire Edges */}
             <lineSegments geometry={geo.frameEdges} material={materials.edgeMat} />
+
+            {/* Subtle Identification Badge during Transition (e.g. 01 • APB) */}
+            {badgeMat && (
+              <mesh
+                ref={(el) => {
+                  badgeRefs.current[idx] = el;
+                }}
+                position={[0, 0.48, 0]}
+                scale={[0.66, 0.33, 1]}
+                material={badgeMat}
+              >
+                <planeGeometry args={[1, 1]} />
+              </mesh>
+            )}
           </group>
         );
       })}

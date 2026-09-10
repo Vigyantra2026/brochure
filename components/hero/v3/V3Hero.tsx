@@ -50,6 +50,11 @@ export default function V3Hero({ onOpenModal, onScrollTo, onSelectEvent }: V3Her
   const [hoveredArenaId, setHoveredArenaId] = useState<string | null>(null);
   const [evolveCueReady, setEvolveCueReady] = useState(false);
 
+  // Sequential Staggered Card Reveal Tracking (0 to 7)
+  const [revealedCards, setRevealedCards] = useState<number[]>([]);
+  const [justLockedCards, setJustLockedCards] = useState<number[]>([]);
+  const activeEvolveTlRef = useRef<gsap.core.Timeline | null>(null);
+
   // DOM element refs for typography & UI priority gating
   const topTelemetryRef = useRef<HTMLDivElement>(null);
   const bottomFooterRef = useRef<HTMLElement>(null);
@@ -73,25 +78,91 @@ export default function V3Hero({ onOpenModal, onScrollTo, onSelectEvent }: V3Her
 
   const [replayCount, setReplayCount] = useState(0);
 
-  // Toggle between Monument view and 8 Arenas Evolve view
+  // =========================================================================
+  // CONTROLLED TRANSITION: MONUMENT ↔ 8 ARENAS
+  // Communicates: VIGYANTRA → DECONSTRUCTION → 8 COMPONENTS → TRAVEL → 8 CARDS
+  // =========================================================================
   const handleToggleView = (mode: 'monument' | 'arenas') => {
     if (mode === viewMode) return;
     setViewMode(mode);
     const tv = timelineValuesRef.current;
-    const prefersReducedMotion = typeof window !== 'undefined' && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const prefersReducedMotion =
+      typeof window !== 'undefined' &&
+      window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    // Cleanly kill any in-flight transition timeline to prevent race conditions or stuck objects
+    if (activeEvolveTlRef.current) {
+      activeEvolveTlRef.current.kill();
+      activeEvolveTlRef.current = null;
+    }
 
     if (mode === 'arenas') {
-      gsap.to(tv, {
+      if (prefersReducedMotion) {
+        tv.evolveProgress = 1;
+        tv.cameraDist = 7.8;
+        setRevealedCards([0, 1, 2, 3, 4, 5, 6, 7]);
+        return;
+      }
+
+      setRevealedCards([]);
+      setJustLockedCards([]);
+
+      const tl = gsap.timeline({
+        onComplete: () => {
+          activeEvolveTlRef.current = null;
+        },
+      });
+      activeEvolveTlRef.current = tl;
+
+      // 0.0s to 2.1s: Components separate from VIGYANTRA letters, travel outward along arched trajectories
+      // Camera pulls back to 7.8 to frame the 8 arenas
+      tl.to(tv, {
         evolveProgress: 1,
         cameraDist: 7.8,
-        duration: prefersReducedMotion ? 0.3 : 1.5,
+        duration: 2.1,
         ease: 'power2.inOut',
       });
+
+      // 1.85s to 2.5s: As components arrive and lock into destination points,
+      // reveal corresponding HTML arena cards sequentially with 85ms stagger
+      // 01 APB -> 02 CR -> 03 HNH -> 04 ADC -> 05 ZCTF -> 06 INM -> 07 GTC -> 08 RBI
+      for (let i = 0; i < 8; i++) {
+        const revealTime = 1.85 + i * 0.085;
+        tl.call(
+          () => {
+            setRevealedCards((prev) => (prev.includes(i) ? prev : [...prev, i]));
+            setJustLockedCards((prev) => (prev.includes(i) ? prev : [...prev, i]));
+            setTimeout(() => {
+              setJustLockedCards((prev) => prev.filter((id) => id !== i));
+            }, 400);
+          },
+          [],
+          revealTime
+        );
+      }
     } else {
-      gsap.to(tv, {
+      // Transition back to Monolithic Monument View
+      setRevealedCards([]);
+      setJustLockedCards([]);
+
+      if (prefersReducedMotion) {
+        tv.evolveProgress = 0;
+        tv.cameraDist = 6.8;
+        return;
+      }
+
+      const tl = gsap.timeline({
+        onComplete: () => {
+          activeEvolveTlRef.current = null;
+        },
+      });
+      activeEvolveTlRef.current = tl;
+
+      // Retract components smoothly back into the monument letters
+      tl.to(tv, {
         evolveProgress: 0,
         cameraDist: 6.8,
-        duration: prefersReducedMotion ? 0.3 : 1.3,
+        duration: 1.3,
         ease: 'power2.inOut',
       });
     }
@@ -114,6 +185,8 @@ export default function V3Hero({ onOpenModal, onScrollTo, onSelectEvent }: V3Her
 
     setViewMode('monument');
     setEvolveCueReady(false);
+    setRevealedCards([]);
+    setJustLockedCards([]);
 
     if (prefersReducedMotion) {
       tv.cameraDist = 6.8;
@@ -175,7 +248,7 @@ export default function V3Hero({ onOpenModal, onScrollTo, onSelectEvent }: V3Her
 
     // =========================================================================
     // REFINED CINEMATIC TRANSFORMATION TIMELINE (~8.2 seconds)
-    // Disciplined, mechanically intentional pacing
+    // 25 Years -> Engineering -> Structural Fragments -> VIGYANTRA Monument
     // =========================================================================
 
     // Beat 1: Initial Presentation of 25 Artifact (0 to 1.6s)
@@ -226,7 +299,7 @@ export default function V3Hero({ onOpenModal, onScrollTo, onSelectEvent }: V3Her
     tl.to(
       tv,
       {
-        cameraDist: 6.8, // Intimate, dominant presentation
+        cameraDist: 6.8,
         fragmentProgress: 1,
         duration: 2.0,
         ease: 'power3.inOut',
@@ -290,6 +363,7 @@ export default function V3Hero({ onOpenModal, onScrollTo, onSelectEvent }: V3Her
 
     return () => {
       tl.kill();
+      activeEvolveTlRef.current?.kill();
     };
   }, [replayCount]);
 
@@ -339,7 +413,7 @@ export default function V3Hero({ onOpenModal, onScrollTo, onSelectEvent }: V3Her
         aria-hidden="true"
       />
 
-      {/* Radial Focus Vignette keeping pure obsidian focus on the 3D monument */}
+      {/* Radial Focus Vignette */}
       <div
         style={{
           position: 'absolute',
@@ -352,18 +426,21 @@ export default function V3Hero({ onOpenModal, onScrollTo, onSelectEvent }: V3Her
       />
 
       {/* =========================================================================
-          V3.3 8 ARENAS INTERACTIVE HTML DISCOVERY FLANKS (Overlaid on 3D Scene)
+          V3.3.1 8 ARENAS INTERACTIVE HTML DISCOVERY FLANKS (Sequential Reveal)
           ========================================================================= */}
       {viewMode === 'arenas' && (
         <div className="v3-evolve-overlay" aria-label="8 Flagship Arenas Matrix">
           {/* Left Flank: Arenas 01 - 04 */}
-          <div className="v3-evolve-flank">
-            {leftArenas.map((arena) => {
+          <div className="v3-evolve-flank left-flank">
+            {leftArenas.map((arena, i) => {
               const isHovered = hoveredArenaId === arena.id;
+              const isRevealed = revealedCards.includes(i);
+              const isJustLocked = justLockedCards.includes(i);
+
               return (
                 <div
                   key={arena.id}
-                  className={`v3-arena-card ${isHovered ? 'active-hover' : ''}`}
+                  className={`v3-arena-card ${isRevealed ? 'revealed' : ''} ${isJustLocked ? 'just-locked' : ''} ${isHovered ? 'active-hover' : ''}`}
                   onMouseEnter={() => setHoveredArenaId(arena.id)}
                   onMouseLeave={() => setHoveredArenaId(null)}
                   onClick={() => handleArenaClick(arena.id)}
@@ -449,13 +526,17 @@ export default function V3Hero({ onOpenModal, onScrollTo, onSelectEvent }: V3Her
           </div>
 
           {/* Right Flank: Arenas 05 - 08 */}
-          <div className="v3-evolve-flank">
-            {rightArenas.map((arena) => {
+          <div className="v3-evolve-flank right-flank">
+            {rightArenas.map((arena, rIdx) => {
+              const globalIdx = 4 + rIdx;
               const isHovered = hoveredArenaId === arena.id;
+              const isRevealed = revealedCards.includes(globalIdx);
+              const isJustLocked = justLockedCards.includes(globalIdx);
+
               return (
                 <div
                   key={arena.id}
-                  className={`v3-arena-card ${isHovered ? 'active-hover' : ''}`}
+                  className={`v3-arena-card ${isRevealed ? 'revealed' : ''} ${isJustLocked ? 'just-locked' : ''} ${isHovered ? 'active-hover' : ''}`}
                   onMouseEnter={() => setHoveredArenaId(arena.id)}
                   onMouseLeave={() => setHoveredArenaId(null)}
                   onClick={() => handleArenaClick(arena.id)}
@@ -729,7 +810,6 @@ export default function V3Hero({ onOpenModal, onScrollTo, onSelectEvent }: V3Her
             >
               {/* Subtitle & Motto */}
               <div style={{ display: 'flex', flexDirection: 'column', gap: '4px', alignItems: 'center' }}>
-                {/* National-Level Statement */}
                 <div
                   style={{
                     fontFamily: 'var(--v2-font-heading)',
@@ -746,7 +826,6 @@ export default function V3Hero({ onOpenModal, onScrollTo, onSelectEvent }: V3Her
                   A NATIONAL-LEVEL TECHNICAL SYMPOSIUM
                 </div>
 
-                {/* Motto */}
                 <div
                   style={{
                     fontFamily: 'var(--v2-font-body)',
@@ -880,7 +959,6 @@ export default function V3Hero({ onOpenModal, onScrollTo, onSelectEvent }: V3Her
 
               {/* Primary 3-Tier Action CTA Group */}
               <div className="v2-hero-cta-group" style={{ marginTop: '0.95rem' }}>
-                {/* 1. Register Now */}
                 <V2Button
                   variant="primary"
                   size="lg"
@@ -890,7 +968,6 @@ export default function V3Hero({ onOpenModal, onScrollTo, onSelectEvent }: V3Her
                   REGISTER NOW ⚡
                 </V2Button>
 
-                {/* 2. Explore 8 Arenas (Switches directly to Evolve Arena View) */}
                 <V2Button
                   variant="secondary"
                   size="lg"
@@ -900,7 +977,6 @@ export default function V3Hero({ onOpenModal, onScrollTo, onSelectEvent }: V3Her
                   EXPLORE 8 ARENAS →
                 </V2Button>
 
-                {/* 3. View Dossier */}
                 <V2Button
                   variant="tertiary"
                   size="lg"
