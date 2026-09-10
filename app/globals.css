@@ -100,14 +100,14 @@ body {
   pointer-events: none;
 }
 
-/* Cosmic Nebula Radial Glow — Multi-Depth Ambient Energy Field */
+/* Cosmic Nebula Radial Glow — Restrained Obsidian, Gold & Crimson Atmosphere */
 .cosmic-nebula-glow {
   position: fixed;
   inset: 0;
   background: 
-    radial-gradient(circle at 50% 28%, rgba(0, 240, 255, 0.12) 0%, transparent 55%),
-    radial-gradient(circle at 18% 78%, rgba(245, 158, 11, 0.07) 0%, transparent 48%),
-    radial-gradient(circle at 82% 70%, rgba(14, 165, 233, 0.08) 0%, transparent 52%);
+    radial-gradient(circle at 50% 28%, rgba(198, 160, 82, 0.035) 0%, transparent 55%),
+    radial-gradient(circle at 18% 78%, rgba(128, 0, 32, 0.04) 0%, transparent 48%),
+    radial-gradient(circle at 82% 70%, rgba(198, 160, 82, 0.025) 0%, transparent 52%);
   z-index: 2;
   pointer-events: none;
   animation: cosmic-nebula-breathe 22s ease-in-out infinite alternate;
@@ -129,16 +129,16 @@ body {
   }
 }
 
-/* Cyber Grid Ground Mesh Overlay — Slow Cinematic Depth Drift */
+/* Cyber Grid Ground Mesh Overlay — Ultra-Subtle Architectural Benchmark */
 .cyber-grid-overlay {
   position: fixed;
   inset: -40px;
   background-image: 
-    linear-gradient(to right, rgba(0, 240, 255, 0.038) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(0, 240, 255, 0.038) 1px, transparent 1px);
-  background-size: 44px 44px;
-  mask-image: radial-gradient(circle at 50% 50%, black 22%, transparent 80%);
-  -webkit-mask-image: radial-gradient(circle at 50% 50%, black 22%, transparent 80%);
+    linear-gradient(to right, rgba(255, 255, 255, 0.012) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.012) 1px, transparent 1px);
+  background-size: 64px 64px;
+  mask-image: radial-gradient(circle at 50% 50%, black 15%, transparent 70%);
+  -webkit-mask-image: radial-gradient(circle at 50% 50%, black 15%, transparent 70%);
   z-index: 3;
   pointer-events: none;
   animation: cyber-grid-drift 55s linear infinite;

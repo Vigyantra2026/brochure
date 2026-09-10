@@ -16,67 +16,100 @@ import {
 
 interface V3VigyantraProps {
   pointerPos?: React.MutableRefObject<{ x: number; y: number }>;
+  formationProgress?: number; // 0 = not formed, 1 = fully assembled
+  opacity?: number;
 }
 
-export default function V3Vigyantra({ pointerPos }: V3VigyantraProps) {
+export default function V3Vigyantra({
+  pointerPos,
+  formationProgress = 1,
+  opacity = 1,
+}: V3VigyantraProps) {
   const groupRef = useRef<THREE.Group>(null);
-  const coreRef = useRef<THREE.Group>(null);
+  const letterRefs = useRef<(THREE.Group | null)[]>([]);
 
-  // Materials: Precision Architectural & Automotive Grade
+  // Precision Physical Materials: 3-layer architectural palette
   const materials = useMemo(() => {
-    // 1. Dark Brushed Titanium / Graphite Core
+    // LAYER 1: Structural Graphite / Titanium Core
     const bodyMat = new THREE.MeshPhysicalMaterial({
-      color: new THREE.Color('#1c1e24'),
-      roughness: 0.32,
-      metalness: 0.88,
-      clearcoat: 0.25,
-      clearcoatRoughness: 0.2,
-      reflectivity: 0.8,
-      flatShading: false,
+      color: new THREE.Color('#282c35'),
+      roughness: 0.28,
+      metalness: 0.82,
+      clearcoat: 0.35,
+      clearcoatRoughness: 0.18,
+      reflectivity: 0.85,
+      transparent: true,
+      opacity: 1,
     });
 
-    // 2. Precision Chamfer & Edge Accent: Antique Gold
+    // LAYER 2: Precision Antique Gold Bevels & Edge Veneer
     const goldAccentMat = new THREE.MeshPhysicalMaterial({
-      color: new THREE.Color('#c6a052'),
-      roughness: 0.22,
-      metalness: 0.95,
-      clearcoat: 0.4,
-      reflectivity: 0.95,
-      emissive: new THREE.Color('#38280d'),
-      emissiveIntensity: 0.15,
+      color: new THREE.Color('#d4af37'),
+      roughness: 0.18,
+      metalness: 0.94,
+      clearcoat: 0.45,
+      clearcoatRoughness: 0.12,
+      reflectivity: 0.98,
+      emissive: new THREE.Color('#463311'),
+      emissiveIntensity: 0.2,
+      transparent: true,
+      opacity: 1,
     });
 
-    // 3. Sub-structural Backplate / Foundation: Deep Obsidian Steel
-    const foundationMat = new THREE.MeshStandardMaterial({
-      color: new THREE.Color('#0d0e12'),
-      roughness: 0.45,
+    // LAYER 3: Restrained Deep Crimson Underside / Sub-plinth Accents
+    const crimsonAccentMat = new THREE.MeshPhysicalMaterial({
+      color: new THREE.Color('#800020'),
+      roughness: 0.35,
       metalness: 0.75,
+      clearcoat: 0.2,
+      emissive: new THREE.Color('#2d000a'),
+      emissiveIntensity: 0.15,
+      transparent: true,
+      opacity: 1,
     });
 
-    // 4. Fine Technical Wireframe Edges
+    // Foundation Base Rail: Dark structural obsidian steel
+    const foundationMat = new THREE.MeshStandardMaterial({
+      color: new THREE.Color('#14161c'),
+      roughness: 0.4,
+      metalness: 0.85,
+      transparent: true,
+      opacity: 1,
+    });
+
+    // Fine Technical Wireframe Edges: Crisp gold benchmark strokes
     const lineMat = new THREE.LineBasicMaterial({
       color: new THREE.Color('#d4af37'),
       transparent: true,
-      opacity: 0.45,
+      opacity: 0.65,
     });
 
-    return { bodyMat, goldAccentMat, foundationMat, lineMat };
+    return { bodyMat, goldAccentMat, crimsonAccentMat, foundationMat, lineMat };
   }, []);
 
-  // Construct the engineered letters with exact spacing and layering
+  // Synchronize opacity smoothly
+  useMemo(() => {
+    materials.bodyMat.opacity = opacity;
+    materials.goldAccentMat.opacity = opacity;
+    materials.crimsonAccentMat.opacity = opacity;
+    materials.foundationMat.opacity = opacity;
+    materials.lineMat.opacity = opacity * 0.65;
+  }, [opacity, materials]);
+
+  // Construct engineered letters with controlled bevels and calibrated individual spacing
   const letterGeometries = useMemo(() => {
-    // Extrusion settings for Main Body: Deep, beveled
+    // Main Body: Controlled bevel thickness preventing edge collisions
     const bodyExtrudeSettings: THREE.ExtrudeGeometryOptions = {
       steps: 1,
-      depth: 0.22,
+      depth: 0.24,
       bevelEnabled: true,
-      bevelThickness: 0.045,
-      bevelSize: 0.04,
+      bevelThickness: 0.035,
+      bevelSize: 0.030,
       bevelOffset: 0,
-      bevelSegments: 4,
+      bevelSegments: 3,
     };
 
-    // Extrusion settings for Gold Trim Cap: Thin, front-mounted precision veneer
+    // Front Antique Gold Veneer: Sharp precision cap
     const capExtrudeSettings: THREE.ExtrudeGeometryOptions = {
       steps: 1,
       depth: 0.035,
@@ -87,17 +120,16 @@ export default function V3Vigyantra({ pointerPos }: V3VigyantraProps) {
       bevelSegments: 2,
     };
 
-    // Base shape creators for V-I-G-Y-A-N-T-R-A
     const creators = [
-      createVShape, // V
-      createIShape, // I
-      createGShape, // G
-      createYShape, // Y
-      createAShape, // A
-      createNShape, // N
-      createTShape, // T
-      createRShape, // R
-      createAShape, // A
+      createVShape, // 0: V
+      createIShape, // 1: I
+      createGShape, // 2: G
+      createYShape, // 3: Y
+      createAShape, // 4: A
+      createNShape, // 5: N
+      createTShape, // 6: T
+      createRShape, // 7: R
+      createAShape, // 8: A
     ];
 
     const results: {
@@ -108,25 +140,28 @@ export default function V3Vigyantra({ pointerPos }: V3VigyantraProps) {
       xPos: number;
     }[] = [];
 
-    // Calculate positions with optical kerning
-    const kernings = [0.88, 0.48, 0.92, 0.88, 0.92, 0.88, 0.86, 0.92, 0.88];
-    const letterWidths = [1.1, 0.35, 1.05, 1.05, 1.08, 1.02, 1.05, 1.15, 1.08];
+    // Calibrated individual spacing array (inter-letter distances accounting for 3D extrusion bounds)
+    // V -> I (0.72)
+    // I -> G (0.74)
+    // G -> Y (0.98)
+    // Y -> A (0.98)
+    // A -> N (1.00)
+    // N -> T (0.98) - Prevents N top-right / T left-crossbar merge
+    // T -> R (0.98) - Prevents T right-crossbar / R top-left merge
+    // R -> A (1.00) - Prevents R diagonal leg / A left diagonal merge
+    const interSpacings = [0.72, 0.74, 0.98, 0.98, 1.00, 0.98, 0.98, 1.00];
 
-    // Compute total width to center the entire wordmark
     let totalSpan = 0;
-    for (let i = 0; i < creators.length; i++) {
-      totalSpan += kernings[i];
-    }
+    interSpacings.forEach((s) => (totalSpan += s));
 
-    let currentX = -totalSpan / 2 + 0.4;
+    let currentX = -totalSpan / 2;
 
     creators.forEach((fn, idx) => {
       const { main } = fn();
       const bodyGeo = new THREE.ExtrudeGeometry(main, bodyExtrudeSettings);
       const capGeo = new THREE.ExtrudeGeometry(main, capExtrudeSettings);
-      const edgesGeo = new THREE.EdgesGeometry(bodyGeo, 30); // only sharp chamfer lines
+      const edgesGeo = new THREE.EdgesGeometry(bodyGeo, 28);
 
-      // Center geometry around its local origin for stable lighting
       bodyGeo.center();
       capGeo.center();
       edgesGeo.center();
@@ -139,29 +174,29 @@ export default function V3Vigyantra({ pointerPos }: V3VigyantraProps) {
         xPos: currentX,
       });
 
-      currentX += kernings[idx];
+      if (idx < interSpacings.length) {
+        currentX += interSpacings[idx];
+      }
     });
 
     return { letters: results, totalSpan };
   }, []);
 
-  // Subtle damped floating & interactive pointer response
   useFrame((state, delta) => {
     if (!groupRef.current) return;
 
     const t = state.clock.getElapsedTime();
 
-    // Natural architectural floating drift (micro-amplitudes)
-    const floatY = Math.sin(t * 0.8) * 0.05;
-    const floatRotX = Math.sin(t * 0.5) * 0.015;
-    const floatRotY = Math.cos(t * 0.4) * 0.025;
+    // Architectural floating drift
+    const floatY = Math.sin(t * 0.8) * 0.04;
+    const floatRotX = Math.sin(t * 0.5) * 0.012;
+    const floatRotY = Math.cos(t * 0.4) * 0.02;
 
-    // Pointer-guided tilt with smooth damping (lerp)
     const px = pointerPos?.current?.x || 0;
     const py = pointerPos?.current?.y || 0;
 
-    const targetRotX = -py * 0.12 + floatRotX;
-    const targetRotY = px * 0.18 + floatRotY;
+    const targetRotX = -py * 0.1 + floatRotX;
+    const targetRotY = px * 0.15 + floatRotY;
 
     groupRef.current.rotation.x = THREE.MathUtils.damp(
       groupRef.current.rotation.x,
@@ -181,25 +216,71 @@ export default function V3Vigyantra({ pointerPos }: V3VigyantraProps) {
       2.0,
       delta
     );
+
+    // Mechanical dock-in assembly
+    const count = letterGeometries.letters.length;
+    letterRefs.current.forEach((el, idx) => {
+      if (!el) return;
+
+      const startSlot = (idx / (count + 1)) * 0.75;
+      const endSlot = ((idx + 1.8) / (count + 1)) * 0.75 + 0.2;
+
+      const localProgress = Math.max(0, Math.min(1, (formationProgress - startSlot) / (endSlot - startSlot)));
+      const eased = localProgress * localProgress * (3 - 2 * localProgress);
+
+      const zOffset = (1 - eased) * 1.8;
+      const yOffset = (1 - eased) * 0.3 * ((idx % 2 === 0) ? 1 : -1);
+      const rotZ = (1 - eased) * 0.12 * ((idx % 2 === 0) ? -1 : 1);
+
+      el.position.z = zOffset;
+      el.position.y = yOffset;
+      el.rotation.z = rotZ;
+      el.scale.setScalar(0.2 + 0.8 * eased);
+    });
   });
+
+  if (opacity <= 0.01) return null;
 
   return (
     <group ref={groupRef} position={[0, 0, 0]}>
-      {/* 1. Structural Architectural Plinth / Sub-Keel (Precision Rail) */}
-      <mesh position={[0, -0.9, -0.1]} material={materials.foundationMat}>
-        <boxGeometry args={[letterGeometries.totalSpan + 0.6, 0.04, 0.5]} />
+      {/* 1. Structural Architectural Plinth / Sub-Keel */}
+      <mesh
+        position={[0, -0.9, -0.1]}
+        material={materials.foundationMat}
+        scale={[Math.min(1, formationProgress * 1.15), 1, 1]}
+      >
+        <boxGeometry args={[letterGeometries.totalSpan + 0.8, 0.04, 0.5]} />
       </mesh>
-      
-      {/* Thin Gold Precision Benchmark Inset on the Rail */}
-      <mesh position={[0, -0.88, 0.12]} material={materials.goldAccentMat}>
-        <boxGeometry args={[letterGeometries.totalSpan * 0.6, 0.012, 0.02]} />
+
+      {/* Layer 2: Gold Precision Benchmark Inset */}
+      <mesh
+        position={[0, -0.88, 0.12]}
+        material={materials.goldAccentMat}
+        scale={[Math.min(1, formationProgress * 1.15), 1, 1]}
+      >
+        <boxGeometry args={[letterGeometries.totalSpan * 0.7, 0.012, 0.02]} />
+      </mesh>
+
+      {/* Layer 3: Restrained Deep Crimson Underside Trim Rail */}
+      <mesh
+        position={[0, -0.92, -0.05]}
+        material={materials.crimsonAccentMat}
+        scale={[Math.min(1, formationProgress * 1.15), 1, 1]}
+      >
+        <boxGeometry args={[letterGeometries.totalSpan * 0.88, 0.01, 0.4]} />
       </mesh>
 
       {/* 2. Precision Engineered V-I-G-Y-A-N-T-R-A Monoliths */}
-      <group ref={coreRef}>
+      <group>
         {letterGeometries.letters.map((item, idx) => (
-          <group key={idx} position={[item.xPos, 0, 0]}>
-            {/* Dark Brushed Titanium Main Body */}
+          <group
+            key={idx}
+            ref={(el) => {
+              letterRefs.current[idx] = el;
+            }}
+            position={[item.xPos, 0, 0]}
+          >
+            {/* Layer 1: Dark Graphite Structural Body */}
             <mesh
               geometry={item.bodyGeo}
               material={materials.bodyMat}
@@ -207,11 +288,19 @@ export default function V3Vigyantra({ pointerPos }: V3VigyantraProps) {
               receiveShadow
             />
 
-            {/* Front Architectural Gold Cap Inset (0.13 forward) */}
+            {/* Layer 2: Front Precision Antique Gold Veneer */}
             <mesh
               geometry={item.capGeo}
               material={materials.goldAccentMat}
-              position={[0, 0, 0.125]}
+              position={[0, 0, 0.135]}
+            />
+
+            {/* Layer 3: Back-Edge Crimson Rim Inset */}
+            <mesh
+              geometry={item.capGeo}
+              material={materials.crimsonAccentMat}
+              position={[0, -0.015, -0.125]}
+              scale={[0.98, 0.98, 0.8]}
             />
 
             {/* Precision Chamfer Accent Wire Highlights */}
