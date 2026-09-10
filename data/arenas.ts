@@ -5,6 +5,16 @@ export interface ArenaHighlight {
   value: string;
 }
 
+export type ArenaVisualType =
+  | 'neural'     // 01 APB - AI Prompt Battle
+  | 'algorithm'  // 02 CR - Code Relay
+  | 'cyber'      // 03 HNH - Hack & Hunt
+  | 'modular'    // 04 ADC - App Development Challenge
+  | 'cipher'     // 05 ZCTF - ZeroCrypt CTF
+  | 'hardware'   // 06 INM - Innovation Marathon
+  | 'energy'     // 07 GTC - Green Tech Challenge
+  | 'robotics';  // 08 RBI - RobotInnovate
+
 export interface ArenaV4Data {
   id: string;
   number: string;
@@ -26,6 +36,8 @@ export interface ArenaV4Data {
   tags: string[];
   accentColor: string;
   technicalMotif: string;
+  visualType: ArenaVisualType;
+  blueprintSpec: string;
   highlights: ArenaHighlight[];
   roundsCount: number;
   rawEvent: EventArena;
@@ -33,6 +45,28 @@ export interface ArenaV4Data {
 
 // Map the 8 official arenas from EVENTS_DATA into the structured V4 Arena system
 export const ARENAS_V4: ArenaV4Data[] = EVENTS_DATA.map((event) => {
+  const visualTypes: Record<string, ArenaVisualType> = {
+    APB: 'neural',
+    CR: 'algorithm',
+    HNH: 'cyber',
+    ADC: 'modular',
+    ZCTF: 'cipher',
+    INM: 'hardware',
+    GTC: 'energy',
+    RBI: 'robotics',
+  };
+
+  const blueprintSpecs: Record<string, string> = {
+    APB: 'SPEC // ML-ATTN-768D',
+    CR: 'SPEC // DAG-FORK-EXEC',
+    HNH: 'SPEC // RECON-RAD-SEC',
+    ADC: 'SPEC // ISO-3TIER-ARCH',
+    ZCTF: 'SPEC // CRYPT-ZK-ROT',
+    INM: 'SPEC // PCB-SMD-MCU',
+    GTC: 'SPEC // BIO-SOLAR-CAD',
+    RBI: 'SPEC // 6AX-KIN-JOINT',
+  };
+
   const technicalMotifs: Record<string, string> = {
     APB: 'OCTAHEDRAL PROMPT MATRIX // MULTIMODAL INFERENCE',
     CR: 'SYNCHRONIZED BATON RELAY // DISTRIBUTED REFACTORING',
@@ -72,6 +106,8 @@ export const ARENAS_V4: ArenaV4Data[] = EVENTS_DATA.map((event) => {
     tags: event.tags || [],
     accentColor: event.accentColor || '#d4af37',
     technicalMotif: technicalMotifs[event.id] || 'ARCHITECTURAL MODULE',
+    visualType: visualTypes[event.id] || 'neural',
+    blueprintSpec: blueprintSpecs[event.id] || 'SPEC // REF-01',
     highlights,
     roundsCount: event.rounds?.length || 3,
     rawEvent: event as unknown as EventArena,

@@ -1975,6 +1975,184 @@
   flex: 1;
 }
 
+/* ==========================================================================
+   V4.2 TECHNICAL DOSSIER VISUAL / BLUEPRINT SCHEMATICS
+   ========================================================================== */
+
+.v4-arena-visual-container {
+  position: relative;
+  width: 100%;
+  height: 125px;
+  margin: 12px 0 16px;
+  background: radial-gradient(ellipse at 50% 50%, rgba(20, 24, 32, 0.85) 0%, rgba(8, 10, 14, 0.95) 100%);
+  border: 1px solid rgba(212, 175, 55, 0.16);
+  border-radius: 6px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.6);
+  transition: border-color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
+}
+
+.v4-arena-card:hover .v4-arena-visual-container {
+  border-color: rgba(212, 175, 55, 0.45);
+  box-shadow: inset 0 0 25px rgba(212, 175, 55, 0.08), 0 0 16px rgba(212, 175, 55, 0.1);
+  transform: translateY(-1px);
+}
+
+/* Precision Reticles in 4 corners */
+.v4-reticle {
+  position: absolute;
+  width: 6px;
+  height: 6px;
+  pointer-events: none;
+  z-index: 2;
+  transition: border-color 0.25s ease;
+}
+
+.reticle-tl {
+  top: 4px;
+  left: 4px;
+  border-top: 1px solid rgba(212, 175, 55, 0.5);
+  border-left: 1px solid rgba(212, 175, 55, 0.5);
+}
+
+.reticle-tr {
+  top: 4px;
+  right: 4px;
+  border-top: 1px solid rgba(212, 175, 55, 0.5);
+  border-right: 1px solid rgba(212, 175, 55, 0.5);
+}
+
+.reticle-bl {
+  bottom: 4px;
+  left: 4px;
+  border-bottom: 1px solid rgba(212, 175, 55, 0.5);
+  border-left: 1px solid rgba(212, 175, 55, 0.5);
+}
+
+.reticle-br {
+  bottom: 4px;
+  right: 4px;
+  border-bottom: 1px solid rgba(212, 175, 55, 0.5);
+  border-right: 1px solid rgba(212, 175, 55, 0.5);
+}
+
+.v4-arena-card:hover .v4-reticle {
+  border-color: var(--v2-gold);
+}
+
+/* Telemetry Header Bar */
+.v4-visual-telemetry {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 4px 10px;
+  border-bottom: 1px solid rgba(212, 175, 55, 0.1);
+  background: rgba(10, 12, 16, 0.6);
+  z-index: 2;
+}
+
+.v4-tel-spec {
+  font-family: var(--v2-font-mono);
+  font-size: 0.52rem;
+  letter-spacing: 0.18em;
+  color: var(--v2-gold);
+  text-transform: uppercase;
+  font-weight: 600;
+  opacity: 0.85;
+}
+
+.v4-tel-coord {
+  font-family: var(--v2-font-mono);
+  font-size: 0.52rem;
+  letter-spacing: 0.14em;
+  color: var(--v2-text-tertiary);
+  text-transform: uppercase;
+}
+
+.v4-arena-card:hover .v4-tel-spec {
+  opacity: 1;
+  color: #f3e5ab;
+}
+
+/* SVG Styling */
+.v4-visual-svg {
+  width: 100%;
+  height: calc(100% - 20px);
+  display: block;
+}
+
+/* Subtle Active Signal Pulse on Hover */
+.v4-active-signal-path {
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.v4-arena-card:hover .v4-active-signal-path {
+  opacity: 0.95;
+  animation: v4SignalPulse 1.6s ease-in-out infinite;
+}
+
+@keyframes v4SignalPulse {
+  0% {
+    stroke-dashoffset: 80;
+    opacity: 0.2;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    stroke-dashoffset: 0;
+    opacity: 0.2;
+  }
+}
+
+/* Subtle Hover Shift on Internal Blueprint Geometry */
+.v4-arena-card:hover .v4-schematic-neural,
+.v4-arena-card:hover .v4-schematic-algo,
+.v4-arena-card:hover .v4-schematic-cyber,
+.v4-arena-card:hover .v4-schematic-modular,
+.v4-arena-card:hover .v4-schematic-cipher,
+.v4-arena-card:hover .v4-schematic-hardware,
+.v4-arena-card:hover .v4-schematic-energy,
+.v4-arena-card:hover .v4-schematic-robotics {
+  filter: drop-shadow(0 0 8px rgba(212, 175, 55, 0.2));
+  transition: filter 0.3s ease;
+}
+
+/* Responsive adjust for mobile */
+@media (max-width: 640px) {
+  .v4-arena-visual-container {
+    height: 105px;
+    margin: 10px 0 14px;
+  }
+}
+
+/* Reduced Motion Safety */
+@media (prefers-reduced-motion: reduce) {
+  .v4-active-signal-path {
+    animation: none !important;
+    opacity: 0.4 !important;
+  }
+  .v4-arena-card:hover .v4-active-signal-path {
+    animation: none !important;
+    opacity: 0.7 !important;
+  }
+  .v4-arena-card {
+    transition: none !important;
+  }
+  .v4-arena-card:hover {
+    transform: none !important;
+  }
+  .v4-arena-visual-container {
+    transition: none !important;
+  }
+  .v4-arena-card:hover .v4-arena-visual-container {
+    transform: none !important;
+  }
+}
+
 /* Specs Ribbon */
 .v4-card-specs-grid {
   display: grid;

@@ -3,7 +3,8 @@
 import React from 'react';
 import { ArenaV4Data } from '@/data/arenas';
 import { EventArena } from '@/data/events';
-import { V2Badge, V2Button } from '@/components/ui/v2';
+import { V2Badge } from '@/components/ui/v2';
+import V4ArenaVisual from './V4ArenaVisual';
 
 interface V4ArenaCardProps {
   arena: ArenaV4Data;
@@ -43,15 +44,26 @@ export default function V4ArenaCard({
         <div className="v4-card-code-pill">{arena.code}</div>
       </div>
 
-      {/* 2. Title & Editorial Subtitle */}
+      {/* 2. Title */}
       <div className="v4-card-title-group">
         <h3 className="v4-card-title">{arena.name}</h3>
-        {arena.subName && (
-          <div className="v4-card-subname">“{arena.subName}”</div>
-        )}
       </div>
 
-      {/* 3. Technical Architectural Motif Tag */}
+      {/* 3. Technical Visual / Engineering Blueprint */}
+      <V4ArenaVisual
+        visualType={arena.visualType}
+        number={arena.number}
+        code={arena.code}
+        spec={arena.blueprintSpec}
+        name={arena.name}
+      />
+
+      {/* 4. Subtitle / Tagline */}
+      {arena.subName && (
+        <div className="v4-card-subname">“{arena.subName}”</div>
+      )}
+
+      {/* 5. Technical Architectural Motif Tag */}
       <div className="v4-card-motif-bar">
         <span className="v4-motif-dot" aria-hidden="true" />
         <span className="v4-motif-text">{arena.technicalMotif}</span>
