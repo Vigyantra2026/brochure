@@ -17,12 +17,14 @@ import {
 interface V3VigyantraProps {
   pointerPos?: React.MutableRefObject<{ x: number; y: number }>;
   formationProgress?: number; // 0 = not formed, 1 = fully assembled
+  evolveProgress?: number;    // 0 = monument view, 1 = central anchor core for 8 arenas
   opacity?: number;
 }
 
 export default function V3Vigyantra({
   pointerPos,
   formationProgress = 1,
+  evolveProgress = 0,
   opacity = 1,
 }: V3VigyantraProps) {
   const groupRef = useRef<THREE.Group>(null);
@@ -210,11 +212,26 @@ export default function V3Vigyantra({
       2.5,
       delta
     );
+    const targetY = floatY + evolveProgress * 0.15;
+    const targetScale = 1.0 - evolveProgress * 0.52;
+    const targetZ = -evolveProgress * 0.35;
+
     groupRef.current.position.y = THREE.MathUtils.damp(
       groupRef.current.position.y,
-      floatY,
+      targetY,
       2.0,
       delta
+    );
+    groupRef.current.position.z = THREE.MathUtils.damp(
+      groupRef.current.position.z,
+      targetZ,
+      3.0,
+      delta
+    );
+    groupRef.current.scale.set(
+      THREE.MathUtils.damp(groupRef.current.scale.x, targetScale, 3.5, delta),
+      THREE.MathUtils.damp(groupRef.current.scale.y, targetScale, 3.5, delta),
+      THREE.MathUtils.damp(groupRef.current.scale.z, targetScale, 3.5, delta)
     );
 
     // Mechanical dock-in assembly

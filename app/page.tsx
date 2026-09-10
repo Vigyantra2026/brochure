@@ -109,7 +109,11 @@ export default function HomePage() {
       <CyberHeader onOpenModal={handleOpenModal} onScrollTo={handleScrollTo} />
 
       {/* 4. V3 3D Prototype Homepage Command Deck Hero (100dvh) */}
-      <V3Hero onOpenModal={handleOpenModal} onScrollTo={handleScrollTo} />
+      <V3Hero
+        onOpenModal={handleOpenModal}
+        onScrollTo={handleScrollTo}
+        onSelectEvent={handleSelectEvent}
+      />
 
       {/* 5. Phase 3: V2 25 Years / SJBIT Legacy Section (First major section after Hero) */}
       <V2LegacySection onScrollToArenas={() => handleScrollTo('arenas')} />

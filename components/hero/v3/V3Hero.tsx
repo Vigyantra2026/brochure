@@ -6,6 +6,8 @@ import gsap from 'gsap';
 import V2Countdown from '@/components/hero/v2/V2Countdown';
 import { V2Button, V2Badge, V2TechLabel, V2Metadata } from '@/components/ui/v2';
 import { TransformationTimelineValues } from './V3Scene';
+import { ARENA_NODES_CONFIG } from './V3ArenaNodes';
+import { EVENTS_DATA, EventArena } from '@/data/events';
 
 // Dynamic import of 3D Scene with SSR disabled
 const V3Scene = dynamic(() => import('./V3Scene'), {
@@ -38,11 +40,15 @@ const V3Scene = dynamic(() => import('./V3Scene'), {
 interface V3HeroProps {
   onOpenModal: (modalId: string) => void;
   onScrollTo: (sectionId: string) => void;
+  onSelectEvent?: (event: EventArena) => void;
 }
 
-export default function V3Hero({ onOpenModal, onScrollTo }: V3HeroProps) {
+export default function V3Hero({ onOpenModal, onScrollTo, onSelectEvent }: V3HeroProps) {
   const [swamijiExpanded, setSwamijiExpanded] = useState(false);
   const [phaseState, setPhaseState] = useState<'jubilee' | 'deconstruct' | 'forming' | 'complete'>('jubilee');
+  const [viewMode, setViewMode] = useState<'monument' | 'arenas'>('monument');
+  const [hoveredArenaId, setHoveredArenaId] = useState<string | null>(null);
+  const [evolveCueReady, setEvolveCueReady] = useState(false);
 
   // DOM element refs for typography & UI priority gating
   const topTelemetryRef = useRef<HTMLDivElement>(null);
@@ -52,7 +58,6 @@ export default function V3Hero({ onOpenModal, onScrollTo }: V3HeroProps) {
   const prizePoolRef = useRef<HTMLDivElement>(null);
 
   // Live timeline properties shared with the Three.js canvas
-  // Refined camera distances: 5.8 for 25, 4.0 for mechanical fly-through, 6.8 for final VIGYANTRA reveal
   const timelineValuesRef = useRef<TransformationTimelineValues>({
     cameraDist: 5.8,
     cameraTargetZ: 0,
@@ -62,18 +67,57 @@ export default function V3Hero({ onOpenModal, onScrollTo }: V3HeroProps) {
     fragmentOpacity: 0,
     vigyantraFormation: 0,
     vigyantraOpacity: 0,
+    evolveProgress: 0,
     isTransforming: true,
   });
 
   const [replayCount, setReplayCount] = useState(0);
+
+  // Toggle between Monument view and 8 Arenas Evolve view
+  const handleToggleView = (mode: 'monument' | 'arenas') => {
+    if (mode === viewMode) return;
+    setViewMode(mode);
+    const tv = timelineValuesRef.current;
+    const prefersReducedMotion = typeof window !== 'undefined' && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    if (mode === 'arenas') {
+      gsap.to(tv, {
+        evolveProgress: 1,
+        cameraDist: 7.8,
+        duration: prefersReducedMotion ? 0.3 : 1.5,
+        ease: 'power2.inOut',
+      });
+    } else {
+      gsap.to(tv, {
+        evolveProgress: 0,
+        cameraDist: 6.8,
+        duration: prefersReducedMotion ? 0.3 : 1.3,
+        ease: 'power2.inOut',
+      });
+    }
+  };
+
+  // Open the official Event Dossier Modal when an arena is selected
+  const handleArenaClick = (id: string) => {
+    const event = EVENTS_DATA.find((e) => e.id === id || e.shortName === id || e.code === id);
+    if (event && onSelectEvent) {
+      onSelectEvent(event as unknown as EventArena);
+    } else {
+      onScrollTo('arenas');
+    }
+  };
 
   useEffect(() => {
     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     const tv = timelineValuesRef.current;
     const tl = gsap.timeline();
 
+    setViewMode('monument');
+    setEvolveCueReady(false);
+
     if (prefersReducedMotion) {
       tv.cameraDist = 6.8;
+      tv.evolveProgress = 0;
       tv.isTransforming = false;
       setPhaseState('jubilee');
 
@@ -89,7 +133,10 @@ export default function V3Hero({ onOpenModal, onScrollTo }: V3HeroProps) {
           vigyantraFormation: 1,
           duration: 1.2,
           ease: 'power2.inOut',
-          onStart: () => setPhaseState('complete'),
+          onStart: () => {
+            setPhaseState('complete');
+            setEvolveCueReady(true);
+          },
         });
 
       if (jubileeMetaRef.current && finalMetaRef.current) {
@@ -108,6 +155,7 @@ export default function V3Hero({ onOpenModal, onScrollTo }: V3HeroProps) {
     tv.fragmentOpacity = 0;
     tv.vigyantraFormation = 0;
     tv.vigyantraOpacity = 0;
+    tv.evolveProgress = 0;
     tv.isTransforming = true;
     setPhaseState('jubilee');
 
@@ -138,7 +186,6 @@ export default function V3Hero({ onOpenModal, onScrollTo }: V3HeroProps) {
     });
 
     // Beat 2: Mechanical Uncoupling & Disassembly (1.6s to 3.6s)
-    // Gold bevels detach, numerals split laterally, structural components uncouple
     tl.to(
       tv,
       {
@@ -179,7 +226,7 @@ export default function V3Hero({ onOpenModal, onScrollTo }: V3HeroProps) {
     tl.to(
       tv,
       {
-        cameraDist: 6.8, // Intimate, dominant presentation (~70% visual area)
+        cameraDist: 6.8, // Intimate, dominant presentation
         fragmentProgress: 1,
         duration: 2.0,
         ease: 'power3.inOut',
@@ -215,6 +262,7 @@ export default function V3Hero({ onOpenModal, onScrollTo }: V3HeroProps) {
     tl.call(() => {
       tv.isTransforming = false;
       setPhaseState('complete');
+      setEvolveCueReady(true);
 
       // Restore UI elements to full prominence
       if (topTelemetryRef.current) {
@@ -245,6 +293,9 @@ export default function V3Hero({ onOpenModal, onScrollTo }: V3HeroProps) {
     };
   }, [replayCount]);
 
+  const leftArenas = ARENA_NODES_CONFIG.slice(0, 4);
+  const rightArenas = ARENA_NODES_CONFIG.slice(4, 8);
+
   return (
     <section
       id="command-deck"
@@ -264,10 +315,15 @@ export default function V3Hero({ onOpenModal, onScrollTo }: V3HeroProps) {
         boxSizing: 'border-box',
       }}
     >
-      {/* 3D Scene Layer */}
-      <V3Scene timelineValues={timelineValuesRef} />
+      {/* 3D Scene Layer with 8 Arenas and Central Power Hub */}
+      <V3Scene
+        timelineValues={timelineValuesRef}
+        hoveredArenaId={hoveredArenaId}
+        onHoverArena={setHoveredArenaId}
+        onSelectArena={handleArenaClick}
+      />
 
-      {/* Ultra-subtle engineering grid overlay (reduced to 0.008 opacity) */}
+      {/* Ultra-subtle engineering grid overlay */}
       <div
         style={{
           position: 'absolute',
@@ -294,6 +350,197 @@ export default function V3Hero({ onOpenModal, onScrollTo }: V3HeroProps) {
         }}
         aria-hidden="true"
       />
+
+      {/* =========================================================================
+          V3.3 8 ARENAS INTERACTIVE HTML DISCOVERY FLANKS (Overlaid on 3D Scene)
+          ========================================================================= */}
+      {viewMode === 'arenas' && (
+        <div className="v3-evolve-overlay" aria-label="8 Flagship Arenas Matrix">
+          {/* Left Flank: Arenas 01 - 04 */}
+          <div className="v3-evolve-flank">
+            {leftArenas.map((arena) => {
+              const isHovered = hoveredArenaId === arena.id;
+              return (
+                <div
+                  key={arena.id}
+                  className={`v3-arena-card ${isHovered ? 'active-hover' : ''}`}
+                  onMouseEnter={() => setHoveredArenaId(arena.id)}
+                  onMouseLeave={() => setHoveredArenaId(null)}
+                  onClick={() => handleArenaClick(arena.id)}
+                  role="button"
+                  tabIndex={0}
+                  onKeyDown={(e) => {
+                    if (e.key === 'Enter' || e.key === ' ') handleArenaClick(arena.id);
+                  }}
+                  aria-label={`Open Dossier for Arena ${arena.number}: ${arena.name}`}
+                >
+                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                    <span
+                      style={{
+                        fontFamily: 'var(--v2-font-mono)',
+                        fontSize: '0.62rem',
+                        color: 'var(--v2-gold)',
+                        letterSpacing: '0.14em',
+                      }}
+                    >
+                      ARENA {arena.number}
+                    </span>
+                    <span
+                      style={{
+                        fontFamily: 'var(--v2-font-mono)',
+                        fontSize: '0.58rem',
+                        color: 'var(--v2-silver-200)',
+                        letterSpacing: '0.08em',
+                        background: 'rgba(255, 255, 255, 0.06)',
+                        padding: '1px 6px',
+                        borderRadius: '3px',
+                      }}
+                    >
+                      ₹50,000
+                    </span>
+                  </div>
+                  <div
+                    style={{
+                      fontFamily: 'var(--v2-font-heading)',
+                      fontSize: '0.86rem',
+                      fontWeight: 600,
+                      color: 'var(--v2-ivory)',
+                      letterSpacing: '0.04em',
+                      lineHeight: 1.25,
+                      marginTop: '2px',
+                    }}
+                  >
+                    {arena.name}
+                  </div>
+                  <div
+                    style={{
+                      display: 'flex',
+                      justifyContent: 'space-between',
+                      alignItems: 'center',
+                      marginTop: '4px',
+                    }}
+                  >
+                    <span
+                      style={{
+                        fontFamily: 'var(--v2-font-mono)',
+                        fontSize: '0.55rem',
+                        color: 'var(--v2-text-tertiary)',
+                        letterSpacing: '0.08em',
+                        textTransform: 'uppercase',
+                      }}
+                    >
+                      {arena.id} // {arena.category}
+                    </span>
+                    <span
+                      style={{
+                        fontFamily: 'var(--v2-font-mono)',
+                        fontSize: '0.58rem',
+                        color: isHovered ? 'var(--v2-gold)' : 'var(--v2-text-muted)',
+                        letterSpacing: '0.06em',
+                        fontWeight: 500,
+                      }}
+                    >
+                      DOSSIER →
+                    </span>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+
+          {/* Right Flank: Arenas 05 - 08 */}
+          <div className="v3-evolve-flank">
+            {rightArenas.map((arena) => {
+              const isHovered = hoveredArenaId === arena.id;
+              return (
+                <div
+                  key={arena.id}
+                  className={`v3-arena-card ${isHovered ? 'active-hover' : ''}`}
+                  onMouseEnter={() => setHoveredArenaId(arena.id)}
+                  onMouseLeave={() => setHoveredArenaId(null)}
+                  onClick={() => handleArenaClick(arena.id)}
+                  role="button"
+                  tabIndex={0}
+                  onKeyDown={(e) => {
+                    if (e.key === 'Enter' || e.key === ' ') handleArenaClick(arena.id);
+                  }}
+                  aria-label={`Open Dossier for Arena ${arena.number}: ${arena.name}`}
+                >
+                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                    <span
+                      style={{
+                        fontFamily: 'var(--v2-font-mono)',
+                        fontSize: '0.62rem',
+                        color: 'var(--v2-gold)',
+                        letterSpacing: '0.14em',
+                      }}
+                    >
+                      ARENA {arena.number}
+                    </span>
+                    <span
+                      style={{
+                        fontFamily: 'var(--v2-font-mono)',
+                        fontSize: '0.58rem',
+                        color: 'var(--v2-silver-200)',
+                        letterSpacing: '0.08em',
+                        background: 'rgba(255, 255, 255, 0.06)',
+                        padding: '1px 6px',
+                        borderRadius: '3px',
+                      }}
+                    >
+                      ₹50,000
+                    </span>
+                  </div>
+                  <div
+                    style={{
+                      fontFamily: 'var(--v2-font-heading)',
+                      fontSize: '0.86rem',
+                      fontWeight: 600,
+                      color: 'var(--v2-ivory)',
+                      letterSpacing: '0.04em',
+                      lineHeight: 1.25,
+                      marginTop: '2px',
+                    }}
+                  >
+                    {arena.name}
+                  </div>
+                  <div
+                    style={{
+                      display: 'flex',
+                      justifyContent: 'space-between',
+                      alignItems: 'center',
+                      marginTop: '4px',
+                    }}
+                  >
+                    <span
+                      style={{
+                        fontFamily: 'var(--v2-font-mono)',
+                        fontSize: '0.55rem',
+                        color: 'var(--v2-text-tertiary)',
+                        letterSpacing: '0.08em',
+                        textTransform: 'uppercase',
+                      }}
+                    >
+                      {arena.id} // {arena.category}
+                    </span>
+                    <span
+                      style={{
+                        fontFamily: 'var(--v2-font-mono)',
+                        fontSize: '0.58rem',
+                        color: isHovered ? 'var(--v2-gold)' : 'var(--v2-text-muted)',
+                        letterSpacing: '0.06em',
+                        fontWeight: 500,
+                      }}
+                    >
+                      DOSSIER →
+                    </span>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      )}
 
       {/* Main Content Container Overlaid on 3D Canvas */}
       <div
@@ -323,6 +570,30 @@ export default function V3Hero({ onOpenModal, onScrollTo }: V3HeroProps) {
               <V2Badge variant="steel">BENGALURU • EST. 2001</V2Badge>
             </div>
           </div>
+
+          {/* Center Stage Switcher Bar (Appears when transformation completes) */}
+          {phaseState === 'complete' && (
+            <div className="v3-evolve-toggle-bar" role="tablist" aria-label="Hero View Mode">
+              <button
+                className={`v3-toggle-btn ${viewMode === 'monument' ? 'active' : ''}`}
+                onClick={() => handleToggleView('monument')}
+                role="tab"
+                aria-selected={viewMode === 'monument'}
+                title="View the monolithic VIGYANTRA 3D monument"
+              >
+                ◈ MONUMENT VIEW
+              </button>
+              <button
+                className={`v3-toggle-btn ${viewMode === 'arenas' ? 'active' : ''}`}
+                onClick={() => handleToggleView('arenas')}
+                role="tab"
+                aria-selected={viewMode === 'arenas'}
+                title="View the 8 technical arenas constellation"
+              >
+                ✦ 8 ARENAS VIEW
+              </button>
+            </div>
+          )}
 
           <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-end', gap: '4px' }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
@@ -378,12 +649,13 @@ export default function V3Hero({ onOpenModal, onScrollTo }: V3HeroProps) {
             position: 'relative',
           }}
         >
-          {/* Spatial Spacer for the Elevated 3D Object (Calibrated for comfortable 100dvh fit) */}
+          {/* Spatial Spacer for the Elevated 3D Object */}
           <div
             style={{
-              height: 'clamp(120px, 19vw, 185px)',
+              height: viewMode === 'arenas' ? 'clamp(100px, 14vw, 150px)' : 'clamp(120px, 19vw, 185px)',
               width: '100%',
               pointerEvents: 'none',
+              transition: 'height 0.4s ease',
             }}
           />
 
@@ -435,172 +707,349 @@ export default function V3Hero({ onOpenModal, onScrollTo }: V3HeroProps) {
             </div>
           </div>
 
-          {/* FINAL STATE COMPREHENSIVE EDITORIAL (Placed cleanly below 3D VIGYANTRA with 100dvh fit) */}
-          <div
-            ref={finalMetaRef}
-            style={{
-              display: 'flex',
-              flexDirection: 'column',
-              alignItems: 'center',
-              width: '100%',
-              maxWidth: '820px',
-              opacity: 0,
-              pointerEvents: phaseState === 'complete' ? 'auto' : 'none',
-              marginTop: '0.25rem',
-              padding: '0.85rem 1.25rem',
-              borderRadius: '8px',
-              background: 'radial-gradient(ellipse at center, rgba(5,5,7,0.78) 0%, rgba(5,5,7,0.4) 60%, transparent 100%)',
-            }}
-          >
-            {/* Subtitle & Motto */}
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '4px', alignItems: 'center' }}>
-              {/* National-Level Statement */}
-              <div
-                style={{
-                  fontFamily: 'var(--v2-font-heading)',
-                  fontSize: 'clamp(0.96rem, 1.6vw, 1.24rem)',
-                  fontWeight: 600,
-                  letterSpacing: '0.15em',
-                  color: 'var(--v2-ivory)',
-                  textTransform: 'uppercase',
-                  maxWidth: '92vw',
-                  lineHeight: 1.3,
-                  textShadow: '0 2px 10px rgba(0, 0, 0, 0.8)',
-                }}
-              >
-                A NATIONAL-LEVEL TECHNICAL SYMPOSIUM
-              </div>
-
-              {/* Motto: Warm ivory/gold-tinted italic */}
-              <div
-                style={{
-                  fontFamily: 'var(--v2-font-body)',
-                  fontSize: 'clamp(0.85rem, 1.2vw, 1.02rem)',
-                  fontStyle: 'italic',
-                  color: '#e2d9c8',
-                  letterSpacing: '0.04em',
-                  opacity: 0.95,
-                  textShadow: '0 2px 8px rgba(0, 0, 0, 0.7)',
-                }}
-              >
-                “Ideas Today • Solutions Tomorrow”
-              </div>
-            </div>
-
-            {/* Event Metadata Horizon (Date & Location) */}
+          {/* =========================================================================
+              VIEW MODE A: MONUMENT VIEW EDITORIAL (Sovereign VIGYANTRA focus)
+              ========================================================================= */}
+          {viewMode === 'monument' && (
             <div
-              className="v2-hero-meta-horizon"
+              ref={finalMetaRef}
               style={{
-                marginTop: '0.55rem',
-                color: 'var(--v2-silver-200)',
-                fontSize: 'clamp(0.68rem, 0.88vw, 0.80rem)',
-                letterSpacing: '0.12em',
-              }}
-            >
-              <span style={{ color: 'var(--v2-ivory)' }}>30 OCTOBER 2026 (FRIDAY)</span>
-              <span className="sep">•</span>
-              <span style={{ color: 'var(--v2-silver-200)' }}>SJBIT CAMPUS • BENGALURU</span>
-            </div>
-
-            {/* Dedicated Hero Prize Pool Plaque Artifact */}
-            <div
-              ref={prizePoolRef}
-              style={{
-                marginTop: '0.75rem',
                 display: 'flex',
                 flexDirection: 'column',
                 alignItems: 'center',
-                padding: '0.55rem 1.6rem',
-                borderRadius: '6px',
-                background: 'linear-gradient(180deg, rgba(28, 30, 36, 0.85) 0%, rgba(13, 14, 18, 0.92) 100%)',
-                border: '1px solid rgba(212, 175, 55, 0.28)',
-                boxShadow: '0 4px 16px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(212, 175, 55, 0.2)',
-                position: 'relative',
+                width: '100%',
+                maxWidth: '820px',
+                opacity: 0,
+                pointerEvents: phaseState === 'complete' ? 'auto' : 'none',
+                marginTop: '0.25rem',
+                padding: '0.85rem 1.25rem',
+                borderRadius: '8px',
+                background: 'radial-gradient(ellipse at center, rgba(5,5,7,0.78) 0%, rgba(5,5,7,0.4) 60%, transparent 100%)',
               }}
             >
-              {/* Muted Uppercase Header */}
+              {/* Subtitle & Motto */}
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '4px', alignItems: 'center' }}>
+                {/* National-Level Statement */}
+                <div
+                  style={{
+                    fontFamily: 'var(--v2-font-heading)',
+                    fontSize: 'clamp(0.96rem, 1.6vw, 1.24rem)',
+                    fontWeight: 600,
+                    letterSpacing: '0.15em',
+                    color: 'var(--v2-ivory)',
+                    textTransform: 'uppercase',
+                    maxWidth: '92vw',
+                    lineHeight: 1.3,
+                    textShadow: '0 2px 10px rgba(0, 0, 0, 0.8)',
+                  }}
+                >
+                  A NATIONAL-LEVEL TECHNICAL SYMPOSIUM
+                </div>
+
+                {/* Motto */}
+                <div
+                  style={{
+                    fontFamily: 'var(--v2-font-body)',
+                    fontSize: 'clamp(0.85rem, 1.2vw, 1.02rem)',
+                    fontStyle: 'italic',
+                    color: '#e2d9c8',
+                    letterSpacing: '0.04em',
+                    opacity: 0.95,
+                    textShadow: '0 2px 8px rgba(0, 0, 0, 0.7)',
+                  }}
+                >
+                  “Ideas Today • Solutions Tomorrow”
+                </div>
+              </div>
+
+              {/* Event Metadata Horizon (Date & Location) */}
               <div
+                className="v2-hero-meta-horizon"
                 style={{
-                  fontFamily: 'var(--v2-font-mono)',
-                  fontSize: 'clamp(0.56rem, 0.7vw, 0.64rem)',
-                  letterSpacing: '0.22em',
+                  marginTop: '0.55rem',
                   color: 'var(--v2-silver-200)',
-                  textTransform: 'uppercase',
-                  opacity: 0.85,
-                  marginBottom: '1px',
+                  fontSize: 'clamp(0.68rem, 0.88vw, 0.80rem)',
+                  letterSpacing: '0.12em',
                 }}
               >
-                TOTAL PRIZE POOL
+                <span style={{ color: 'var(--v2-ivory)' }}>30 OCTOBER 2026 (FRIDAY)</span>
+                <span className="sep">•</span>
+                <span style={{ color: 'var(--v2-silver-200)' }}>SJBIT CAMPUS • BENGALURU</span>
               </div>
 
-              {/* Dominant Antique Gold Amount */}
+              {/* Dedicated Hero Prize Pool Plaque Artifact */}
               <div
+                ref={prizePoolRef}
                 style={{
-                  fontFamily: 'var(--v2-font-display)',
-                  fontSize: 'clamp(1.5rem, 2.7vw, 2.15rem)',
-                  fontWeight: 800,
-                  letterSpacing: '0.04em',
-                  color: 'var(--v2-gold)',
-                  lineHeight: 1.1,
-                  textShadow: '0 2px 12px rgba(212, 175, 55, 0.25)',
+                  marginTop: '0.75rem',
+                  display: 'flex',
+                  flexDirection: 'column',
+                  alignItems: 'center',
+                  padding: '0.55rem 1.6rem',
+                  borderRadius: '6px',
+                  background: 'linear-gradient(180deg, rgba(28, 30, 36, 0.85) 0%, rgba(13, 14, 18, 0.92) 100%)',
+                  border: '1px solid rgba(212, 175, 55, 0.28)',
+                  boxShadow: '0 4px 16px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(212, 175, 55, 0.2)',
+                  position: 'relative',
                 }}
               >
-                ₹ 4,00,000
+                <div
+                  style={{
+                    fontFamily: 'var(--v2-font-mono)',
+                    fontSize: 'clamp(0.56rem, 0.7vw, 0.64rem)',
+                    letterSpacing: '0.22em',
+                    color: 'var(--v2-silver-200)',
+                    textTransform: 'uppercase',
+                    opacity: 0.85,
+                    marginBottom: '1px',
+                  }}
+                >
+                  TOTAL PRIZE POOL
+                </div>
+
+                <div
+                  style={{
+                    fontFamily: 'var(--v2-font-display)',
+                    fontSize: 'clamp(1.5rem, 2.7vw, 2.15rem)',
+                    fontWeight: 800,
+                    letterSpacing: '0.04em',
+                    color: 'var(--v2-gold)',
+                    lineHeight: 1.1,
+                    textShadow: '0 2px 12px rgba(212, 175, 55, 0.25)',
+                  }}
+                >
+                  ₹ 4,00,000
+                </div>
+
+                <div
+                  style={{
+                    fontFamily: 'var(--v2-font-mono)',
+                    fontSize: 'clamp(0.54rem, 0.65vw, 0.60rem)',
+                    letterSpacing: '0.16em',
+                    color: 'var(--v2-text-tertiary)',
+                    textTransform: 'uppercase',
+                    marginTop: '1px',
+                  }}
+                >
+                  ACROSS 08 NATIONAL FLAGSHIP ARENAS
+                </div>
               </div>
 
-              {/* Supporting Category Notation */}
+              {/* Interactive Evolve Cue Trigger Button */}
+              {evolveCueReady && (
+                <div style={{ marginTop: '0.75rem' }}>
+                  <button
+                    onClick={() => handleToggleView('arenas')}
+                    style={{
+                      display: 'inline-flex',
+                      alignItems: 'center',
+                      gap: '8px',
+                      background: 'linear-gradient(135deg, rgba(212, 175, 55, 0.12) 0%, rgba(155, 27, 48, 0.12) 100%)',
+                      border: '1px solid rgba(212, 175, 55, 0.45)',
+                      color: 'var(--v2-gold)',
+                      fontFamily: 'var(--v2-font-mono)',
+                      fontSize: 'clamp(0.66rem, 0.85vw, 0.76rem)',
+                      letterSpacing: '0.14em',
+                      padding: '6px 18px',
+                      borderRadius: '4px',
+                      cursor: 'pointer',
+                      transition: 'all 0.25s ease',
+                      boxShadow: '0 0 16px rgba(212, 175, 55, 0.15)',
+                    }}
+                    onMouseEnter={(e) => {
+                      e.currentTarget.style.borderColor = 'var(--v2-gold)';
+                      e.currentTarget.style.background = 'linear-gradient(135deg, rgba(212, 175, 55, 0.24) 0%, rgba(155, 27, 48, 0.24) 100%)';
+                      e.currentTarget.style.boxShadow = '0 0 24px rgba(212, 175, 55, 0.35)';
+                    }}
+                    onMouseLeave={(e) => {
+                      e.currentTarget.style.borderColor = 'rgba(212, 175, 55, 0.45)';
+                      e.currentTarget.style.background = 'linear-gradient(135deg, rgba(212, 175, 55, 0.12) 0%, rgba(155, 27, 48, 0.12) 100%)';
+                      e.currentTarget.style.boxShadow = '0 0 16px rgba(212, 175, 55, 0.15)';
+                    }}
+                  >
+                    <span>✦ EVOLVE TO 8 ARENAS</span>
+                    <span style={{ fontSize: '0.7rem' }}>→</span>
+                  </button>
+                </div>
+              )}
+
+              {/* Live Countdown Timer */}
+              <div style={{ marginTop: '0.85rem', width: '100%', display: 'flex', justifyContent: 'center' }}>
+                <V2Countdown />
+              </div>
+
+              {/* Primary 3-Tier Action CTA Group */}
+              <div className="v2-hero-cta-group" style={{ marginTop: '0.95rem' }}>
+                {/* 1. Register Now */}
+                <V2Button
+                  variant="primary"
+                  size="lg"
+                  onClick={() => onOpenModal('registration')}
+                  aria-label="Open Cadet Registration Terminal"
+                >
+                  REGISTER NOW ⚡
+                </V2Button>
+
+                {/* 2. Explore 8 Arenas (Switches directly to Evolve Arena View) */}
+                <V2Button
+                  variant="secondary"
+                  size="lg"
+                  onClick={() => handleToggleView('arenas')}
+                  aria-label="Evolve and Explore 8 Flagship Arenas"
+                >
+                  EXPLORE 8 ARENAS →
+                </V2Button>
+
+                {/* 3. View Dossier */}
+                <V2Button
+                  variant="tertiary"
+                  size="lg"
+                  onClick={() => onOpenModal('brochure')}
+                  aria-label="Open Digital Brochure Dossier"
+                >
+                  VIEW DOSSIER ↗
+                </V2Button>
+              </div>
+            </div>
+          )}
+
+          {/* =========================================================================
+              VIEW MODE B: 8 ARENAS CONSTELLATION EDITORIAL
+              ========================================================================= */}
+          {viewMode === 'arenas' && (
+            <div
+              style={{
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center',
+                width: '100%',
+                maxWidth: '680px',
+                zIndex: 12,
+                marginTop: '0.25rem',
+                padding: '0.75rem 1.25rem',
+                borderRadius: '8px',
+                background: 'radial-gradient(ellipse at center, rgba(5,5,7,0.85) 0%, rgba(5,5,7,0.5) 70%, transparent 100%)',
+              }}
+            >
+              {/* Institutional Horizon Notation */}
               <div
                 style={{
                   fontFamily: 'var(--v2-font-mono)',
-                  fontSize: 'clamp(0.54rem, 0.65vw, 0.60rem)',
-                  letterSpacing: '0.16em',
-                  color: 'var(--v2-text-tertiary)',
+                  fontSize: 'clamp(0.62rem, 0.8vw, 0.72rem)',
+                  letterSpacing: '0.22em',
+                  color: 'var(--v2-gold)',
                   textTransform: 'uppercase',
-                  marginTop: '1px',
                 }}
               >
-                ACROSS 08 NATIONAL FLAGSHIP ARENAS
+                VIGYANTRA // 8 TECHNICAL ARENAS
+              </div>
+
+              {/* Center Prize Pool Plaque Artifact */}
+              <div
+                style={{
+                  marginTop: '0.5rem',
+                  display: 'flex',
+                  flexDirection: 'column',
+                  alignItems: 'center',
+                  padding: '0.5rem 1.4rem',
+                  borderRadius: '6px',
+                  background: 'linear-gradient(180deg, rgba(28, 30, 36, 0.9) 0%, rgba(13, 14, 18, 0.95) 100%)',
+                  border: '1px solid rgba(212, 175, 55, 0.32)',
+                  boxShadow: '0 4px 16px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(212, 175, 55, 0.2)',
+                }}
+              >
+                <div
+                  style={{
+                    fontFamily: 'var(--v2-font-mono)',
+                    fontSize: '0.56rem',
+                    letterSpacing: '0.2em',
+                    color: 'var(--v2-silver-200)',
+                    textTransform: 'uppercase',
+                  }}
+                >
+                  TOTAL PRIZE POOL
+                </div>
+                <div
+                  style={{
+                    fontFamily: 'var(--v2-font-display)',
+                    fontSize: 'clamp(1.4rem, 2.4vw, 1.95rem)',
+                    fontWeight: 800,
+                    letterSpacing: '0.04em',
+                    color: 'var(--v2-gold)',
+                    lineHeight: 1.1,
+                  }}
+                >
+                  ₹ 4,00,000
+                </div>
+                <div
+                  style={{
+                    fontFamily: 'var(--v2-font-mono)',
+                    fontSize: '0.54rem',
+                    letterSpacing: '0.14em',
+                    color: 'var(--v2-text-tertiary)',
+                    textTransform: 'uppercase',
+                  }}
+                >
+                  ₹50,000 PER ARENA • 30 OCTOBER 2026
+                </div>
+              </div>
+
+              {/* Action Buttons in Arenas View */}
+              <div
+                style={{
+                  display: 'flex',
+                  gap: '10px',
+                  marginTop: '0.85rem',
+                  flexWrap: 'wrap',
+                  justifyContent: 'center',
+                }}
+              >
+                <V2Button
+                  variant="primary"
+                  size="md"
+                  onClick={() => onOpenModal('registration')}
+                  aria-label="Register for an Arena"
+                >
+                  REGISTER NOW ⚡
+                </V2Button>
+
+                <button
+                  onClick={() => handleToggleView('monument')}
+                  style={{
+                    background: 'rgba(212, 175, 55, 0.08)',
+                    border: '1px solid rgba(212, 175, 55, 0.35)',
+                    color: 'var(--v2-ivory)',
+                    fontFamily: 'var(--v2-font-mono)',
+                    fontSize: '0.72rem',
+                    letterSpacing: '0.12em',
+                    padding: '8px 16px',
+                    borderRadius: '4px',
+                    cursor: 'pointer',
+                    transition: 'all 0.2s ease',
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.borderColor = 'var(--v2-gold)';
+                    e.currentTarget.style.background = 'rgba(212, 175, 55, 0.16)';
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.borderColor = 'rgba(212, 175, 55, 0.35)';
+                    e.currentTarget.style.background = 'rgba(212, 175, 55, 0.08)';
+                  }}
+                >
+                  ← RETURN TO MONUMENT
+                </button>
+
+                <V2Button
+                  variant="tertiary"
+                  size="md"
+                  onClick={() => onOpenModal('brochure')}
+                  aria-label="View Full Brochure Dossier"
+                >
+                  DOSSIER ↗
+                </V2Button>
               </div>
             </div>
-
-            {/* Live Countdown Timer */}
-            <div style={{ marginTop: '0.85rem', width: '100%', display: 'flex', justifyContent: 'center' }}>
-              <V2Countdown />
-            </div>
-
-            {/* Primary 3-Tier Action CTA Group */}
-            <div className="v2-hero-cta-group" style={{ marginTop: '0.95rem' }}>
-              {/* 1. Register Now */}
-              <V2Button
-                variant="primary"
-                size="lg"
-                onClick={() => onOpenModal('registration')}
-                aria-label="Open Cadet Registration Terminal"
-              >
-                REGISTER NOW ⚡
-              </V2Button>
-
-              {/* 2. Explore 8 Arenas */}
-              <V2Button
-                variant="secondary"
-                size="lg"
-                onClick={() => onScrollTo('arenas')}
-                aria-label="Scroll to 8 Flagship Arenas"
-              >
-                EXPLORE 8 ARENAS →
-              </V2Button>
-
-              {/* 3. View Dossier */}
-              <V2Button
-                variant="tertiary"
-                size="lg"
-                onClick={() => onOpenModal('brochure')}
-                aria-label="Open Digital Brochure Dossier"
-              >
-                VIEW DOSSIER ↗
-              </V2Button>
-            </div>
-          </div>
+          )}
         </div>
 
         {/* 3. Swamiji Institutional Layer */}

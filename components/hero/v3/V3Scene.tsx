@@ -6,9 +6,10 @@ import * as THREE from 'three';
 import V3Jubilee25 from './V3Jubilee25';
 import V3FragmentField from './V3FragmentField';
 import V3Vigyantra from './V3Vigyantra';
+import V3ArenaNodes from './V3ArenaNodes';
 
 export interface TransformationTimelineValues {
-  cameraDist: number;         // Closer framing: 6.2 for 25, 4.2 close-up, 6.8 for final VIGYANTRA
+  cameraDist: number;         // Closer framing: 6.2 for 25, 4.2 close-up, 6.8 for final VIGYANTRA, 7.8 for 8 Arenas
   cameraTargetZ: number;      // Look-at focal plane
   jubileeDeconstruct: number; // 0 to 1
   jubileeOpacity: number;     // 1 to 0
@@ -16,11 +17,15 @@ export interface TransformationTimelineValues {
   fragmentOpacity: number;    // 0 to 1 to 0
   vigyantraFormation: number; // 0 to 1
   vigyantraOpacity: number;   // 0 to 1
+  evolveProgress: number;     // 0 = monument focus, 1 = 8 arenas constellation
   isTransforming: boolean;    // suppresses pointer tilt during cinematic sequence
 }
 
 interface V3SceneProps {
   timelineValues: React.MutableRefObject<TransformationTimelineValues>;
+  hoveredArenaId?: string | null;
+  onHoverArena?: (id: string | null) => void;
+  onSelectArena?: (id: string) => void;
 }
 
 function CameraRig({
@@ -76,9 +81,15 @@ function CameraRig({
 function SceneContent({
   pointerPos,
   timelineValues,
+  hoveredArenaId,
+  onHoverArena,
+  onSelectArena,
 }: {
   pointerPos: React.MutableRefObject<{ x: number; y: number }>;
   timelineValues: React.MutableRefObject<TransformationTimelineValues>;
+  hoveredArenaId?: string | null;
+  onHoverArena?: (id: string | null) => void;
+  onSelectArena?: (id: string) => void;
 }) {
   const vals = timelineValues.current;
 
@@ -129,7 +140,7 @@ function SceneContent({
         decay={2}
       />
 
-      {/* 3D Engineered Artifacts Stage (Scaled ~13% down to 0.87 for comfortable monumental framing without cropping) */}
+      {/* 3D Engineered Artifacts Stage */}
       <group position={[0, 0.72, 0]} scale={[0.87, 0.87, 0.87]}>
         {/* Initial 3D 25 Jubilee Monument */}
         <V3Jubilee25
@@ -144,18 +155,32 @@ function SceneContent({
           opacity={vals.fragmentOpacity}
         />
 
-        {/* Final Formed VIGYANTRA Monument */}
+        {/* Formed VIGYANTRA Monument (transitions smoothly to sovereign anchor hub when evolved) */}
         <V3Vigyantra
           pointerPos={pointerPos}
           formationProgress={vals.vigyantraFormation}
+          evolveProgress={vals.evolveProgress}
           opacity={vals.vigyantraOpacity}
+        />
+
+        {/* Deployed 8 Architectural Arena Nodes with Energy Tethers */}
+        <V3ArenaNodes
+          progress={vals.evolveProgress}
+          hoveredArenaId={hoveredArenaId}
+          onHoverArena={onHoverArena}
+          onSelectArena={onSelectArena}
         />
       </group>
     </>
   );
 }
 
-export default function V3Scene({ timelineValues }: V3SceneProps) {
+export default function V3Scene({
+  timelineValues,
+  hoveredArenaId,
+  onHoverArena,
+  onSelectArena,
+}: V3SceneProps) {
   const pointerPos = useRef({ x: 0, y: 0 });
 
   useEffect(() => {
@@ -187,9 +212,15 @@ export default function V3Scene({ timelineValues }: V3SceneProps) {
           alpha: true,
           powerPreference: 'high-performance',
         }}
-        style={{ width: '100%', height: '100%' }}
+        style={{ width: '100%', height: '100%', pointerEvents: 'auto' }}
       >
-        <SceneContent pointerPos={pointerPos} timelineValues={timelineValues} />
+        <SceneContent
+          pointerPos={pointerPos}
+          timelineValues={timelineValues}
+          hoveredArenaId={hoveredArenaId}
+          onHoverArena={onHoverArena}
+          onSelectArena={onSelectArena}
+        />
       </Canvas>
     </div>
   );
