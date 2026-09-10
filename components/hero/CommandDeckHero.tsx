@@ -12,7 +12,7 @@ interface CommandDeckHeroProps {
 
 export default function CommandDeckHero({ onOpenModal, onScrollTo }: CommandDeckHeroProps) {
   return (
-    <main className="command-deck-stage" style={{ position: 'relative', overflow: 'hidden' }}>
+    <main id="command-deck" className="command-deck-stage" style={{ position: 'relative', overflow: 'hidden' }}>
       {/* Top Invocatory & Institute Tag */}
       <div className="deck-trust-banner">
         <div className="deck-invocatory">|| JAI SRI GURUDEV ||</div>

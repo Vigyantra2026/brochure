@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import UniverseCanvas from '@/components/motion/UniverseCanvas';
+import ScrollytellingHero from '@/components/motion/ScrollytellingHero';
 import CinematicIntro from '@/components/intro/CinematicIntro';
 import CyberHeader from '@/components/navigation/CyberHeader';
 import CommandDeckHero from '@/components/hero/CommandDeckHero';
@@ -107,10 +108,13 @@ export default function HomePage() {
       {/* 3. Top Cyber Navigation Header */}
       <CyberHeader onOpenModal={handleOpenModal} onScrollTo={handleScrollTo} />
 
-      {/* 4. Main Command Deck Hero (100vh) */}
+      {/* 4. 3D CGI Scrollytelling Video Canvas Hero (120-Frame Quantum Flight Deck) */}
+      <ScrollytellingHero onScrollToCommandDeck={() => handleScrollTo('command-deck')} />
+
+      {/* 5. Main Command Deck Hero (100vh) */}
       <CommandDeckHero onOpenModal={handleOpenModal} onScrollTo={handleScrollTo} />
 
-      {/* 5. Scrollable Technical Dossier & Information Sections */}
+      {/* 6. Scrollable Technical Dossier & Information Sections */}
       <div className="info-scroll-container">
         {/* About Section */}
         <section id="about" className="info-section">
