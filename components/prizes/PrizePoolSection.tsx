@@ -60,7 +60,7 @@ export default function PrizePoolSection() {
     if (prefersReducedMotion) return { opacity: 1, scale: 1, translateY: 0 };
     if (progress < 0.18) {
       const t = Math.max(0, progress / 0.18);
-      return { opacity: 0.2 + t * 0.8, scale: 0.88 + t * 0.12, translateY: (1 - t) * 35 };
+      return { opacity: 0.2 + t * 0.8, scale: 0.9 + t * 0.1, translateY: (1 - t) * 18 };
     }
     return { opacity: 1, scale: 1, translateY: 0 };
   }, [progress, prefersReducedMotion]);
@@ -74,10 +74,10 @@ export default function PrizePoolSection() {
 
   const breakdownState = useMemo(() => {
     if (prefersReducedMotion) return { opacity: 1, translateY: 0 };
-    if (progress < 0.55) return { opacity: 0, translateY: 35 };
+    if (progress < 0.55) return { opacity: 0, translateY: 12 };
     if (progress < 0.80) {
       const t = (progress - 0.55) / 0.25;
-      return { opacity: t, translateY: (1 - t) * 35 };
+      return { opacity: t, translateY: (1 - t) * 12 };
     }
     return { opacity: 1, translateY: 0 };
   }, [progress, prefersReducedMotion]);
@@ -99,6 +99,7 @@ export default function PrizePoolSection() {
         ref={stageRef}
         className="v2-prizes-scroll-stage"
         style={{
+          minHeight: '100vh',
           height: '100vh',
           width: '100%',
           display: 'flex',
@@ -110,7 +111,7 @@ export default function PrizePoolSection() {
           backgroundColor: '#08090C',
           borderBottom: '1px solid rgba(255, 255, 255, 0.08)',
           boxSizing: 'border-box',
-          padding: 'clamp(20px, 3vh, 36px) 0',
+          padding: 'clamp(10px, 1.5vh, 18px) 0 clamp(18px, 2.8vh, 28px)',
         }}
       >
         {/* Subtle Ambient Radial Lighting */}
@@ -135,10 +136,8 @@ export default function PrizePoolSection() {
             position: 'relative',
             zIndex: 2,
             width: '100%',
-            maxWidth: '1200px',
-            maxHeight: '92vh',
-            overflowY: 'auto',
-            paddingRight: '4px',
+            maxWidth: '1000px',
+            boxSizing: 'border-box',
           }}
         >
           {/* Section Header */}
@@ -146,7 +145,7 @@ export default function PrizePoolSection() {
             style={{
               textAlign: 'center',
               maxWidth: '780px',
-              margin: '0 auto clamp(20px, 3vh, 32px)',
+              margin: '0 auto clamp(8px, 1.2vh, 14px)',
               opacity: headerOpacity,
               transition: prefersReducedMotion ? 'none' : 'opacity 0.1s linear',
             }}
@@ -155,11 +154,11 @@ export default function PrizePoolSection() {
             <h2
               style={{
                 fontFamily: 'var(--v2-font-heading)',
-                fontSize: 'clamp(1.6rem, 2.8vw, 2.4rem)',
+                fontSize: 'clamp(1.35rem, 2.2vw, 1.85rem)',
                 fontWeight: 700,
                 color: 'var(--v2-text-primary)',
                 letterSpacing: '0.03em',
-                marginTop: '8px',
+                marginTop: '4px',
               }}
             >
               AWARDS &amp; PRIZE POOL
@@ -169,12 +168,12 @@ export default function PrizePoolSection() {
           {/* Primary Monolithic Prize Feature Card (₹ 4,00,000) */}
           <div
             style={{
-              maxWidth: '880px',
-              margin: '0 auto clamp(20px, 2.8vh, 32px)',
+              maxWidth: '820px',
+              margin: '0 auto clamp(10px, 1.4vh, 16px)',
               backgroundColor: 'rgba(14, 16, 21, 0.9)',
               border: '1.5px solid rgba(212, 175, 55, 0.4)',
-              borderRadius: '12px',
-              padding: 'clamp(24px, 3.5vw, 44px) clamp(20px, 3vw, 36px)',
+              borderRadius: '10px',
+              padding: 'clamp(12px, 1.6vh, 18px) clamp(16px, 2.5vw, 28px)',
               textAlign: 'center',
               boxShadow: heroCardState.opacity > 0.8 ? '0 20px 50px -15px rgba(0, 0, 0, 0.8), 0 0 35px rgba(212, 175, 55, 0.08)' : 'none',
               position: 'relative',
@@ -196,18 +195,18 @@ export default function PrizePoolSection() {
               aria-hidden="true"
             />
 
-            <div style={{ marginBottom: '10px' }}>
+            <div style={{ marginBottom: '6px' }}>
               <V2Badge variant="gold">COMMEMORATIVE SILVER JUBILEE PURSE</V2Badge>
             </div>
 
             <div
               style={{
                 fontFamily: 'var(--v2-font-mono)',
-                fontSize: '0.76rem',
-                letterSpacing: '0.2em',
+                fontSize: '0.72rem',
+                letterSpacing: '0.18em',
                 color: 'var(--v2-text-tertiary)',
                 textTransform: 'uppercase',
-                marginBottom: '6px',
+                marginBottom: '4px',
               }}
             >
               TOTAL NATIONAL PRIZE POOL
@@ -216,12 +215,12 @@ export default function PrizePoolSection() {
             <div
               style={{
                 fontFamily: 'var(--v2-font-heading)',
-                fontSize: 'clamp(2.6rem, 6vw, 4.4rem)',
+                fontSize: 'clamp(2.2rem, 4.4vw, 3.4rem)',
                 fontWeight: 800,
                 color: 'var(--v2-gold)',
-                lineHeight: 1.05,
+                lineHeight: 1.0,
                 letterSpacing: '-0.02em',
-                marginBottom: '12px',
+                marginBottom: '6px',
                 textShadow: '0 0 30px rgba(212, 175, 55, 0.25)',
               }}
             >
@@ -231,11 +230,11 @@ export default function PrizePoolSection() {
             <p
               style={{
                 fontFamily: 'var(--v2-font-body)',
-                fontSize: 'clamp(0.88rem, 1vw, 0.98rem)',
+                fontSize: 'clamp(0.8rem, 0.95vw, 0.88rem)',
                 color: 'var(--v2-text-secondary)',
-                maxWidth: '640px',
-                margin: '0 auto 20px',
-                lineHeight: 1.55,
+                maxWidth: '620px',
+                margin: '0 auto 10px',
+                lineHeight: 1.45,
               }}
             >
               Evenly distributed across all 8 Flagship Arenas to recognize both deep specialized mastery and cross-disciplinary technical engineering.
@@ -247,36 +246,36 @@ export default function PrizePoolSection() {
                 display: 'inline-flex',
                 flexWrap: 'wrap',
                 justifyContent: 'center',
-                gap: '16px',
-                paddingTop: '16px',
+                gap: '14px',
+                paddingTop: '10px',
                 borderTop: '1px solid rgba(255, 255, 255, 0.08)',
                 opacity: metricsOpacity,
                 transition: prefersReducedMotion ? 'none' : 'opacity 0.1s linear',
               }}
             >
-              <div style={{ textAlign: 'center', minWidth: '130px' }}>
-                <div style={{ fontFamily: 'var(--v2-font-heading)', fontSize: '1.35rem', fontWeight: 700, color: 'var(--v2-text-primary)' }}>
+              <div style={{ textAlign: 'center', minWidth: '120px' }}>
+                <div style={{ fontFamily: 'var(--v2-font-heading)', fontSize: '1.2rem', fontWeight: 700, color: 'var(--v2-text-primary)' }}>
                   08
                 </div>
-                <div style={{ fontFamily: 'var(--v2-font-mono)', fontSize: '0.68rem', color: 'var(--v2-text-muted)', letterSpacing: '0.1em' }}>
+                <div style={{ fontFamily: 'var(--v2-font-mono)', fontSize: '0.65rem', color: 'var(--v2-text-muted)', letterSpacing: '0.1em' }}>
                   TECHNICAL ARENAS
                 </div>
               </div>
-              <div style={{ width: '1px', backgroundColor: 'rgba(255, 255, 255, 0.1)', height: '32px' }} aria-hidden="true" />
-              <div style={{ textAlign: 'center', minWidth: '130px' }}>
-                <div style={{ fontFamily: 'var(--v2-font-heading)', fontSize: '1.35rem', fontWeight: 700, color: 'var(--v2-gold)' }}>
+              <div style={{ width: '1px', backgroundColor: 'rgba(255, 255, 255, 0.1)', height: '28px' }} aria-hidden="true" />
+              <div style={{ textAlign: 'center', minWidth: '120px' }}>
+                <div style={{ fontFamily: 'var(--v2-font-heading)', fontSize: '1.2rem', fontWeight: 700, color: 'var(--v2-gold)' }}>
                   ₹ 50,000
                 </div>
-                <div style={{ fontFamily: 'var(--v2-font-mono)', fontSize: '0.68rem', color: 'var(--v2-text-muted)', letterSpacing: '0.1em' }}>
+                <div style={{ fontFamily: 'var(--v2-font-mono)', fontSize: '0.65rem', color: 'var(--v2-text-muted)', letterSpacing: '0.1em' }}>
                   ALLOCATED PER ARENA
                 </div>
               </div>
-              <div style={{ width: '1px', backgroundColor: 'rgba(255, 255, 255, 0.1)', height: '32px' }} aria-hidden="true" />
-              <div style={{ textAlign: 'center', minWidth: '130px' }}>
-                <div style={{ fontFamily: 'var(--v2-font-heading)', fontSize: '1.35rem', fontWeight: 700, color: 'var(--v2-text-primary)' }}>
+              <div style={{ width: '1px', backgroundColor: 'rgba(255, 255, 255, 0.1)', height: '28px' }} aria-hidden="true" />
+              <div style={{ textAlign: 'center', minWidth: '120px' }}>
+                <div style={{ fontFamily: 'var(--v2-font-heading)', fontSize: '1.2rem', fontWeight: 700, color: 'var(--v2-text-primary)' }}>
                   16
                 </div>
-                <div style={{ fontFamily: 'var(--v2-font-mono)', fontSize: '0.68rem', color: 'var(--v2-text-muted)', letterSpacing: '0.1em' }}>
+                <div style={{ fontFamily: 'var(--v2-font-mono)', fontSize: '0.65rem', color: 'var(--v2-text-muted)', letterSpacing: '0.1em' }}>
                   WINNING TEAMS
                 </div>
               </div>
@@ -286,11 +285,11 @@ export default function PrizePoolSection() {
           {/* 2-Column Structured Distribution: Champion vs Runner-Up */}
           <div
             style={{
-              maxWidth: '880px',
+              maxWidth: '820px',
               margin: '0 auto',
               display: 'grid',
-              gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
-              gap: '16px',
+              gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))',
+              gap: '14px',
               opacity: breakdownState.opacity,
               transform: `translateY(${breakdownState.translateY}px)`,
               pointerEvents: breakdownState.opacity > 0.4 ? 'auto' : 'none',
@@ -302,12 +301,12 @@ export default function PrizePoolSection() {
                 backgroundColor: 'rgba(14, 16, 21, 0.75)',
                 border: '1px solid rgba(212, 175, 55, 0.3)',
                 borderRadius: '8px',
-                padding: 'clamp(18px, 2.2vw, 24px)',
+                padding: 'clamp(12px, 1.6vh, 16px) clamp(16px, 2vw, 20px)',
                 boxShadow: breakdownState.opacity > 0.8 ? '0 10px 30px -8px rgba(0, 0, 0, 0.6)' : 'none',
               }}
             >
-              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '10px' }}>
-                <span style={{ fontFamily: 'var(--v2-font-mono)', fontSize: '0.74rem', color: 'var(--v2-gold)', letterSpacing: '0.12em' }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '6px' }}>
+                <span style={{ fontFamily: 'var(--v2-font-mono)', fontSize: '0.72rem', color: 'var(--v2-gold)', letterSpacing: '0.12em' }}>
                   FIRST PLACE (x8 ARENAS)
                 </span>
                 <V2Badge variant="gold">CHAMPION</V2Badge>
@@ -315,15 +314,15 @@ export default function PrizePoolSection() {
               <div
                 style={{
                   fontFamily: 'var(--v2-font-heading)',
-                  fontSize: '1.95rem',
+                  fontSize: 'clamp(1.55rem, 2.2vw, 1.85rem)',
                   fontWeight: 700,
                   color: 'var(--v2-text-primary)',
-                  marginBottom: '6px',
+                  marginBottom: '4px',
                 }}
               >
                 ₹ 30,000
               </div>
-              <p style={{ fontFamily: 'var(--v2-font-body)', fontSize: '0.86rem', color: 'var(--v2-text-secondary)', lineHeight: 1.55 }}>
+              <p style={{ fontFamily: 'var(--v2-font-body)', fontSize: 'clamp(0.8rem, 0.9vw, 0.84rem)', color: 'var(--v2-text-secondary)', lineHeight: 1.45 }}>
                 Awarded to the championship squad in each of the 8 arenas + custom Silver Jubilee Trophy + Merit Distinction Credentials.
               </p>
             </div>
@@ -334,12 +333,12 @@ export default function PrizePoolSection() {
                 backgroundColor: 'rgba(14, 16, 21, 0.75)',
                 border: '1px solid rgba(255, 255, 255, 0.08)',
                 borderRadius: '8px',
-                padding: 'clamp(18px, 2.2vw, 24px)',
+                padding: 'clamp(12px, 1.6vh, 16px) clamp(16px, 2vw, 20px)',
                 boxShadow: breakdownState.opacity > 0.8 ? '0 10px 30px -8px rgba(0, 0, 0, 0.6)' : 'none',
               }}
             >
-              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '10px' }}>
-                <span style={{ fontFamily: 'var(--v2-font-mono)', fontSize: '0.74rem', color: 'var(--v2-text-tertiary)', letterSpacing: '0.12em' }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '6px' }}>
+                <span style={{ fontFamily: 'var(--v2-font-mono)', fontSize: '0.72rem', color: 'var(--v2-text-tertiary)', letterSpacing: '0.12em' }}>
                   SECOND PLACE (x8 ARENAS)
                 </span>
                 <V2Badge variant="steel">RUNNER-UP</V2Badge>
@@ -347,15 +346,15 @@ export default function PrizePoolSection() {
               <div
                 style={{
                   fontFamily: 'var(--v2-font-heading)',
-                  fontSize: '1.95rem',
+                  fontSize: 'clamp(1.55rem, 2.2vw, 1.85rem)',
                   fontWeight: 700,
                   color: 'var(--v2-text-primary)',
-                  marginBottom: '6px',
+                  marginBottom: '4px',
                 }}
               >
                 ₹ 20,000
               </div>
-              <p style={{ fontFamily: 'var(--v2-font-body)', fontSize: '0.86rem', color: 'var(--v2-text-secondary)', lineHeight: 1.55 }}>
+              <p style={{ fontFamily: 'var(--v2-font-body)', fontSize: 'clamp(0.8rem, 0.9vw, 0.84rem)', color: 'var(--v2-text-secondary)', lineHeight: 1.45 }}>
                 Awarded to the runner-up squad in each of the 8 arenas + Silver Jubilee Medallion + Certificates of Technical Merit.
               </p>
             </div>
