@@ -15,7 +15,7 @@ import HudModal from '@/components/ui/HudModal';
 import CadetRegistrationModal from '@/components/registration/CadetRegistrationModal';
 import BrochureViewerModal from '@/components/brochure/BrochureViewerModal';
 import EventDossierModal from '@/components/events/EventDossierModal';
-import ArenasMatrix from '@/components/arenas/ArenasMatrix';
+import V4ArenasSection from '@/components/arenas/v4/V4ArenasSection';
 import { EventArena, EVENTS_DATA } from '@/data/events';
 import { initLenis } from '@/lib/lenis';
 import { gsap, ScrollTrigger } from '@/lib/gsap';
@@ -115,27 +115,18 @@ export default function HomePage() {
         onSelectEvent={handleSelectEvent}
       />
 
-      {/* 5. Phase 3: V2 25 Years / SJBIT Legacy Section (First major section after Hero) */}
+      {/* 5. V4.1 The 8 Flagship Arenas Section (MAIN FEATURED SECTION) */}
+      <V4ArenasSection
+        onSelectEvent={handleSelectEvent}
+        onRegisterEvent={handleRegisterEvent}
+        onOpenModal={handleOpenModal}
+      />
+
+      {/* 6. Legacy Section (SJBIT / 25 Years) */}
       <V2LegacySection onScrollToArenas={() => handleScrollTo('arenas')} />
 
-      {/* 6. Scrollable Technical Dossier & Information Sections */}
+      {/* 7. Scrollable Technical Dossier & Information Sections */}
       <div className="info-scroll-container">
-        {/* 8 Flagship Arenas Matrix Section */}
-        <section id="arenas" className="info-section">
-          <div className="hud-scanline-beam" aria-hidden="true" />
-          <div className="info-section-inner">
-            <div className="info-section-header">
-              <span className="info-badge">✦ 02 // COMPETITIVE MATRIX ✦</span>
-              <h2 className="info-title">THE 8 FLAGSHIP ARENAS</h2>
-              <div className="info-subtitle">National Technical Arenas // ₹ 4,00,000 Prize Pool</div>
-            </div>
-
-            <ArenasMatrix
-              onSelectEvent={handleSelectEvent}
-              onRegisterEvent={handleRegisterEvent}
-            />
-          </div>
-        </section>
 
         {/* About Section */}
         <section id="about" className="info-section">

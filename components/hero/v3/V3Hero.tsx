@@ -652,29 +652,6 @@ export default function V3Hero({ onOpenModal, onScrollTo, onSelectEvent }: V3Her
             </div>
           </div>
 
-          {/* Center Stage Switcher Bar (Appears when transformation completes) */}
-          {phaseState === 'complete' && (
-            <div className="v3-evolve-toggle-bar" role="tablist" aria-label="Hero View Mode">
-              <button
-                className={`v3-toggle-btn ${viewMode === 'monument' ? 'active' : ''}`}
-                onClick={() => handleToggleView('monument')}
-                role="tab"
-                aria-selected={viewMode === 'monument'}
-                title="View the monolithic VIGYANTRA 3D monument"
-              >
-                ◈ MONUMENT VIEW
-              </button>
-              <button
-                className={`v3-toggle-btn ${viewMode === 'arenas' ? 'active' : ''}`}
-                onClick={() => handleToggleView('arenas')}
-                role="tab"
-                aria-selected={viewMode === 'arenas'}
-                title="View the 8 technical arenas constellation"
-              >
-                ✦ 8 ARENAS VIEW
-              </button>
-            </div>
-          )}
 
           <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-end', gap: '4px' }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
@@ -914,44 +891,6 @@ export default function V3Hero({ onOpenModal, onScrollTo, onSelectEvent }: V3Her
                 </div>
               </div>
 
-              {/* Interactive Evolve Cue Trigger Button */}
-              {evolveCueReady && (
-                <div style={{ marginTop: '0.75rem' }}>
-                  <button
-                    onClick={() => handleToggleView('arenas')}
-                    style={{
-                      display: 'inline-flex',
-                      alignItems: 'center',
-                      gap: '8px',
-                      background: 'linear-gradient(135deg, rgba(212, 175, 55, 0.12) 0%, rgba(155, 27, 48, 0.12) 100%)',
-                      border: '1px solid rgba(212, 175, 55, 0.45)',
-                      color: 'var(--v2-gold)',
-                      fontFamily: 'var(--v2-font-mono)',
-                      fontSize: 'clamp(0.66rem, 0.85vw, 0.76rem)',
-                      letterSpacing: '0.14em',
-                      padding: '6px 18px',
-                      borderRadius: '4px',
-                      cursor: 'pointer',
-                      transition: 'all 0.25s ease',
-                      boxShadow: '0 0 16px rgba(212, 175, 55, 0.15)',
-                    }}
-                    onMouseEnter={(e) => {
-                      e.currentTarget.style.borderColor = 'var(--v2-gold)';
-                      e.currentTarget.style.background = 'linear-gradient(135deg, rgba(212, 175, 55, 0.24) 0%, rgba(155, 27, 48, 0.24) 100%)';
-                      e.currentTarget.style.boxShadow = '0 0 24px rgba(212, 175, 55, 0.35)';
-                    }}
-                    onMouseLeave={(e) => {
-                      e.currentTarget.style.borderColor = 'rgba(212, 175, 55, 0.45)';
-                      e.currentTarget.style.background = 'linear-gradient(135deg, rgba(212, 175, 55, 0.12) 0%, rgba(155, 27, 48, 0.12) 100%)';
-                      e.currentTarget.style.boxShadow = '0 0 16px rgba(212, 175, 55, 0.15)';
-                    }}
-                  >
-                    <span>✦ EVOLVE TO 8 ARENAS</span>
-                    <span style={{ fontSize: '0.7rem' }}>→</span>
-                  </button>
-                </div>
-              )}
-
               {/* Live Countdown Timer */}
               <div style={{ marginTop: '0.85rem', width: '100%', display: 'flex', justifyContent: 'center' }}>
                 <V2Countdown />
@@ -971,8 +910,8 @@ export default function V3Hero({ onOpenModal, onScrollTo, onSelectEvent }: V3Her
                 <V2Button
                   variant="secondary"
                   size="lg"
-                  onClick={() => handleToggleView('arenas')}
-                  aria-label="Evolve and Explore 8 Flagship Arenas"
+                  onClick={() => onScrollTo('arenas')}
+                  aria-label="Explore 8 Flagship Arenas"
                 >
                   EXPLORE 8 ARENAS →
                 </V2Button>
