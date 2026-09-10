@@ -669,3 +669,856 @@
     transform: none !important;
   }
 }
+
+/* --------------------------------------------------------------------------
+   10. V2 CINEMATIC INTRO OVERLAY & CANVAS
+   -------------------------------------------------------------------------- */
+.v2-intro-overlay {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  height: 100dvh;
+  background-color: var(--v2-bg-base);
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  user-select: none;
+  transition: opacity 0.65s var(--v2-ease-reveal), visibility 0.65s ease;
+}
+
+.v2-intro-overlay.dismissed {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.v2-intro-canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+/* Subtle Top Telemetry Micro-Bar */
+.v2-intro-telemetry-top {
+  position: absolute;
+  top: clamp(16px, 3vh, 32px);
+  left: clamp(16px, 4vw, 40px);
+  right: clamp(16px, 4vw, 40px);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  pointer-events: none;
+  z-index: 10;
+}
+
+/* Skip Intro Button */
+.v2-intro-skip-btn {
+  pointer-events: auto;
+  background: rgba(14, 16, 21, 0.7);
+  border: 1px solid var(--v2-steel-border);
+  color: var(--v2-text-secondary);
+  font-family: var(--v2-font-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.12em;
+  padding: 8px 16px;
+  border-radius: var(--v2-radius-sm);
+  cursor: pointer;
+  min-height: var(--v2-min-touch-target);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  transition: all var(--v2-dur-fast) var(--v2-ease-build);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .v2-intro-skip-btn:hover {
+    color: var(--v2-text-primary);
+    border-color: var(--v2-crimson-border);
+    background: rgba(20, 23, 32, 0.9);
+  }
+}
+
+/* --------------------------------------------------------------------------
+   11. V2 HOMEPAGE HERO (100DVH COMMAND STAGE)
+   -------------------------------------------------------------------------- */
+.v2-hero-stage {
+  position: relative;
+  width: 100%;
+  min-height: 100vh;
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  background-color: var(--v2-bg-base);
+  overflow: hidden;
+  padding-top: clamp(64px, 8vh, 84px);
+  padding-bottom: clamp(16px, 2vh, 24px);
+}
+
+/* Atmospheric Layering */
+.v2-hero-stage::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: 
+    radial-gradient(circle at 50% 30%, rgba(186, 30, 56, 0.08) 0%, transparent 60%),
+    radial-gradient(circle at 20% 80%, rgba(212, 175, 55, 0.04) 0%, transparent 50%),
+    radial-gradient(circle at 80% 70%, rgba(155, 27, 48, 0.06) 0%, transparent 55%);
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Background Subtle Grid */
+.v2-hero-grid {
+  position: absolute;
+  inset: 0;
+  background-image: 
+    linear-gradient(to right, var(--v2-grid-line) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--v2-grid-line) 1px, transparent 1px);
+  background-size: 52px 52px;
+  mask-image: radial-gradient(circle at 50% 45%, black 40%, transparent 85%);
+  -webkit-mask-image: radial-gradient(circle at 50% 45%, black 40%, transparent 85%);
+  pointer-events: none;
+  z-index: 2;
+}
+
+/* Top Identity & Telemetry Row */
+.v2-hero-top-row {
+  position: relative;
+  z-index: 10;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: var(--v2-space-md);
+}
+
+.v2-inst-block {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.v2-inst-trust {
+  font-family: var(--v2-font-mono);
+  font-size: clamp(0.64rem, 0.72vw, 0.72rem);
+  letter-spacing: 0.14em;
+  color: var(--v2-text-tertiary);
+  text-transform: uppercase;
+}
+
+.v2-inst-college {
+  font-family: var(--v2-font-heading);
+  font-size: clamp(0.85rem, 1.1vw, 1.05rem);
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: var(--v2-text-primary);
+}
+
+.v2-inst-badge-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 4px;
+}
+
+/* Center Editorial Landmark */
+.v2-hero-center {
+  position: relative;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  margin: auto 0;
+  padding: var(--v2-space-md) 0;
+}
+
+/* Holographic 25 Watermark Backdrop */
+.v2-hero-watermark-25 {
+  position: absolute;
+  top: 46%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-family: var(--v2-font-display);
+  font-size: clamp(14rem, 30vw, 32rem);
+  font-weight: 900;
+  line-height: 0.8;
+  color: rgba(255, 255, 255, 0.016);
+  background: linear-gradient(180deg, rgba(212, 175, 55, 0.05) 0%, rgba(255, 255, 255, 0.008) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  pointer-events: none;
+  z-index: 0;
+  user-select: none;
+}
+
+/* Main Dominant Wordmark */
+.v2-hero-title-group {
+  position: relative;
+  z-index: 5;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.v2-hero-wordmark {
+  font-family: var(--v2-font-display);
+  font-size: clamp(3.2rem, 9vw, 8rem);
+  font-weight: 800;
+  line-height: 0.95;
+  letter-spacing: -0.04em;
+  color: var(--v2-text-primary);
+  text-shadow: 0 0 40px rgba(255, 255, 255, 0.08);
+  margin: 0;
+}
+
+.v2-hero-year-badge {
+  display: inline-block;
+  font-family: var(--v2-font-mono);
+  font-size: clamp(1.1rem, 2.4vw, 2.1rem);
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  color: var(--v2-gold);
+  margin-top: 2px;
+}
+
+.v2-hero-subtitle {
+  font-family: var(--v2-font-heading);
+  font-size: clamp(0.75rem, 1.2vw, 1.05rem);
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--v2-text-secondary);
+  margin-top: 10px;
+}
+
+.v2-hero-motto {
+  font-family: var(--v2-font-display);
+  font-size: clamp(0.9rem, 1.35vw, 1.25rem);
+  font-style: italic;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  color: var(--v2-gold-light);
+  margin-top: 12px;
+  opacity: 0.92;
+}
+
+/* Event Metadata Horizon */
+.v2-hero-meta-horizon {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(8px, 1.5vw, 20px);
+  margin-top: clamp(14px, 2.2vh, 22px);
+  font-family: var(--v2-font-mono);
+  font-size: clamp(0.68rem, 0.85vw, 0.82rem);
+  letter-spacing: 0.1em;
+  color: var(--v2-text-tertiary);
+}
+
+.v2-hero-meta-horizon .sep {
+  color: var(--v2-steel-100);
+}
+
+.v2-hero-meta-horizon .gold-txt {
+  color: var(--v2-gold);
+  font-weight: 600;
+}
+
+/* Redesigned Countdown Component */
+.v2-countdown-wrap {
+  margin-top: clamp(16px, 2.5vh, 24px);
+  position: relative;
+  z-index: 5;
+}
+
+.v2-countdown-grid {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(10px, 2vw, 24px);
+  padding: 8px 18px;
+  background: rgba(14, 16, 21, 0.6);
+  border: 1px solid var(--v2-steel-border);
+  border-radius: var(--v2-radius-md);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+.v2-countdown-cell {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.v2-cd-num {
+  font-family: var(--v2-font-display);
+  font-size: clamp(1.25rem, 2.2vw, 1.85rem);
+  font-weight: 700;
+  line-height: 1;
+  color: var(--v2-text-primary);
+  font-variant-numeric: tabular-nums;
+}
+
+.v2-cd-lbl {
+  font-family: var(--v2-font-mono);
+  font-size: clamp(0.55rem, 0.65vw, 0.65rem);
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  color: var(--v2-text-muted);
+  margin-top: 4px;
+}
+
+.v2-cd-colon {
+  font-family: var(--v2-font-mono);
+  font-size: clamp(1.1rem, 1.8vw, 1.5rem);
+  color: var(--v2-steel-100);
+  line-height: 1;
+  margin-top: -6px;
+}
+
+/* Primary 3-Tier Action Triggers */
+.v2-hero-cta-group {
+  position: relative;
+  z-index: 5;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(10px, 1.6vw, 18px);
+  margin-top: clamp(18px, 2.8vh, 28px);
+}
+
+/* Swamiji Institutional Layer (Restrained & Prestigious) */
+.v2-swamiji-strip {
+  position: relative;
+  z-index: 10;
+  margin-top: auto;
+  border-top: 1px solid var(--v2-steel-300);
+  padding-top: clamp(10px, 1.5vh, 16px);
+}
+
+.v2-swamiji-summary-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.v2-swamiji-avatars-row {
+  display: flex;
+  align-items: center;
+  gap: clamp(8px, 1.4vw, 20px);
+}
+
+.v2-swamiji-avatar-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.v2-swamiji-thumb {
+  width: clamp(28px, 3.5vw, 36px);
+  height: clamp(28px, 3.5vw, 36px);
+  border-radius: 50%;
+  border: 1px solid var(--v2-gold-border);
+  object-fit: cover;
+  background-color: #0E1015;
+}
+
+.v2-swamiji-text {
+  display: flex;
+  flex-direction: column;
+}
+
+.v2-swamiji-name {
+  font-family: var(--v2-font-heading);
+  font-size: clamp(0.68rem, 0.75vw, 0.78rem);
+  font-weight: 600;
+  color: var(--v2-text-primary);
+  white-space: nowrap;
+}
+
+.v2-swamiji-role {
+  font-family: var(--v2-font-mono);
+  font-size: clamp(0.55rem, 0.6vw, 0.65rem);
+  color: var(--v2-gold);
+  white-space: nowrap;
+}
+
+@media (max-width: 900px) {
+  .v2-swamiji-name {
+    display: none;
+  }
+  .v2-swamiji-role {
+    font-size: 0.6rem;
+  }
+}
+
+@media (max-width: 640px) {
+  .v2-hero-stage {
+    padding-top: 56px;
+    padding-bottom: 12px;
+  }
+  .v2-hero-top-row {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .v2-countdown-grid {
+    padding: 6px 12px;
+    gap: 8px;
+  }
+  .v2-hero-cta-group {
+    width: 100%;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .v2-hero-cta-group .v2-btn {
+    width: 100%;
+  }
+  .v2-swamiji-strip {
+    padding-top: 8px;
+  }
+  .v2-swamiji-avatars-row {
+    justify-content: center;
+    width: 100%;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   12. V2 25 YEARS / SJBIT LEGACY SECTION (PHASE 3 REFINED)
+   -------------------------------------------------------------------------- */
+.v2-legacy-section {
+  position: relative;
+  width: 100%;
+  background-color: #08090C !important;
+  padding: clamp(72px, 10vh, 120px) 0 clamp(64px, 9vh, 96px);
+  overflow: hidden;
+  border-top: 1px solid var(--v2-steel-300);
+}
+
+/* Atmospheric Layering: Strictly Obsidian, Antique Gold & Deep Crimson (Zero Cyan) */
+.v2-legacy-section::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  max-width: 1280px;
+  height: 650px;
+  background: 
+    radial-gradient(ellipse 55% 35% at 28% 18%, rgba(212, 175, 55, 0.045) 0%, transparent 70%),
+    radial-gradient(ellipse 45% 30% at 82% 50%, rgba(155, 27, 48, 0.03) 0%, transparent 65%);
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Subdued Subtle Graphite Background Grid (Never Competing) */
+.v2-legacy-grid {
+  position: absolute;
+  inset: 0;
+  background-image: 
+    linear-gradient(to right, rgba(255, 255, 255, 0.018) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.018) 1px, transparent 1px);
+  background-size: 56px 56px;
+  mask-image: radial-gradient(circle at 50% 35%, black 25%, transparent 80%);
+  -webkit-mask-image: radial-gradient(circle at 50% 35%, black 25%, transparent 80%);
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Section Header & Architectural 25 Container */
+.v2-legacy-monument-grid {
+  position: relative;
+  z-index: 5;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: clamp(32px, 5vw, 64px);
+  align-items: center;
+  margin-bottom: clamp(56px, 9vh, 88px);
+}
+
+@media (min-width: 1024px) {
+  .v2-legacy-monument-grid {
+    grid-template-columns: auto 1fr;
+    gap: clamp(40px, 5vw, 72px);
+  }
+}
+
+/* Premium Silver Jubilee Commemorative Artifact Plaque */
+.v2-legacy-25-artifact {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: clamp(32px, 4vw, 48px) clamp(28px, 3.5vw, 44px);
+  border: 1px solid rgba(212, 175, 55, 0.25);
+  border-radius: var(--v2-radius-md);
+  background: linear-gradient(160deg, #12151F 0%, #0C0E14 55%, #07080B 100%);
+  box-shadow: 0 20px 50px -15px rgba(0, 0, 0, 0.9), 0 0 32px -8px rgba(212, 175, 55, 0.07);
+  min-width: clamp(220px, 22vw, 290px);
+}
+
+/* Inner Refined Hairline Inset */
+.v2-legacy-25-artifact::before {
+  content: "";
+  position: absolute;
+  inset: 6px;
+  border: 1px solid rgba(255, 255, 255, 0.04);
+  border-radius: calc(var(--v2-radius-md) - 4px);
+  pointer-events: none;
+}
+
+.v2-legacy-25-top-meta {
+  font-family: var(--v2-font-mono);
+  font-size: 0.65rem;
+  letter-spacing: 0.22em;
+  color: var(--v2-text-tertiary);
+  text-transform: uppercase;
+  margin-bottom: 4px;
+}
+
+.v2-legacy-25-num {
+  font-family: var(--v2-font-display);
+  font-size: clamp(7.5rem, 14vw, 13rem);
+  font-weight: 800;
+  line-height: 0.9;
+  letter-spacing: -0.05em;
+  background: linear-gradient(145deg, #FFF8DB 0%, #E8CA6B 25%, #D4AF37 55%, #9E7719 82%, #5E4407 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  filter: drop-shadow(0 4px 16px rgba(0, 0, 0, 0.95));
+  user-select: none;
+  margin: 0;
+}
+
+.v2-legacy-25-bottom-meta {
+  font-family: var(--v2-font-mono);
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  color: var(--v2-gold-light);
+  text-transform: uppercase;
+  margin-top: 6px;
+}
+
+/* Editorial Narrative Column */
+.v2-legacy-narrative {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.v2-legacy-heading {
+  font-family: var(--v2-font-display);
+  font-size: clamp(1.85rem, 3.8vw, 3.1rem);
+  font-weight: 800;
+  line-height: 1.15;
+  letter-spacing: -0.03em;
+  color: var(--v2-text-primary);
+  margin: 0;
+}
+
+.v2-legacy-lead {
+  font-family: var(--v2-font-body);
+  font-size: clamp(0.92rem, 1.05vw, 1rem);
+  line-height: 1.75;
+  color: var(--v2-text-secondary);
+  max-width: 580px;
+  margin: 0;
+}
+
+.v2-legacy-body-editorial {
+  font-family: var(--v2-font-body);
+  font-size: clamp(0.85rem, 0.95vw, 0.925rem);
+  line-height: 1.7;
+  color: var(--v2-text-tertiary);
+  max-width: 580px;
+  margin: 0;
+}
+
+/* Accreditations Pill Row */
+.v2-legacy-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 12px;
+}
+
+/* --------------------------------------------------------------------------
+   TIMELINE (2001 ─── 2026)
+   -------------------------------------------------------------------------- */
+.v2-timeline-container {
+  position: relative;
+  z-index: 5;
+  margin: clamp(52px, 8vh, 80px) 0;
+}
+
+.v2-timeline-header {
+  margin-bottom: var(--v2-space-lg);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+/* Desktop Horizontal Rail */
+.v2-timeline-rail-desktop {
+  display: none;
+}
+
+@media (min-width: 1024px) {
+  .v2-timeline-rail-desktop {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 14px;
+    position: relative;
+    padding-top: 28px;
+  }
+
+  .v2-timeline-rail-desktop::before {
+    content: "";
+    position: absolute;
+    top: 5px;
+    left: 36px;
+    right: 36px;
+    height: 1px;
+    background: linear-gradient(90deg, var(--v2-steel-200) 0%, var(--v2-gold-border) 100%);
+  }
+}
+
+.v2-timeline-node-desktop {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+.v2-timeline-dot {
+  position: absolute;
+  top: -27px;
+  left: 14px;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: var(--v2-steel-100);
+  border: 1px solid var(--v2-steel-border);
+  transition: all var(--v2-dur-normal) var(--v2-ease-build);
+}
+
+.v2-timeline-node-desktop:hover .v2-timeline-dot,
+.v2-timeline-node-desktop.active .v2-timeline-dot {
+  background-color: var(--v2-gold);
+  box-shadow: 0 0 10px var(--v2-gold-glow);
+  transform: scale(1.25);
+}
+
+.v2-timeline-card {
+  background-color: var(--v2-bg-surface);
+  border: 1px solid var(--v2-steel-border);
+  border-radius: var(--v2-radius-md);
+  padding: 14px 16px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  transition: all var(--v2-dur-fast) var(--v2-ease-build);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .v2-timeline-card:hover {
+    border-color: var(--v2-gold-border);
+    transform: translateY(-2px);
+    box-shadow: var(--v2-shadow-card);
+  }
+}
+
+.v2-timeline-year {
+  font-family: var(--v2-font-mono);
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--v2-gold);
+  margin-bottom: 4px;
+}
+
+.v2-timeline-title {
+  font-family: var(--v2-font-heading);
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: var(--v2-text-primary);
+  margin-bottom: 5px;
+  line-height: 1.3;
+}
+
+.v2-timeline-desc {
+  font-family: var(--v2-font-body);
+  font-size: 0.74rem;
+  line-height: 1.55;
+  color: var(--v2-text-tertiary);
+}
+
+/* Mobile & Tablet Vertical Timeline */
+.v2-timeline-rail-mobile {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  position: relative;
+  padding-left: 24px;
+}
+
+@media (min-width: 1024px) {
+  .v2-timeline-rail-mobile {
+    display: none;
+  }
+}
+
+.v2-timeline-rail-mobile::before {
+  content: "";
+  position: absolute;
+  top: 8px;
+  bottom: 8px;
+  left: 6px;
+  width: 1px;
+  background: linear-gradient(180deg, var(--v2-steel-200) 0%, var(--v2-gold-border) 100%);
+}
+
+.v2-timeline-node-mobile {
+  position: relative;
+}
+
+.v2-timeline-node-mobile::before {
+  content: "";
+  position: absolute;
+  left: -21px;
+  top: 14px;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background-color: var(--v2-gold);
+  box-shadow: 0 0 8px var(--v2-gold-glow);
+}
+
+/* --------------------------------------------------------------------------
+   THE GUIDING LEGACY: INTEGRATED INSTITUTIONAL SIGNATURE
+   -------------------------------------------------------------------------- */
+.v2-guiding-legacy-wrap {
+  position: relative;
+  z-index: 5;
+  margin: clamp(48px, 8vh, 72px) 0 0;
+  background: linear-gradient(180deg, rgba(14, 17, 23, 0.9) 0%, rgba(8, 9, 12, 0.98) 100%);
+  border: 1px solid var(--v2-steel-border);
+  border-top: 1px solid rgba(212, 175, 55, 0.22);
+  border-radius: var(--v2-radius-lg);
+  padding: clamp(24px, 4vw, 44px);
+  box-shadow: 0 16px 40px -15px rgba(0, 0, 0, 0.85);
+}
+
+.v2-guiding-header {
+  text-align: center;
+  max-width: 680px;
+  margin: 0 auto clamp(24px, 4vh, 36px);
+}
+
+.v2-guiding-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: clamp(16px, 2.5vw, 28px);
+}
+
+@media (min-width: 768px) {
+  .v2-guiding-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.v2-guiding-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 22px 18px;
+  background-color: rgba(14, 16, 21, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: var(--v2-radius-md);
+  transition: border-color var(--v2-dur-fast) var(--v2-ease-build);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .v2-guiding-card:hover {
+    border-color: var(--v2-gold-border);
+    transform: translateY(-2px);
+  }
+}
+
+.v2-guiding-avatar-frame {
+  width: clamp(72px, 8vw, 92px);
+  height: clamp(72px, 8vw, 92px);
+  border-radius: 50%;
+  border: 1.5px solid var(--v2-gold);
+  box-shadow: 0 0 16px rgba(212, 175, 55, 0.12);
+  margin-bottom: 14px;
+  overflow: hidden;
+  background-color: #0E1015;
+}
+
+.v2-guiding-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.v2-guiding-name {
+  font-family: var(--v2-font-heading);
+  font-size: clamp(0.82rem, 0.95vw, 0.92rem);
+  font-weight: 700;
+  line-height: 1.35;
+  color: var(--v2-text-primary);
+  margin-bottom: 6px;
+}
+
+.v2-guiding-designation {
+  font-family: var(--v2-font-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.12em;
+  color: var(--v2-gold);
+  text-transform: uppercase;
+}
+
+/* --------------------------------------------------------------------------
+   HANDOFF CUE TO THE 08 ARENAS
+   -------------------------------------------------------------------------- */
+.v2-legacy-handoff-banner {
+  position: relative;
+  z-index: 5;
+  margin-top: clamp(40px, 5vh, 56px);
+  padding: clamp(20px, 3vw, 32px);
+  background: linear-gradient(135deg, rgba(18, 21, 29, 0.8) 0%, rgba(155, 27, 48, 0.07) 100%);
+  border: 1px solid var(--v2-steel-border);
+  border-radius: var(--v2-radius-md);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 16px;
+}
+
+@media (min-width: 768px) {
+  .v2-legacy-handoff-banner {
+    flex-direction: row;
+    justify-content: space-between;
+    text-align: left;
+  }
+}
+
+
+

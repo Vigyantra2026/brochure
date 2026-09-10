@@ -2,11 +2,10 @@
 
 import React, { useState, useEffect } from 'react';
 import UniverseCanvas from '@/components/motion/UniverseCanvas';
-import ScrollytellingHero from '@/components/motion/ScrollytellingHero';
-import CinematicIntro from '@/components/intro/CinematicIntro';
+import V2CinematicIntro from '@/components/intro/v2/V2CinematicIntro';
 import CyberHeader from '@/components/navigation/CyberHeader';
-import CommandDeckHero from '@/components/hero/CommandDeckHero';
-import JubileeTimeline from '@/components/legacy/JubileeTimeline';
+import V2Hero from '@/components/hero/v2/V2Hero';
+import V2LegacySection from '@/components/legacy/v2/V2LegacySection';
 import CoordinatorsDesk from '@/components/coordinators/CoordinatorsDesk';
 import CampusTelemetry from '@/components/campus/CampusTelemetry';
 import ContactTerminal from '@/components/contact/ContactTerminal';
@@ -96,8 +95,8 @@ export default function HomePage() {
 
   return (
     <>
-      {/* 1. Cinematic 7-Phase Intro */}
-      <CinematicIntro />
+      {/* 1. V2 Cinematic 6-Scene Opening Experience */}
+      <V2CinematicIntro />
 
       {/* 2. Full-Screen Universe Canvas Backdrop */}
       <UniverseCanvas />
@@ -108,14 +107,31 @@ export default function HomePage() {
       {/* 3. Top Cyber Navigation Header */}
       <CyberHeader onOpenModal={handleOpenModal} onScrollTo={handleScrollTo} />
 
-      {/* 4. 3D CGI Scrollytelling Video Canvas Hero (120-Frame Quantum Flight Deck) */}
-      <ScrollytellingHero onScrollToCommandDeck={() => handleScrollTo('command-deck')} />
+      {/* 4. V2 Homepage Command Deck Hero (100dvh) */}
+      <V2Hero onOpenModal={handleOpenModal} onScrollTo={handleScrollTo} />
 
-      {/* 5. Main Command Deck Hero (100vh) */}
-      <CommandDeckHero onOpenModal={handleOpenModal} onScrollTo={handleScrollTo} />
+      {/* 5. Phase 3: V2 25 Years / SJBIT Legacy Section (First major section after Hero) */}
+      <V2LegacySection onScrollToArenas={() => handleScrollTo('arenas')} />
 
       {/* 6. Scrollable Technical Dossier & Information Sections */}
       <div className="info-scroll-container">
+        {/* 8 Flagship Arenas Matrix Section */}
+        <section id="arenas" className="info-section">
+          <div className="hud-scanline-beam" aria-hidden="true" />
+          <div className="info-section-inner">
+            <div className="info-section-header">
+              <span className="info-badge">✦ 02 // COMPETITIVE MATRIX ✦</span>
+              <h2 className="info-title">THE 8 FLAGSHIP ARENAS</h2>
+              <div className="info-subtitle">National Technical Arenas // ₹ 4,00,000 Prize Pool</div>
+            </div>
+
+            <ArenasMatrix
+              onSelectEvent={handleSelectEvent}
+              onRegisterEvent={handleRegisterEvent}
+            />
+          </div>
+        </section>
+
         {/* About Section */}
         <section id="about" className="info-section">
           <div className="hud-scanline-beam" aria-hidden="true" />
@@ -165,26 +181,6 @@ export default function HomePage() {
             </div>
           </div>
         </section>
-
-        {/* 8 Flagship Arenas Matrix Section */}
-        <section id="arenas" className="info-section">
-          <div className="hud-scanline-beam" aria-hidden="true" />
-          <div className="info-section-inner">
-            <div className="info-section-header">
-              <span className="info-badge">✦ 02 // COMPETITIVE MATRIX ✦</span>
-              <h2 className="info-title">THE 8 FLAGSHIP ARENAS</h2>
-              <div className="info-subtitle">National Technical Arenas // ₹ 4,00,000 Prize Pool</div>
-            </div>
-
-            <ArenasMatrix
-              onSelectEvent={handleSelectEvent}
-              onRegisterEvent={handleRegisterEvent}
-            />
-          </div>
-        </section>
-
-        {/* Institutional Legacy & Timeline */}
-        <JubileeTimeline />
 
         {/* Coordinators */}
         <CoordinatorsDesk />
