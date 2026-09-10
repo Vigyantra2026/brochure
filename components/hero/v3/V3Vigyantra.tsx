@@ -13,12 +13,14 @@ import {
   createTShape,
   createRShape,
 } from './letterShapes';
+import { TransformationTimelineValues } from './V3Scene';
 
 interface V3VigyantraProps {
   pointerPos?: React.MutableRefObject<{ x: number; y: number }>;
   formationProgress?: number; // 0 = not formed, 1 = fully assembled
   evolveProgress?: number;    // 0 = monument view, 1 = central anchor core for 8 arenas
   opacity?: number;
+  timelineValues?: React.MutableRefObject<TransformationTimelineValues>;
 }
 
 export default function V3Vigyantra({
@@ -26,9 +28,13 @@ export default function V3Vigyantra({
   formationProgress = 1,
   evolveProgress = 0,
   opacity = 1,
+  timelineValues,
 }: V3VigyantraProps) {
   const groupRef = useRef<THREE.Group>(null);
   const letterRefs = useRef<(THREE.Group | null)[]>([]);
+  const plinthRef1 = useRef<THREE.Mesh>(null);
+  const plinthRef2 = useRef<THREE.Mesh>(null);
+  const plinthRef3 = useRef<THREE.Mesh>(null);
 
   // Precision Physical Materials: 3-layer architectural palette
   const materials = useMemo(() => {
@@ -187,6 +193,26 @@ export default function V3Vigyantra({
   useFrame((state, delta) => {
     if (!groupRef.current) return;
 
+    const curOpacity = timelineValues ? timelineValues.current.vigyantraOpacity : opacity;
+    const curFormation = timelineValues ? timelineValues.current.vigyantraFormation : formationProgress;
+    const curEvolve = timelineValues ? timelineValues.current.evolveProgress : evolveProgress;
+
+    groupRef.current.visible = curOpacity > 0.005;
+    if (!groupRef.current.visible) return;
+
+    // Dynamically update material opacities per frame
+    materials.bodyMat.opacity = curOpacity;
+    materials.goldAccentMat.opacity = curOpacity;
+    materials.crimsonAccentMat.opacity = curOpacity;
+    materials.foundationMat.opacity = curOpacity;
+    materials.lineMat.opacity = curOpacity * 0.65;
+
+    // Plinth rail scaling
+    const plinthScaleX = Math.min(1, curFormation * 1.15);
+    if (plinthRef1.current) plinthRef1.current.scale.set(plinthScaleX, 1, 1);
+    if (plinthRef2.current) plinthRef2.current.scale.set(plinthScaleX, 1, 1);
+    if (plinthRef3.current) plinthRef3.current.scale.set(plinthScaleX, 1, 1);
+
     const t = state.clock.getElapsedTime();
 
     // Architectural floating drift
@@ -194,8 +220,9 @@ export default function V3Vigyantra({
     const floatRotX = Math.sin(t * 0.5) * 0.012;
     const floatRotY = Math.cos(t * 0.4) * 0.02;
 
-    const px = pointerPos?.current?.x || 0;
-    const py = pointerPos?.current?.y || 0;
+    const pointerFactor = timelineValues?.current?.isTransforming ? 0.06 : 1.0;
+    const px = (pointerPos?.current?.x || 0) * pointerFactor;
+    const py = (pointerPos?.current?.y || 0) * pointerFactor;
 
     const targetRotX = -py * 0.1 + floatRotX;
     const targetRotY = px * 0.15 + floatRotY;
@@ -212,9 +239,9 @@ export default function V3Vigyantra({
       2.5,
       delta
     );
-    const targetY = floatY + evolveProgress * 0.12;
-    const targetScale = 1.0 - evolveProgress * 0.36;
-    const targetZ = -evolveProgress * 0.25;
+    const targetY = floatY + curEvolve * 0.12;
+    const targetScale = 1.0 - curEvolve * 0.36;
+    const targetZ = -curEvolve * 0.25;
 
     groupRef.current.position.y = THREE.MathUtils.damp(
       groupRef.current.position.y,
@@ -242,7 +269,7 @@ export default function V3Vigyantra({
       const startSlot = (idx / (count + 1)) * 0.75;
       const endSlot = ((idx + 1.8) / (count + 1)) * 0.75 + 0.2;
 
-      const localProgress = Math.max(0, Math.min(1, (formationProgress - startSlot) / (endSlot - startSlot)));
+      const localProgress = Math.max(0, Math.min(1, (curFormation - startSlot) / (endSlot - startSlot)));
       const eased = localProgress * localProgress * (3 - 2 * localProgress);
 
       const zOffset = (1 - eased) * 1.8;
@@ -256,33 +283,31 @@ export default function V3Vigyantra({
     });
   });
 
-  if (opacity <= 0.01) return null;
-
   return (
     <group ref={groupRef} position={[0, 0, 0]}>
       {/* 1. Structural Architectural Plinth / Sub-Keel */}
       <mesh
+        ref={plinthRef1}
         position={[0, -0.9, -0.1]}
         material={materials.foundationMat}
-        scale={[Math.min(1, formationProgress * 1.15), 1, 1]}
       >
         <boxGeometry args={[letterGeometries.totalSpan + 0.8, 0.04, 0.5]} />
       </mesh>
 
       {/* Layer 2: Gold Precision Benchmark Inset */}
       <mesh
+        ref={plinthRef2}
         position={[0, -0.88, 0.12]}
         material={materials.goldAccentMat}
-        scale={[Math.min(1, formationProgress * 1.15), 1, 1]}
       >
         <boxGeometry args={[letterGeometries.totalSpan * 0.7, 0.012, 0.02]} />
       </mesh>
 
       {/* Layer 3: Restrained Deep Crimson Underside Trim Rail */}
       <mesh
+        ref={plinthRef3}
         position={[0, -0.92, -0.05]}
         material={materials.crimsonAccentMat}
-        scale={[Math.min(1, formationProgress * 1.15), 1, 1]}
       >
         <boxGeometry args={[letterGeometries.totalSpan * 0.88, 0.01, 0.4]} />
       </mesh>

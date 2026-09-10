@@ -168,23 +168,19 @@ function SceneContent({
       <group ref={groupRef} position={[0, 0.72, 0]} scale={[0.87, 0.87, 0.87]}>
         {/* Initial 3D 25 Jubilee Monument */}
         <V3Jubilee25
-          progress={vals.jubileeDeconstruct}
-          opacity={vals.jubileeOpacity}
+          timelineValues={timelineValues}
           pointerPos={pointerPos}
         />
 
         {/* Precision Intermediate Structural Fragment Field */}
         <V3FragmentField
-          progress={vals.fragmentProgress}
-          opacity={vals.fragmentOpacity}
+          timelineValues={timelineValues}
         />
 
         {/* Formed VIGYANTRA Monument (transitions smoothly to sovereign anchor hub when evolved) */}
         <V3Vigyantra
+          timelineValues={timelineValues}
           pointerPos={pointerPos}
-          formationProgress={vals.vigyantraFormation}
-          evolveProgress={vals.evolveProgress}
-          opacity={vals.vigyantraOpacity}
         />
 
         {/* Deployed 8 Architectural Arena Nodes with Energy Tethers */}

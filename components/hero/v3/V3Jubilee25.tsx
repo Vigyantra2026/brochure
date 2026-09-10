@@ -4,21 +4,27 @@ import React, { useMemo, useRef } from 'react';
 import * as THREE from 'three';
 import { useFrame } from '@react-three/fiber';
 import { createTwoShape, createFiveShape } from './jubileeShapes';
+import { TransformationTimelineValues } from './V3Scene';
 
 interface V3Jubilee25Props {
   progress?: number; // 0 = complete solid 25, 1 = fully deconstructed
   opacity?: number;
   pointerPos?: React.MutableRefObject<{ x: number; y: number }>;
+  timelineValues?: React.MutableRefObject<TransformationTimelineValues>;
 }
 
 export default function V3Jubilee25({
   progress = 0,
   opacity = 1,
   pointerPos,
+  timelineValues,
 }: V3Jubilee25Props) {
   const groupRef = useRef<THREE.Group>(null);
   const twoGroupRef = useRef<THREE.Group>(null);
   const fiveGroupRef = useRef<THREE.Group>(null);
+  const plinthRailRef = useRef<THREE.Mesh>(null);
+  const plinthGoldRef = useRef<THREE.Mesh>(null);
+  const plinthCrimsonRef = useRef<THREE.Mesh>(null);
 
   // Sub-component refs for physical mechanical deconstruction
   const twoBevelRef = useRef<THREE.Mesh>(null);
@@ -140,13 +146,33 @@ export default function V3Jubilee25({
   useFrame((state, delta) => {
     if (!groupRef.current) return;
 
-    // Subtle ambient float
+    const curOpacity = timelineValues ? timelineValues.current.jubileeOpacity : opacity;
+    const curProgress = timelineValues ? timelineValues.current.jubileeDeconstruct : progress;
+
+    groupRef.current.visible = curOpacity > 0.005;
+    if (!groupRef.current.visible) return;
+
+    // Dynamically update material opacities per frame
+    materials.bodyMat.opacity = curOpacity;
+    materials.goldAccentMat.opacity = curOpacity;
+    materials.crimsonAccentMat.opacity = curOpacity;
+    materials.foundationMat.opacity = curOpacity;
+    materials.lineMat.opacity = curOpacity * 0.65;
+
+    // Plinth rail scaling
+    const plinthScale = 1 - curProgress * 0.85;
+    if (plinthRailRef.current) plinthRailRef.current.scale.set(plinthScale, 1, plinthScale);
+    if (plinthGoldRef.current) plinthGoldRef.current.scale.set(plinthScale, 1, 1);
+    if (plinthCrimsonRef.current) plinthCrimsonRef.current.scale.set(plinthScale, 1, 1);
+
+    // Subtle ambient float & pointer damping
+    const pointerFactor = timelineValues?.current?.isTransforming ? 0.06 : 1.0;
+    const px = (pointerPos?.current?.x || 0) * pointerFactor;
+    const py = (pointerPos?.current?.y || 0) * pointerFactor;
+
     const t = state.clock.getElapsedTime();
     const floatY = Math.sin(t * 0.9) * 0.04;
     const floatRotY = Math.cos(t * 0.5) * 0.02;
-
-    const px = pointerPos?.current?.x || 0;
-    const py = pointerPos?.current?.y || 0;
 
     groupRef.current.rotation.x = THREE.MathUtils.damp(
       groupRef.current.rotation.x,
@@ -171,7 +197,7 @@ export default function V3Jubilee25({
     // 1. Numerals 2 and 5 move laterally apart with slight rearward depth
     // 2. Gold bevel panels detach forward and angle slightly outward
     // 3. Structural graphite cores shift along mechanical tracks
-    const p = Math.max(0, Math.min(1, progress));
+    const p = Math.max(0, Math.min(1, curProgress));
     const easedP = p * p * (3 - 2 * p);
 
     if (twoGroupRef.current && fiveGroupRef.current) {
@@ -201,33 +227,31 @@ export default function V3Jubilee25({
     }
   });
 
-  if (opacity <= 0.01) return null;
-
   return (
     <group ref={groupRef} position={[0, 0, 0]}>
       {/* Grounding Plinth Rail */}
       <mesh
+        ref={plinthRailRef}
         position={[0, -0.9, -0.1]}
         material={materials.foundationMat}
-        scale={[1 - progress * 0.85, 1, 1 - progress * 0.85]}
       >
         <boxGeometry args={[2.8, 0.04, 0.5]} />
       </mesh>
 
       {/* Gold Benchmark Inset on Rail */}
       <mesh
+        ref={plinthGoldRef}
         position={[0, -0.88, 0.12]}
         material={materials.goldAccentMat}
-        scale={[1 - progress * 0.85, 1, 1]}
       >
         <boxGeometry args={[1.8, 0.012, 0.02]} />
       </mesh>
 
       {/* Crimson Under-trim Rail */}
       <mesh
+        ref={plinthCrimsonRef}
         position={[0, -0.92, -0.05]}
         material={materials.crimsonAccentMat}
-        scale={[1 - progress * 0.85, 1, 1]}
       >
         <boxGeometry args={[2.2, 0.01, 0.4]} />
       </mesh>

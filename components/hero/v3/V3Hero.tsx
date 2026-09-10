@@ -82,18 +82,18 @@ export default function V3Hero({
   const finalMetaRef = useRef<HTMLDivElement>(null);
   const prizePoolRef = useRef<HTMLDivElement>(null);
 
-  // Live timeline properties shared with the Three.js canvas (defaulting to completed state)
+  // Live timeline properties shared with the Three.js canvas (defaulting to fresh entry state)
   const timelineValuesRef = useRef<TransformationTimelineValues>({
-    cameraDist: 6.8,
+    cameraDist: 5.2,
     cameraTargetZ: 0,
-    jubileeDeconstruct: 1,
-    jubileeOpacity: 0,
-    fragmentProgress: 1,
+    jubileeDeconstruct: 0,
+    jubileeOpacity: 1,
+    fragmentProgress: 0,
     fragmentOpacity: 0,
-    vigyantraFormation: 1,
-    vigyantraOpacity: 1,
+    vigyantraFormation: 0,
+    vigyantraOpacity: 0,
     evolveProgress: 0,
-    isTransforming: false,
+    isTransforming: true,
   });
 
   // =========================================================================

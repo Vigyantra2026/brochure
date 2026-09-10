@@ -4,9 +4,12 @@ import React, { useMemo, useRef } from 'react';
 import * as THREE from 'three';
 import { useFrame } from '@react-three/fiber';
 
+import { TransformationTimelineValues } from './V3Scene';
+
 interface V3FragmentFieldProps {
-  progress: number;
-  opacity: number;
+  progress?: number;
+  opacity?: number;
+  timelineValues?: React.MutableRefObject<TransformationTimelineValues>;
 }
 
 interface ComponentDef {
@@ -18,7 +21,8 @@ interface ComponentDef {
   category: 'goldBevel' | 'graphitePanel' | 'crimsonBracket';
 }
 
-export default function V3FragmentField({ progress, opacity }: V3FragmentFieldProps) {
+export default function V3FragmentField({ progress = 0, opacity = 0, timelineValues }: V3FragmentFieldProps) {
+  const groupRef = useRef<THREE.Group>(null);
   const goldMeshRef = useRef<THREE.InstancedMesh>(null);
   const bodyMeshRef = useRef<THREE.InstancedMesh>(null);
   const crimsonMeshRef = useRef<THREE.InstancedMesh>(null);
@@ -155,9 +159,19 @@ export default function V3FragmentField({ progress, opacity }: V3FragmentFieldPr
   const sharedGeometry = useMemo(() => new THREE.BoxGeometry(1, 1, 1), []);
 
   useFrame(() => {
-    if (opacity <= 0.01) return;
+    const curOpacity = timelineValues ? timelineValues.current.fragmentOpacity : opacity;
+    const curProgress = timelineValues ? timelineValues.current.fragmentProgress : progress;
 
-    const p = Math.max(0, Math.min(1, progress));
+    if (groupRef.current) {
+      groupRef.current.visible = curOpacity > 0.005;
+    }
+    if (curOpacity <= 0.005) return;
+
+    materials.bodyMat.opacity = curOpacity;
+    materials.goldMat.opacity = curOpacity;
+    materials.crimsonMat.opacity = curOpacity;
+
+    const p = Math.max(0, Math.min(1, curProgress));
     const smoothP = p * p * (3 - 2 * p);
 
     // Update Gold Bevel Components
@@ -224,10 +238,8 @@ export default function V3FragmentField({ progress, opacity }: V3FragmentFieldPr
     }
   });
 
-  if (opacity <= 0.01) return null;
-
   return (
-    <group>
+    <group ref={groupRef}>
       <instancedMesh
         ref={goldMeshRef}
         args={[sharedGeometry, materials.goldMat, components.goldList.length]}
