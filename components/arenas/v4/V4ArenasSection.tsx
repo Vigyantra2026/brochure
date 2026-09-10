@@ -3,9 +3,10 @@
 import React, { useState } from 'react';
 import { EventArena } from '@/data/events';
 import V4ArenasHeader from './V4ArenasHeader';
-import V4ArenaModeSwitch from './V4ArenaModeSwitch';
+import V4ArenaModeSwitch, { ArenaSectionMode } from './V4ArenaModeSwitch';
 import V4ArenaGrid from './V4ArenaGrid';
 import V4ArenaMonumentMode from './V4ArenaMonumentMode';
+import V4ArenaScrollExperience from './V4ArenaScrollExperience';
 
 interface V4ArenasSectionProps {
   onSelectEvent?: (event: EventArena) => void;
@@ -18,8 +19,26 @@ export default function V4ArenasSection({
   onRegisterEvent,
   onOpenModal,
 }: V4ArenasSectionProps) {
-  const [viewMode, setViewMode] = useState<'arenas' | 'monument'>('arenas');
+  const [viewMode, setViewMode] = useState<ArenaSectionMode>('scroll');
 
+  // When in Scroll Journey Mode (Default Primary Experience)
+  if (viewMode === 'scroll') {
+    return (
+      <section
+        id="arenas"
+        className="v4-arenas-section v4-scroll-mode"
+        aria-label="The 8 Flagship Arenas — VIGYANTRA 2026"
+      >
+        <V4ArenaScrollExperience
+          onSelectEvent={onSelectEvent}
+          onRegisterEvent={onRegisterEvent}
+          onOpenModal={onOpenModal}
+        />
+      </section>
+    );
+  }
+
+  // Fallback / Alternate Modes: All 8 Grid or Monument Matrix
   return (
     <section
       id="arenas"
@@ -34,14 +53,14 @@ export default function V4ArenasSection({
         {/* 2. Editorial Header Opening */}
         <V4ArenasHeader />
 
-        {/* 3. Refined Section-Level Experience Switcher ([ ARENAS ] ↔ [ MONUMENT ]) */}
+        {/* 3. Section-Level Experience Switcher ([ SCROLL ] ↔ [ ALL 8 GRID ] ↔ [ MONUMENT ]) */}
         <V4ArenaModeSwitch
           viewMode={viewMode}
           onToggleView={setViewMode}
         />
 
         {/* 4. Experience Modes: Mode B (Arenas Discovery Grid) or Mode A (Monument Matrix) */}
-        {viewMode === 'arenas' ? (
+        {viewMode === 'grid' ? (
           <V4ArenaGrid
             onSelectEvent={onSelectEvent}
             onRegisterEvent={onRegisterEvent}
@@ -50,7 +69,7 @@ export default function V4ArenasSection({
           <V4ArenaMonumentMode
             onSelectEvent={onSelectEvent}
             onRegisterEvent={onRegisterEvent}
-            onSwitchToGrid={() => setViewMode('arenas')}
+            onSwitchToGrid={() => setViewMode('grid')}
           />
         )}
 

@@ -2643,3 +2643,569 @@
     grid-template-columns: 1fr;
   }
 }
+
+/* ==========================================================================
+   V4.3.2 REBUILT SCROLL ENGINE — GSAP SCROLLTRIGGER PINNED IMMERSIVE VIEWPORT
+   ========================================================================== */
+
+.v4-arenas-section.v4-scroll-mode {
+  padding: 0;
+  margin: 0;
+  max-width: 100vw;
+  overflow: visible;
+  position: relative;
+}
+
+/* Outer scroll engine container (natural document flow, pinned by ScrollTrigger) */
+.v4-arenas-scroll-engine {
+  position: relative;
+  width: 100%;
+  background: #07080b;
+}
+
+/* Pinned Viewport (100vh / 100dvh pinned in place while GSAP scrubs distance) */
+.v4-pinned-viewport {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  height: 100dvh;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  background: radial-gradient(ellipse at 50% 45%, #11141d 0%, #06070a 100%);
+  box-sizing: border-box;
+}
+
+/* Architectural Subtle Background Grid */
+.v4-pinned-bg-grid {
+  position: absolute;
+  inset: 0;
+  background-image: 
+    linear-gradient(rgba(212, 175, 55, 0.032) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(212, 175, 55, 0.032) 1px, transparent 1px);
+  background-size: 36px 36px;
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Ambient Radial Glow */
+.v4-pinned-radial-glow {
+  position: absolute;
+  top: 48%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: min(880px, 92vw);
+  height: 480px;
+  background: radial-gradient(ellipse, rgba(212, 175, 55, 0.075) 0%, transparent 70%);
+  pointer-events: none;
+  filter: blur(48px);
+  z-index: 2;
+}
+
+/* Floating Subtle Indicator Pill (Non-clickable, pure telemetry) */
+.v4-subtle-indicator-pill {
+  position: absolute;
+  top: 24px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 25;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: rgba(12, 15, 20, 0.75);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(212, 175, 55, 0.22);
+  padding: 5px 16px;
+  border-radius: 20px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+  pointer-events: none;
+  user-select: none;
+}
+
+.v4-sind-gold {
+  font-family: var(--v2-font-mono);
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  color: var(--v2-gold);
+}
+
+.v4-sind-sep {
+  color: rgba(212, 175, 55, 0.4);
+  font-size: 0.60rem;
+}
+
+.v4-sind-code {
+  font-family: var(--v2-font-mono);
+  font-size: 0.62rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  color: var(--v2-text-secondary);
+}
+
+/* 2. CENTER STAGE FILM FRAME (100% contained within remaining vertical height) */
+.v4-pinned-stage-center {
+  position: relative;
+  flex: 1;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  z-index: 5;
+  min-height: 0;
+  padding: 12px;
+  box-sizing: border-box;
+}
+
+/* Stage Screens */
+.v4-stage-screen {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+}
+
+/* SCREEN 1: INTRO SCREEN (0.00 -> 0.10) */
+.v4-intro-screen {
+  background: rgba(6, 8, 11, 0.78);
+  backdrop-filter: blur(8px);
+  text-align: center;
+  padding: 0 24px;
+  transition: opacity 0.2s ease;
+}
+
+.v4-intro-tag {
+  margin-bottom: 12px;
+}
+
+.v4-intro-title {
+  font-family: var(--v2-font-display);
+  font-size: clamp(2.2rem, 4.5vw, 3.8rem);
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  color: var(--v2-ivory);
+  margin: 0 0 8px 0;
+  text-shadow: 0 4px 30px rgba(0, 0, 0, 0.9);
+}
+
+.v4-intro-subtitle {
+  font-family: var(--v2-font-mono);
+  font-size: clamp(0.72rem, 1vw, 0.9rem);
+  letter-spacing: 0.22em;
+  color: var(--v2-gold);
+  text-transform: uppercase;
+  margin: 0 0 18px 0;
+}
+
+.v4-intro-meta-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-family: var(--v2-font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.14em;
+  color: var(--v2-text-secondary);
+  padding: 8px 18px;
+  border-radius: 20px;
+  background: rgba(14, 18, 24, 0.85);
+  border: 1px solid rgba(212, 175, 55, 0.2);
+  margin-bottom: 24px;
+}
+
+.v4-intro-dot {
+  color: var(--v2-gold);
+  opacity: 0.5;
+}
+
+.v4-intro-gold {
+  color: var(--v2-gold);
+  font-weight: 700;
+}
+
+.v4-intro-scroll-cue {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--v2-font-mono);
+  font-size: 0.65rem;
+  letter-spacing: 0.2em;
+  color: var(--v2-gold);
+  animation: v4BouncePrompt 1.8s ease-in-out infinite;
+}
+
+.v4-cue-arrow {
+  font-size: 0.85rem;
+}
+
+/* SCREEN 2: FOCAL ARENA SCREEN (0.10 -> 0.90) */
+.v4-arena-focal-screen {
+  pointer-events: none;
+}
+
+.v4-focal-backdrop-cue {
+  position: absolute;
+  top: 8px;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: center;
+  pointer-events: none;
+  z-index: 3;
+}
+
+.v4-backdrop-sys {
+  font-family: var(--v2-font-mono);
+  font-size: 0.58rem;
+  letter-spacing: 0.16em;
+  color: rgba(212, 175, 55, 0.55);
+  padding: 3px 12px;
+  border-radius: 4px;
+  border: 1px solid rgba(212, 175, 55, 0.15);
+  background: rgba(14, 17, 23, 0.7);
+}
+
+.v4-focal-card-container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Compact Focal Card Box (Centered in viewport, max-height controlled to prevent cut-off) */
+.v4-focal-card-box {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: min(510px, 92vw);
+  will-change: transform, opacity;
+}
+
+/* Tightly compact the card inside the pinned scroll stage */
+.v4-focal-card-box .v4-arena-card {
+  padding: 16px 20px;
+  max-height: calc(100vh - 130px);
+  max-height: calc(100dvh - 130px);
+  box-sizing: border-box;
+  overflow: hidden;
+  border-color: rgba(212, 175, 55, 0.5);
+  box-shadow: 0 16px 48px -10px rgba(0, 0, 0, 0.95), 0 0 30px rgba(212, 175, 55, 0.15);
+  background: linear-gradient(145deg, #151822 0%, #0d0f15 100%);
+  cursor: default;
+}
+
+.v4-focal-card-box .v4-arena-card:hover {
+  transform: none; /* Keep steady within stage */
+  border-color: rgba(212, 175, 55, 0.75);
+}
+
+.v4-focal-card-box .v4-card-header {
+  margin-bottom: 6px;
+}
+
+.v4-focal-card-box .v4-card-title {
+  font-size: clamp(1.15rem, 1.5vw, 1.35rem);
+}
+
+.v4-focal-card-box .v4-card-title-group {
+  margin-bottom: 4px;
+}
+
+.v4-focal-card-box .v4-arena-visual-container {
+  height: 96px;
+  margin: 6px 0 8px;
+}
+
+.v4-focal-card-box .v4-card-subname {
+  font-size: 0.78rem;
+  margin-top: 2px;
+}
+
+.v4-focal-card-box .v4-card-motif-bar {
+  margin-top: 4px;
+  margin-bottom: 6px;
+}
+
+.v4-focal-card-box .v4-card-desc {
+  font-size: 0.82rem;
+  line-height: 1.42;
+  margin: 0 0 10px 0;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.v4-focal-card-box .v4-card-specs-grid {
+  padding: 8px 12px;
+  margin-bottom: 10px;
+  gap: 6px;
+}
+
+.v4-focal-card-box .v4-spec-label {
+  font-size: 0.50rem;
+}
+
+.v4-focal-card-box .v4-spec-value {
+  font-size: 0.68rem;
+}
+
+.v4-focal-card-box .v4-card-footer {
+  padding-top: 10px;
+}
+
+/* SCREEN 3: FINAL 8-ARENA OVERVIEW (0.90 -> 1.00) */
+.v4-overview-screen {
+  background: rgba(6, 8, 12, 0.95);
+  backdrop-filter: blur(14px);
+  text-align: center;
+  padding: 16px 20px;
+  overflow-y: auto;
+  justify-content: flex-start;
+  align-items: center;
+  max-height: 100%;
+  box-sizing: border-box;
+}
+
+.v4-ov-header {
+  margin-top: auto;
+  margin-bottom: 12px;
+}
+
+.v4-ov-tag {
+  font-family: var(--v2-font-mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.2em;
+  color: var(--v2-gold);
+  font-weight: 700;
+}
+
+.v4-ov-title {
+  font-family: var(--v2-font-display);
+  font-size: clamp(1.5rem, 2.8vw, 2.3rem);
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  color: var(--v2-ivory);
+  margin: 4px 0 10px 0;
+}
+
+.v4-ov-prizes {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-bottom: 10px;
+}
+
+.v4-ov-pill {
+  display: flex;
+  flex-direction: column;
+  padding: 6px 14px;
+  border-radius: 6px;
+  background: rgba(14, 18, 24, 0.9);
+  border: 1px solid rgba(212, 175, 55, 0.25);
+}
+
+.v4-ov-lbl {
+  font-family: var(--v2-font-mono);
+  font-size: 0.50rem;
+  letter-spacing: 0.16em;
+  color: var(--v2-text-tertiary);
+}
+
+.v4-ov-val {
+  font-family: var(--v2-font-mono);
+  font-size: 0.95rem;
+  font-weight: 800;
+  color: var(--v2-ivory);
+}
+
+.v4-ov-val.gold {
+  color: var(--v2-gold);
+}
+
+/* 8 Arenas Grid inside overview */
+.v4-ov-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 8px;
+  max-width: 820px;
+  width: 100%;
+  margin: 0 auto 14px;
+}
+
+.v4-ov-card-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 8px 12px;
+  background: rgba(16, 20, 28, 0.85);
+  border: 1px solid rgba(212, 175, 55, 0.22);
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-align: left;
+}
+
+.v4-ov-card-btn:hover {
+  background: #202636;
+  border-color: var(--v2-gold);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 16px rgba(212, 175, 55, 0.2);
+}
+
+.v4-ov-top {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  margin-bottom: 2px;
+}
+
+.v4-ov-num {
+  font-family: var(--v2-font-mono);
+  font-size: 0.62rem;
+  font-weight: 700;
+  color: var(--v2-gold);
+}
+
+.v4-ov-code {
+  font-family: var(--v2-font-mono);
+  font-size: 0.62rem;
+  color: var(--v2-text-tertiary);
+}
+
+.v4-ov-name {
+  font-family: var(--v2-font-body);
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: var(--v2-ivory);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%;
+  margin-bottom: 4px;
+}
+
+.v4-ov-link {
+  font-family: var(--v2-font-mono);
+  font-size: 0.52rem;
+  letter-spacing: 0.1em;
+  color: var(--v2-gold);
+  opacity: 0.8;
+}
+
+/* Actions in Overview */
+.v4-ov-actions {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-bottom: 12px;
+}
+
+.v4-ov-btn-reg {
+  background: var(--v2-crimson);
+  border: 1px solid var(--v2-crimson-border);
+  color: #ffffff;
+  font-family: var(--v2-font-mono);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  padding: 8px 18px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.v4-ov-btn-reg:hover {
+  background: var(--v2-crimson-vibrant);
+  box-shadow: 0 0 20px rgba(186, 30, 56, 0.4);
+}
+
+.v4-ov-btn-doc,
+.v4-ov-btn-grid {
+  background: transparent;
+  border: 1px solid rgba(212, 175, 55, 0.35);
+  color: var(--v2-gold);
+  font-family: var(--v2-font-mono);
+  font-size: 0.70rem;
+  letter-spacing: 0.08em;
+  padding: 8px 16px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.v4-ov-btn-doc:hover,
+.v4-ov-btn-grid:hover {
+  background: rgba(212, 175, 55, 0.15);
+  border-color: var(--v2-gold);
+  color: #ffffff;
+}
+
+/* Release Prompt */
+.v4-ov-release-prompt {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--v2-font-mono);
+  font-size: 0.60rem;
+  letter-spacing: 0.16em;
+  color: var(--v2-gold);
+  opacity: 0.9;
+  margin-bottom: auto;
+  animation: v4BouncePrompt 1.8s ease-in-out infinite;
+}
+
+.v4-ov-arrow {
+  font-size: 0.8rem;
+}
+
+/* Bounce animation */
+@keyframes v4BouncePrompt {
+  0%, 100% { transform: translateY(0); opacity: 0.8; }
+  50% { transform: translateY(4px); opacity: 1; }
+}
+
+/* Responsive Adjustments */
+@media (max-width: 900px) {
+  .v4-ov-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 640px) {
+  .v4-focal-card-box {
+    width: 95vw;
+  }
+  .v4-ov-grid {
+    grid-template-columns: 1fr;
+    max-height: 35vh;
+    overflow-y: auto;
+  }
+  .v4-subtle-indicator-pill {
+    top: 14px;
+    padding: 4px 12px;
+  }
+}
+
+/* Reduced Motion Override */
+@media (prefers-reduced-motion: reduce) {
+  .v4-focal-card-box {
+    position: relative !important;
+    top: auto !important;
+    left: auto !important;
+    transform: none !important;
+    margin: 12px auto !important;
+  }
+  .v4-stage-screen {
+    position: relative !important;
+  }
+}
+
