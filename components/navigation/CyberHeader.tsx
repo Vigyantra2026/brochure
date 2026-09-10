@@ -141,13 +141,6 @@ export default function CyberHeader({ onOpenModal, onScrollTo }: CyberHeaderProp
             </button>
           </li>
           <li>
-            <button className="dropdown-item-btn" onClick={() => handleScroll('coordinators')}>
-              <span className="item-icon">👥</span>
-              <span className="item-text">EVENT COORDINATORS</span>
-              <span className="item-arrow">↓</span>
-            </button>
-          </li>
-          <li>
             <button className="dropdown-item-btn" onClick={() => handleScroll('contact')}>
               <span className="item-icon">📞</span>
               <span className="item-text">CONTACT &amp; HELPDESK</span>
