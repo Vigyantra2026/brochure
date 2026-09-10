@@ -60,15 +60,17 @@ export default function CyberHeader({ onOpenModal, onScrollTo, introActive = fal
             onScrollTo('command-deck');
           }}
           className="header-brand-link"
-          aria-label="SJB Institute of Technology Official Seal"
+          aria-label="SJB Institute of Technology, Bengaluru — Return to Top"
         >
           <img
             src="/assets/sjbit_logo.png"
             alt="SJB Institute of Technology Official Seal"
             className="header-sjbit-logo"
-            width={44}
-            height={44}
+            width={48}
+            height={48}
           />
+          <span className="header-brand-divider" aria-hidden="true" />
+          <span className="header-brand-inst-label">SJBIT • BENGALURU</span>
         </a>
       </div>
 
