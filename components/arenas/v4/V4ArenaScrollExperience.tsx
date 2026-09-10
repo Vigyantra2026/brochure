@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState, useEffect, useRef, useMemo } from 'react';
+import Link from 'next/link';
 import { ARENAS_V4, ArenaV4Data } from '@/data/arenas';
 import { EventArena } from '@/data/events';
 import V4ArenaCard from './V4ArenaCard';
@@ -284,9 +285,9 @@ export default function V4ArenaScrollExperience({
               {/* 8 Arenas Matrix Grid */}
               <div className="v4-ov-grid">
                 {ARENAS_V4.map((a) => (
-                  <button
+                  <Link
                     key={a.id}
-                    type="button"
+                    href={`/arenas/${a.slug}`}
                     className="v4-ov-card-btn"
                     onClick={() => onSelectEvent?.(a.rawEvent)}
                   >
@@ -296,7 +297,7 @@ export default function V4ArenaScrollExperience({
                     </div>
                     <span className="v4-ov-name">{a.name}</span>
                     <span className="v4-ov-link">EXPLORE DOSSIER →</span>
-                  </button>
+                  </Link>
                 ))}
               </div>
 

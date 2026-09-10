@@ -1,6 +1,7 @@
 'use client';
 
 import React from 'react';
+import Link from 'next/link';
 import { ArenaV4Data } from '@/data/arenas';
 import { EventArena } from '@/data/events';
 import { V2Badge } from '@/components/ui/v2';
@@ -94,8 +95,8 @@ export default function V4ArenaCard({
 
       {/* 6. Action Footer: Explore Dossier & Direct Register */}
       <div className="v4-card-footer">
-        <button
-          type="button"
+        <Link
+          href={`/arenas/${arena.slug}`}
           className="v4-btn-dossier"
           onClick={(e) => {
             e.stopPropagation();
@@ -105,7 +106,7 @@ export default function V4ArenaCard({
         >
           <span>EXPLORE DOSSIER</span>
           <span className="v4-btn-arrow" aria-hidden="true">→</span>
-        </button>
+        </Link>
 
         <button
           type="button"

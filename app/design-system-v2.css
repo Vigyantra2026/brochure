@@ -3209,3 +3209,1011 @@
   }
 }
 
+/* ==========================================================================
+   V4.4 — TECHNICAL ARENA DOSSIER STYLES
+   Editorial Document, Structured Technical Blueprint, Responsive
+   ========================================================================== */
+
+.v4-dossier-page-root {
+  min-height: 100vh;
+  background-color: var(--v2-bg-base);
+  color: var(--v2-ivory);
+  font-family: var(--v2-font-body);
+  position: relative;
+  overflow-x: hidden;
+}
+
+/* --------------------------------------------------------------------------
+   00. Global Dossier Command Header
+   -------------------------------------------------------------------------- */
+.v4-dossier-topbar {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: rgba(8, 9, 12, 0.88);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.v4-dossier-topbar-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 14px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.v4-topbar-brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+  color: inherit;
+}
+
+.v4-topbar-badge {
+  font-family: var(--v2-font-mono);
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  padding: 2px 8px;
+  background: rgba(212, 175, 55, 0.12);
+  border: 1px solid rgba(212, 175, 55, 0.35);
+  color: var(--v2-gold);
+  border-radius: 4px;
+}
+
+.v4-topbar-title {
+  font-family: var(--v2-font-mono);
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  color: var(--v2-ivory);
+}
+
+.v4-topbar-sep {
+  color: var(--v2-text-tertiary);
+  font-size: 0.75rem;
+}
+
+.v4-topbar-sub {
+  font-family: var(--v2-font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.16em;
+  color: var(--v2-gold);
+}
+
+.v4-topbar-actions {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.v4-topbar-back-btn {
+  font-family: var(--v2-font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.12em;
+  color: var(--v2-text-secondary);
+  text-decoration: none;
+  padding: 6px 14px;
+  border-radius: 4px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  transition: all 0.2s ease;
+}
+
+.v4-topbar-back-btn:hover {
+  color: var(--v2-ivory);
+  border-color: rgba(212, 175, 55, 0.4);
+  background: rgba(212, 175, 55, 0.05);
+}
+
+.v4-topbar-reg-btn {
+  font-family: var(--v2-font-mono);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  color: #fff;
+  background: linear-gradient(135deg, var(--v2-crimson) 0%, #b91c1c 100%);
+  text-decoration: none;
+  padding: 6px 16px;
+  border-radius: 4px;
+  box-shadow: 0 2px 10px rgba(185, 28, 28, 0.35);
+  transition: all 0.2s ease;
+}
+
+.v4-topbar-reg-btn:hover {
+  filter: brightness(1.15);
+  transform: translateY(-1px);
+}
+
+/* --------------------------------------------------------------------------
+   01. Dossier Document Shell & Navigation Breadcrumb
+   -------------------------------------------------------------------------- */
+.v4-dossier-document {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 32px 24px 80px 24px;
+}
+
+.v4-dossier-nav-bar {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+  padding-bottom: 20px;
+  margin-bottom: 36px;
+}
+
+.v4-dossier-nav-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.v4-dossier-back-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--v2-font-mono);
+  font-size: 0.76rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  color: var(--v2-text-secondary);
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+
+.v4-dossier-back-link:hover {
+  color: var(--v2-gold);
+  transform: translateX(-3px);
+}
+
+.v4-dnav-arrow {
+  font-size: 1rem;
+}
+
+.v4-dossier-adjacent-group {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-family: var(--v2-font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.12em;
+}
+
+.v4-dossier-adj-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--v2-text-secondary);
+  text-decoration: none;
+  padding: 6px 12px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 4px;
+  transition: all 0.2s ease;
+}
+
+.v4-dossier-adj-btn:hover {
+  color: var(--v2-gold);
+  border-color: rgba(212, 175, 55, 0.35);
+  background: rgba(212, 175, 55, 0.08);
+}
+
+.v4-adj-chev {
+  font-size: 0.95rem;
+  color: var(--v2-gold);
+}
+
+.v4-dossier-adj-sep {
+  color: rgba(255, 255, 255, 0.2);
+}
+
+/* --------------------------------------------------------------------------
+   02. Dossier Hero Header
+   -------------------------------------------------------------------------- */
+.v4-dossier-hero {
+  margin-bottom: 56px;
+}
+
+.v4-dossier-hero-inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.v4-dossier-eyebrow-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 18px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.v4-dossier-cat {
+  font-family: var(--v2-font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.18em;
+  color: var(--v2-text-secondary);
+  text-transform: uppercase;
+}
+
+.v4-dossier-code-chip {
+  font-family: var(--v2-font-mono);
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  color: var(--v2-gold);
+  background: rgba(212, 175, 55, 0.1);
+  padding: 2px 8px;
+  border-radius: 3px;
+  border: 1px solid rgba(212, 175, 55, 0.25);
+}
+
+.v4-dossier-main-title {
+  font-family: var(--v2-font-heading);
+  font-size: clamp(2.2rem, 5vw, 3.6rem);
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  line-height: 1.12;
+  color: var(--v2-ivory);
+  margin: 0 0 10px 0;
+}
+
+.v4-dossier-subtitle {
+  font-family: var(--v2-font-body);
+  font-size: 1.1rem;
+  font-style: italic;
+  color: #c6a052;
+  margin-bottom: 28px;
+}
+
+.v4-dossier-visual-frame {
+  width: 100%;
+  max-width: 680px;
+  height: 220px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 10px;
+  overflow: hidden;
+  position: relative;
+  background: radial-gradient(circle at center, rgba(20, 24, 32, 0.85) 0%, rgba(10, 12, 16, 0.98) 100%);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.5);
+  margin-bottom: 32px;
+}
+
+.v4-dossier-spec-ribbon {
+  width: 100%;
+  max-width: 900px;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 1px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.4);
+}
+
+.v4-dspec-cell {
+  background: rgba(14, 16, 22, 0.95);
+  padding: 16px 14px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 6px;
+}
+
+.v4-dspec-k {
+  font-family: var(--v2-font-mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.16em;
+  color: var(--v2-text-tertiary);
+  font-weight: 600;
+}
+
+.v4-dspec-v {
+  font-family: var(--v2-font-mono);
+  font-size: 0.95rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  color: var(--v2-ivory);
+}
+
+.v4-dspec-v.gold {
+  color: var(--v2-gold);
+  text-shadow: 0 0 10px rgba(212, 175, 55, 0.3);
+}
+
+/* --------------------------------------------------------------------------
+   03. Dossier Body & Structured Sections
+   -------------------------------------------------------------------------- */
+.v4-dossier-body {
+  display: flex;
+  flex-direction: column;
+  gap: 56px;
+}
+
+.v4-dossier-section {
+  position: relative;
+  background: rgba(16, 18, 24, 0.5);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 12px;
+  padding: 32px 36px;
+  transition: border-color 0.2s ease;
+}
+
+.v4-dossier-section:hover {
+  border-color: rgba(212, 175, 55, 0.2);
+}
+
+.v4-dsection-header {
+  margin-bottom: 24px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  padding-bottom: 14px;
+}
+
+.v4-dsection-index {
+  display: block;
+  font-family: var(--v2-font-mono);
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  color: var(--v2-gold);
+  margin-bottom: 4px;
+}
+
+.v4-dsection-title {
+  font-family: var(--v2-font-heading);
+  font-size: 1.45rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  color: var(--v2-ivory);
+  margin: 0;
+}
+
+/* SECTION 01: Overview */
+.v4-dossier-paragraph {
+  font-family: var(--v2-font-body);
+  font-size: 1.02rem;
+  line-height: 1.72;
+  color: var(--v2-text-secondary);
+  margin: 0 0 20px 0;
+}
+
+.v4-dossier-meta-callout {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  padding: 16px 20px;
+  background: rgba(212, 175, 55, 0.05);
+  border: 1px solid rgba(212, 175, 55, 0.2);
+  border-radius: 8px;
+}
+
+.v4-callout-icon {
+  font-size: 1.25rem;
+  line-height: 1;
+}
+
+.v4-callout-lbl {
+  font-family: var(--v2-font-mono);
+  font-size: 0.65rem;
+  letter-spacing: 0.16em;
+  color: var(--v2-gold);
+  font-weight: 700;
+  margin-bottom: 3px;
+}
+
+.v4-callout-val {
+  font-family: var(--v2-font-body);
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--v2-ivory);
+}
+
+/* SECTION 02: The Challenge Tasks */
+.v4-tasks-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.v4-task-card {
+  display: flex;
+  align-items: flex-start;
+  gap: 20px;
+  padding: 20px;
+  background: rgba(20, 24, 32, 0.7);
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  border-radius: 8px;
+}
+
+.v4-task-index {
+  font-family: var(--v2-font-mono);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  color: var(--v2-gold);
+  padding: 4px 10px;
+  background: rgba(212, 175, 55, 0.1);
+  border-radius: 4px;
+  border: 1px solid rgba(212, 175, 55, 0.25);
+  white-space: nowrap;
+}
+
+.v4-task-desc {
+  font-family: var(--v2-font-body);
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: var(--v2-text-secondary);
+  margin: 0;
+}
+
+/* SECTION 03: Rounds */
+.v4-rounds-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 20px;
+}
+
+.v4-round-card {
+  background: rgba(20, 24, 32, 0.75);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 8px;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.v4-rcard-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.v4-rcard-badge {
+  font-family: var(--v2-font-mono);
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  color: var(--v2-gold);
+}
+
+.v4-rcard-dur {
+  font-family: var(--v2-font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.1em;
+  color: var(--v2-text-tertiary);
+  background: rgba(255, 255, 255, 0.05);
+  padding: 2px 8px;
+  border-radius: 4px;
+}
+
+.v4-rcard-title {
+  font-family: var(--v2-font-heading);
+  font-size: 1.15rem;
+  color: var(--v2-ivory);
+  margin: 0;
+}
+
+.v4-rcard-format {
+  font-family: var(--v2-font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.12em;
+  color: #94a3b8;
+}
+
+.v4-rcard-task {
+  font-family: var(--v2-font-body);
+  font-size: 0.88rem;
+  line-height: 1.55;
+  color: var(--v2-text-secondary);
+  margin: 0;
+}
+
+.v4-rcard-scoring, .v4-rcard-qual {
+  font-family: var(--v2-font-mono);
+  font-size: 0.7rem;
+  display: flex;
+  gap: 6px;
+}
+
+.v4-rscore-lbl, .v4-rqual-lbl {
+  color: var(--v2-text-tertiary);
+  font-weight: 600;
+}
+
+.v4-rscore-val, .v4-rqual-val {
+  color: var(--v2-ivory);
+}
+
+/* SECTION 04: Rules Layout */
+.v4-rules-layout {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr;
+  gap: 36px;
+}
+
+.v4-rules-subhead {
+  font-family: var(--v2-font-mono);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  color: var(--v2-gold);
+  margin: 0 0 16px 0;
+  text-transform: uppercase;
+}
+
+.v4-rules-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.v4-rule-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  font-family: var(--v2-font-body);
+  font-size: 0.92rem;
+  line-height: 1.55;
+  color: var(--v2-text-secondary);
+}
+
+.v4-rule-num {
+  font-family: var(--v2-font-mono);
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--v2-gold);
+  flex-shrink: 0;
+}
+
+.v4-submissions-block {
+  margin-top: 24px;
+  padding: 16px 18px;
+  background: rgba(0, 0, 0, 0.3);
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  border-radius: 8px;
+}
+
+.v4-subm-subhead {
+  font-family: var(--v2-font-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.15em;
+  color: var(--v2-ivory);
+  margin: 0 0 10px 0;
+}
+
+.v4-subm-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  font-family: var(--v2-font-body);
+  font-size: 0.88rem;
+  color: var(--v2-text-secondary);
+}
+
+.v4-dossier-muted {
+  font-family: var(--v2-font-mono);
+  font-size: 0.78rem;
+  color: var(--v2-text-tertiary);
+  font-style: italic;
+}
+
+/* SECTION 05: Prize Purse */
+.v4-prize-deck {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.v4-prize-summary-banner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 6px;
+  padding: 24px;
+  background: radial-gradient(ellipse at center, rgba(212, 175, 55, 0.12) 0%, rgba(14, 16, 22, 0.9) 100%);
+  border: 1px solid rgba(212, 175, 55, 0.35);
+  border-radius: 10px;
+}
+
+.v4-psum-k {
+  font-family: var(--v2-font-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.2em;
+  color: var(--v2-gold);
+  font-weight: 700;
+}
+
+.v4-psum-v {
+  font-family: var(--v2-font-heading);
+  font-size: clamp(2.4rem, 5vw, 3.2rem);
+  font-weight: 800;
+  color: #fff;
+  letter-spacing: 0.04em;
+  text-shadow: 0 0 24px rgba(212, 175, 55, 0.4);
+}
+
+.v4-psum-sub {
+  font-family: var(--v2-font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.15em;
+  color: var(--v2-text-secondary);
+}
+
+.v4-prize-breakdown-row {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+}
+
+.v4-prize-award-card {
+  padding: 24px;
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.v4-prize-award-card.champion {
+  background: linear-gradient(135deg, rgba(30, 24, 12, 0.8) 0%, rgba(16, 18, 24, 0.9) 100%);
+  border: 1px solid rgba(212, 175, 55, 0.4);
+}
+
+.v4-prize-award-card.runner-up {
+  background: linear-gradient(135deg, rgba(22, 26, 34, 0.8) 0%, rgba(14, 16, 22, 0.9) 100%);
+  border: 1px solid rgba(148, 163, 184, 0.3);
+}
+
+.v4-paward-rank {
+  font-family: var(--v2-font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.16em;
+  font-weight: 700;
+  color: var(--v2-gold);
+}
+
+.v4-prize-award-card.runner-up .v4-paward-rank {
+  color: #94a3b8;
+}
+
+.v4-paward-amount {
+  font-family: var(--v2-font-heading);
+  font-size: 2rem;
+  font-weight: 800;
+  color: var(--v2-ivory);
+}
+
+.v4-paward-label {
+  font-family: var(--v2-font-body);
+  font-size: 0.85rem;
+  color: var(--v2-text-secondary);
+}
+
+/* SECTION 06: Expandable FAQ */
+.v4-faq-accordion {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.v4-faq-item {
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  border-radius: 8px;
+  background: rgba(20, 24, 32, 0.6);
+  overflow: hidden;
+  transition: all 0.2s ease;
+}
+
+.v4-faq-item.open {
+  border-color: rgba(212, 175, 55, 0.35);
+  background: rgba(20, 24, 32, 0.9);
+}
+
+.v4-faq-trigger {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 18px 20px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  text-align: left;
+  color: inherit;
+}
+
+.v4-faq-q {
+  font-family: var(--v2-font-heading);
+  font-size: 1.02rem;
+  font-weight: 600;
+  color: var(--v2-ivory);
+}
+
+.v4-faq-toggle-icon {
+  font-family: var(--v2-font-mono);
+  font-size: 1.25rem;
+  color: var(--v2-gold);
+  flex-shrink: 0;
+  line-height: 1;
+}
+
+.v4-faq-body {
+  padding: 0 20px 20px 20px;
+  border-top: 1px solid rgba(255, 255, 255, 0.04);
+}
+
+.v4-faq-a {
+  font-family: var(--v2-font-body);
+  font-size: 0.94rem;
+  line-height: 1.65;
+  color: var(--v2-text-secondary);
+  margin: 14px 0 0 0;
+}
+
+/* SECTION 07: Coordinators */
+.v4-coord-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+}
+
+.v4-coord-box {
+  background: rgba(20, 24, 32, 0.7);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 8px;
+  padding: 22px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.v4-coord-box.full {
+  grid-column: 1 / -1;
+  background: rgba(14, 16, 22, 0.85);
+  border-color: rgba(212, 175, 55, 0.2);
+}
+
+.v4-coord-badge {
+  font-family: var(--v2-font-mono);
+  font-size: 0.65rem;
+  letter-spacing: 0.16em;
+  font-weight: 700;
+  color: #94a3b8;
+  margin-bottom: 4px;
+}
+
+.v4-coord-badge.gold {
+  color: var(--v2-gold);
+}
+
+.v4-coord-name {
+  font-family: var(--v2-font-heading);
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--v2-ivory);
+}
+
+.v4-coord-dept {
+  font-family: var(--v2-font-body);
+  font-size: 0.85rem;
+  color: var(--v2-text-secondary);
+}
+
+.v4-coord-phone {
+  font-family: var(--v2-font-mono);
+  font-size: 0.74rem;
+  color: var(--v2-gold);
+  margin-top: 8px;
+}
+
+.v4-coord-lbl {
+  color: var(--v2-text-tertiary);
+  margin-right: 6px;
+}
+
+/* SECTION 08: Registration CTA */
+.v4-dossier-cta-section {
+  padding: 56px 36px;
+  background: radial-gradient(ellipse at center, rgba(185, 28, 28, 0.15) 0%, rgba(14, 16, 22, 0.95) 100%);
+  border: 1px solid rgba(185, 28, 28, 0.4);
+  border-radius: 12px;
+  text-align: center;
+}
+
+.v4-dossier-cta-inner {
+  max-width: 680px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+}
+
+.v4-cta-eyebrow {
+  font-family: var(--v2-font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.2em;
+  color: var(--v2-gold);
+  font-weight: 700;
+}
+
+.v4-cta-heading {
+  font-family: var(--v2-font-heading);
+  font-size: clamp(1.8rem, 4vw, 2.6rem);
+  font-weight: 800;
+  color: var(--v2-ivory);
+  margin: 0;
+}
+
+.v4-cta-lead {
+  font-family: var(--v2-font-body);
+  font-size: 1rem;
+  line-height: 1.6;
+  color: var(--v2-text-secondary);
+  margin: 0 0 12px 0;
+}
+
+.v4-cta-actions {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.v4-dossier-register-btn {
+  font-family: var(--v2-font-mono);
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  padding: 14px 28px;
+  background: linear-gradient(135deg, var(--v2-crimson) 0%, #b91c1c 100%);
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  box-shadow: 0 4px 20px rgba(185, 28, 28, 0.4);
+  transition: all 0.2s ease;
+}
+
+.v4-dossier-register-btn:hover {
+  filter: brightness(1.18);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 26px rgba(185, 28, 28, 0.55);
+}
+
+.v4-dossier-return-btn {
+  font-family: var(--v2-font-mono);
+  font-size: 0.82rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  padding: 14px 24px;
+  background: rgba(255, 255, 255, 0.05);
+  color: var(--v2-text-secondary);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 6px;
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+
+.v4-dossier-return-btn:hover {
+  color: var(--v2-gold);
+  border-color: rgba(212, 175, 55, 0.35);
+  background: rgba(212, 175, 55, 0.08);
+}
+
+/* Dossier Footer */
+.v4-dossier-footer {
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(8, 9, 12, 0.95);
+  padding: 24px 20px;
+}
+
+.v4-dossier-footer-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 16px;
+  font-family: var(--v2-font-mono);
+  font-size: 0.68rem;
+  color: var(--v2-text-tertiary);
+  letter-spacing: 0.1em;
+}
+
+.v4-dfooter-gold {
+  color: var(--v2-gold);
+  font-weight: 700;
+}
+
+.v4-dfooter-sep {
+  margin: 0 8px;
+  opacity: 0.35;
+}
+
+.v4-dfooter-right {
+  display: flex;
+  gap: 18px;
+}
+
+.v4-dfooter-link {
+  color: var(--v2-text-secondary);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.v4-dfooter-link:hover {
+  color: var(--v2-gold);
+}
+
+/* --------------------------------------------------------------------------
+   Responsive Breakpoints for Dossier
+   -------------------------------------------------------------------------- */
+@media (max-width: 900px) {
+  .v4-dossier-spec-ribbon {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  .v4-rules-layout {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+  .v4-prize-breakdown-row {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 640px) {
+  .v4-dossier-document {
+    padding: 20px 16px 60px 16px;
+  }
+  .v4-dossier-section {
+    padding: 22px 18px;
+  }
+  .v4-dossier-spec-ribbon {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .v4-coord-grid {
+    grid-template-columns: 1fr;
+  }
+  .v4-topbar-sub {
+    display: none;
+  }
+  .v4-dossier-nav-inner {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .v4-dossier-adjacent-group {
+    width: 100%;
+    justify-content: space-between;
+  }
+  .v4-task-card {
+    flex-direction: column;
+    gap: 10px;
+  }
+  .v4-cta-actions {
+    flex-direction: column;
+    width: 100%;
+  }
+  .v4-dossier-register-btn, .v4-dossier-return-btn {
+    width: 100%;
+    text-align: center;
+  }
+}
+
+
