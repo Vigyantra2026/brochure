@@ -44,7 +44,12 @@ export default function HomePage() {
       gsap.ticker.lagSmoothing(0);
     }
 
+    const refreshTimer = setTimeout(() => {
+      ScrollTrigger.refresh();
+    }, 250);
+
     return () => {
+      clearTimeout(refreshTimer);
       ScrollTrigger.getAll().forEach((t) => t.kill());
     };
   }, []);
