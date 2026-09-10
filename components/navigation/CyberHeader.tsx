@@ -14,12 +14,22 @@ export default function CyberHeader({ onOpenModal, onScrollTo }: CyberHeaderProp
     setMenuOpen(false);
     if (option === 'events') {
       onScrollTo('arenas');
-    } else if (['schedule', 'prizes', 'guidelines', 'faq', 'venue'].includes(option)) {
+    } else if (option === 'schedule') {
+      onScrollTo('schedule');
+    } else if (option === 'prizes') {
+      onScrollTo('prizes');
+    } else if (option === 'brochure') {
+      onScrollTo('brochure');
+    } else if (option === 'legacy') {
+      onScrollTo('legacy');
+    } else if (option === 'jubilee') {
+      onScrollTo('jubilee');
+    } else if (option === 'institution') {
+      onScrollTo('institution');
+    } else if (['guidelines', 'faq', 'venue'].includes(option)) {
       onOpenModal(option);
     } else if (option === 'register') {
       onOpenModal('registration');
-    } else if (option === 'brochure') {
-      onOpenModal('brochure');
     }
   };
 
@@ -75,14 +85,21 @@ export default function CyberHeader({ onOpenModal, onScrollTo }: CyberHeaderProp
           <li>
             <button className="dropdown-item-btn" onClick={() => handleSelectOption('schedule')}>
               <span className="item-icon">⏱</span>
-              <span className="item-text">SYMPOSIUM TIMELINE</span>
+              <span className="item-text">EVENT TIMELINE (SCHEDULE)</span>
               <span className="item-arrow">→</span>
             </button>
           </li>
           <li>
             <button className="dropdown-item-btn" onClick={() => handleSelectOption('prizes')}>
               <span className="item-icon">🏆</span>
-              <span className="item-text">₹ 4,00,000 PRIZES</span>
+              <span className="item-text">₹ 4,00,000 PRIZE POOL</span>
+              <span className="item-arrow">→</span>
+            </button>
+          </li>
+          <li>
+            <button className="dropdown-item-btn" onClick={() => handleSelectOption('brochure')}>
+              <span className="item-icon">📖</span>
+              <span className="item-text">DIGITAL BROCHURE</span>
               <span className="item-arrow">→</span>
             </button>
           </li>
@@ -100,19 +117,26 @@ export default function CyberHeader({ onOpenModal, onScrollTo }: CyberHeaderProp
               <span className="item-arrow">→</span>
             </button>
           </li>
+          <li className="dropdown-divider" />
+          <li className="dropdown-section-label"><span>// SECTIONS //</span></li>
           <li>
-            <button className="dropdown-item-btn" onClick={() => handleSelectOption('venue')}>
-              <span className="item-icon">📍</span>
-              <span className="item-text">CAMPUS TELEMETRY & VENUE</span>
-              <span className="item-arrow">→</span>
+            <button className="dropdown-item-btn" onClick={() => handleScroll('legacy')}>
+              <span className="item-icon">✨</span>
+              <span className="item-text">THE GUIDING LEGACY</span>
+              <span className="item-arrow">↓</span>
             </button>
           </li>
-          <li className="dropdown-divider" />
-          <li className="dropdown-section-label"><span>// DOSSIER SECTIONS //</span></li>
           <li>
-            <button className="dropdown-item-btn" onClick={() => handleScroll('about')}>
-              <span className="item-icon">ℹ️</span>
-              <span className="item-text">ABOUT VIGYANTRA</span>
+            <button className="dropdown-item-btn" onClick={() => handleScroll('jubilee')}>
+              <span className="item-icon">⭐</span>
+              <span className="item-text">25 YEARS SILVER JUBILEE</span>
+              <span className="item-arrow">↓</span>
+            </button>
+          </li>
+          <li>
+            <button className="dropdown-item-btn" onClick={() => handleScroll('institution')}>
+              <span className="item-icon">🏛️</span>
+              <span className="item-text">SJBIT INSTITUTION</span>
               <span className="item-arrow">↓</span>
             </button>
           </li>
@@ -124,16 +148,9 @@ export default function CyberHeader({ onOpenModal, onScrollTo }: CyberHeaderProp
             </button>
           </li>
           <li>
-            <button className="dropdown-item-btn" onClick={() => handleScroll('campus')}>
-              <span className="item-icon">🏛️</span>
-              <span className="item-text">VISIT SJBIT</span>
-              <span className="item-arrow">↓</span>
-            </button>
-          </li>
-          <li>
             <button className="dropdown-item-btn" onClick={() => handleScroll('contact')}>
               <span className="item-icon">📞</span>
-              <span className="item-text">CONTACT DESK</span>
+              <span className="item-text">CONTACT &amp; HELPDESK</span>
               <span className="item-arrow">↓</span>
             </button>
           </li>

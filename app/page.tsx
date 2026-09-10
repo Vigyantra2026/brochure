@@ -4,19 +4,24 @@ import React, { useState, useEffect } from 'react';
 import UniverseCanvas from '@/components/motion/UniverseCanvas';
 import V2CinematicIntro from '@/components/intro/v2/V2CinematicIntro';
 import CyberHeader from '@/components/navigation/CyberHeader';
-import V2Hero from '@/components/hero/v2/V2Hero';
 import V3Hero from '@/components/hero/v3/V3Hero';
-import V2LegacySection from '@/components/legacy/v2/V2LegacySection';
+import GuidingLegacySection from '@/components/legacy/v2/GuidingLegacySection';
+import V4ArenasSection from '@/components/arenas/v4/V4ArenasSection';
+import ScheduleSection from '@/components/schedule/ScheduleSection';
+import SilverJubileeSection from '@/components/jubilee/SilverJubileeSection';
+import SjbitInstitutionSection from '@/components/institution/SjbitInstitutionSection';
+import PrizePoolSection from '@/components/prizes/PrizePoolSection';
+import BrochureSection from '@/components/brochure-section/BrochureSection';
 import CoordinatorsDesk from '@/components/coordinators/CoordinatorsDesk';
-import CampusTelemetry from '@/components/campus/CampusTelemetry';
 import ContactTerminal from '@/components/contact/ContactTerminal';
-import CyberFooter from '@/components/navigation/CyberFooter';
+import FinalCtaSection from '@/components/cta/FinalCtaSection';
+import InstitutionalFooter from '@/components/footer/InstitutionalFooter';
+
 import HudModal from '@/components/ui/HudModal';
 import CadetRegistrationModal from '@/components/registration/CadetRegistrationModal';
 import BrochureViewerModal from '@/components/brochure/BrochureViewerModal';
 import EventDossierModal from '@/components/events/EventDossierModal';
-import V4ArenasSection from '@/components/arenas/v4/V4ArenasSection';
-import { EventArena, EVENTS_DATA } from '@/data/events';
+import { EventArena } from '@/data/events';
 import { initLenis } from '@/lib/lenis';
 import { gsap, ScrollTrigger } from '@/lib/gsap';
 
@@ -40,26 +45,6 @@ export default function HomePage() {
       });
       gsap.ticker.lagSmoothing(0);
     }
-
-    // Gentle fade-in triggers for info sections
-    const sections = document.querySelectorAll('.info-section');
-    sections.forEach((sec) => {
-      gsap.fromTo(
-        sec,
-        { opacity: 0.85, y: 30 },
-        {
-          opacity: 1,
-          y: 0,
-          duration: 0.8,
-          ease: 'power2.out',
-          scrollTrigger: {
-            trigger: sec,
-            start: 'top 85%',
-            toggleActions: 'play none none reverse',
-          },
-        }
-      );
-    });
 
     return () => {
       ScrollTrigger.getAll().forEach((t) => t.kill());
@@ -96,10 +81,10 @@ export default function HomePage() {
 
   return (
     <>
-      {/* 1. V2 Cinematic 6-Scene Opening Experience */}
+      {/* 1. Cinematic Opening Intro (plays once per session) */}
       <V2CinematicIntro />
 
-      {/* 2. Full-Screen Universe Canvas Backdrop */}
+      {/* 2. Ambient Universe Canvas & Cyber Overlays */}
       <UniverseCanvas />
       <div className="cosmic-nebula-glow" aria-hidden="true" />
       <div className="cyber-grid-overlay" aria-hidden="true" />
@@ -108,88 +93,50 @@ export default function HomePage() {
       {/* 3. Top Cyber Navigation Header */}
       <CyberHeader onOpenModal={handleOpenModal} onScrollTo={handleScrollTo} />
 
-      {/* 4. V3 3D Prototype Homepage Command Deck Hero (100dvh) */}
+      {/* 4. VIGYANTRA Hero / Home (V3 3D Monument + Transformation + Register CTA) */}
       <V3Hero
         onOpenModal={handleOpenModal}
         onScrollTo={handleScrollTo}
         onSelectEvent={handleSelectEvent}
       />
 
-      {/* 5. V4.1 The 8 Flagship Arenas Section (MAIN FEATURED SECTION) */}
+      {/* 5. The Guiding Legacy (Standalone Institutional Bridge - Only ONCE on page) */}
+      <GuidingLegacySection />
+
+      {/* 6. The 8 Arenas (Scroll-Driven Timeline & Identity Cards) */}
       <V4ArenasSection
         onSelectEvent={handleSelectEvent}
         onRegisterEvent={handleRegisterEvent}
         onOpenModal={handleOpenModal}
       />
 
-      {/* 6. Legacy Section (SJBIT / 25 Years) */}
-      <V2LegacySection onScrollToArenas={() => handleScrollTo('arenas')} />
+      {/* 7. Schedule / Event Timeline */}
+      <ScheduleSection />
 
-      {/* 7. Scrollable Technical Dossier & Information Sections */}
-      <div className="info-scroll-container">
+      {/* 8. 25 Years / Silver Jubilee Celebration */}
+      <SilverJubileeSection />
 
-        {/* About Section */}
-        <section id="about" className="info-section">
-          <div className="hud-scanline-beam" aria-hidden="true" />
-          <div className="info-section-inner">
-            <div className="info-section-header">
-              <span className="info-badge">✦ 01 // SYMPOSIUM OVERVIEW ✦</span>
-              <h2 className="info-title">ABOUT VIGYANTRA 2026</h2>
-              <div className="info-motto">“Ideas Today Solutions Tomorrow”</div>
-            </div>
+      {/* 9. SJBIT / Institution / Campus Credentials & Telemetry */}
+      <SjbitInstitutionSection />
 
-            <div className="info-text-block">
-              <p>
-                <strong>VIGYANTRA 2026</strong> is the premier <strong>25th Silver Jubilee National Technical Symposium</strong> hosted by <strong>SJB Institute of Technology (SJBIT)</strong>, Bengaluru. Convening on <strong>30 October 2026 (Friday)</strong>, the symposium unites over 1,500 collegiate innovators, engineers, ethical hackers, and visionary developers across India.
-              </p>
-              <p>
-                Spanning cutting-edge computational paradigms, AI systems, secure infrastructure, and robotics engineering, VIGYANTRA 2026 features <strong>8 Flagship Technical Arenas</strong> competing for a combined national prize pool of <strong>₹ 4,00,000</strong>.
-              </p>
-            </div>
+      {/* 10. Prize Pool / Awards Breakdown */}
+      <PrizePoolSection />
 
-            <div className="info-highlights-grid">
-              <div className="info-stat-card">
-                <div className="info-stat-num cyan">08</div>
-                <div className="info-stat-lbl">FLAGSHIP ARENAS</div>
-                <div className="info-stat-sub">AI, Coding, CTF, Web3 &amp; Robotics</div>
-              </div>
-              <div className="info-stat-card">
-                <div className="info-stat-num gold">₹ 4,00,000</div>
-                <div className="info-stat-lbl">PRIZE POOL</div>
-                <div className="info-stat-sub">₹50,000 Allocated Per Arena</div>
-              </div>
-              <div className="info-stat-card">
-                <div className="info-stat-num cyan">25 YRS</div>
-                <div className="info-stat-lbl">SILVER JUBILEE</div>
-                <div className="info-stat-sub">Celebration of Engineering Excellence</div>
-              </div>
-              <div className="info-stat-card">
-                <div className="info-stat-num gold">30 OCT 2026</div>
-                <div className="info-stat-lbl">FRIDAY HORIZON</div>
-                <div className="info-stat-sub">SJB Campus, Bengaluru, India</div>
-              </div>
-            </div>
+      {/* 11. Brochure / Event Information */}
+      <BrochureSection onOpenBrochureModal={() => handleOpenModal('brochure')} />
 
-            <div className="info-section-action" style={{ marginTop: '28px' }}>
-              <button className="btn btn-primary" onClick={() => handleOpenModal('events')}>
-                <span>LAUNCH ARENAS MODAL VIEW →</span>
-              </button>
-            </div>
-          </div>
-        </section>
+      {/* 12. Coordinators & Contact Terminal */}
+      <CoordinatorsDesk />
+      <ContactTerminal />
 
-        {/* Coordinators */}
-        <CoordinatorsDesk />
+      {/* 13. Final CTA */}
+      <FinalCtaSection
+        onOpenRegistration={() => handleRegisterEvent('')}
+        onScrollToArenas={() => handleScrollTo('arenas')}
+      />
 
-        {/* Campus & Location Telemetry */}
-        <CampusTelemetry onOpenVenueModal={() => handleOpenModal('venue')} />
-
-        {/* Contact Helpdesk */}
-        <ContactTerminal />
-
-        {/* Footer */}
-        <CyberFooter onOpenModal={handleOpenModal} />
-      </div>
+      {/* 14. Institutional Footer */}
+      <InstitutionalFooter onOpenModal={handleOpenModal} onScrollTo={handleScrollTo} />
 
       {/* 6. Modals Layer */}
       {/* HUD Modal for Events, Schedule, Prizes, Rules, FAQ, Venue */}
