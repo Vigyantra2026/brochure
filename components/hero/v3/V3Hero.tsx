@@ -782,10 +782,10 @@ export default function V3Hero({
             position: 'relative',
           }}
         >
-          {/* Spatial Spacer for the Elevated 3D Object - Gives 3D letters dedicated breathing room */}
+          {/* Spatial Spacer for the Elevated 3D Object */}
           <div
             style={{
-              height: viewMode === 'arenas' ? 'clamp(100px, 14vw, 150px)' : 'clamp(150px, 20vw, 215px)',
+              height: viewMode === 'arenas' ? 'clamp(90px, 13vw, 140px)' : 'clamp(115px, 16vw, 165px)',
               width: '100%',
               pointerEvents: 'none',
               transition: 'height 0.4s ease',
@@ -815,12 +815,8 @@ export default function V3Hero({
                 maxWidth: '820px',
                 opacity: isIntroActive ? 0 : 1,
                 pointerEvents: isIntroActive || phaseState !== 'complete' ? 'none' : 'auto',
-                marginTop: '0.35rem',
-                padding: '1.1rem 1.6rem',
-                borderRadius: '12px',
-                background: 'radial-gradient(ellipse 95% 85% at 50% 45%, rgba(5, 5, 7, 0.94) 0%, rgba(5, 5, 7, 0.72) 65%, transparent 100%)',
-                backdropFilter: 'blur(10px)',
-                WebkitBackdropFilter: 'blur(10px)',
+                marginTop: '0.2rem',
+                background: 'transparent',
               }}
             >
               {/* 1. 2026 Badge */}
@@ -854,7 +850,7 @@ export default function V3Hero({
                     textTransform: 'uppercase',
                     maxWidth: '92vw',
                     lineHeight: 1.3,
-                    textShadow: '0 2px 14px rgba(0, 0, 0, 0.95), 0 4px 28px rgba(0, 0, 0, 0.9)',
+                    textShadow: '0 2px 10px rgba(0, 0, 0, 0.85)',
                     textAlign: 'center',
                   }}
                 >
@@ -869,8 +865,8 @@ export default function V3Hero({
                     color: '#e2d9c8',
                     letterSpacing: '0.04em',
                     opacity: 0.95,
-                    textShadow: '0 2px 12px rgba(0, 0, 0, 0.95)',
-                    marginTop: '3px',
+                    textShadow: '0 2px 8px rgba(0, 0, 0, 0.75)',
+                    marginTop: '2px',
                     textAlign: 'center',
                   }}
                 >
