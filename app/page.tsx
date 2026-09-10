@@ -5,6 +5,7 @@ import UniverseCanvas from '@/components/motion/UniverseCanvas';
 import V2CinematicIntro from '@/components/intro/v2/V2CinematicIntro';
 import CyberHeader from '@/components/navigation/CyberHeader';
 import V2Hero from '@/components/hero/v2/V2Hero';
+import V3Hero from '@/components/hero/v3/V3Hero';
 import V2LegacySection from '@/components/legacy/v2/V2LegacySection';
 import CoordinatorsDesk from '@/components/coordinators/CoordinatorsDesk';
 import CampusTelemetry from '@/components/campus/CampusTelemetry';
@@ -107,8 +108,8 @@ export default function HomePage() {
       {/* 3. Top Cyber Navigation Header */}
       <CyberHeader onOpenModal={handleOpenModal} onScrollTo={handleScrollTo} />
 
-      {/* 4. V2 Homepage Command Deck Hero (100dvh) */}
-      <V2Hero onOpenModal={handleOpenModal} onScrollTo={handleScrollTo} />
+      {/* 4. V3 3D Prototype Homepage Command Deck Hero (100dvh) */}
+      <V3Hero onOpenModal={handleOpenModal} onScrollTo={handleScrollTo} />
 
       {/* 5. Phase 3: V2 25 Years / SJBIT Legacy Section (First major section after Hero) */}
       <V2LegacySection onScrollToArenas={() => handleScrollTo('arenas')} />
