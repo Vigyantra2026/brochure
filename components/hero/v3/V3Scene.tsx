@@ -38,6 +38,7 @@ function CameraRig({
   useFrame((state, delta) => {
     const t = state.clock.getElapsedTime();
     const vals = timelineValues.current;
+    const aspect = state.viewport.aspect;
 
     // Pointer factor suppressed to 6% during transformation, restored to 100% afterwards
     const pointerFactor = vals.isTransforming ? 0.06 : 1.0;
@@ -49,9 +50,15 @@ function CameraRig({
     const px = pointerPos.current.x * pointerFactor;
     const py = pointerPos.current.y * pointerFactor;
 
+    // Responsive camera distance factor based on viewport aspect ratio:
+    // Narrow screens (portrait phones/tablets) gently back the camera up so depth and FOV remain balanced
+    const mobileDistFactor = aspect < 1.0
+      ? THREE.MathUtils.clamp(1.0 + (1.0 - aspect) * 0.5, 1.0, 1.48)
+      : 1.0;
+
     const targetCamX = px * 0.25 + driftX;
     const targetCamY = -py * 0.18 + driftY;
-    const targetCamZ = vals.cameraDist;
+    const targetCamZ = vals.cameraDist * mobileDistFactor;
 
     state.camera.position.x = THREE.MathUtils.damp(
       state.camera.position.x,
@@ -72,7 +79,8 @@ function CameraRig({
       delta
     );
 
-    state.camera.lookAt(0, 0.55, vals.cameraTargetZ);
+    const lookAtY = aspect < 0.8 ? 0.38 : 0.55;
+    state.camera.lookAt(0, lookAtY, vals.cameraTargetZ);
   });
 
   return null;
@@ -92,6 +100,22 @@ function SceneContent({
   onSelectArena?: (id: string) => void;
 }) {
   const vals = timelineValues.current;
+  const groupRef = useRef<THREE.Group>(null);
+
+  // Dynamic responsive scale calculation based on actual 7.38 unit span of VIGYANTRA:
+  useFrame((state) => {
+    if (!groupRef.current) return;
+    const aspect = state.viewport.aspect;
+
+    // Desktop default scale: 0.87.
+    // When aspect < 1.4, dynamically adapt scale so the full 7.38 span of VIGYANTRA is never clipped
+    // on 375px, 390px, 430px or tablet screens, while keeping comfortable margins:
+    const responsiveScale = aspect < 1.4
+      ? THREE.MathUtils.clamp((aspect / 1.35) * 0.87, 0.44, 0.87)
+      : 0.87;
+
+    groupRef.current.scale.set(responsiveScale, responsiveScale, responsiveScale);
+  });
 
   return (
     <>
@@ -140,8 +164,8 @@ function SceneContent({
         decay={2}
       />
 
-      {/* 3D Engineered Artifacts Stage */}
-      <group position={[0, 0.72, 0]} scale={[0.87, 0.87, 0.87]}>
+      {/* 3D Engineered Artifacts Stage - Scaled dynamically for mobile framing */}
+      <group ref={groupRef} position={[0, 0.72, 0]} scale={[0.87, 0.87, 0.87]}>
         {/* Initial 3D 25 Jubilee Monument */}
         <V3Jubilee25
           progress={vals.jubileeDeconstruct}
@@ -182,8 +206,16 @@ export default function V3Scene({
   onSelectArena,
 }: V3SceneProps) {
   const pointerPos = useRef({ x: 0, y: 0 });
+  const [dpr, setDpr] = React.useState<number>(1);
 
   useEffect(() => {
+    // Safe client-side DPR clamp: mobile max 1.35, desktop max 1.75
+    if (typeof window !== 'undefined') {
+      const isMobile = window.innerWidth < 768;
+      const maxDpr = isMobile ? 1.35 : 1.75;
+      setDpr(Math.min(window.devicePixelRatio || 1, maxDpr));
+    }
+
     const handleMouseMove = (e: MouseEvent) => {
       pointerPos.current.x = (e.clientX / window.innerWidth) * 2 - 1;
       pointerPos.current.y = (e.clientY / window.innerHeight) * 2 - 1;
@@ -206,7 +238,7 @@ export default function V3Scene({
     >
       <Canvas
         camera={{ position: [0, 0, 6.8], fov: 44 }}
-        dpr={[1, 1.75]}
+        dpr={dpr}
         gl={{
           antialias: true,
           alpha: true,

@@ -5,9 +5,10 @@ import React, { useState } from 'react';
 interface CyberHeaderProps {
   onOpenModal: (modalId: string) => void;
   onScrollTo: (sectionId: string) => void;
+  introActive?: boolean;
 }
 
-export default function CyberHeader({ onOpenModal, onScrollTo }: CyberHeaderProps) {
+export default function CyberHeader({ onOpenModal, onScrollTo, introActive = false }: CyberHeaderProps) {
   const [menuOpen, setMenuOpen] = useState(false);
 
   const handleSelectOption = (option: string) => {
@@ -41,7 +42,16 @@ export default function CyberHeader({ onOpenModal, onScrollTo }: CyberHeaderProp
   };
 
   return (
-    <header className="cyber-header" role="banner">
+    <header
+      className={`cyber-header ${introActive ? 'header-intro-hidden' : ''}`}
+      style={{
+        transform: introActive ? 'translateY(-100%)' : 'translateY(0)',
+        opacity: introActive ? 0 : 1,
+        pointerEvents: introActive ? 'none' : 'auto',
+        transition: 'transform 0.85s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.85s ease',
+      }}
+      role="banner"
+    >
       <div className="header-brand">
         <div className="brand-cyber-badge">SJBIT</div>
         <div className="brand-text-col">

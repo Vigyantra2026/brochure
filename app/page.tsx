@@ -2,7 +2,6 @@
 
 import React, { useState, useEffect } from 'react';
 import UniverseCanvas from '@/components/motion/UniverseCanvas';
-import V2CinematicIntro from '@/components/intro/v2/V2CinematicIntro';
 import CyberHeader from '@/components/navigation/CyberHeader';
 import V3Hero from '@/components/hero/v3/V3Hero';
 import GuidingLegacySection from '@/components/legacy/v2/GuidingLegacySection';
@@ -25,6 +24,9 @@ import { initLenis } from '@/lib/lenis';
 import { gsap, ScrollTrigger } from '@/lib/gsap';
 
 export default function HomePage() {
+  // Authoritative intro state passed down from V3Hero
+  const [isIntroActive, setIsIntroActive] = useState(false);
+
   // Modal states
   const [hudModalId, setHudModalId] = useState<string | null>(null);
   const [regModalOpen, setRegModalOpen] = useState(false);
@@ -101,23 +103,25 @@ export default function HomePage() {
 
   return (
     <>
-      {/* 1. Cinematic Opening Intro (plays once per session) */}
-      <V2CinematicIntro />
-
-      {/* 2. Ambient Universe Canvas & Cyber Overlays */}
+      {/* 1. Ambient Universe Canvas & Cyber Overlays */}
       <UniverseCanvas />
       <div className="cosmic-nebula-glow" aria-hidden="true" />
       <div className="cyber-grid-overlay" aria-hidden="true" />
       <div className="scanline-screen-effect" aria-hidden="true" />
 
-      {/* 3. Top Cyber Navigation Header */}
-      <CyberHeader onOpenModal={handleOpenModal} onScrollTo={handleScrollTo} />
+      {/* 2. Top Cyber Navigation Header (reacts to single V3Hero intro state) */}
+      <CyberHeader
+        introActive={isIntroActive}
+        onOpenModal={handleOpenModal}
+        onScrollTo={handleScrollTo}
+      />
 
-      {/* 4. VIGYANTRA Hero / Home (V3 3D Monument + Transformation + Register CTA) */}
+      {/* 3. VIGYANTRA Hero / Home (Unified 3D WebGL Opening Ceremony + Sovereign Monument) */}
       <V3Hero
         onOpenModal={handleOpenModal}
         onScrollTo={handleScrollTo}
         onSelectEvent={handleSelectEvent}
+        onIntroStateChange={setIsIntroActive}
       />
 
       {/* 5. The Guiding Legacy (Standalone Institutional Bridge - Only ONCE on page) */}
