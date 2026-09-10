@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
+import Link from 'next/link';
 import { ARENAS_V4, ArenaV4Data } from '@/data/arenas';
 import { EventArena } from '@/data/events';
 import { V2Badge } from '@/components/ui/v2';
@@ -140,14 +141,13 @@ export default function V4ArenaMonumentMode({
             </div>
 
             <div className="v4-inspect-actions">
-              <button
-                type="button"
+              <Link
+                href={`/arenas/${activeArena.slug}`}
                 className="v4-btn-dossier"
-                onClick={() => onSelectEvent?.(activeArena.rawEvent)}
               >
                 <span>OPEN EVENT DOSSIER</span>
                 <span>→</span>
-              </button>
+              </Link>
               <button
                 type="button"
                 className="v4-btn-register-quick"

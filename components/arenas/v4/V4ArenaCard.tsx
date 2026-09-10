@@ -2,6 +2,7 @@
 
 import React from 'react';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import { ArenaV4Data } from '@/data/arenas';
 import { EventArena } from '@/data/events';
 import { V2Badge } from '@/components/ui/v2';
@@ -18,8 +19,10 @@ export default function V4ArenaCard({
   onSelectEvent,
   onRegisterEvent,
 }: V4ArenaCardProps) {
+  const router = useRouter();
+
   const handleCardClick = () => {
-    onSelectEvent?.(arena.rawEvent);
+    router.push(`/arenas/${arena.slug}`);
   };
 
   return (
@@ -100,7 +103,6 @@ export default function V4ArenaCard({
           className="v4-btn-dossier"
           onClick={(e) => {
             e.stopPropagation();
-            onSelectEvent?.(arena.rawEvent);
           }}
           aria-label={`Explore full dossier for ${arena.name}`}
         >

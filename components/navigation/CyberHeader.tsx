@@ -12,7 +12,9 @@ export default function CyberHeader({ onOpenModal, onScrollTo }: CyberHeaderProp
 
   const handleSelectOption = (option: string) => {
     setMenuOpen(false);
-    if (['events', 'schedule', 'prizes', 'guidelines', 'faq', 'venue'].includes(option)) {
+    if (option === 'events') {
+      onScrollTo('arenas');
+    } else if (['schedule', 'prizes', 'guidelines', 'faq', 'venue'].includes(option)) {
       onOpenModal(option);
     } else if (option === 'register') {
       onOpenModal('registration');

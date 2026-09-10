@@ -33,7 +33,7 @@ interface AmbientSpeck {
 }
 
 export default function V2CinematicIntro({ onComplete }: { onComplete?: () => void }) {
-  const [visible, setVisible] = useState(true);
+  const [visible, setVisible] = useState(false);
   const [dismissed, setDismissed] = useState(false);
   const [telemetryText, setTelemetryText] = useState('// VIGYANTRA.CORE: INITIATING');
 
@@ -42,6 +42,11 @@ export default function V2CinematicIntro({ onComplete }: { onComplete?: () => vo
   const animFrameRef = useRef<number | null>(null);
 
   const handleDismiss = () => {
+    try {
+      sessionStorage.setItem('vgy_intro_seen', 'true');
+    } catch {
+      // Ignore storage errors in private browsing
+    }
     if (timelineRef.current) {
       timelineRef.current.kill();
     }
@@ -56,6 +61,19 @@ export default function V2CinematicIntro({ onComplete }: { onComplete?: () => vo
   };
 
   useEffect(() => {
+    // 0. Session check: only play once per session
+    try {
+      if (sessionStorage.getItem('vgy_intro_seen') === 'true') {
+        if (onComplete) onComplete();
+        return;
+      }
+    } catch {
+      // Continue if sessionStorage is not accessible
+    }
+
+    // Intro needs to be played
+    setVisible(true);
+
     // 1. Reduced motion preference check
     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     if (prefersReducedMotion) {
@@ -577,15 +595,6 @@ export default function V2CinematicIntro({ onComplete }: { onComplete?: () => vo
         >
           {telemetryText}
         </span>
-
-        {/* Skip Intro Button */}
-        <button
-          onClick={handleDismiss}
-          className="v2-intro-skip-btn"
-          aria-label="Skip cinematic introduction and enter symposium command deck"
-        >
-          SKIP INTRO →
-        </button>
       </div>
     </aside>
   );

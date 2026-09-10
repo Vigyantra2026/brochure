@@ -2,12 +2,14 @@
 
 import React, { useState, useEffect, useRef } from 'react';
 import dynamic from 'next/dynamic';
+import { useRouter } from 'next/navigation';
 import gsap from 'gsap';
 import V2Countdown from '@/components/hero/v2/V2Countdown';
 import { V2Button, V2Badge, V2TechLabel, V2Metadata } from '@/components/ui/v2';
 import { TransformationTimelineValues } from './V3Scene';
 import { ARENA_NODES_CONFIG } from './V3ArenaNodes';
 import { EVENTS_DATA, EventArena } from '@/data/events';
+import { getArenaById } from '@/data/arenas';
 
 // Dynamic import of 3D Scene with SSR disabled
 const V3Scene = dynamic(() => import('./V3Scene'), {
@@ -168,11 +170,13 @@ export default function V3Hero({ onOpenModal, onScrollTo, onSelectEvent }: V3Her
     }
   };
 
-  // Open the official Event Dossier Modal when an arena is selected
+  const router = useRouter();
+
+  // Navigate directly to the official Arena Dossier route when an arena is selected
   const handleArenaClick = (id: string) => {
-    const event = EVENTS_DATA.find((e) => e.id === id || e.shortName === id || e.code === id);
-    if (event && onSelectEvent) {
-      onSelectEvent(event as unknown as EventArena);
+    const arena = getArenaById(id);
+    if (arena) {
+      router.push(`/arenas/${arena.slug}`);
     } else {
       onScrollTo('arenas');
     }

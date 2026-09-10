@@ -289,7 +289,6 @@ export default function V4ArenaScrollExperience({
                     key={a.id}
                     href={`/arenas/${a.slug}`}
                     className="v4-ov-card-btn"
-                    onClick={() => onSelectEvent?.(a.rawEvent)}
                   >
                     <div className="v4-ov-top">
                       <span className="v4-ov-num">{a.number}</span>
