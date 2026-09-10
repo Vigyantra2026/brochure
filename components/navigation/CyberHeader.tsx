@@ -75,7 +75,18 @@ export default function CyberHeader({ onOpenModal, onScrollTo, introActive = fal
       </div>
 
       <div className="header-actions">
-        {/* Three-Lines Cyber Hamburger Dropdown Trigger at Top Right */}
+        {/* Custom VIGYANTRA 2026 Header Brand Mark */}
+        <div className="header-vigyantra-brand">
+          <img
+            src="/assets/vigyantra_header_logo.png"
+            alt="VIGYANTRA 2026"
+            className="header-vigyantra-logo"
+            width={148}
+            height={45}
+          />
+        </div>
+
+        {/* Three-Lines Cyber Hamburger Dropdown Trigger (Mobile Only) */}
         <button
           id="cyber-menu-toggle"
           className={`cyber-hamburger-btn ${menuOpen ? 'active' : ''}`}
